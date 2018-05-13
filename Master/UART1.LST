@@ -1,0 +1,263 @@
+C51 COMPILER V9.51   UART1                                                                 05/08/2018 11:45:55 PAGE 1   
+
+
+C51 COMPILER V9.51, COMPILATION OF MODULE UART1
+OBJECT MODULE PLACED IN UART1.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE UART1.c LARGE BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          #include <c8051f020.h>
+   2          #include <stdio.h>
+   3          #include <string.h>
+   4          #include <intrins.h>
+   5          
+   6          #include "ConfigUART1.h"
+   7          #include "ConfigUART0.h"
+   8          
+   9          
+  10          //*************************************************************************************************
+  11          
+  12          #ifndef CFG_Globale
+  13             #define CFG_Globale
+  14             #include <CFG_Globale.h>
+  15          #endif
+  16          
+  17          
+  18          //************************************************************************************************
+  19          // Paramètresd modifiables
+  20          //*************************************************************************************************
+  21          #define       MAX_BUFLEN 32 // Taille des buffers de données
+  22          
+  23          //*************************************************************************************************
+  24          // DEFINITION DES MACROS DE GESTION DE BUFFER CIRCULAIRE
+  25          //*************************************************************************************************
+  26          
+  27          // Structure de gestion de buffer circulaire
+  28            //rb_start: pointeur sur l'adresse de début du buffer 
+  29            // rb_end: pointeur sur l'adresse de fin du buffer  
+  30            // rb_in: pointeur sur la donnée à lire
+  31            // rb_out: pointeur sur la case à écrire
+  32              
+  33          #define RB_CREATE(rb, type) \
+  34             struct { \
+  35               type *rb_start; \     
+  36               type *rb_end; \     
+  37               type *rb_in; \
+  38               type *rb_out; \    
+  39              } rb
+  40          
+  41          //Initialisation de la structure de pointeurs 
+  42          // rb: adresse de la structure
+  43          // start: adresse du premier élément du buffer 
+  44          // number: nombre d'éléments du buffer - 1  (le "-1" n'est à mon avis pas nécessaire)
+  45          #define RB_INIT(rb, start, number) \
+  46                   ( (rb)->rb_in = (rb)->rb_out= (rb)->rb_start= start, \
+  47                     (rb)->rb_end = &(rb)->rb_start[number] )
+  48          
+  49          //Cette macro rend le buffer circulaire. Quand on atteint la fin, on retourne au début
+  50          #define RB_SLOT(rb, slot) \
+  51                   ( (slot)==(rb)->rb_end? (rb)->rb_start: (slot) )
+  52          
+  53          // Test: Buffer vide? 
+  54          #define RB_EMPTY(rb) ( (rb)->rb_in==(rb)->rb_out )
+  55          
+C51 COMPILER V9.51   UART1                                                                 05/08/2018 11:45:55 PAGE 2   
+
+  56          // Test: Buffer plein?
+  57          #define RB_FULL(rb)  ( RB_SLOT(rb, (rb)->rb_in+1)==(rb)->rb_out )
+  58          
+  59          // Incrementation du pointeur dur la case à écrire
+  60          #define RB_PUSHADVANCE(rb) ( (rb)->rb_in= RB_SLOT((rb), (rb)->rb_in+1) )
+  61          
+  62          // Incrémentation du pointeur sur la case à lire
+  63          #define RB_POPADVANCE(rb)  ( (rb)->rb_out= RB_SLOT((rb), (rb)->rb_out+1) )
+  64          
+  65          // Pointeur pour stocker une valeur dans le buffer
+  66          #define RB_PUSHSLOT(rb) ( (rb)->rb_in )
+  67          
+  68          // pointeur pour lire une valeur dans le buffer
+  69          #define RB_POPSLOT(rb)  ( (rb)->rb_out )
+  70          
+  71          
+  72          //*************************************************************************************************
+  73          
+  74          
+  75          /* Transmission and Reception Data Buffers */
+  76          static char  xdata outbuf[MAX_BUFLEN];     /* memory for transmission ring buffer #1 (TXD) */
+  77          static char  xdata inbuf [MAX_BUFLEN];     /* memory for reception ring buffer #2 (RXD) */
+  78          static  bit   TXactive = 0;             /* transmission status flag (off) */
+  79          
+  80          /* define out (transmission)  and in (reception)  ring buffer control structures */
+  81          static RB_CREATE(out,unsigned char xdata);            /* static struct { ... } out; */
+  82          static RB_CREATE(in, unsigned char xdata);            /* static struct { ... } in; */
+  83          
+  84          //**************************************************************************************************
+  85          //**************************************************************************************************
+  86          void UART1_ISR(void) interrupt 20{
+  87   1       
+  88   1        //static unsigned int cp_tx = 0;
+  89   1        //static unsigned int cp_rx = 0;
+  90   1          
+  91   1        //char TI1;
+  92   1        //TI1=SCON1;
+  93   1        //TI1&=0x02;
+  94   1      
+  95   1        if ( SCON1 & 0x02) // On peut envoyer une nouvelle donnée sur la liaison série
+  96   1        { 
+  97   2          if(!RB_EMPTY(&out)) {
+  98   3            SBUF1 = *RB_POPSLOT(&out);      /* start transmission of next byte */
+  99   3            RB_POPADVANCE(&out);            /* remove the sent byte from buffer */
+ 100   3            //cp_tx++;
+ 101   3          }
+ 102   2          else TXactive = 0;                 /* TX finished, interface inactive */
+ 103   2            SCON1 &= 0xFD;
+ 104   2          
+ 105   2        }
+ 106   1        else // RI1 à 1 - Donc une donnée a été reçue
+ 107   1        {
+ 108   2          if(!RB_FULL(&in)) {                   // si le buffer est plein, la donnée reçue est perdue
+ 109   3            *RB_PUSHSLOT(&in) = SBUF1;        /* store new data in the buffer */
+ 110   3            RB_PUSHADVANCE(&in);               /* next write location */
+ 111   3            //cp_rx++;
+ 112   3         }
+ 113   2         SCON1 &= 0xFE; 
+ 114   2        }
+ 115   1      }
+ 116          // **************************************************************************************************
+ 117          // init_Serial_Buffer: Initialisation des structuresde gestion des buffers transmission et reception
+C51 COMPILER V9.51   UART1                                                                 05/08/2018 11:45:55 PAGE 3   
+
+ 118          // *************************************************************************************************
+ 119          //**************************************************************************************************
+ 120          void init_Serial_Buffer1(void){
+ 121   1          RB_INIT(&out, outbuf, MAX_BUFLEN-1);           /* set up TX ring buffer */
+ 122   1          RB_INIT(&in, inbuf,MAX_BUFLEN-1);             /* set up RX ring buffer */
+ 123   1      }
+ 124          // **************************************************************************************************
+ 125          // SerOutchar: envoi d'un caractère dans le buffer de transmission de la liaison série
+ 126          // *************************************************************************************************
+ 127          unsigned char serOutchar1(char c){
+ 128   1      
+ 129   1        if(!RB_FULL(&out))  // si le buffer n'est pas plein, on place l'octet dans le buffer
+ 130   1        {                 
+ 131   2          *RB_PUSHSLOT(&out) = c;               /* store data in the buffer */
+ 132   2          RB_PUSHADVANCE(&out);                 /* adjust write position */
+ 133   2      
+ 134   2          if(!TXactive) {
+ 135   3            TXactive = 1;                      /* indicate ongoing transmission */
+ 136   3            SCON1 |= 0x02;
+ 137   3            //TI0 = 1;//   Placer le bit TI à 1 pour provoquer le déclenchement de l'interruption
+ 138   3          }
+ 139   2          return 0;  // opération correctement réalisée 
+ 140   2        }
+ 141   1        else 
+ 142   1          return 1; // opération échouée - Typiquement Buffer plein
+ 143   1      }
+ 144          // ************************************************************************************************
+ 145          //  serInchar:  lecture d'un caractère dans le buffer de réception de la liaison série
+ 146          //  Fonction adaptée pour la réception de codes ASCII - La réception de la valeur binaire 0
+ 147          //  n'est pas possible (conflit avec le code 0 retourné si il n'y a pas de caractère reçu)
+ 148          // ************************************************************************************************
+ 149          char serInchar1(void){
+ 150   1        char c;
+ 151   1      
+ 152   1        if (!RB_EMPTY(&in))
+ 153   1        {                 /* wait for data */
+ 154   2          c = *RB_POPSLOT(&in);                 /* get character off the buffer */
+ 155   2          RB_POPADVANCE(&in);                   /* adjust read position */
+ 156   2          return c;
+ 157   2        }
+ 158   1        else 
+ 159   1          return 0;
+ 160   1      }
+ 161          // ************************************************************************************************
+ 162          //  serInchar_Bin:  lecture d'un caractère dans le buffer de réception de la liaison série
+ 163          //  Fonction adaptée pour la réception de codes Binaires - Cette fonction retourne un entier. 
+ 164          //  L'octet de poids faible correspond au caractère reçu, l'octet de poids fort, s'il est nul indique 
+ 165          //  qu'aucun caractère n'a été reçu.
+ 166          //  
+ 167          // ************************************************************************************************
+ 168          unsigned int serInchar_Bin1(void) {
+ 169   1        char c;
+ 170   1        unsigned int return_code = 0;
+ 171   1         
+ 172   1        if (!RB_EMPTY(&in)){                
+ 173   2          // un caractère au moins est dans le buffer de réception
+ 174   2          c = *RB_POPSLOT(&in);                 /* get character off the buffer */
+ 175   2          RB_POPADVANCE(&in);                   /* adjust read position */
+ 176   2          return 0xFF00+c;
+ 177   2        }
+ 178   1        // pas de caractère dans le buffer de réception.
+ 179   1        else 
+C51 COMPILER V9.51   UART1                                                                 05/08/2018 11:45:55 PAGE 4   
+
+ 180   1          return return_code;
+ 181   1      }
+ 182          // *************************************************************************************************
+ 183          // serOutstring:  Envoi d'une chaine de caractère dans le buffer de transmission
+ 184          // ************************************************************************************************
+ 185          unsigned char serOutstring1(char *buf) {
+ 186   1        unsigned char len,code_err=0;
+ 187   1      
+ 188   1        for(len = 0; len < strlen(buf); len++)
+ 189   1           code_err +=serOutchar1(buf[len]);
+ 190   1        return code_err;
+ 191   1      }
+ 192          
+ 193          
+ 194          /*void CFG_Clock_UART1(void){
+ 195            TCON &=0x7F;
+ 196            CKCON |= 0x10;      // T1M: Timer 1 use the system clock.
+ 197            PCON |= 0x10;
+ 198            PCON &= 0xF7;
+ 199          
+ 200          
+ 201            TH1=0xB8;
+ 202            TH1=0xF4;
+ 203            TL1=0x00;
+ 204            
+ 205            TMOD |= 0x20;       //  Timer1 CLK = system clock
+ 206            TMOD &= 0x2F;       // Timer1 configuré en timer 8 bit avec auto-reload 
+ 207            ET1 = 0;           // Interruption Timer 1 dévalidée
+ 208            TR1 = 1;           // Timer1 démarré
+ 209          }
+ 210          
+ 211          void CFG_UART1(void){
+ 212            T4CON &= 0xCF ;
+ 213            PCON |= 0x90; // SMOD0=1 On ne divise pas le Baud rate de l'uart0 par 2
+ 214            PCON &=0xB7; //SSTAT0=0  Donne l'accès à SM20 - SM000
+ 215            SCON1 = 0x70;   // Mode 1 - Check Stop bit - Reception validée
+ 216            TI1 = 1;        // Transmission: octet transmis (prêt à recevoir un char
+ 217                          // pour transmettre     
+ 218            IE = 1;        // interruption UART0 autorisée  
+ 219            EIE2 |= 0x40;
+ 220            SCON1 |= 0x72;
+ 221            SCON1 &= 0x7E;
+ 222          
+ 223          }*/
+ 224            
+ 225          void CFG_UART1(void){
+ 226   1        T4CON &= 0xCF ;
+ 227   1        PCON |= 0x90; // SMOD0=1 On ne divise pas le Baud rate de l'uart0 par 2
+ 228   1        PCON &=0xB7; //SSTAT0=0  Donne l'accès à SM20 - SM000
+ 229   1        SCON1 |= 0x72;   // Mode 1 - Check Stop bit - Reception validée
+ 230   1              // Transmission: octet transmis (prêt à recevoir un char pour transmettre     
+ 231   1        EIE2 |= 0x40;        // interruption UART0 autorisée  
+ 232   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    817    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =     80       7
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+C51 COMPILER V9.51   UART1                                                                 05/08/2018 11:45:55 PAGE 5   
+
+   BIT SIZE         =      1    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

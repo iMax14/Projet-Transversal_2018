@@ -1,0 +1,100 @@
+C51 COMPILER V9.51   LIB_BSE_UART                                                          04/19/2018 18:14:29 PAGE 1   
+
+
+C51 COMPILER V9.51, COMPILATION OF MODULE LIB_BSE_UART
+OBJECT MODULE PLACED IN LIB_BSE_UART.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE LIB_BSE_UART.c LARGE BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          #include <c8051f020.h>
+   2          #include "LIB_BSE_UART.h"
+   3          #include <intrins.h>
+   4          
+   5          #define SYSCLK 22118400UL
+   6          #define Baudrate 115200UL
+   7          
+   8          
+   9          
+  10          void CFG_Clock_UART0(void){
+  11   1        CKCON |= 0x10; //Sélectionne le timer 1
+  12   1        TMOD |= 0x20; // Timer 1 configuré en timer 8 bits avec auto-rechargement
+  13   1        TMOD &= 0x2f; // idem
+  14   1        TL1=0x00; // Non nécessaire
+  15   1        TH1= 256UL - SYSCLK/(16UL*Baudrate) ; // car on a une SYSLCLOCK de 22.1184MHz et un Baud Rate de 115200 -
+             --- 256 - (SYSCLK/BAUDRATE*16)
+  16   1        ET1 = 0; //Désactivation des intéruption de Timer1 (Registre IE)
+  17   1        TR1 = 1 ; // Registre TCON, activation du timer 1
+  18   1      }
+  19          
+  20          void CFG_UART0(void){
+  21   1        TCLK0=0; // Utilisation de timer 1 comme source d'horloge (Transmission de la src d'horloge)
+  22   1        RCLK0=0; // Réception de la source d'horloge
+  23   1        PCON |= 0x80; // SMOD0=1 On ne divise pas le Baud rate de l'uart0 par 2
+  24   1        PCON &=0xBF; //SSTAT0=0  Donne l'accès à SM20 - SM000
+  25   1        SCON0 = 0x70; // Mode1 (Uart 8 bits) avec le bit 7 à 0 et le 6 à 1 ; Bit 5 à 1 pour checker le bit de sto
+             -p ;
+  26   1                        // Bit 4 à 1 pour activer la réception de l'UART0
+  27   1        TI0=1; //Pour permettre la transmission du 1er caractère
+  28   1      }
+  29          
+  30          char Putchar(char c, unsigned char csg_tempo){
+  31   1        int i=0;
+  32   1        
+  33   1        do{
+  34   2          while (!TI0);
+  35   2          if(TI0 == 1){
+  36   3            SBUF0=c;
+  37   3            TI0=0;
+  38   3            return c;
+  39   3          }
+  40   2          else{
+  41   3            for(i=0;i<300;i++){//Temporisation de 100us
+  42   4              _nop_ ();
+  43   4            }
+  44   3            csg_tempo--;
+  45   3          }
+  46   2        }while(csg_tempo > 0);
+  47   1        
+  48   1        return 0;
+  49   1      }
+  50          
+  51          char Getchar (void){
+  52   1        char c;
+  53   1        if (RI0!=0){  
+C51 COMPILER V9.51   LIB_BSE_UART                                                          04/19/2018 18:14:29 PAGE 2   
+
+  54   2          c=SBUF0;
+  55   2          SCON0 &= ~(0x01);
+  56   2          return c;
+  57   2        }
+  58   1        else {
+  59   2          return 0;
+  60   2        }
+  61   1      }
+  62          
+  63          
+  64          void UART_CortexM4 (unsigned char trame[]){
+  65   1        unsigned char rep;
+  66   1        unsigned char* p;
+  67   1        int i = sizeof(trame);
+  68   1        unsigned char csg_tempo = 10;
+  69   1        
+  70   1        for (p = trame; i > 0;i--,p++){ 
+  71   2          rep = Putchar(*p,csg_tempo);
+  72   2        }
+  73   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    178    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----       6
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

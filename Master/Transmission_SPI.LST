@@ -1,0 +1,91 @@
+C51 COMPILER V9.51   TRANSMISSION_SPI                                                      05/08/2018 11:45:54 PAGE 1   
+
+
+C51 COMPILER V9.51, COMPILATION OF MODULE TRANSMISSION_SPI
+OBJECT MODULE PLACED IN Transmission_SPI.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE Transmission_SPI.c LARGE BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          #include <c8051f020.h>
+   2          #include <intrins.h>
+   3          #include <string.h>
+   4          
+   5          #include "Transmission_SPI.h"
+   6          #include "Declarations_GPIO.h"
+   7          
+   8          #define SYSCLK 22118400L
+   9          
+  10          
+  11          void trame_emise(unsigned char trame){
+  12   1        unsigned int i;
+  13   1        for (i = 0; i<65000;i++);
+  14   1        
+  15   1        SPIF = 0;
+  16   1        NSS_slave = 0;
+  17   1        SPI0DAT = trame; // données envoyées
+  18   1      
+  19   1        while(SPIF == 0){}
+  20   1        
+  21   1        NSS_slave = 1;  
+  22   1        SPIF = 0;
+  23   1      }
+  24          
+  25          
+  26          unsigned char trame_recue(void){
+  27   1          unsigned char ret;
+  28   1          trame_emise(0x00);
+  29   1          return ret = SPI0DAT; 
+  30   1      }
+  31          
+  32          void debut_trame(unsigned char com){
+  33   1        //0xD1 : Cortex M4 ; 0xD2 : Pointeur lumineux  
+  34   1        //0xD3 : Servomoteur vertical ; 0xD4 : Prise de vue ; 0xD5 : FPGA
+  35   1        trame_emise(com);
+  36   1        trame_emise(com);
+  37   1      }
+  38          
+  39          
+  40          unsigned char echange_octet(unsigned char octet){
+  41   1        unsigned char ret;
+  42   1        trame_emise(octet);
+  43   1        ret = trame_recue();
+  44   1        
+  45   1        return ret;
+  46   1      }
+  47          
+  48          void fin_trame(void){ 
+  49   1        trame_emise(0xFF);
+  50   1        trame_emise(0xFF);
+  51   1      }
+  52          
+  53          void echange_trame(unsigned char* msg,unsigned char taille,unsigned char com){
+  54   1        unsigned char rep;
+  55   1        unsigned char* p ;
+C51 COMPILER V9.51   TRANSMISSION_SPI                                                      05/08/2018 11:45:54 PAGE 2   
+
+  56   1        int i = taille;
+  57   1      
+  58   1        debut_trame(com);
+  59   1        
+  60   1        for (p = msg; i > 0;i--,p++){ 
+  61   2          rep = echange_octet(*p);
+  62   2        }
+  63   1        
+  64   1        fin_trame();
+  65   1        NSS_slave = 1;
+  66   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    235    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----      16
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

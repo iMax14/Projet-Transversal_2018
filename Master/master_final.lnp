@@ -1,0 +1,17 @@
+"STARTUP.obj",
+"ADC.obj",
+"Config_Globale.obj",
+"Config_SPI.obj",
+"Fonctions_cote_serializer.obj",
+"Servomoteur_Horizontal.obj",
+"Timers.obj",
+"Transmission_SPI.obj",
+"UART0_RingBuffer_lib.obj",
+"UART1.obj",
+"ultrason.obj",
+"main.obj",
+"Lien_Structure_commande.obj",
+"encodage_son.obj",
+"son_sonore.obj" 
+TO "master_final" 
+RAMSIZE(256) 

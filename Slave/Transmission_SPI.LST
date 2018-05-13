@@ -1,0 +1,366 @@
+C51 COMPILER V9.51   TRANSMISSION_SPI                                                      05/05/2018 16:30:10 PAGE 1   
+
+
+C51 COMPILER V9.51, COMPILATION OF MODULE TRANSMISSION_SPI
+OBJECT MODULE PLACED IN Transmission_SPI.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE Transmission_SPI.c LARGE BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          #include <c8051f020.h>
+   2          #include <intrins.h>
+   3          #include <string.h>
+   4          #include <stdio.h>
+   5          
+   6          #include "Servomoteur_Vertical.h"
+   7          #include "Transmission_SPI.h"
+   8          #include "Transmission_UART0.h"
+   9          #include "Declarations_GPIO.h"
+  10          
+  11          
+  12          #define SYSCLK 22118400L
+  13          
+  14          int cpt1_CM4 = 0;
+  15          int cpt1_PointLum = 0;
+  16          int cpt1_ServVert = 0;
+  17          int cpt1_Vue = 0;
+  18          int cpt1_FPGA = 0;
+  19          int i = 0;
+  20          int cpt_ok = 0;
+  21          int test_perte = 0;
+  22          int k;
+  23          
+  24          int cpt2_CM4 = 2;
+  25          int cpt2_PointLum = 2;
+  26          int cpt2_ServVert = 2;
+  27          int cpt2_Vue = 2;
+  28          int cpt2_FPGA = 2;
+  29          
+  30          // Message recus via la liaison SPI
+  31          unsigned char msg_CM4[256] = 0;
+  32          unsigned char msg_PointLum[256] = 0;
+  33          unsigned char msg_ServVert[256] = 0;
+  34          unsigned char msg_Vue[256] = 0;
+  35          unsigned char msg_FPGA[256] = 0;
+  36          
+  37          //Variable globale
+  38          extern int Dest_msg_SPI[5];
+  39          
+  40          
+  41          //Fonction d'émission de la connexion SPI
+  42          void trame_emise(unsigned char trame_S2M){
+  43   1        
+  44   1        SPI0DAT = trame_S2M; // données envoyées
+  45   1      }
+  46          
+  47          
+  48          
+  49          //Fonction de réception de la connexion SPI :
+  50          void trame_recue(void){
+  51   1      
+  52   1      // On regarde quelle trame de début on a reçue pour savoir à qui l'envoyer 
+  53   1      // De plus, on vérifie bien si on en reçoie 2
+  54   1      // De plus, on a ---> 0xD1 : Cortex M4 ; 0xD2 : Pointeur lumineux ; 0xD3 : Servomoteur vertical ; 0xD4 : P
+             -rise de vue ; 0xD5 : FPGA
+C51 COMPILER V9.51   TRANSMISSION_SPI                                                      05/05/2018 16:30:10 PAGE 2   
+
+  55   1      
+  56   1          if (SPI0DAT == 0xD1){
+  57   2            if(i>0){ //RAZ en cas de déconnection de la trame N-1
+  58   3              cpt2_CM4 = 2;
+  59   3              i=0;
+  60   3            }
+  61   2            cpt1_CM4++;
+  62   2            if (cpt1_CM4 == 2){
+  63   3              cpt1_CM4 = 0;
+  64   3              cpt2_CM4 = 0;
+  65   3            }
+  66   2            return;
+  67   2          }
+  68   1          else if (SPI0DAT == 0xD2){
+  69   2            if(i>0){//RAZ en cas de déconnection de la trame N-1
+  70   3              cpt2_PointLum = 2;
+  71   3              i=0;
+  72   3            }
+  73   2            cpt1_PointLum++;
+  74   2            if (cpt1_PointLum == 2){
+  75   3              cpt1_PointLum = 0;
+  76   3              cpt2_PointLum = 0;
+  77   3            }
+  78   2            return;
+  79   2          }
+  80   1          else if (SPI0DAT == 0xD3){
+  81   2            if(i>0){//RAZ en cas de déconnection de la trame N-1
+  82   3              cpt2_ServVert = 2;
+  83   3              i=0;
+  84   3            }
+  85   2            cpt1_ServVert++;
+  86   2            if (cpt1_ServVert == 2){
+  87   3              cpt1_ServVert = 0;
+  88   3              cpt2_ServVert = 0;
+  89   3            }
+  90   2            return;
+  91   2          }
+  92   1          else if (SPI0DAT == 0xD4){
+  93   2            if(i>0){//RAZ en cas de déconnection de la trame N-1
+  94   3              cpt2_Vue = 2;
+  95   3              i=0;
+  96   3            }
+  97   2            cpt1_Vue++;
+  98   2            if (cpt1_Vue == 2){
+  99   3              cpt1_Vue = 0;
+ 100   3              cpt2_Vue = 0;
+ 101   3            }
+ 102   2            return;
+ 103   2          }
+ 104   1          else if (SPI0DAT== 0xD5){
+ 105   2            if(i>0){//RAZ en cas de déconnection de la trame N-1
+ 106   3              cpt2_FPGA = 2;
+ 107   3              i=0;
+ 108   3            }
+ 109   2            cpt1_FPGA++;
+ 110   2            if (cpt1_FPGA == 2){
+ 111   3              cpt1_FPGA = 0;
+ 112   3              cpt2_FPGA = 0;
+ 113   3            }
+ 114   2            return;
+ 115   2          }
+ 116   1          
+C51 COMPILER V9.51   TRANSMISSION_SPI                                                      05/05/2018 16:30:10 PAGE 3   
+
+ 117   1          if (SPI0DAT == 0xFF){
+ 118   2      // On réinitialise l'indice du message reçue, pour le message suivant
+ 119   2            cpt1_CM4 = 0;
+ 120   2            cpt1_PointLum = 0;
+ 121   2            cpt1_ServVert = 0;
+ 122   2            cpt1_Vue = 0;
+ 123   2            cpt1_FPGA = 0;
+ 124   2      // On réinitialise l'indice qui permet d'écrire dans le message 
+ 125   2            i = 0;
+ 126   2            test_perte++;
+ 127   2            // On incrémente le compte suivant pour savoir si les deux trames de fins ont été transmises
+ 128   2            cpt_ok ++;
+ 129   2            if (test_perte == 3){//RAZ en cas de déconnection de la trame N-1
+ 130   3              cpt_ok =2;
+ 131   3            }
+ 132   2          }
+ 133   1      //Pour les 5 tests suivants, on recopie le message si et seulement si les deux trames de début correpondan
+             -t aux messages ont été transmises
+ 134   1          else if (cpt2_CM4 == 0){
+ 135   2            msg_CM4[i] = SPI0DAT;
+ 136   2            i++;
+ 137   2          }
+ 138   1          else if (cpt2_PointLum == 0){
+ 139   2            msg_PointLum[i] = SPI0DAT;
+ 140   2            i++;
+ 141   2          }
+ 142   1          else if (cpt2_ServVert == 0){
+ 143   2            msg_ServVert[i] = SPI0DAT;
+ 144   2            i++;
+ 145   2          }
+ 146   1          else if (cpt2_Vue == 0){
+ 147   2            msg_Vue[i] = SPI0DAT;
+ 148   2            i++;
+ 149   2          }
+ 150   1          else if (cpt2_FPGA == 0){
+ 151   2            msg_FPGA[i] = SPI0DAT;
+ 152   2            i++;
+ 153   2          }
+ 154   1          
+ 155   1      // Pour les 5 tests suivants, on appelle la fonction liée au message reçue si et seulement si 
+ 156   1      // les deux trames de fin ont été reçues
+ 157   1          
+ 158   1          if (cpt_ok == 2 && cpt2_CM4 == 0){
+ 159   2            Dest_msg_SPI[0] = 1;  
+ 160   2            cpt_ok = 0; //RAZ
+ 161   2            cpt2_CM4 = 2;
+ 162   2          }
+ 163   1          else if (cpt_ok ==2 && cpt2_PointLum == 0){
+ 164   2            Dest_msg_SPI[1] = 1;  
+ 165   2            cpt_ok = 0; //RAZ
+ 166   2            cpt2_PointLum = 2;
+ 167   2          }
+ 168   1          else if (cpt_ok == 2 && cpt2_ServVert == 0){
+ 169   2            Dest_msg_SPI[2] = 1;  
+ 170   2            cpt_ok = 0; //RAZ
+ 171   2            cpt2_ServVert = 2;
+ 172   2          }
+ 173   1          else if (cpt_ok == 2 && cpt2_Vue == 0){
+ 174   2            Dest_msg_SPI[3] = 1;
+ 175   2            cpt_ok = 0; //RAZ
+ 176   2            cpt2_Vue = 2;
+ 177   2          }
+C51 COMPILER V9.51   TRANSMISSION_SPI                                                      05/05/2018 16:30:10 PAGE 4   
+
+ 178   1          else if (cpt_ok == 2 && cpt2_FPGA == 0){
+ 179   2            Dest_msg_SPI[4] = 1;
+ 180   2            cpt_ok = 0; //RAZ
+ 181   2            cpt2_FPGA = 2;
+ 182   2          }
+ 183   1      
+ 184   1            
+ 185   1      }
+ 186          
+ 187          
+ 188          /*Fonction de test de la réception de la connexion SPI :
+ 189          void trame_recue_test(unsigned char s){
+ 190          
+ 191          // On regarde quelle trame de début on a reçue pour savoir à qui l'envoyer 
+ 192          // De plus, on vérifie bien si on en reçoie 2
+ 193          // De plus, on a ---> 0xD1 : Cortex M4 ; 0xD2 : Pointeur lumineux ; 0xD3 : Servomoteur vertical ; 0xD4 : P
+             -rise de vue ; 0xD5 : FPGA
+ 194          
+ 195              if (s == 0xD1){
+ 196                if(i>0){ //RAZ en cas de déconnection de la trame N-1
+ 197                  cpt2_CM4 = 2;
+ 198                  i=0;
+ 199                }
+ 200                cpt1_CM4++;
+ 201                if (cpt1_CM4 == 2){
+ 202                  cpt1_CM4 = 0;
+ 203                  cpt2_CM4 = 0;
+ 204                }
+ 205                return;
+ 206              }
+ 207              else if (s == 0xD2){
+ 208                if(i>0){//RAZ en cas de déconnection de la trame N-1
+ 209                  cpt2_PointLum = 2;
+ 210                  i=0;
+ 211                }
+ 212                cpt1_PointLum++;
+ 213                if (cpt1_PointLum == 2){
+ 214                  cpt1_PointLum = 0;
+ 215                  cpt2_PointLum = 0;
+ 216                }
+ 217                return;
+ 218              }
+ 219              else if (s == 0xD3){
+ 220                if(i>0){//RAZ en cas de déconnection de la trame N-1
+ 221                  cpt2_ServVert = 2;
+ 222                  i=0;
+ 223                }
+ 224                cpt1_ServVert++;
+ 225                if (cpt1_ServVert == 2){
+ 226                  cpt1_ServVert = 0;
+ 227                  cpt2_ServVert = 0;
+ 228                }
+ 229                return;
+ 230              }
+ 231              else if (s == 0xD4){
+ 232                if(i>0){//RAZ en cas de déconnection de la trame N-1
+ 233                  cpt2_Vue = 2;
+ 234                  i=0;
+ 235                }
+ 236                cpt1_Vue++;
+ 237                if (cpt1_Vue == 2){
+ 238                  cpt1_Vue = 0;
+C51 COMPILER V9.51   TRANSMISSION_SPI                                                      05/05/2018 16:30:10 PAGE 5   
+
+ 239                  cpt2_Vue = 0;
+ 240                }
+ 241                return;
+ 242              }
+ 243              else if (s == 0xD5){
+ 244                if(i>0){//RAZ en cas de déconnection de la trame N-1
+ 245                  cpt2_FPGA = 2;
+ 246                  i=0;
+ 247                }
+ 248                cpt1_FPGA++;
+ 249                if (cpt1_FPGA == 2){
+ 250                  cpt1_FPGA = 0;
+ 251                  cpt2_FPGA = 0;
+ 252                }
+ 253                return;
+ 254              }
+ 255              
+ 256              if (s == 0xFF){
+ 257          // On réinitialise l'indice du message reçue, pour le message suivant
+ 258                cpt1_CM4 = 0;
+ 259                cpt1_PointLum = 0;
+ 260                cpt1_ServVert = 0;
+ 261                cpt1_Vue = 0;
+ 262                cpt1_FPGA = 0;
+ 263          // On réinitialise l'indice qui permet d'écrire dans le message 
+ 264                i = 0;
+ 265                test_perte++;
+ 266                // On incrémente le compte suivant pour savoir si les deux trames de fins ont été transmises
+ 267                cpt_ok ++;
+ 268                if (test_perte == 3){//RAZ en cas de déconnection de la trame N-1
+ 269                  cpt_ok =2;
+ 270                }
+ 271              }
+ 272          //Pour les 5 tests suivants, on recopie le message si et seulement si les deux trames de début correpondan
+             -t aux messages ont été transmises
+ 273              else if (cpt2_CM4 == 0){
+ 274                msg_CM4[i] = s;
+ 275                i++;
+ 276              }
+ 277              else if (cpt2_PointLum == 0){
+ 278                msg_PointLum[i] = s;
+ 279                i++;
+ 280              }
+ 281              else if (cpt2_ServVert == 0){
+ 282                msg_ServVert[i] = s;
+ 283                i++;
+ 284              }
+ 285              else if (cpt2_Vue == 0){
+ 286                msg_Vue[i] = s;
+ 287                i++;
+ 288              }
+ 289              else if (cpt2_FPGA == 0){
+ 290                msg_FPGA[i] = s;
+ 291                i++;
+ 292              }
+ 293              
+ 294          // Pour les 5 tests suivants, on appelle la fonction liée au message reçue si et seulement si 
+ 295          // les deux trames de fin ont été reçues
+ 296              
+ 297              if (cpt_ok == 2 && cpt2_CM4 == 0){
+ 298                Dest_msg_SPI[0] = 1;  
+ 299                cpt_ok = 0; //RAZ
+C51 COMPILER V9.51   TRANSMISSION_SPI                                                      05/05/2018 16:30:10 PAGE 6   
+
+ 300                cpt2_CM4 = 2;
+ 301              }
+ 302              else if (cpt_ok ==2 && cpt2_PointLum == 0){
+ 303                Dest_msg_SPI[1] = 1;  
+ 304                cpt_ok = 0; //RAZ
+ 305                cpt2_PointLum = 2;
+ 306              }
+ 307              else if (cpt_ok == 2 && cpt2_ServVert == 0){
+ 308                Dest_msg_SPI[2] = 1;  
+ 309                cpt_ok = 0; //RAZ
+ 310                cpt2_ServVert = 2;
+ 311              }
+ 312              else if (cpt_ok == 2 && cpt2_Vue == 0){
+ 313                Dest_msg_SPI[3] = 1;
+ 314                cpt_ok = 0; //RAZ
+ 315                cpt2_Vue = 2;
+ 316              }
+ 317              else if (cpt_ok == 2 && cpt2_FPGA == 0){
+ 318                Dest_msg_SPI[4] = 1;
+ 319                cpt_ok = 0; //RAZ
+ 320                cpt2_FPGA = 2;
+ 321              }
+ 322          
+ 323                
+ 324          }*/
+ 325          
+ 326          
+ 327          
+ 328          
+ 329          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    893    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   1308    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

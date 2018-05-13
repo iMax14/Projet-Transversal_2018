@@ -1,0 +1,266 @@
+C51 COMPILER V9.51   ENCODAGE_SON                                                          05/08/2018 11:45:56 PAGE 1   
+
+
+C51 COMPILER V9.51, COMPILATION OF MODULE ENCODAGE_SON
+OBJECT MODULE PLACED IN encodage_son.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE encodage_son.c LARGE BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          #include <c8051f020.h>
+   2          #include <string.h>
+   3          #include <stdio.h>
+   4          #include <math.h>
+   5          #include <stdlib.h>
+   6          
+   7          #include "FO_M1_Structures_COMMANDES_INFORMATIONS_CentraleDeCommande.h"
+   8          #include "ultrason.h"
+   9          #include "encodage_son.h"
+  10          #include "Servomoteur_Horizontal.h"
+  11          
+  12          struct INFORMATIONS encode_son(struct COMMANDES com){
+  13   1        struct INFORMATIONS information;
+  14   1        float detection_avant=50.0f;
+  15   1        float detection_arriere=40.0f;
+  16   1        char obstacle_avant[15];
+  17   1        char obstacle_arriere[15];
+  18   1        char tab[50];
+  19   1        char *debut_donnee=" XX:";
+  20   1        int n;
+  21   1        int i;
+  22   1        char angle[4];
+  23   1        char angle1[4];
+  24   1        char angle2[4];
+  25   1        char val;
+  26   1        char val1;
+  27   1        char val2;
+  28   1        char val_proche;
+  29   1      
+  30   1      
+  31   1        information.Tab_Val_Obst=tab;
+  32   1        information.Nbre_Val_obst=0;
+  33   1        switch(com.A_Obst){
+  34   2          case Obst_unique:
+  35   2            if (com.Det==avant){
+  36   3              // detection seulement a l'avant  mesure et envoie de la donnée
+  37   3              
+  38   3              detection_avant=MES_Dist_AV();
+  39   3              if( detection_avant!=0){
+  40   4                sprintf( obstacle_avant,"%f",detection_avant);
+  41   4                strcpy(tab,debut_donnee);
+  42   4                strcat(tab,obstacle_avant);
+  43   4                strcat(tab,"\0");
+  44   4                information.Nbre_Val_obst=1;
+  45   4              }
+  46   3              else{
+  47   4                strcpy(tab,"Pas d'obstacle\n\r>");
+  48   4              }
+  49   3            }
+  50   2            else{       
+  51   3              // mesure avant et arriere à la position XX du servomoteur (non connu)
+  52   3              detection_avant=MES_Dist_AV();
+  53   3              detection_arriere=MES_Dist_AR();
+  54   3              if( detection_avant!=0){
+  55   4                sprintf( obstacle_avant,"%f",detection_avant);
+C51 COMPILER V9.51   ENCODAGE_SON                                                          05/08/2018 11:45:56 PAGE 2   
+
+  56   4                strcpy(tab,debut_donnee);
+  57   4                strcat(tab,obstacle_avant);
+  58   4                information.Nbre_Val_obst++;
+  59   4              }
+  60   3              if( detection_arriere!=0){
+  61   4                sprintf( obstacle_arriere,"%f",detection_arriere);
+  62   4                if(information.Nbre_Val_obst!=0){
+  63   5                  strcat(tab,debut_donnee);
+  64   5                  strcat(tab,obstacle_arriere);
+  65   5                }
+  66   4                else{ 
+  67   5                  strcpy(tab,debut_donnee);
+  68   5                  strcat(tab,obstacle_arriere);
+  69   5                }
+  70   4                information.Nbre_Val_obst++;
+  71   4              }
+  72   3            }
+  73   2            break;
+  74   2          case Obst_balayage:
+  75   2            //detection 180
+  76   2            if (com.Etat_DCT_Obst==oui_180){
+  77   3              //mesure initiale
+  78   3              n=180/com.DCT_Obst_Resolution;  
+  79   3              CDE_Servo_H(-90);
+  80   3              detection_avant=MES_Dist_AV();
+  81   3              strcpy(tab," ");
+  82   3              if ( detection_avant!=0){
+  83   4                sprintf( obstacle_avant,"%f",detection_avant);
+  84   4                strcat(tab,"-90:");
+  85   4                strcat(tab,obstacle_avant);     
+  86   4                information.Nbre_Val_obst++;
+  87   4              }
+  88   3              // autres mesures
+  89   3              for(i=1; i<n; i++){
+  90   4                val=-90 +i*com.DCT_Obst_Resolution;
+  91   4                sprintf(angle,"%c",val);
+  92   4                angle[3]=':';
+  93   4                CDE_Servo_H(val);
+  94   4                detection_avant=MES_Dist_AV();
+  95   4                if ( detection_avant!=0){   
+  96   5                  sprintf( obstacle_avant,"%f",detection_avant);
+  97   5                  strcat(tab,angle);      
+  98   5                  strcat(tab,obstacle_avant); 
+  99   5                  information.Nbre_Val_obst++;  
+ 100   5                }           
+ 101   4              }
+ 102   3            }
+ 103   2            //detection 360 ( avant et arriere)
+ 104   2            else{
+ 105   3              //mesure initiale 
+ 106   3              n=360/com.DCT_Obst_Resolution;
+ 107   3              CDE_Servo_H(-90);
+ 108   3              strcpy(tab," ");
+ 109   3              detection_avant=MES_Dist_AV();
+ 110   3              if (detection_avant!=0){
+ 111   4                sprintf( obstacle_avant,"%f",detection_avant);
+ 112   4                strcat(tab,"-90:");
+ 113   4                strcat(tab,obstacle_avant);
+ 114   4                information.Nbre_Val_obst++;
+ 115   4              }
+ 116   3              detection_arriere=MES_Dist_AR();
+ 117   3              if (detection_arriere!=0){
+C51 COMPILER V9.51   ENCODAGE_SON                                                          05/08/2018 11:45:56 PAGE 3   
+
+ 118   4                sprintf( obstacle_arriere,"%f",detection_arriere);
+ 119   4                strcat(tab,"90:");
+ 120   4                strcat(tab,obstacle_arriere);
+ 121   4                information.Nbre_Val_obst++;
+ 122   4              }
+ 123   3              //autres mesures
+ 124   3              for(i=0; i<n; i++){
+ 125   4                //les angles mesurés
+ 126   4                val1=-90 +i*com.DCT_Obst_Resolution;
+ 127   4                if (val1>0){
+ 128   5                  val2=(-180 +i*com.DCT_Obst_Resolution);
+ 129   5                }
+ 130   4                else{
+ 131   5                  val2=90 +i*com.DCT_Obst_Resolution;
+ 132   5                }
+ 133   4                CDE_Servo_H(-90 +i*com.DCT_Obst_Resolution);
+ 134   4                detection_avant=MES_Dist_AV();
+ 135   4                if (detection_avant!=0){
+ 136   5                  sprintf(angle1,"%c",val1);
+ 137   5                  angle1[3]=':';
+ 138   5                  sprintf( obstacle_avant,"%f",detection_avant);
+ 139   5                  strcat(tab,angle1);     
+ 140   5                  strcat(tab,obstacle_avant); 
+ 141   5                  information.Nbre_Val_obst++;
+ 142   5                }
+ 143   4                detection_arriere=MES_Dist_AR();
+ 144   4                if( detection_arriere!=0){
+ 145   5                  sprintf(angle2,"%c",val2);
+ 146   5                  angle2[3]=':';
+ 147   5                  sprintf( obstacle_arriere,"%f",detection_arriere);
+ 148   5                  strcat(tab,angle2);     
+ 149   5                  strcat(tab,obstacle_arriere);
+ 150   5                  information.Nbre_Val_obst++;            
+ 151   5                }
+ 152   4              }
+ 153   3            }
+ 154   2            break;
+ 155   2          case Obst_proche:
+ 156   2          //cas detection sur 180 degré
+ 157   2            if (com.Etat_DCT_Obst==oui_180){
+ 158   3              //initialisation
+ 159   3              n=180/com.DCT_Obst_Resolution;  
+ 160   3              CDE_Servo_H(-90);
+ 161   3              detection_avant=MES_Dist_AV();
+ 162   3              if(detection_avant!=0){
+ 163   4                val_proche=detection_avant;
+ 164   4                sprintf( obstacle_avant,"%f",detection_avant);
+ 165   4                strcpy(tab,"-90:");
+ 166   4                strcat(tab,obstacle_avant);
+ 167   4              }
+ 168   3              for ( i=1; i<n; i++){
+ 169   4                val=-90 +i*com.DCT_Obst_Resolution;
+ 170   4                sprintf(angle,"%c",val);
+ 171   4                angle[3]=':';
+ 172   4                CDE_Servo_H(val);
+ 173   4                detection_avant=MES_Dist_AV();
+ 174   4                if(detection_avant<val_proche && detection_avant!=0){
+ 175   5                  sprintf( obstacle_avant,"%f",detection_avant);
+ 176   5                  strcpy(tab,angle);
+ 177   5                  strcat(tab,obstacle_avant);     
+ 178   5                  val_proche=detection_avant;
+ 179   5                }       
+C51 COMPILER V9.51   ENCODAGE_SON                                                          05/08/2018 11:45:56 PAGE 4   
+
+ 180   4              }
+ 181   3            }
+ 182   2            //cas detection 360
+ 183   2            else{
+ 184   3              //initialisation
+ 185   3              n=360/com.DCT_Obst_Resolution;
+ 186   3              CDE_Servo_H(-90);
+ 187   3              detection_avant=MES_Dist_AV();
+ 188   3              detection_arriere=MES_Dist_AR();
+ 189   3              if (detection_arriere<detection_avant && detection_arriere!=0){
+ 190   4                sprintf( obstacle_arriere,"%f",detection_arriere);
+ 191   4                strcpy(tab,"90:");
+ 192   4                strcat(tab,obstacle_arriere);
+ 193   4                val_proche=detection_arriere;
+ 194   4              }
+ 195   3              else if (detection_avant!=0){
+ 196   4                sprintf( obstacle_avant,"%f",detection_avant);
+ 197   4                strcpy(tab,"-90:");
+ 198   4                strcat(tab,obstacle_avant);
+ 199   4                val_proche=detection_avant;
+ 200   4              }
+ 201   3              for ( i=1; i<n; i++){
+ 202   4                //les angles mesurés
+ 203   4                val1=-90 +i*com.DCT_Obst_Resolution;
+ 204   4                val2=-90 +i*com.DCT_Obst_Resolution+180;
+ 205   4                //deplacement du servomoteur
+ 206   4                CDE_Servo_H(val1);
+ 207   4                detection_avant=MES_Dist_AV();
+ 208   4                detection_arriere=MES_Dist_AR();
+ 209   4                if (detection_avant<detection_arriere && detection_avant!=0){
+ 210   5                  if (detection_avant<val_proche){
+ 211   6                    sprintf(angle1,"%c",val1);
+ 212   6                    angle1[3]=':';
+ 213   6                    sprintf( obstacle_avant,"%f",detection_avant);
+ 214   6                    strcpy(tab,angle1);
+ 215   6                    strcat(tab,obstacle_avant);
+ 216   6                    val_proche=detection_avant;
+ 217   6                  }
+ 218   5                }
+ 219   4                else if ( detection_arriere !=0){
+ 220   5                  if (detection_arriere<val_proche){
+ 221   6                    sprintf(angle2,"%c",val2);
+ 222   6                    angle2[3]=':';
+ 223   6                    sprintf( obstacle_arriere,"%f",detection_arriere);
+ 224   6                    strcpy(tab,angle2);
+ 225   6                    strcat(tab,obstacle_arriere);
+ 226   6                    val_proche=detection_arriere;
+ 227   6                  }
+ 228   5                }
+ 229   4              }
+ 230   3              
+ 231   3            }
+ 232   2            break;
+ 233   2        } 
+ 234   1        return information;
+ 235   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   2997    ----
+   CONSTANT SIZE    =     42    ----
+   XDATA SIZE       =   ----     170
+C51 COMPILER V9.51   ENCODAGE_SON                                                          05/08/2018 11:45:56 PAGE 5   
+
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

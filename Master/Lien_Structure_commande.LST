@@ -1,0 +1,198 @@
+C51 COMPILER V9.51   LIEN_STRUCTURE_COMMANDE                                               05/08/2018 11:45:56 PAGE 1   
+
+
+C51 COMPILER V9.51, COMPILATION OF MODULE LIEN_STRUCTURE_COMMANDE
+OBJECT MODULE PLACED IN Lien_Structure_commande.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE Lien_Structure_commande.c LARGE BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          #include <c8051f020.h>
+   2          #include <string.h> 
+   3          #include <stdio.h>
+   4          #include <intrins.h>
+   5          
+   6          #include "FO_M1_Structures_COMMANDES_INFORMATIONS_CentraleDeCommande.h"
+   7          #include "ADC.h"
+   8          #include "Servomoteur_horizontal.h"
+   9          #include "ultrason.h"
+  10          #include "Fonctions_cote_serializer.h"
+  11          #include "Declarations_GPIO.h"
+  12          #include "Config_Globale.h"
+  13          #include "Timers.h"
+  14          #include "Config_SPI.h"
+  15          #include "Transmission_SPI.h"
+  16          #include "UART0_RingBuffer_lib.h"
+  17          #include "ConfigUART1.h"
+  18          #include "Lien_Structure_commande.h"
+  19          #include "encodage_son.h"
+  20          #include "son_sonore.h"
+  21          #include "mesure_courant.h"
+  22          
+  23          #ifndef CFG_Globale
+  24            #define CFG_Globale
+  25            #include <CFG_Globale.h>
+  26          #endif
+  27          
+  28          //------------------------------------------------------------------------------------
+  29          // Déclarations des variables globales
+  30          //------------------------------------------------------------------------------------
+  31          
+  32          char a;
+  33          char i =0;
+  34          char message_s[50] = {0};
+  35          char mess[50] = {0};
+  36          void tempo_emiss(void);
+  37          struct COMMANDES_SERIALIZER commande_serializer;
+  38          float courant_actuel;
+  39          float dist_avant;
+  40          float dist_arriere;
+  41          char Angle_voulu,Angle_atteint,msg_Slave,angle;
+  42          
+  43          void routage(struct COMMANDES commande, enum Routage * type){
+  44   1            
+  45   1        if (commande.Etat_Servo==Servo_H){
+  46   2          *type=Servo_Hor;
+  47   2        }   
+  48   1        else  if (commande.Etat_Servo==Servo_V){
+  49   2          *type=Servo_Vert;
+  50   2        }         
+  51   1        else if (commande.Etat_Mouvement!=Mouvement_non){
+  52   2          *type=Deplacement;
+  53   2        }
+  54   1        else if (commande.A_Obst!=DCT_non){
+  55   2          *type=Obstacle;
+C51 COMPILER V9.51   LIEN_STRUCTURE_COMMANDE                                               05/08/2018 11:45:56 PAGE 2   
+
+  56   2        }
+  57   1        else if (commande.Etat_Energie!=Mesure_I){
+  58   2          *type=Courant;
+  59   2        }
+  60   1        else if (commande.Etat_Energie!=Mesure_E){
+  61   2          *type=Energie;
+  62   2        }
+  63   1        else if ( commande.frequence!=0){
+  64   2          *type=Gene_Son;
+  65   2        }
+  66   1      }
+  67          // verifier attention effectuer les déclaration avant toute execution de code.    
+  68          void fonctionRoutage(struct COMMANDES commande){
+  69   1        enum Routage route = Initialisation;
+  70   1        unsigned char commande_SPI = 0x00;
+  71   1        unsigned char trame[1] = {0x00};
+  72   1        unsigned char taille_trame = 1;
+  73   1        char angle_ascii[3];
+  74   1        char mess[50] = {0};
+  75   1        char msg_Slave_ascii[256];  
+  76   1        struct INFORMATIONS info;
+  77   1        char courant_ascii[4];
+  78   1        char energie_ascii[4];
+  79   1        routage(commande,&route);
+  80   1        
+  81   1        switch (route){
+  82   2          case Servo_H: 
+  83   2            Angle_voulu=commande.Servo_Angle;
+  84   2            Angle_atteint = CDE_Servo_H(Angle_voulu);
+  85   2            serOutstring("\n\r AS H");
+  86   2            
+  87   2            memset(mess,0,strlen(mess));
+  88   2            strcpy(mess,angle_ascii);
+  89   2            strcat(mess,"\n\r>");
+  90   2            serOutstring(mess);
+  91   2            break;
+  92   2          
+  93   2          case Servo_V:
+  94   2            commande_SPI = 0xD3;
+  95   2            trame[0]=commande.Servo_Angle;
+  96   2            taille_trame = 1;
+  97   2            echange_trame(trame,taille_trame,commande_SPI);
+  98   2            tempo_emiss();
+  99   2            msg_Slave = trame_recue();
+ 100   2            tempo_emiss();
+ 101   2      
+ 102   2            sprintf(msg_Slave_ascii,"%f",msg_Slave);
+ 103   2            serOutstring("\n\r AS V");
+ 104   2            serOutstring("\n\r>");
+ 105   2            break;
+ 106   2          
+ 107   2          case Deplacement: 
+ 108   2            commande_serializer = transcode_commande_to_serializer(commande);
+ 109   2            formate_serializer(commande_serializer, message_s);
+ 110   2            serOutstring1(message_s);
+ 111   2            serOutstring(message_s);
+ 112   2      
+ 113   2            i=0;
+ 114   2            a=0;
+ 115   2            do{ 
+ 116   3              a=serInchar1();
+ 117   3              if (a!=0x00){
+C51 COMPILER V9.51   LIEN_STRUCTURE_COMMANDE                                               05/08/2018 11:45:56 PAGE 3   
+
+ 118   4                mess[i]=a;
+ 119   4                i=i+1;
+ 120   4              }
+ 121   3            }while(a!=0x3E);
+ 122   2              
+ 123   2            mess[i] = '\0';
+ 124   2            serOutstring(mess);
+ 125   2            break;
+ 126   2          
+ 127   2          case Obstacle:
+ 128   2            memset(mess,0,strlen(mess));
+ 129   2            info = encode_son(commande);
+ 130   2            strcpy(mess,"\n\rDistance (cm) : ");
+ 131   2            serOutstring(mess);
+ 132   2            serOutstring(info.Tab_Val_Obst);
+ 133   2            serOutstring("\n\r>");
+ 134   2            memset(mess,0,strlen(mess));
+ 135   2            break;
+ 136   2        
+ 137   2          case Courant:
+ 138   2            info.Mesure_Courant = Courant_ADC();
+ 139   2            sprintf( courant_ascii,"%d", info.Mesure_Courant);
+ 140   2            serOutstring(courant_ascii);
+ 141   2            serOutstring("mA\n\r>");
+ 142   2            break;
+ 143   2          case Energie : 
+ 144   2            info.Mesure_Courant = Courant_ADC();
+ 145   2            info.Mesure_Energie = (int) 9.6*info.Mesure_Courant*2; // E = U*I*t
+ 146   2            sprintf(energie_ascii,"%d", info.Mesure_Energie);
+ 147   2            serOutstring(energie_ascii);
+ 148   2            serOutstring("J\n\r>");
+ 149   2            break;
+ 150   2          case Gene_Son:
+ 151   2            son_sonore(commande);
+ 152   2            break;
+ 153   2          
+ 154   2          default:
+ 155   2            strcpy(mess, "\n\r#\n\r>");
+ 156   2            serOutstring(mess);
+ 157   2            break;
+ 158   2          
+ 159   2        }
+ 160   1      }
+ 161          
+ 162          void tempo_emiss(void){ 
+ 163   1        unsigned int x = 0;
+ 164   1        
+ 165   1        for(x=0;x<65000;x++);
+ 166   1        for(x=0;x<65000;x++);
+ 167   1        for(x=0;x<65000;x++);
+ 168   1        for(x=0;x<65000;x++);
+ 169   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   1131    ----
+   CONSTANT SIZE    =    114    ----
+   XDATA SIZE       =    133     418
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+C51 COMPILER V9.51   LIEN_STRUCTURE_COMMANDE                                               05/08/2018 11:45:56 PAGE 4   
+
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

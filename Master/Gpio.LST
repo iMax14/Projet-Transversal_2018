@@ -1,0 +1,102 @@
+C51 COMPILER V9.51   GPIO                                                                  05/05/2018 10:51:20 PAGE 1   
+
+
+C51 COMPILER V9.51, COMPILATION OF MODULE GPIO
+OBJECT MODULE PLACED IN Gpio.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE Gpio.c LARGE BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          #include <c8051f020.h>
+   2          #include <intrins.h>
+   3          
+   4          #include "Config_Globale.h"
+   5          #include "Declarations_GPIO.h"
+   6          #include "Gpio.h"
+   7          
+   8          #define SYSCLK 22118400L
+   9          
+  10          /*
+  11          void Config_GPIO(void)
+  12          {
+  13            
+  14          }
+  15          
+  16          
+  17          void Pulse_P20(void)
+  18          {
+  19            Decl_PP1 = 1;
+  20            _nop_ ();
+  21            _nop_ ();
+  22            _nop_ ();
+  23            _nop_ ();
+  24            _nop_ ();
+  25            _nop_ ();
+  26            _nop_ ();
+  27            _nop_ ();
+  28            _nop_ ();
+  29            _nop_ ();
+  30            Decl_PP1 = 0;
+  31          }
+  32          
+  33          void Pulse_P21(void)
+  34          {
+  35            Decl_PP2 = 1;
+  36            _nop_ ();
+  37            _nop_ ();
+  38            _nop_ ();
+  39            _nop_ ();
+  40            _nop_ ();
+  41            _nop_ ();
+  42            _nop_ ();
+  43            _nop_ ();
+  44            _nop_ ();
+  45            _nop_ ();
+  46            Decl_PP2 = 0;
+  47          }
+  48          
+  49          
+  50          void test_Pulse_LEDs(void)
+  51          {
+  52            CT1_DCT = 1;
+  53            CT2_DCT = 1;
+  54            CT3_DCT = 1;
+  55            CHG_DCT = 1;
+C51 COMPILER V9.51   GPIO                                                                  05/05/2018 10:51:20 PAGE 2   
+
+  56            _nop_ ();
+  57            _nop_ ();
+  58            _nop_ ();
+  59            _nop_ ();
+  60            _nop_ ();
+  61            _nop_ ();
+  62            _nop_ ();
+  63            _nop_ ();
+  64            _nop_ ();
+  65            _nop_ ();
+  66            CT1_DCT = 0;
+  67            CT2_DCT = 0;
+  68            CT3_DCT = 0;
+  69            CHG_DCT = 0;
+  70          }
+  71          
+  72          void Demo_GPIO(void)
+  73          {
+  74            Pulse_P20();
+  75            Pulse_P21();
+  76            test_Pulse_LEDs();
+  77          }*/
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   ----    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
