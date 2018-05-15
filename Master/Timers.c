@@ -1,7 +1,4 @@
 #include <c8051f020.h>
-#include <math.h>
-#include <stdio.h>
-#include <intrins.h>
 
 #include "Timers.h"
 
@@ -47,25 +44,9 @@ void Config_timer0(void){
 }
 
 void initialisation_Timer0(void){
-
 	TR0 = 0;
 	TF0 = 0; // Flag Timer2 Low  
 	TL0 = 0x00;//Timer2 à 0.
 	TH0 = 0x00;
 }
 
-void Config_Timer3(void){
-	int recharge;
-	
-	TMR3CN &= 0x00; // Timer3 disable ; Flag d'OverFlow RAZ ; Use Clock/12
-	
-	recharge = ceil(65535 - 35*0.001*SYSCLK/12); // Interruption toutes les 35 ms
-	TMR3RLL = recharge;
-	TMR3RLH = recharge >> 8;
-	
-	TMR3L = 0xFF;
-	TMR3H = 0xFF;
-	
-	TMR3CN |= 0x04; // Timer3 enable
-
-}

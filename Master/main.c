@@ -31,7 +31,6 @@ int vitesse_par_defaut = 10;
 char message_PC_com[50] = {0};
 enum Epreuve epreuve_en_cours = Epreuve_non;
 int commande_correct = 0;
-unsigned int energie = 0;
 
 char conversioncoord (unsigned char tableau[2]){
 	int dizaine=0;
@@ -697,9 +696,13 @@ struct COMMANDES traitement_R(char * com, struct COMMANDES commande)// DIFFERENT
 		}
 		return commande;
 }
-struct COMMANDES traitement_S(char * com, struct COMMANDES commande) // STOPPER
+struct COMMANDES traitement_S(char * com, struct COMMANDES commande/*,char f_b, char t_son, char t_silence, char bip_b*/) // STOPPER
 {
 	int i;
+	char f_b=6;
+	char t_son=25;
+	char t_silence=50;
+	char bip_b=3;
 	char tab[2];
 	char frequence;
 	char duree_son;
@@ -708,6 +711,7 @@ struct COMMANDES traitement_S(char * com, struct COMMANDES commande) // STOPPER
 	
 	if( com[1]=='D')
 	{
+		commande.son=emission;
 			if(com[3]=='F')
 			{
 				for (i=5; i<7;i++)
@@ -770,10 +774,10 @@ struct COMMANDES traitement_S(char * com, struct COMMANDES commande) // STOPPER
 			}
 			else
 			{
-				commande.frequence=6;								// définit par le code fréquence allant de 1 a 99 (mais defini de 1 a 21)
-				commande.duree_son=25;									// durée du signal sonore
-				commande.duree_silence=50;							// duree du silence
-				commande.nombre_Bips=3;							// nombre de bips
+				commande.frequence=f_b;								// définit par le code fréquence allant de 1 a 99 (mais defini de 1 a 21)
+				commande.duree_son=t_son;									// durée du signal sonore
+				commande.duree_silence=t_silence;							// duree du silence
+				commande.nombre_Bips=bip_b;							// nombre de bips
 			}
 	}
 	else
@@ -806,7 +810,7 @@ struct COMMANDES traitement_T(char * com, struct COMMANDES commande) // VITESSE 
 	
 }
 
-struct COMMANDES Message (char * com){
+struct COMMANDES Message (char * com, char f_b,char t_son,char t_silence,char bip_b){
 //	char tabcoordx[2];
 //	char tabcoordy[2];	
 //	char tabangle[2];	
@@ -814,6 +818,10 @@ struct COMMANDES Message (char * com){
 //	signed char coordy;
 //	char angle;
 //	int cpt=0;
+	//a modifier
+
+	
+
 	struct COMMANDES commande;
 	commande.Etat_Epreuve = Epreuve_non;
 	commande.Vitesse = vitesse_par_defaut;
@@ -826,6 +834,7 @@ struct COMMANDES Message (char * com){
 	commande.Etat_Energie = Energie_non;
 	commande.Etat_Photo = Photo_non;
 	commande.Etat_Position = Position_non;
+	commande.son=non_emission;
 	
 		switch (com[0])
 		{
@@ -881,7 +890,8 @@ struct COMMANDES Message (char * com){
 		}
 		case 'S': // si on recoit S
 		{
-			commande=traitement_S(com, commande);
+			commande=traitement_S(com/*, commande,f_b, t_son, t_silence, bip_b*/);
+
 			break;
 		}
 		case 'G': // si on recoit G
@@ -924,13 +934,16 @@ void main (void)
 	int b = 0;
 	unsigned char code_err = 0;
 
+	//a modifier
+	char f_b=6;
+	char t_son=25;
+	char t_silence=50;
+	char bip_b=3;
 
-	
 	EA=0;
 	Init_Device();  // Initialisation du microcontrôleur
 	Config_Timer2();
 	Config_timer0();
-	Config_Timer3();
 	Config_SPI_MASTER();
 	CFG_VREF();
 	CFG_ADC0();
@@ -941,12 +954,14 @@ void main (void)
 	CFG_UART1();
 	NSS_slave = 1;
 	TR2 = 0;
-	energie = 0;
 	EA=1;
 
+	
+	//Courant_ADC();
+	//fonctionRoutage(commande);
 
 	serOutstring("\n\rDemarrage robot\n\r>");
-
+	CDE_Servo_H(90);
 // a commenter si le robot est déja allumé avant le lancement du code	 
 // Pour recevoir le message de démarrage du serializer
 /*	do{
@@ -968,21 +983,31 @@ void main (void)
 		i=0;
 		a=0;
 		memset(com, 0, 50);
-		do{
-			a=serInchar();
-			echo[0] = a;
-			echo[1] = '\0';
-			serOutstring(echo);
-			memset(echo,0,strlen(echo));
-			if (a!=0x00)
-				{
-				com[i]=a;
-				i=i+1;
-				}
-			}while(a!=0x0D);
-		
+//		do{
+//			a=serInchar();
+//			echo[0] = a;
+//			echo[1] = '\0';
+//			serOutstring(echo);
+//			memset(echo,0,strlen(echo));
+//			if (a!=0x00)
+//				{
+//				com[i]=a;
+//				i=i+1;
+//				}
+//			}while(a!=0x0D);
+			
+			
+		//strcpy(com,"SD F:13 P:10 W:50 B:50");
+		strcpy(com,"CS H 45");
 
-		commande = Message(com);
+		commande = Message(com/*, f_b, t_son, t_silence, bip_b*/);
+			/*if(commande.son==emission)
+			{
+				f_b=commande.frequence;
+				t_son=commande.duree_son;
+				t_silence=commande.duree_silence;
+				bip_b=commande.nombre_Bips;
+			}*/
 		if (commande_correct == 1){
 				fonctionRoutage(commande);
 		}
@@ -1001,9 +1026,4 @@ void main (void)
 void ISR_Timer2 (void) interrupt 5 {
 	TF2 = 0; //Remise à '0' du flag d'overflow
 	PWM_servo=!PWM_servo; //On envoie le signal PWM au servomoteur
-}
-
-void ISR_Timer3 (void) interrupt 14 {
-	TMR3CN &= 0x04; //Remise à '0' du flag d'overflow
-	energie =+ (int) 9.6*Courant_ADC()*0.035;
 }

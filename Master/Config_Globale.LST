@@ -1,4 +1,4 @@
-C51 COMPILER V9.52.0.0   CONFIG_GLOBALE                                                    05/15/2018 17:36:10 PAGE 1   
+C51 COMPILER V9.52.0.0   CONFIG_GLOBALE                                                    05/15/2018 17:33:25 PAGE 1   
 
 
 C51 COMPILER V9.52.0.0, COMPILATION OF MODULE CONFIG_GLOBALE
@@ -62,7 +62,7 @@ line level    source
   51   1        P0MDOUT &= 0xD7; //11010111 ----- P0.3/5
   52   1        P2MDOUT &= 0xF5; //11110101 ----- P2.1/3
   53   1        
-C51 COMPILER V9.52.0.0   CONFIG_GLOBALE                                                    05/15/2018 17:36:10 PAGE 2   
+C51 COMPILER V9.52.0.0   CONFIG_GLOBALE                                                    05/15/2018 17:33:25 PAGE 2   
 
   54   1        P0 |= 0x28; //00101000 ----- P0.3/5
   55   1        P2 |= 0x0A; //00001010 ----- P2.1/3

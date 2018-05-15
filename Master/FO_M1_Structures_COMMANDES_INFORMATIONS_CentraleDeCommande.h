@@ -19,7 +19,9 @@ enum Position{Position_non, Init_Position, Demande_Position};
 enum Photo{Photo_non,Photo_1,Photo_Multiple,Photo_continue,Photo_stop};
 enum Type_Analyse_Obst{Non_obst,Obst_unique, Obst_balayage, Obst_proche};
 enum Detecteur{avant, avant_arriere};
-	
+//a modifer
+enum Son {non_emission, emission};
+
 typedef struct COMMANDES       // Cette structure contient toutes les commandes envoyées par la centrale de commande
                                // Les variables de type enum correspondent aux commandes
                                // Les variables de type BYTE, UNSIGNED_BYTE ou int correspondent aux paramètres
@@ -40,6 +42,7 @@ typedef struct COMMANDES       // Cette structure contient toutes les commandes 
 	
 	//generation de signaux sonores
 	//modifié
+	enum Son son	;										//son ou pas
 	 BYTE	frequence;									// définit par le code fréquence allant de 1 a 99 (mais defini de 1 a 21)
    BYTE duree_son;								// durée du signal sonore
 	 BYTE duree_silence;						// duree du silence

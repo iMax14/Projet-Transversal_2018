@@ -43,11 +43,11 @@ int Courant_ADC(void){
 	//Cette tension doit être inférieure à 3.3V, il faut donc faire attention au gain de l'AO.
 	float tension_AO;
 	int courant;
-	int gain_AO = 101;
+	int gain_AO = 190;
 	float R_SHUNT = 50*0.001;
 
 	tension_AO = (ACQ_ADC()*3.3)/0xFF; // On appelle la fonction ACQ_ADC() pour récupérer la conversion (Tension en V)
-	courant = (int) (tension_AO*1000)/(gain_AO*0.32*R_SHUNT); //Valeur du courant en mA
+	courant = (int) (6*tension_AO*1000)/(gain_AO*R_SHUNT); //Valeur du courant en mA
 
 	return courant;
 }
