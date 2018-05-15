@@ -11,22 +11,22 @@ void CFG_VREF(void){
 }
 
 void CFG_ADC0(void){
-	
-	AD0EN = 0; // Désactivation de l'ADC0 
+
+	AD0EN = 0; // Désactivation de l'ADC0
 
 	AMX0CF &= 0x00; //Configuration uniopolaire sur AIN0
 	AMX0SL |= 0x00; //Conversion sur la voie AINO.3
 	ADC0CF = 0x50; //Clock du convertisseur de 2,5 MHz
 	ADC0CF |= 0x00; //Gain de 1
-	
+
 	AD0INT = 0; //On efface le drapeau signalant la fin de la conversion
-	
+
 	//La conversion sera déclanchée par une mise à '1' de AD0BUSY
 	AD0CM1 = 0;
 	AD0CM0 = 0;
-	
+
 	AD0LJST = 1; //Remplissage de AD0 à gauche
-	
+
 	AD0EN = 1; //Activation de l'ADC0
 }
 
@@ -43,11 +43,11 @@ int Courant_ADC(void){
 	//Cette tension doit être inférieure à 3.3V, il faut donc faire attention au gain de l'AO.
 	float tension_AO;
 	int courant;
-	int gain_AO = 190;
+	int gain_AO = 101;
 	float R_SHUNT = 50*0.001;
 
 	tension_AO = (ACQ_ADC()*3.3)/0xFF; // On appelle la fonction ACQ_ADC() pour récupérer la conversion (Tension en V)
-	courant = (int) (6*tension_AO*1000)/(gain_AO*R_SHUNT); //Valeur du courant en mA
+	courant = (int) (tension_AO*1000)/(gain_AO*0.32*R_SHUNT); //Valeur du courant en mA
 
 	return courant;
 }

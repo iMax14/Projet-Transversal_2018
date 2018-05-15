@@ -1,5 +1,5 @@
 #include <c8051f020.h>
-#include <string.h> 
+#include <string.h>
 #include <stdio.h>
 #include <intrins.h>
 
@@ -26,7 +26,7 @@
 #endif
 
 //------------------------------------------------------------------------------------
-// Déclarations des variables globales
+// Dï¿½clarations des variables globales
 //------------------------------------------------------------------------------------
 
 char a;
@@ -39,15 +39,16 @@ float courant_actuel;
 float dist_avant;
 float dist_arriere;
 char Angle_voulu,Angle_atteint,msg_Slave,angle;
+extern unsigned int energie;
 
 void routage(struct COMMANDES commande, enum Routage * type){
-			
+
 	if (commande.Etat_Servo==Servo_H){
 		*type=Servo_Hor;
-	}		
+	}
 	else	if (commande.Etat_Servo==Servo_V){
 		*type=Servo_Vert;
-	}					
+	}
 	else if (commande.Etat_Mouvement!=Mouvement_non){
 		*type=Deplacement;
 	}
@@ -64,7 +65,7 @@ void routage(struct COMMANDES commande, enum Routage * type){
 		*type=Gene_Son;
 	}
 }
-// verifier attention effectuer les déclaration avant toute execution de code.		
+// verifier attention effectuer les dï¿½claration avant toute execution de code.
 void fonctionRoutage(struct COMMANDES commande){
 	enum Routage route = Initialisation;
 	unsigned char commande_SPI = 0x00;
@@ -72,24 +73,24 @@ void fonctionRoutage(struct COMMANDES commande){
 	unsigned char taille_trame = 1;
 	char angle_ascii[3];
 	char mess[50] = {0};
-	char msg_Slave_ascii[256];	
+	char msg_Slave_ascii[256];
   struct INFORMATIONS info;
 	char courant_ascii[4];
 	char energie_ascii[4];
 	routage(commande,&route);
-	
+
 	switch (route){
-		case Servo_H:	
+		case Servo_H:
 			Angle_voulu=commande.Servo_Angle;
 			Angle_atteint = CDE_Servo_H(Angle_voulu);
 			serOutstring("\n\r AS H");
-			
+
 			memset(mess,0,strlen(mess));
 			strcpy(mess,angle_ascii);
 			strcat(mess,"\n\r>");
 			serOutstring(mess);
 			break;
-		
+
 		case Servo_V:
 			commande_SPI = 0xD3;
 			trame[0]=commande.Servo_Angle;
@@ -103,8 +104,8 @@ void fonctionRoutage(struct COMMANDES commande){
 			serOutstring("\n\r AS V");
 			serOutstring("\n\r>");
 			break;
-		
-		case Deplacement:	
+
+		case Deplacement:
 			commande_serializer = transcode_commande_to_serializer(commande);
 			formate_serializer(commande_serializer, message_s);
 			serOutstring1(message_s);
@@ -112,18 +113,18 @@ void fonctionRoutage(struct COMMANDES commande){
 
 			i=0;
 			a=0;
-			do{	
+			do{
 				a=serInchar1();
 				if (a!=0x00){
 					mess[i]=a;
 					i=i+1;
 				}
 			}while(a!=0x3E);
-				
+
 			mess[i] = '\0';
 			serOutstring(mess);
 			break;
-		
+
 		case Obstacle:
 			memset(mess,0,strlen(mess));
 			info = encode_son(commande);
@@ -133,36 +134,36 @@ void fonctionRoutage(struct COMMANDES commande){
 			serOutstring("\n\r>");
 			memset(mess,0,strlen(mess));
 			break;
-	
+
 		case Courant:
 			info.Mesure_Courant = Courant_ADC();
 			sprintf( courant_ascii,"%d", info.Mesure_Courant);
 			serOutstring(courant_ascii);
 			serOutstring("mA\n\r>");
 			break;
-		case Energie : 
+		case Energie :
 			info.Mesure_Courant = Courant_ADC();
 			info.Mesure_Energie = (int) 9.6*info.Mesure_Courant*2; // E = U*I*t
 			sprintf(energie_ascii,"%d", info.Mesure_Energie);
 			serOutstring(energie_ascii);
 			serOutstring("J\n\r>");
 			break;
-		
+
 		case Gene_Son:
 			son_sonore(commande);
 			break;
-		
+
 		default:
 			strcpy(mess, "\n\r#\n\r>");
 			serOutstring(mess);
 			break;
-		
+
 	}
 }
 
-void tempo_emiss(void){	
+void tempo_emiss(void){
 	unsigned int x = 0;
-	
+
 	for(x=0;x<65000;x++);
 	for(x=0;x<65000;x++);
 	for(x=0;x<65000;x++);

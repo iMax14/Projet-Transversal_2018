@@ -1,5 +1,5 @@
 #include <c8051f020.h>
-#include <string.h> 
+#include <string.h>
 #include <stdio.h>
 #include <intrins.h>
 
@@ -25,21 +25,22 @@
 
 
 //------------------------------------------------------------------------------------
-// Déclarations des variables globales
+// Dï¿½clarations des variables globales
 //------------------------------------------------------------------------------------
 int vitesse_par_defaut = 10;
 char message_PC_com[50] = {0};
 enum Epreuve epreuve_en_cours = Epreuve_non;
 int commande_correct = 0;
+unsigned int energie = 0;
 
 char conversioncoord (unsigned char tableau[2]){
 	int dizaine=0;
-	int unite=0; 
+	int unite=0;
 	char valeur;
-	
+
 	dizaine= (tableau[0]-'0')*10;
 	unite= (tableau[1]-'0');
-	
+
 	valeur=dizaine+unite;
 	return valeur	;
 }
@@ -47,23 +48,23 @@ char conversioncoord (unsigned char tableau[2]){
 /*char conversionvitesse (unsigned char tableau[3]){
 	int centaine=0;
 	int dizaine=0;
-	int unite=0; 
+	int unite=0;
 	char valeur;
-	
+
 	centaine= (tableau[0]-'0')*100;
 	dizaine= (tableau[1]-'0')*10;
 	unite= (tableau[2]-'0');
-	
+
 	valeur= centaine+dizaine+unite;
 	return valeur	;
 }*/
 
-signed int conversionangle_positif (unsigned char tableau[3]){ 
+signed int conversionangle_positif (unsigned char tableau[3]){
 	signed int centaine=0;
 	signed int dizaine=0;
-	signed int unite=0; 
+	signed int unite=0;
 	signed int valeur;
-	
+
 	centaine= (tableau[0]-'0')*100;
 	dizaine= (tableau[1]-'0')*10;
 	unite= (tableau[2]-'0');
@@ -72,15 +73,15 @@ signed int conversionangle_positif (unsigned char tableau[3]){
 	return valeur	;
 }
 
-struct COMMANDES traitement_A(char * com, struct COMMANDES commande){ // traitement lorsque la première lettre est A (AVANCER A DUREE DAQUISITION) AVANCER OK
+struct COMMANDES traitement_A(char * com, struct COMMANDES commande){ // traitement lorsque la premiï¿½re lettre est A (AVANCER A DUREE DAQUISITION) AVANCER OK
 	char vitesse;
 	char tab[3];
-	int j;	
+	int j;
 	char duree;
 
 	switch (com[1]) //AJOUTER LA DUREE
 			{
-				case 'S': // cas ASS (Durée) 
+				case 'S': // cas ASS (Durï¿½e)
 					{
 						commande_correct = 0; //TODO commande_correct = nbr pour aquisition signal
 						for (j=4; j<7;j++)
@@ -89,7 +90,7 @@ struct COMMANDES traitement_A(char * com, struct COMMANDES commande){ // traitem
 						}
 						duree=conversionangle_positif(tab);
 						if (duree >= 100 ||duree <1)
-							{						
+							{
 							commande_correct = 0;
 						}
 						else{commande.ACQ_Duree=duree;}
@@ -99,7 +100,7 @@ struct COMMANDES traitement_A(char * com, struct COMMANDES commande){ // traitem
 				{
 					if (epreuve_en_cours == epreuve1){
 						commande.Etat_Mouvement=Avancer;
-						// on regarde le paramètre de la vitesse
+						// on regarde le paramï¿½tre de la vitesse
 						if (com[2] >= 0x30)
 						{
 							for (j=2; j<5;j++)
@@ -126,7 +127,7 @@ struct COMMANDES traitement_A(char * com, struct COMMANDES commande){ // traitem
 					break;
 				}
 			default:
-				{ 
+				{
 				if (epreuve_en_cours == epreuve1){
 					commande.Etat_Mouvement=Avancer;
 					commande_correct = 1;}
@@ -160,7 +161,7 @@ struct COMMANDES traitement_B(char* com, struct COMMANDES commande) // RECULER O
 						commande_correct = 1;
 						}
 				}
-			
+
 			else {
 						commande_correct = 1;
 			}
@@ -221,13 +222,13 @@ struct COMMANDES traitement_C(char* com, struct COMMANDES commande) // pilotage 
 						commande_correct = 1;
 					}
 			}
-			
+
 			else
 			{
 				angle=0;
 				commande.Servo_Angle=angle;
 			}
-			
+
 			break;
 		}
 		default:
@@ -242,9 +243,9 @@ struct COMMANDES traitement_C(char* com, struct COMMANDES commande) // pilotage 
 }
 struct COMMANDES traitement_D(char * com, struct COMMANDES commande)// DEBUT DEPREUVE OK
 {
-	switch (com[2]) // exemple message:  D 1 
+	switch (com[2]) // exemple message:  D 1
 			{
-				case '1': //épreuve 1
+				case '1': //ï¿½preuve 1
 				{
 					commande.Etat_Epreuve=epreuve1;
 					strcpy(message_PC_com, "\r\nInvite de commande 1\r\n>");
@@ -253,7 +254,7 @@ struct COMMANDES traitement_D(char * com, struct COMMANDES commande)// DEBUT DEP
 					break;
 
 				}
-				case '2': //épreuve 2
+				case '2': //ï¿½preuve 2
 				{
 					commande.Etat_Epreuve=epreuve2;
 					strcpy(message_PC_com, "\r\nInvite de commande 2\r\n>");
@@ -262,7 +263,7 @@ struct COMMANDES traitement_D(char * com, struct COMMANDES commande)// DEBUT DEP
 					break;
 
 				}
-				case '3': //épreuve 3
+				case '3': //ï¿½preuve 3
 				{
 					commande.Etat_Epreuve=epreuve3;
 					epreuve_en_cours = epreuve3;
@@ -271,7 +272,7 @@ struct COMMANDES traitement_D(char * com, struct COMMANDES commande)// DEBUT DEP
 					break;
 
 				}
-				case '4': //épreuve 4
+				case '4': //ï¿½preuve 4
 				{
 					commande.Etat_Epreuve=epreuve4;
 					epreuve_en_cours = epreuve4;
@@ -280,7 +281,7 @@ struct COMMANDES traitement_D(char * com, struct COMMANDES commande)// DEBUT DEP
 					break;
 
 				}
-				case '5': //épreuve 5
+				case '5': //ï¿½preuve 5
 				{
 					commande.Etat_Epreuve=epreuve5;
 					epreuve_en_cours = epreuve5;
@@ -288,7 +289,7 @@ struct COMMANDES traitement_D(char * com, struct COMMANDES commande)// DEBUT DEP
 					//serOutstring("Invite de commande 5");
 					break;
 				}
-				case '6': //épreuve 6
+				case '6': //ï¿½preuve 6
 				{
 					commande.Etat_Epreuve=epreuve6;
 					epreuve_en_cours = epreuve6;
@@ -297,7 +298,7 @@ struct COMMANDES traitement_D(char * com, struct COMMANDES commande)// DEBUT DEP
 					break;
 
 				}
-				case '7': //épreuve 7
+				case '7': //ï¿½preuve 7
 				{
 					commande.Etat_Epreuve=epreuve7;
 					epreuve_en_cours = epreuve7;
@@ -305,7 +306,7 @@ struct COMMANDES traitement_D(char * com, struct COMMANDES commande)// DEBUT DEP
 					//serOutstring("Invite de commande 7");
 					break;
 				}
-				case '8': //épreuve 8
+				case '8': //ï¿½preuve 8
 				{
 					commande.Etat_Epreuve=epreuve8;
 					epreuve_en_cours = epreuve8;
@@ -327,7 +328,7 @@ struct COMMANDES traitement_D(char * com, struct COMMANDES commande)// DEBUT DEP
 }
 struct COMMANDES traitement_E(struct COMMANDES commande)//FIN DEPREUVE OK
 {
-	//serOutstring("Fin de l'épreuve");
+	//serOutstring("Fin de l'ï¿½preuve");
 	commande.Etat_Epreuve=Epreuve_non;
 	commande.Etat_Mouvement =Mouvement_non;
 	epreuve_en_cours = Epreuve_non;
@@ -335,19 +336,19 @@ struct COMMANDES traitement_E(struct COMMANDES commande)//FIN DEPREUVE OK
 }
 struct COMMANDES traitement_G(char * com, struct COMMANDES commande) // DEPLACEMENT AVEC ANGLE : OK
 {
-	
+
 	int cpt=0;
 	int bin=1;
 	signed int angle;
-	int signe_angle=0; // positif si 0 négatif si 1
-	int signe_x=0; // positif si 0 négatif si 1
-	int signe_y=0; // positif si 0 négatif si 1
+	int signe_angle=0; // positif si 0 nï¿½gatif si 1
+	int signe_x=0; // positif si 0 nï¿½gatif si 1
+	int signe_y=0; // positif si 0 nï¿½gatif si 1
 	int k;
 	signed char coordx;
 	signed char coordy;
 	char tabcoordx[2];
-	char tabcoordy[2];	
-	unsigned char tabangle[3];	
+	char tabcoordy[2];
+	unsigned char tabangle[3];
 	commande.Etat_Mouvement=Depl_Coord;
 
 			for(k=0;k<=50;k++)
@@ -355,18 +356,18 @@ struct COMMANDES traitement_G(char * com, struct COMMANDES commande) // DEPLACEM
 				bin=1;
 				if (com[k]==':' && cpt==0 && bin==1)
 				{
-					
+
 						if (com[k+1]=='-')
-						{	
+						{
 							tabcoordx[0]=com[k+2];
 							tabcoordx[1]=com[k+3];
-							
+
 							coordx=conversioncoord(tabcoordx);
 							coordx=coordx;
 							signe_x=1;
 							cpt=cpt+1;
 							bin=0;
-							
+
 						}
 						else
 						{
@@ -381,7 +382,7 @@ struct COMMANDES traitement_G(char * com, struct COMMANDES commande) // DEPLACEM
 						{
 							if (com[k+1]=='-')
 							{
-								
+
 								tabcoordy[0]=com[k+2];
 								tabcoordy[1]=com[k+3];
 								coordy=conversioncoord(tabcoordy);
@@ -416,10 +417,10 @@ struct COMMANDES traitement_G(char * com, struct COMMANDES commande) // DEPLACEM
 						tabangle[2]=com[k+3];
 						angle=conversionangle_positif(tabangle);
 						}
-						// DEMANDER A THibaut comment il traite G 
+						// DEMANDER A THibaut comment il traite G
 						switch (signe_angle)
 						{
-							case 1: // cas angle négatif selon le sens trigonométrique
+							case 1: // cas angle nï¿½gatif selon le sens trigonomï¿½trique
 								{
 									if (signe_x==1 && signe_y==0)
 									{
@@ -440,7 +441,7 @@ struct COMMANDES traitement_G(char * com, struct COMMANDES commande) // DEPLACEM
 									}
 									break;
 								}
-							default:// cas angle positif selon le sens trigonométrique
+							default:// cas angle positif selon le sens trigonomï¿½trique
 							{
 								if (signe_x==1 && signe_y==0)
 									{
@@ -467,12 +468,12 @@ struct COMMANDES traitement_G(char * com, struct COMMANDES commande) // DEPLACEM
 		commande.Angle=angle;
 		return commande;
 }
-struct COMMANDES traitement_I(char * com, struct COMMANDES commande) // pas encore utilisé
+struct COMMANDES traitement_I(char * com, struct COMMANDES commande) // pas encore utilisï¿½
 {
-	// a compléter
+	// a complï¿½ter
 	return commande;
 }
-struct COMMANDES traitement_M(char *com, struct COMMANDES commande) 
+struct COMMANDES traitement_M(char *com, struct COMMANDES commande)
 {
 	int j;
 	char tab[2];
@@ -482,13 +483,13 @@ struct COMMANDES traitement_M(char *com, struct COMMANDES commande)
 				case 'I': //MI Mesure de courant
 					commande.Etat_Energie=Mesure_I;
 					break;
-				case 'E': //ME Mesure de l'énergie
+				case 'E': //ME Mesure de l'ï¿½nergie
 					commande.Etat_Energie=Mesure_E;
 					break;
 				case 'O': //cas MO
 					switch (com[2])
 					{
-						case 'U': // cas MOU 
+						case 'U': // cas MOU
 							commande.A_Obst=Obst_unique;
 							switch (com[4])
 							{
@@ -501,12 +502,12 @@ struct COMMANDES traitement_M(char *com, struct COMMANDES commande)
 									break;
 							}
 							break;
-						case 'B': // cas MOB 
+						case 'B': // cas MOB
 							commande.A_Obst=Obst_balayage;
 							switch(com[4])
 							{
 								case 'A':
-									commande.Etat_DCT_Obst=oui_360; // défault de D
+									commande.Etat_DCT_Obst=oui_360; // dï¿½fault de D
 									for (j=6; j<8;j++)
 									{
 										tab[j-6]=com[j];
@@ -521,7 +522,7 @@ struct COMMANDES traitement_M(char *com, struct COMMANDES commande)
 									{
 										commande_correct=0;
 									}
-									
+
 									break;
 								case 'D':
 									commande.Etat_DCT_Obst=oui_180;
@@ -542,7 +543,7 @@ struct COMMANDES traitement_M(char *com, struct COMMANDES commande)
 											commande_correct=0;
 										}
 									}
-										
+
 									else
 									{
 										commande.DCT_Obst_Resolution=30;
@@ -552,13 +553,13 @@ struct COMMANDES traitement_M(char *com, struct COMMANDES commande)
 									commande.Etat_DCT_Obst=oui_360;
 									commande.DCT_Obst_Resolution=30;
 									break;
-							}	
-						case 'S': // cas MOS 
+							}
+						case 'S': // cas MOS
 							commande.A_Obst=Obst_balayage;
 							switch(com[4])
 							{
 								case 'A':
-									commande.Etat_DCT_Obst=oui_360; // défault de D
+									commande.Etat_DCT_Obst=oui_360; // dï¿½fault de D
 									for (j=6; j<8;j++)
 									{
 										tab[j-6]=com[j];
@@ -573,7 +574,7 @@ struct COMMANDES traitement_M(char *com, struct COMMANDES commande)
 									{
 										commande_correct=0;
 									}
-									
+
 									break;
 								case 'D':
 									commande.Etat_DCT_Obst=oui_180;
@@ -594,7 +595,7 @@ struct COMMANDES traitement_M(char *com, struct COMMANDES commande)
 											commande_correct=0;
 										}
 									}
-										
+
 									else
 									{
 										commande.DCT_Obst_Resolution=30;
@@ -604,7 +605,7 @@ struct COMMANDES traitement_M(char *com, struct COMMANDES commande)
 									commande.Etat_DCT_Obst=oui_360;
 									commande.DCT_Obst_Resolution=30;
 									break;
-							}	
+							}
 							break;
 						default:break;
 					}
@@ -614,10 +615,10 @@ struct COMMANDES traitement_M(char *com, struct COMMANDES commande)
 }
 struct COMMANDES traitement_P(char *com, struct COMMANDES commande) // PAS ENCORE UTILISE (POS)
 {
-	// a compléter
+	// a complï¿½ter
 	return commande;
 }
-struct COMMANDES traitement_Q(struct COMMANDES commande) //ARRET DURGENCE 
+struct COMMANDES traitement_Q(struct COMMANDES commande) //ARRET DURGENCE
 {
 	//serOutstring("arret d'urgence");
 	commande.Etat_Epreuve=Stop_Urgence;
@@ -637,19 +638,19 @@ struct COMMANDES traitement_R(char * com, struct COMMANDES commande)// DIFFERENT
 			}
 			case 'G': //Si on recoit RG
 			{
-				commande.Etat_Mouvement=Rot_90G;	
+				commande.Etat_Mouvement=Rot_90G;
 				break;
 			}
 			case 'C':// si on recoit RC
 			{
 				if (com[3]== 'D')
 				{
-					commande.Etat_Mouvement=Rot_180D;	
+					commande.Etat_Mouvement=Rot_180D;
 					break;
 				}
 				if (com[3]== 'G')
 				{
-					commande.Etat_Mouvement=Rot_180G;	
+					commande.Etat_Mouvement=Rot_180G;
 					break;
 				}
 			}
@@ -659,7 +660,7 @@ struct COMMANDES traitement_R(char * com, struct COMMANDES commande)// DIFFERENT
 				{
 					case 'D':
 					{
-						commande.Etat_Mouvement=Rot_AngD;	
+						commande.Etat_Mouvement=Rot_AngD;
 						for (j=5; j<=7;j++)
 						{
 								tab[j-5]=com[j];
@@ -681,7 +682,7 @@ struct COMMANDES traitement_R(char * com, struct COMMANDES commande)// DIFFERENT
 					}
 					default :
 					{
-						commande.Etat_Mouvement=Rot_AngD;	
+						commande.Etat_Mouvement=Rot_AngD;
 						angle=90;
 						commande.Angle=angle;
 						break;
@@ -708,7 +709,7 @@ struct COMMANDES traitement_S(char * com, struct COMMANDES commande/*,char f_b, 
 	char duree_son;
 	char duree_silence;
 	char nombre_Bips;
-	
+
 	if( com[1]=='D')
 	{
 		commande.son=emission;
@@ -770,19 +771,19 @@ struct COMMANDES traitement_S(char * com, struct COMMANDES commande/*,char f_b, 
 					commande.nombre_Bips=nombre_Bips;
 					commande_correct = 1;
 				}
-				
+
 			}
 			else
 			{
-				commande.frequence=f_b;								// définit par le code fréquence allant de 1 a 99 (mais defini de 1 a 21)
-				commande.duree_son=t_son;									// durée du signal sonore
+				commande.frequence=f_b;								// dï¿½finit par le code frï¿½quence allant de 1 a 99 (mais defini de 1 a 21)
+				commande.duree_son=t_son;									// durï¿½e du signal sonore
 				commande.duree_silence=t_silence;							// duree du silence
 				commande.nombre_Bips=bip_b;							// nombre de bips
 			}
 	}
 	else
 	{
-		commande.Etat_Mouvement=Stopper;	
+		commande.Etat_Mouvement=Stopper;
 	}
 	return commande;
 }
@@ -791,12 +792,12 @@ struct COMMANDES traitement_T(char * com, struct COMMANDES commande) // VITESSE 
 	char vitesse;
 	char tab[3];
 	int j;
-	// on regarde le paramètre de la vitesse
-			
+	// on regarde le paramï¿½tre de la vitesse
+
 	for (j=3; j<=5;j++)
 	{
 			tab[j-3]=com[j];
-	}	
+	}
 	vitesse=conversionangle_positif(tab);
 	j = ((int)vitesse& 0x00FF);
 	if (j >= 100){
@@ -807,20 +808,20 @@ struct COMMANDES traitement_T(char * com, struct COMMANDES commande) // VITESSE 
 			commande_correct = 2;
 	}
 	return commande;
-	
+
 }
 
 struct COMMANDES Message (char * com, char f_b,char t_son,char t_silence,char bip_b){
 //	char tabcoordx[2];
-//	char tabcoordy[2];	
-//	char tabangle[2];	
+//	char tabcoordy[2];
+//	char tabangle[2];
 //	signed char coordx;
 //	signed char coordy;
 //	char angle;
 //	int cpt=0;
 	//a modifier
 
-	
+
 
 	struct COMMANDES commande;
 	commande.Etat_Epreuve = Epreuve_non;
@@ -835,7 +836,7 @@ struct COMMANDES Message (char * com, char f_b,char t_son,char t_silence,char bi
 	commande.Etat_Photo = Photo_non;
 	commande.Etat_Position = Position_non;
 	commande.son=non_emission;
-	
+
 		switch (com[0])
 		{
 		case 'A':// si on recoit un A AVANCER OU DUREE DAQUISITION FIXEE
@@ -848,7 +849,7 @@ struct COMMANDES Message (char * com, char f_b,char t_son,char t_silence,char bi
 			commande=traitement_T(com,commande);
 			break;
 		}
-		case 'D':// si on recoit un D (Début de l'epreuve)
+		case 'D':// si on recoit un D (Dï¿½but de l'epreuve)
 		{
 			commande=traitement_D(com,commande);
 			break;
@@ -865,7 +866,7 @@ struct COMMANDES Message (char * com, char f_b,char t_son,char t_silence,char bi
 			break;
 
 		}
-		case 'M':// si on recoit un M (mesure et autre) PAS UTILISE 
+		case 'M':// si on recoit un M (mesure et autre) PAS UTILISE
 		{
 			commande=traitement_M(com,commande);
 			break;
@@ -876,7 +877,7 @@ struct COMMANDES Message (char * com, char f_b,char t_son,char t_silence,char bi
 			commande=traitement_I(com,commande);
 			break;
 		}
-		case 'P':// si on recoit un POS 
+		case 'P':// si on recoit un POS
 		{
 			commande=traitement_P(com,commande);
 			//envoie de information
@@ -899,7 +900,7 @@ struct COMMANDES Message (char * com, char f_b,char t_son,char t_silence,char bi
 			commande=traitement_G(com,commande);
 			break;
 		}
-		
+
 		case 'R': //Si On recoit R ROTATION
 		{
 			commande=traitement_R(com,commande);
@@ -917,11 +918,11 @@ struct COMMANDES Message (char * com, char f_b,char t_son,char t_silence,char bi
 return commande;
 }
 
-	
+
 
 void main (void)
-{	
-//Déclaration des variables
+{
+//Dï¿½claration des variables
 	//struct COMMANDES_SERIALIZER commande_serializer;
 	struct COMMANDES commande;
 	char message_s[50] = {0};
@@ -941,7 +942,7 @@ void main (void)
 	char bip_b=3;
 
 	EA=0;
-	Init_Device();  // Initialisation du microcontrôleur
+	Init_Device();  // Initialisation du microcontrï¿½leur
 	Config_Timer2();
 	Config_timer0();
 	Config_SPI_MASTER();
@@ -949,21 +950,22 @@ void main (void)
 	CFG_ADC0();
 	CFG_Clock_UART();
 	cfg_UART0_mode1();
-	init_Serial_Buffer();   
+	init_Serial_Buffer();
 	init_Serial_Buffer1();
 	CFG_UART1();
 	NSS_slave = 1;
 	TR2 = 0;
+  energie = 0;
 	EA=1;
 
-	
+
 	//Courant_ADC();
 	//fonctionRoutage(commande);
 
 	serOutstring("\n\rDemarrage robot\n\r>");
 	CDE_Servo_H(90);
-// a commenter si le robot est déja allumé avant le lancement du code	 
-// Pour recevoir le message de démarrage du serializer
+// a commenter si le robot est dï¿½ja allumï¿½ avant le lancement du code
+// Pour recevoir le message de dï¿½marrage du serializer
 /*	do{
 			a=serInchar1();
 			echo[0] = a;
@@ -975,11 +977,11 @@ void main (void)
 	while(1){
 
 		memset(message_s,0,sizeof(message_s));
-		memset(mess, 0, strlen(mess));		
-		memset(message_PC_com, 0, strlen(message_PC_com));		
+		memset(mess, 0, strlen(mess));
+		memset(message_PC_com, 0, strlen(message_PC_com));
 
 		commande_correct =1;
-		
+
 		i=0;
 		a=0;
 		memset(com, 0, 50);
@@ -995,8 +997,8 @@ void main (void)
 //				i=i+1;
 //				}
 //			}while(a!=0x0D);
-			
-			
+
+
 		//strcpy(com,"SD F:13 P:10 W:50 B:50");
 		strcpy(com,"CS H 45");
 
@@ -1020,10 +1022,15 @@ void main (void)
 		}
 	//serOutstring(message_PC_com); // si erreur
 	}
-	
+
 }
 
 void ISR_Timer2 (void) interrupt 5 {
-	TF2 = 0; //Remise à '0' du flag d'overflow
+	TF2 = 0; //Remise ï¿½ '0' du flag d'overflow
 	PWM_servo=!PWM_servo; //On envoie le signal PWM au servomoteur
+}
+
+void ISR_Timer3 (void) interrupt 14 {
+	TMR3CN &= 0x04; //Remise ï¿½ '0' du flag d'overflow
+	energie =+ (int) 9.6*Courant_ADC()*0.035;
 }
