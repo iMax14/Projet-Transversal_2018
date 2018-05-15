@@ -31,6 +31,7 @@ int vitesse_par_defaut = 10;
 char message_PC_com[50] = {0};
 enum Epreuve epreuve_en_cours = Epreuve_non;
 int commande_correct = 0;
+unsigned int energie = 0;
 
 char conversioncoord (unsigned char tableau[2]){
 	int dizaine=0;
@@ -929,6 +930,7 @@ void main (void)
 	Init_Device();  // Initialisation du microcontrôleur
 	Config_Timer2();
 	Config_timer0();
+	Config_Timer3();
 	Config_SPI_MASTER();
 	CFG_VREF();
 	CFG_ADC0();
@@ -939,11 +941,9 @@ void main (void)
 	CFG_UART1();
 	NSS_slave = 1;
 	TR2 = 0;
+	energie = 0;
 	EA=1;
 
-	
-	//Courant_ADC();
-	fonctionRoutage(commande);
 
 	serOutstring("\n\rDemarrage robot\n\r>");
 
@@ -1001,4 +1001,9 @@ void main (void)
 void ISR_Timer2 (void) interrupt 5 {
 	TF2 = 0; //Remise à '0' du flag d'overflow
 	PWM_servo=!PWM_servo; //On envoie le signal PWM au servomoteur
+}
+
+void ISR_Timer3 (void) interrupt 14 {
+	TMR3CN &= 0x04; //Remise à '0' du flag d'overflow
+	energie =+ (int) 9.6*Courant_ADC()*0.035;
 }

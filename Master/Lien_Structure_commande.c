@@ -39,6 +39,7 @@ float courant_actuel;
 float dist_avant;
 float dist_arriere;
 char Angle_voulu,Angle_atteint,msg_Slave,angle;
+extern unsigned int energie;
 
 void routage(struct COMMANDES commande, enum Routage * type){
 			
@@ -136,13 +137,13 @@ void fonctionRoutage(struct COMMANDES commande){
 	
 		case Courant:
 			info.Mesure_Courant = Courant_ADC();
-			sprintf( courant_ascii,"%d", info.Mesure_Courant);
+			sprintf(courant_ascii,"%d", info.Mesure_Courant);
 			serOutstring(courant_ascii);
 			serOutstring("mA\n\r>");
 			break;
+		
 		case Energie : 
-			info.Mesure_Courant = Courant_ADC();
-			info.Mesure_Energie = (int) 9.6*info.Mesure_Courant*2; // E = U*I*t
+			info.Mesure_Energie = energie;
 			sprintf(energie_ascii,"%d", info.Mesure_Energie);
 			serOutstring(energie_ascii);
 			serOutstring("J\n\r>");

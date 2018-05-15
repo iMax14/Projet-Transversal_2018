@@ -9,12 +9,13 @@ include <c8051f020.h>
 /*
 void Config_GPIO(void)
 {
-	
+
 }
 
 
 void Pulse_P20(void)
 {
+
 	Decl_PP1 = 1;
 	_nop_ ();
 	_nop_ ();
