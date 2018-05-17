@@ -22,11 +22,11 @@ char CDE_Servo_H(signed int Angle){
 	RCAP2H = rech_int >> 8;
 	
 	TR2 = 1; //Timer2 activé
-	while(i < 50){
+	/*while(i < 50){
 		if (TF2 == 1){
 			i++;
 		}
-	}
+	}Commenté pour les tests au simulateur */
 	TR2 = 0; //Timer2 désactivé pour le servomoteur horizontal
 	
 	return Angle;

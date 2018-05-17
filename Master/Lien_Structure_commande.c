@@ -82,6 +82,7 @@ void fonctionRoutage(struct COMMANDES commande){
   struct INFORMATIONS info;
 	char courant_ascii[4];
 	char energie_ascii[4];
+	extern char affichage [50];
 	routage(commande,&route);
 
 	switch (route){
@@ -209,13 +210,10 @@ void fonctionRoutage(struct COMMANDES commande){
 
 
 		case Obstacle:
-			memset(mess,0,strlen(mess));
-			info = encode_son(commande);
-			strcpy(mess,"\n\rDistance (cm) : ");
-			serOutstring(mess);
-			serOutstring(info.Tab_Val_Obst);
+			Detect_Obst(commande);
+			serOutstring(affichage);
 			serOutstring("\n\r>");
-			memset(mess,0,strlen(mess));
+			strcpy(affichage,"");
 			break;
 
 		case Courant:

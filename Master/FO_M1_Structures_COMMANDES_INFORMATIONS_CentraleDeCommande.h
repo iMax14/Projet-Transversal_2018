@@ -17,7 +17,7 @@ enum Servo {Servo_non, Servo_H, Servo_V};
 enum Energie{Energie_non,Mesure_I,Mesure_E};
 enum Position{Position_non, Init_Position, Demande_Position};
 enum Photo{Photo_non,Photo_1,Photo_Multiple,Photo_continue,Photo_stop};
-enum Type_Analyse_Obst{Non_obst,Obst_unique, Obst_balayage, Obst_proche};
+enum Type_Analyse_Obst{Non_obst,Obst_unique, Obst_balayage, Obst_proche_balayage};
 enum Detecteur{avant, avant_arriere};
 //a modifer
 enum Son {non_emission, emission};

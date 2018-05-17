@@ -3,14 +3,736 @@
 <pre>
 <h1>µVision Build Log</h1>
 <h2>Project:</h2>
-Z:\Users\maxime\Documents\Projet-Transversal_2018\Master\master.uvproj
+Z:\Users\maxime\Desktop\Master\master.uvproj
 Project File Date:  05/17/2018
 
 <h2>Output:</h2>
 Build target 'Target 1'
 compiling main.c...
 main.c(420): warning C280: 'com': unreferenced local variable
-main.c(565): warning C280: 'com': unreferenced local variable
+main.c(558): warning C280: 'com': unreferenced local variable
+compiling Lien_Structure_commande.c...
+Lien_Structure_commande.c(212): warning C206: 'Detect_Obst': missing function-prototype
+Lien_Structure_commande.c(212): error C214: illegal pointer conversion
+compiling encodage_son.c...
+encodage_son.c(19): warning C276: constant in condition expression
+encodage_son.c(20): error C200: left side of '.' requires struct/union
+encodage_son.c(97): error C202: 'Obst_proche_balayage': undefined identifier
+encodage_son.c(100): error C202: 'tab_angles': undefined identifier
+encodage_son.c(104): error C202: 'j': undefined identifier
+encodage_son.c(105): error C202: 'j': undefined identifier
+encodage_son.c(106): error C202: 'j': undefined identifier
+encodage_son.c(110): error C202: 'angle': undefined identifier
+encodage_son.c(113): error C202: 'angle': undefined identifier
+encodage_son.c(119): error C202: 'tab_angles': undefined identifier
+encodage_son.c(123): error C202: 'j': undefined identifier
+encodage_son.c(124): error C202: 'j': undefined identifier
+encodage_son.c(125): error C202: 'min_AV': undefined identifier
+encodage_son.c(128): error C202: 'dist_min_AV': undefined identifier
+encodage_son.c(129): error C202: 'j': undefined identifier
+encodage_son.c(130): error C202: 'j': undefined identifier
+encodage_son.c(131): error C202: 'min_AR': undefined identifier
+encodage_son.c(134): error C202: 'dist_min_AR': undefined identifier
+encodage_son.c(135): error C202: 'dist_min_AR': undefined identifier
+encodage_son.c(136): error C202: 'dist_min_AR': undefined identifier
+encodage_son.c(137): error C202: 'angle': undefined identifier
+encodage_son.c(140): error C202: 'dist_min_AV': undefined identifier
+encodage_son.c(141): error C202: 'angle': undefined identifier
+encodage_son.c(145): error C202: 'angle': undefined identifier
+encodage_son.c(151): error C202: 'Affichage': undefined identifier
+encodage_son.c(176): error C231: 'obstacle_avant': redefinition
+encodage_son.c(177): error C231: 'obstacle_arriere': redefinition
+encodage_son.c(191): error C129: missing ';' before '.'
+Target not created
+Build target 'Target 1'
+compiling Lien_Structure_commande.c...
+Lien_Structure_commande.c(212): warning C209: 'Detect_Obst': too few actual parameters
+Lien_Structure_commande.c(212): error C181: incompatible operand
+compiling encodage_son.c...
+encodage_son.c(19): warning C276: constant in condition expression
+encodage_son.c(20): error C200: left side of '.' requires struct/union
+encodage_son.c(97): error C202: 'Obst_proche_balayage': undefined identifier
+encodage_son.c(100): error C202: 'tab_angles': undefined identifier
+encodage_son.c(104): error C202: 'j': undefined identifier
+encodage_son.c(105): error C202: 'j': undefined identifier
+encodage_son.c(106): error C202: 'j': undefined identifier
+encodage_son.c(110): error C202: 'angle': undefined identifier
+encodage_son.c(113): error C202: 'angle': undefined identifier
+encodage_son.c(119): error C202: 'tab_angles': undefined identifier
+encodage_son.c(123): error C202: 'j': undefined identifier
+encodage_son.c(124): error C202: 'j': undefined identifier
+encodage_son.c(125): error C202: 'min_AV': undefined identifier
+encodage_son.c(128): error C202: 'dist_min_AV': undefined identifier
+encodage_son.c(129): error C202: 'j': undefined identifier
+encodage_son.c(130): error C202: 'j': undefined identifier
+encodage_son.c(131): error C202: 'min_AR': undefined identifier
+encodage_son.c(134): error C202: 'dist_min_AR': undefined identifier
+encodage_son.c(135): error C202: 'dist_min_AR': undefined identifier
+encodage_son.c(136): error C202: 'dist_min_AR': undefined identifier
+encodage_son.c(137): error C202: 'angle': undefined identifier
+encodage_son.c(140): error C202: 'dist_min_AV': undefined identifier
+encodage_son.c(141): error C202: 'angle': undefined identifier
+encodage_son.c(145): error C202: 'angle': undefined identifier
+encodage_son.c(151): error C202: 'Affichage': undefined identifier
+encodage_son.c(176): error C231: 'obstacle_avant': redefinition
+encodage_son.c(177): error C231: 'obstacle_arriere': redefinition
+encodage_son.c(191): error C129: missing ';' before '.'
+Target not created
+Build target 'Target 1'
+compiling Lien_Structure_commande.c...
+Lien_Structure_commande.c(212): error C181: incompatible operand
+compiling encodage_son.c...
+encodage_son.c(19): warning C276: constant in condition expression
+encodage_son.c(20): error C200: left side of '.' requires struct/union
+encodage_son.c(97): error C202: 'Obst_proche_balayage': undefined identifier
+encodage_son.c(100): error C202: 'tab_angles': undefined identifier
+encodage_son.c(104): error C202: 'j': undefined identifier
+encodage_son.c(105): error C202: 'j': undefined identifier
+encodage_son.c(106): error C202: 'j': undefined identifier
+encodage_son.c(110): error C202: 'angle': undefined identifier
+encodage_son.c(113): error C202: 'angle': undefined identifier
+encodage_son.c(119): error C202: 'tab_angles': undefined identifier
+encodage_son.c(123): error C202: 'j': undefined identifier
+encodage_son.c(124): error C202: 'j': undefined identifier
+encodage_son.c(125): error C202: 'min_AV': undefined identifier
+encodage_son.c(128): error C202: 'dist_min_AV': undefined identifier
+encodage_son.c(129): error C202: 'j': undefined identifier
+encodage_son.c(130): error C202: 'j': undefined identifier
+encodage_son.c(131): error C202: 'min_AR': undefined identifier
+encodage_son.c(134): error C202: 'dist_min_AR': undefined identifier
+encodage_son.c(135): error C202: 'dist_min_AR': undefined identifier
+encodage_son.c(136): error C202: 'dist_min_AR': undefined identifier
+encodage_son.c(137): error C202: 'angle': undefined identifier
+encodage_son.c(140): error C202: 'dist_min_AV': undefined identifier
+encodage_son.c(141): error C202: 'angle': undefined identifier
+encodage_son.c(145): error C202: 'angle': undefined identifier
+encodage_son.c(151): error C202: 'Affichage': undefined identifier
+encodage_son.c(176): error C231: 'obstacle_avant': redefinition
+encodage_son.c(177): error C231: 'obstacle_arriere': redefinition
+encodage_son.c(191): error C129: missing ';' before '.'
+Target not created
+Build target 'Target 1'
+compiling Fonctions_cote_serializer.c...
+compiling main.c...
+main.c(420): warning C280: 'com': unreferenced local variable
+main.c(558): warning C280: 'com': unreferenced local variable
+compiling Lien_Structure_commande.c...
+Lien_Structure_commande.c(212): error C181: incompatible operand
+compiling encodage_son.c...
+encodage_son.c(19): warning C276: constant in condition expression
+encodage_son.c(20): error C200: left side of '.' requires struct/union
+encodage_son.c(100): error C202: 'tab_angles': undefined identifier
+encodage_son.c(104): error C202: 'j': undefined identifier
+encodage_son.c(105): error C202: 'j': undefined identifier
+encodage_son.c(106): error C202: 'j': undefined identifier
+encodage_son.c(110): error C202: 'angle': undefined identifier
+encodage_son.c(113): error C202: 'angle': undefined identifier
+encodage_son.c(119): error C202: 'tab_angles': undefined identifier
+encodage_son.c(123): error C202: 'j': undefined identifier
+encodage_son.c(124): error C202: 'j': undefined identifier
+encodage_son.c(125): error C202: 'min_AV': undefined identifier
+encodage_son.c(128): error C202: 'dist_min_AV': undefined identifier
+encodage_son.c(129): error C202: 'j': undefined identifier
+encodage_son.c(130): error C202: 'j': undefined identifier
+encodage_son.c(131): error C202: 'min_AR': undefined identifier
+encodage_son.c(134): error C202: 'dist_min_AR': undefined identifier
+encodage_son.c(135): error C202: 'dist_min_AR': undefined identifier
+encodage_son.c(136): error C202: 'dist_min_AR': undefined identifier
+encodage_son.c(137): error C202: 'angle': undefined identifier
+encodage_son.c(140): error C202: 'dist_min_AV': undefined identifier
+encodage_son.c(141): error C202: 'angle': undefined identifier
+encodage_son.c(145): error C202: 'angle': undefined identifier
+encodage_son.c(151): error C202: 'Affichage': undefined identifier
+encodage_son.c(176): error C231: 'obstacle_avant': redefinition
+encodage_son.c(177): error C231: 'obstacle_arriere': redefinition
+encodage_son.c(191): error C129: missing ';' before '.'
+compiling son_sonore.c...
+Target not created
+Build target 'Target 1'
+compiling Lien_Structure_commande.c...
+Lien_Structure_commande.c(212): error C181: incompatible operand
+compiling encodage_son.c...
+encodage_son.c(21): warning C276: constant in condition expression
+encodage_son.c(24): error C200: left side of '.' requires struct/union
+encodage_son.c(103): error C202: 'tab_angles': undefined identifier
+encodage_son.c(107): error C202: 'j': undefined identifier
+encodage_son.c(108): error C202: 'j': undefined identifier
+encodage_son.c(109): error C202: 'j': undefined identifier
+encodage_son.c(113): error C202: 'angle': undefined identifier
+encodage_son.c(116): error C202: 'angle': undefined identifier
+encodage_son.c(122): error C202: 'tab_angles': undefined identifier
+encodage_son.c(126): error C202: 'j': undefined identifier
+encodage_son.c(127): error C202: 'j': undefined identifier
+encodage_son.c(128): error C202: 'min_AV': undefined identifier
+encodage_son.c(131): error C202: 'dist_min_AV': undefined identifier
+encodage_son.c(132): error C202: 'j': undefined identifier
+encodage_son.c(133): error C202: 'j': undefined identifier
+encodage_son.c(134): error C202: 'min_AR': undefined identifier
+encodage_son.c(137): error C202: 'dist_min_AR': undefined identifier
+encodage_son.c(138): error C202: 'dist_min_AR': undefined identifier
+encodage_son.c(139): error C202: 'dist_min_AR': undefined identifier
+encodage_son.c(140): error C202: 'angle': undefined identifier
+encodage_son.c(143): error C202: 'dist_min_AV': undefined identifier
+encodage_son.c(144): error C202: 'angle': undefined identifier
+encodage_son.c(148): error C202: 'angle': undefined identifier
+encodage_son.c(154): error C202: 'Affichage': undefined identifier
+encodage_son.c(179): error C231: 'obstacle_avant': redefinition
+encodage_son.c(180): error C231: 'obstacle_arriere': redefinition
+encodage_son.c(194): error C129: missing ';' before '.'
+Target not created
+Build target 'Target 1'
+compiling Lien_Structure_commande.c...
+Lien_Structure_commande.c(212): error C181: incompatible operand
+compiling encodage_son.c...
+encodage_son.c(24): error C200: left side of '.' requires struct/union
+encodage_son.c(103): error C202: 'tab_angles': undefined identifier
+encodage_son.c(107): error C202: 'j': undefined identifier
+encodage_son.c(108): error C202: 'j': undefined identifier
+encodage_son.c(109): error C202: 'j': undefined identifier
+encodage_son.c(113): error C202: 'angle': undefined identifier
+encodage_son.c(116): error C202: 'angle': undefined identifier
+encodage_son.c(122): error C202: 'tab_angles': undefined identifier
+encodage_son.c(126): error C202: 'j': undefined identifier
+encodage_son.c(127): error C202: 'j': undefined identifier
+encodage_son.c(128): error C202: 'min_AV': undefined identifier
+encodage_son.c(131): error C202: 'dist_min_AV': undefined identifier
+encodage_son.c(132): error C202: 'j': undefined identifier
+encodage_son.c(133): error C202: 'j': undefined identifier
+encodage_son.c(134): error C202: 'min_AR': undefined identifier
+encodage_son.c(137): error C202: 'dist_min_AR': undefined identifier
+encodage_son.c(138): error C202: 'dist_min_AR': undefined identifier
+encodage_son.c(139): error C202: 'dist_min_AR': undefined identifier
+encodage_son.c(140): error C202: 'angle': undefined identifier
+encodage_son.c(143): error C202: 'dist_min_AV': undefined identifier
+encodage_son.c(144): error C202: 'angle': undefined identifier
+encodage_son.c(148): error C202: 'angle': undefined identifier
+encodage_son.c(154): error C202: 'Affichage': undefined identifier
+encodage_son.c(179): error C231: 'obstacle_avant': redefinition
+encodage_son.c(180): error C231: 'obstacle_arriere': redefinition
+encodage_son.c(194): error C129: missing ';' before '.'
+Target not created
+Build target 'Target 1'
+compiling Lien_Structure_commande.c...
+Lien_Structure_commande.c(212): error C181: incompatible operand
+compiling encodage_son.c...
+encodage_son.c(26): error C214: illegal pointer conversion
+Target not created
+Build target 'Target 1'
+compiling Lien_Structure_commande.c...
+Lien_Structure_commande.c(214): error C213: left side of asn-op not an lvalue
+Lien_Structure_commande.c(214): error C141: syntax error near 'serOutstring'
+compiling encodage_son.c...
+encodage_son.c(26): error C214: illegal pointer conversion
+Target not created
+Build target 'Target 1'
+compiling Lien_Structure_commande.c...
+Lien_Structure_commande.c(213): error C213: left side of asn-op not an lvalue
+compiling encodage_son.c...
+encodage_son.c(26): error C214: illegal pointer conversion
+Target not created
+Rebuild target 'Target 1'
+assembling STARTUP.A51...
+compiling ADC.c...
+compiling Config_Globale.c...
+compiling Config_SPI.c...
+compiling Fonctions_cote_serializer.c...
+compiling Servomoteur_Horizontal.c...
+compiling Timers.c...
+compiling Transmission_SPI.c...
+compiling UART0_RingBuffer_lib.C...
+compiling UART1.c...
+compiling ultrason.c...
+compiling main.c...
+main.c(420): warning C280: 'com': unreferenced local variable
+main.c(558): warning C280: 'com': unreferenced local variable
+compiling Lien_Structure_commande.c...
+Lien_Structure_commande.c(213): error C213: left side of asn-op not an lvalue
+compiling encodage_son.c...
+encodage_son.c(26): error C214: illegal pointer conversion
+compiling son_sonore.c...
+Target not created
+Build target 'Target 1'
+compiling Lien_Structure_commande.c...
+Lien_Structure_commande.c(213): error C213: left side of asn-op not an lvalue
+compiling encodage_son.c...
+encodage_son.c(26): error C214: illegal pointer conversion
+Target not created
+Build target 'Target 1'
+compiling Lien_Structure_commande.c...
+compiling encodage_son.c...
+encodage_son.c(26): error C214: illegal pointer conversion
+Target not created
+Build target 'Target 1'
+compiling encodage_son.c...
+encodage_son.c(27): error C214: illegal pointer conversion
+Target not created
+Build target 'Target 1'
+compiling encodage_son.c...
+encodage_son.c(28): error C214: illegal pointer conversion
+Target not created
+Build target 'Target 1'
+compiling encodage_son.c...
+encodage_son.c(29): error C214: illegal pointer conversion
+Target not created
+Build target 'Target 1'
+compiling encodage_son.c...
+encodage_son.c(29): error C214: illegal pointer conversion
+Target not created
+Rebuild target 'Target 1'
+assembling STARTUP.A51...
+compiling ADC.c...
+compiling Config_Globale.c...
+compiling Config_SPI.c...
+compiling Fonctions_cote_serializer.c...
+compiling Servomoteur_Horizontal.c...
+compiling Timers.c...
+compiling Transmission_SPI.c...
+compiling UART0_RingBuffer_lib.C...
+compiling UART1.c...
+compiling ultrason.c...
+compiling main.c...
+main.c(420): warning C280: 'com': unreferenced local variable
+main.c(558): warning C280: 'com': unreferenced local variable
+compiling Lien_Structure_commande.c...
+compiling encodage_son.c...
+encodage_son.c(29): error C214: illegal pointer conversion
+compiling son_sonore.c...
+Target not created
+Build target 'Target 1'
+compiling Lien_Structure_commande.c...
+compiling encodage_son.c...
+encodage_son.c(29): error C214: illegal pointer conversion
+Target not created
+Build target 'Target 1'
+compiling Servomoteur_Horizontal.c...
+compiling encodage_son.c...
+encodage_son.c(29): error C214: illegal pointer conversion
+Target not created
+Build target 'Target 1'
+compiling Servomoteur_Horizontal.c...
+compiling encodage_son.c...
+encodage_son.c(18): error C202: 'Agnle_atteint': undefined identifier
+encodage_son.c(68): error C141: syntax error near '`'
+encodage_son.c(108): error C202: 'tab_angles': undefined identifier
+encodage_son.c(112): error C202: 'j': undefined identifier
+encodage_son.c(113): error C202: 'j': undefined identifier
+encodage_son.c(114): error C202: 'j': undefined identifier
+encodage_son.c(118): error C202: 'angle': undefined identifier
+encodage_son.c(121): error C202: 'angle': undefined identifier
+encodage_son.c(127): error C202: 'tab_angles': undefined identifier
+encodage_son.c(131): error C202: 'j': undefined identifier
+encodage_son.c(132): error C202: 'j': undefined identifier
+encodage_son.c(133): error C202: 'min_AV': undefined identifier
+encodage_son.c(136): error C202: 'dist_min_AV': undefined identifier
+encodage_son.c(137): error C202: 'j': undefined identifier
+encodage_son.c(138): error C202: 'j': undefined identifier
+encodage_son.c(139): error C202: 'min_AR': undefined identifier
+encodage_son.c(142): error C202: 'dist_min_AR': undefined identifier
+encodage_son.c(143): error C202: 'dist_min_AR': undefined identifier
+encodage_son.c(144): error C202: 'dist_min_AR': undefined identifier
+encodage_son.c(145): error C202: 'angle': undefined identifier
+encodage_son.c(148): error C202: 'dist_min_AV': undefined identifier
+encodage_son.c(149): error C202: 'angle': undefined identifier
+encodage_son.c(153): error C202: 'angle': undefined identifier
+encodage_son.c(159): error C202: 'Affichage': undefined identifier
+encodage_son.c(184): error C231: 'obstacle_avant': redefinition
+encodage_son.c(185): error C231: 'obstacle_arriere': redefinition
+encodage_son.c(199): error C129: missing ';' before '.'
+Target not created
+Build target 'Target 1'
+compiling encodage_son.c...
+encodage_son.c(18): error C247: non-address/-constant initializer
+encodage_son.c(68): error C141: syntax error near '`'
+encodage_son.c(108): error C202: 'tab_angles': undefined identifier
+encodage_son.c(112): error C202: 'j': undefined identifier
+encodage_son.c(113): error C202: 'j': undefined identifier
+encodage_son.c(114): error C202: 'j': undefined identifier
+encodage_son.c(118): error C202: 'angle': undefined identifier
+encodage_son.c(121): error C202: 'angle': undefined identifier
+encodage_son.c(127): error C202: 'tab_angles': undefined identifier
+encodage_son.c(131): error C202: 'j': undefined identifier
+encodage_son.c(132): error C202: 'j': undefined identifier
+encodage_son.c(133): error C202: 'min_AV': undefined identifier
+encodage_son.c(136): error C202: 'dist_min_AV': undefined identifier
+encodage_son.c(137): error C202: 'j': undefined identifier
+encodage_son.c(138): error C202: 'j': undefined identifier
+encodage_son.c(139): error C202: 'min_AR': undefined identifier
+encodage_son.c(142): error C202: 'dist_min_AR': undefined identifier
+encodage_son.c(143): error C202: 'dist_min_AR': undefined identifier
+encodage_son.c(144): error C202: 'dist_min_AR': undefined identifier
+encodage_son.c(145): error C202: 'angle': undefined identifier
+encodage_son.c(148): error C202: 'dist_min_AV': undefined identifier
+encodage_son.c(149): error C202: 'angle': undefined identifier
+encodage_son.c(153): error C202: 'angle': undefined identifier
+encodage_son.c(159): error C202: 'Affichage': undefined identifier
+encodage_son.c(184): error C231: 'obstacle_avant': redefinition
+encodage_son.c(185): error C231: 'obstacle_arriere': redefinition
+encodage_son.c(199): error C129: missing ';' before '.'
+Target not created
+Build target 'Target 1'
+compiling encodage_son.c...
+encodage_son.c(29): error C213: left side of asn-op not an lvalue
+encodage_son.c(69): error C141: syntax error near '`'
+encodage_son.c(109): error C202: 'tab_angles': undefined identifier
+encodage_son.c(113): error C202: 'j': undefined identifier
+encodage_son.c(114): error C202: 'j': undefined identifier
+encodage_son.c(115): error C202: 'j': undefined identifier
+encodage_son.c(119): error C202: 'angle': undefined identifier
+encodage_son.c(122): error C202: 'angle': undefined identifier
+encodage_son.c(128): error C202: 'tab_angles': undefined identifier
+encodage_son.c(132): error C202: 'j': undefined identifier
+encodage_son.c(133): error C202: 'j': undefined identifier
+encodage_son.c(134): error C202: 'min_AV': undefined identifier
+encodage_son.c(137): error C202: 'dist_min_AV': undefined identifier
+encodage_son.c(138): error C202: 'j': undefined identifier
+encodage_son.c(139): error C202: 'j': undefined identifier
+encodage_son.c(140): error C202: 'min_AR': undefined identifier
+encodage_son.c(143): error C202: 'dist_min_AR': undefined identifier
+encodage_son.c(144): error C202: 'dist_min_AR': undefined identifier
+encodage_son.c(145): error C202: 'dist_min_AR': undefined identifier
+encodage_son.c(146): error C202: 'angle': undefined identifier
+encodage_son.c(149): error C202: 'dist_min_AV': undefined identifier
+encodage_son.c(150): error C202: 'angle': undefined identifier
+encodage_son.c(154): error C202: 'angle': undefined identifier
+encodage_son.c(160): error C202: 'Affichage': undefined identifier
+encodage_son.c(185): error C231: 'obstacle_avant': redefinition
+encodage_son.c(186): error C231: 'obstacle_arriere': redefinition
+encodage_son.c(200): error C129: missing ';' before '.'
+Target not created
+Build target 'Target 1'
+compiling encodage_son.c...
+encodage_son.c(46): warning C276: constant in condition expression
+encodage_son.c(49): warning C276: constant in condition expression
+encodage_son.c(56): error C214: illegal pointer conversion
+Target not created
+Build target 'Target 1'
+compiling encodage_son.c...
+encodage_son.c(56): error C214: illegal pointer conversion
+Target not created
+Build target 'Target 1'
+compiling encodage_son.c...
+encodage_son.c(70): error C141: syntax error near '`'
+encodage_son.c(110): error C202: 'tab_angles': undefined identifier
+encodage_son.c(114): error C202: 'j': undefined identifier
+encodage_son.c(115): error C202: 'j': undefined identifier
+encodage_son.c(116): error C202: 'j': undefined identifier
+encodage_son.c(120): error C202: 'angle': undefined identifier
+encodage_son.c(123): error C202: 'angle': undefined identifier
+encodage_son.c(129): error C202: 'tab_angles': undefined identifier
+encodage_son.c(133): error C202: 'j': undefined identifier
+encodage_son.c(134): error C202: 'j': undefined identifier
+encodage_son.c(135): error C202: 'min_AV': undefined identifier
+encodage_son.c(138): error C202: 'dist_min_AV': undefined identifier
+encodage_son.c(139): error C202: 'j': undefined identifier
+encodage_son.c(140): error C202: 'j': undefined identifier
+encodage_son.c(141): error C202: 'min_AR': undefined identifier
+encodage_son.c(144): error C202: 'dist_min_AR': undefined identifier
+encodage_son.c(145): error C202: 'dist_min_AR': undefined identifier
+encodage_son.c(146): error C202: 'dist_min_AR': undefined identifier
+encodage_son.c(147): error C202: 'angle': undefined identifier
+encodage_son.c(150): error C202: 'dist_min_AV': undefined identifier
+encodage_son.c(151): error C202: 'angle': undefined identifier
+encodage_son.c(155): error C202: 'angle': undefined identifier
+encodage_son.c(161): error C202: 'Affichage': undefined identifier
+encodage_son.c(186): error C231: 'obstacle_avant': redefinition
+encodage_son.c(187): error C231: 'obstacle_arriere': redefinition
+encodage_son.c(201): error C129: missing ';' before '.'
+Target not created
+Build target 'Target 1'
+compiling encodage_son.c...
+encodage_son.c(106): error C202: 'tab_angles': undefined identifier
+encodage_son.c(110): error C202: 'j': undefined identifier
+encodage_son.c(111): error C202: 'j': undefined identifier
+encodage_son.c(112): error C202: 'j': undefined identifier
+encodage_son.c(116): error C202: 'angle': undefined identifier
+encodage_son.c(119): error C202: 'angle': undefined identifier
+encodage_son.c(125): error C202: 'tab_angles': undefined identifier
+encodage_son.c(129): error C202: 'j': undefined identifier
+encodage_son.c(130): error C202: 'j': undefined identifier
+encodage_son.c(131): error C202: 'min_AV': undefined identifier
+encodage_son.c(134): error C202: 'dist_min_AV': undefined identifier
+encodage_son.c(135): error C202: 'j': undefined identifier
+encodage_son.c(136): error C202: 'j': undefined identifier
+encodage_son.c(137): error C202: 'min_AR': undefined identifier
+encodage_son.c(140): error C202: 'dist_min_AR': undefined identifier
+encodage_son.c(141): error C202: 'dist_min_AR': undefined identifier
+encodage_son.c(142): error C202: 'dist_min_AR': undefined identifier
+encodage_son.c(143): error C202: 'angle': undefined identifier
+encodage_son.c(146): error C202: 'dist_min_AV': undefined identifier
+encodage_son.c(147): error C202: 'angle': undefined identifier
+encodage_son.c(151): error C202: 'angle': undefined identifier
+encodage_son.c(157): error C202: 'Affichage': undefined identifier
+encodage_son.c(182): error C231: 'obstacle_avant': redefinition
+encodage_son.c(183): error C231: 'obstacle_arriere': redefinition
+encodage_son.c(197): error C129: missing ';' before '.'
+Target not created
+Build target 'Target 1'
+compiling encodage_son.c...
+encodage_son.c(111): error C202: 'min': undefined identifier
+encodage_son.c(112): error C202: 'min': undefined identifier
+encodage_son.c(115): error C202: 'min': undefined identifier
+encodage_son.c(116): error C202: 'angle': undefined identifier
+encodage_son.c(119): error C202: 'angle': undefined identifier
+encodage_son.c(129): error C202: 'tab_dist': undefined identifier
+encodage_son.c(134): error C202: 'dist_min_AV': undefined identifier
+encodage_son.c(135): error C202: 'tab_dist': undefined identifier
+encodage_son.c(140): error C202: 'dist_min_AR': undefined identifier
+encodage_son.c(141): error C202: 'dist_min_AR': undefined identifier
+encodage_son.c(142): error C202: 'dist_min_AR': undefined identifier
+encodage_son.c(143): error C202: 'angle': undefined identifier
+encodage_son.c(146): error C202: 'dist_min_AV': undefined identifier
+encodage_son.c(147): error C202: 'angle': undefined identifier
+encodage_son.c(151): error C202: 'angle': undefined identifier
+encodage_son.c(157): error C202: 'Affichage': undefined identifier
+encodage_son.c(170): error C231: 'obstacle_avant': redefinition
+encodage_son.c(171): error C231: 'obstacle_arriere': redefinition
+encodage_son.c(185): error C129: missing ';' before '.'
+Target not created
+Build target 'Target 1'
+compiling encodage_son.c...
+encodage_son.c(120): error C214: illegal pointer conversion
+Target not created
+Build target 'Target 1'
+compiling encodage_son.c...
+encodage_son.c(122): error C214: illegal pointer conversion
+Target not created
+Build target 'Target 1'
+compiling encodage_son.c...
+encodage_son.c(135): error C202: 'dist_min_AV': undefined identifier
+encodage_son.c(136): error C202: 'tab_dist': undefined identifier
+encodage_son.c(141): error C202: 'dist_min_AR': undefined identifier
+encodage_son.c(142): error C202: 'dist_min_AR': undefined identifier
+encodage_son.c(143): error C202: 'dist_min_AR': undefined identifier
+encodage_son.c(147): error C202: 'dist_min_AV': undefined identifier
+encodage_son.c(158): error C202: 'Affichage': undefined identifier
+encodage_son.c(171): error C231: 'obstacle_avant': redefinition
+encodage_son.c(172): error C231: 'obstacle_arriere': redefinition
+encodage_son.c(186): error C129: missing ';' before '.'
+Target not created
+Build target 'Target 1'
+compiling encodage_son.c...
+encodage_son.c(117): error C202: 'dist_min': undefined identifier
+encodage_son.c(123): error C202: 'dist_min': undefined identifier
+encodage_son.c(137): error C202: 'tab_dist': undefined identifier
+encodage_son.c(144): error C202: 'dist_min': undefined identifier
+encodage_son.c(148): error C202: 'dist_min': undefined identifier
+encodage_son.c(155): error C202: 'dist_min': undefined identifier
+encodage_son.c(159): error C202: 'Affichage': undefined identifier
+encodage_son.c(172): error C231: 'obstacle_avant': redefinition
+encodage_son.c(173): error C231: 'obstacle_arriere': redefinition
+encodage_son.c(187): error C129: missing ';' before '.'
+Target not created
+Build target 'Target 1'
+compiling encodage_son.c...
+encodage_son.c(137): error C213: left side of asn-op not an lvalue
+encodage_son.c(138): error C202: 'tab_dist': undefined identifier
+encodage_son.c(160): error C202: 'Affichage': undefined identifier
+encodage_son.c(173): error C231: 'obstacle_avant': redefinition
+encodage_son.c(174): error C231: 'obstacle_arriere': redefinition
+encodage_son.c(188): error C129: missing ';' before '.'
+Target not created
+Build target 'Target 1'
+compiling encodage_son.c...
+encodage_son.c(138): error C202: 'tab_dist': undefined identifier
+encodage_son.c(160): error C202: 'Affichage': undefined identifier
+encodage_son.c(173): error C231: 'obstacle_avant': redefinition
+encodage_son.c(174): error C231: 'obstacle_arriere': redefinition
+encodage_son.c(188): error C129: missing ';' before '.'
+Target not created
+Build target 'Target 1'
+compiling encodage_son.c...
+encodage_son.c(143): error C213: left side of asn-op not an lvalue
+encodage_son.c(160): error C202: 'Affichage': undefined identifier
+encodage_son.c(173): error C231: 'obstacle_avant': redefinition
+encodage_son.c(174): error C231: 'obstacle_arriere': redefinition
+encodage_son.c(188): error C129: missing ';' before '.'
+Target not created
+Build target 'Target 1'
+compiling encodage_son.c...
+encodage_son.c(145): error C213: left side of asn-op not an lvalue
+encodage_son.c(160): error C202: 'Affichage': undefined identifier
+encodage_son.c(173): error C231: 'obstacle_avant': redefinition
+encodage_son.c(174): error C231: 'obstacle_arriere': redefinition
+encodage_son.c(188): error C129: missing ';' before '.'
+Target not created
+Build target 'Target 1'
+compiling encodage_son.c...
+encodage_son.c(160): error C202: 'Affichage': undefined identifier
+encodage_son.c(173): error C231: 'obstacle_avant': redefinition
+encodage_son.c(174): error C231: 'obstacle_arriere': redefinition
+encodage_son.c(188): error C129: missing ';' before '.'
+Target not created
+Build target 'Target 1'
+compiling encodage_son.c...
+encodage_son.c(160): warning C173: missing return-expression
+encodage_son.c(161): warning C173: missing return-expression
+encodage_son.c(71): warning C280: 'detection_minimale': unreferenced local variable
+encodage_son.c(173): error C231: 'obstacle_avant': redefinition
+encodage_son.c(174): error C231: 'obstacle_arriere': redefinition
+encodage_son.c(188): error C129: missing ';' before '.'
+Target not created
+Build target 'Target 1'
+compiling encodage_son.c...
+encodage_son.c(160): error C181: incompatible operand
+encodage_son.c(173): error C231: 'obstacle_avant': redefinition
+encodage_son.c(174): error C231: 'obstacle_arriere': redefinition
+encodage_son.c(188): error C129: missing ';' before '.'
+Target not created
+Build target 'Target 1'
+compiling encodage_son.c...
+encodage_son.c(160): error C181: incompatible operand
+encodage_son.c(173): error C231: 'obstacle_avant': redefinition
+encodage_son.c(174): error C231: 'obstacle_arriere': redefinition
+encodage_son.c(188): error C129: missing ';' before '.'
+Target not created
+Build target 'Target 1'
+compiling encodage_son.c...
+encodage_son.c(161): error C181: incompatible operand
+Target not created
+Build target 'Target 1'
+compiling encodage_son.c...
+encodage_son.c(161): error C181: incompatible operand
+encodage_son.c(163): error C141: syntax error near '}'
+Target not created
+Build target 'Target 1'
+compiling encodage_son.c...
+encodage_son.c(161): error C181: incompatible operand
+encodage_son.c(165): error C141: syntax error near '}'
+Target not created
+Build target 'Target 1'
+compiling encodage_son.c...
+encodage_son.c(161): error C202: 'information': undefined identifier
+encodage_son.c(165): error C141: syntax error near '}'
+Target not created
+Build target 'Target 1'
+compiling encodage_son.c...
+encodage_son.c(68): warning C280: 'detection_minimale': unreferenced local variable
+encodage_son.c(162): error C141: syntax error near '}'
+Target not created
+Build target 'Target 1'
+compiling encodage_son.c...
+encodage_son.c(70): warning C280: 'detection_minimale': unreferenced local variable
+encodage_son.c(164): error C141: syntax error near '}'
+Target not created
+Build target 'Target 1'
+compiling Lien_Structure_commande.c...
+Lien_Structure_commande.c(42): error C247: non-address/-constant initializer
+compiling encodage_son.c...
+encodage_son.c(69): warning C280: 'detection_minimale': unreferenced local variable
+encodage_son.c(163): error C141: syntax error near '}'
+Target not created
+Build target 'Target 1'
+compiling Lien_Structure_commande.c...
+Lien_Structure_commande.c(42): error C243: 'array[]': string out of bounds
+compiling encodage_son.c...
+encodage_son.c(69): warning C280: 'detection_minimale': unreferenced local variable
+encodage_son.c(163): error C141: syntax error near '}'
+Target not created
+Build target 'Target 1'
+compiling Lien_Structure_commande.c...
+Lien_Structure_commande.c(93): error C213: left side of asn-op not an lvalue
+compiling encodage_son.c...
+encodage_son.c(69): warning C280: 'detection_minimale': unreferenced local variable
+encodage_son.c(163): error C141: syntax error near '}'
+Target not created
+Build target 'Target 1'
+compiling Lien_Structure_commande.c...
+compiling encodage_son.c...
+encodage_son.c(69): warning C280: 'detection_minimale': unreferenced local variable
+encodage_son.c(163): error C141: syntax error near '}'
+Target not created
+Build target 'Target 1'
+compiling encodage_son.c...
+encodage_son.c(162): error C141: syntax error near '}'
+Target not created
+Rebuild target 'Target 1'
+assembling STARTUP.A51...
+compiling ADC.c...
+compiling Config_Globale.c...
+compiling Config_SPI.c...
+compiling Fonctions_cote_serializer.c...
+compiling Servomoteur_Horizontal.c...
+compiling Timers.c...
+compiling Transmission_SPI.c...
+compiling UART0_RingBuffer_lib.C...
+compiling UART1.c...
+compiling ultrason.c...
+compiling main.c...
+main.c(420): warning C280: 'com': unreferenced local variable
+main.c(558): warning C280: 'com': unreferenced local variable
+compiling Lien_Structure_commande.c...
+compiling encodage_son.c...
+encodage_son.c(162): error C141: syntax error near '}'
+compiling son_sonore.c...
+Target not created
+Build target 'Target 1'
+compiling encodage_son.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?COURANT_ADC?ADC
+    CALLER1: ?C_C51STARTUP
+    CALLER2: ?PR?ISR_TIMER3?MAIN
+Program Size: data=15.3 xdata=1483 code=21010
+"master_final" - 0 Error(s), 5 Warning(s).
+Rebuild target 'Target 1'
+assembling STARTUP.A51...
+compiling ADC.c...
+compiling Config_Globale.c...
+compiling Config_SPI.c...
+compiling Fonctions_cote_serializer.c...
+compiling Servomoteur_Horizontal.c...
+compiling Timers.c...
+compiling Transmission_SPI.c...
+compiling UART0_RingBuffer_lib.C...
+compiling UART1.c...
+compiling ultrason.c...
+compiling main.c...
+main.c(420): warning C280: 'com': unreferenced local variable
+main.c(558): warning C280: 'com': unreferenced local variable
+compiling Lien_Structure_commande.c...
+compiling encodage_son.c...
+compiling son_sonore.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?COURANT_ADC?ADC
+    CALLER1: ?C_C51STARTUP
+    CALLER2: ?PR?ISR_TIMER3?MAIN
+Program Size: data=15.3 xdata=1483 code=21010
+"master_final" - 0 Error(s), 7 Warning(s).
+Build target 'Target 1'
+compiling encodage_son.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?COURANT_ADC?ADC
+    CALLER1: ?C_C51STARTUP
+    CALLER2: ?PR?ISR_TIMER3?MAIN
+Program Size: data=15.3 xdata=1480 code=21007
+"master_final" - 0 Error(s), 5 Warning(s).
+Build target 'Target 1'
 compiling Lien_Structure_commande.c...
 linking...
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
@@ -25,5 +747,1055 @@ linking...
     SEGMENT: ?PR?COURANT_ADC?ADC
     CALLER1: ?C_C51STARTUP
     CALLER2: ?PR?ISR_TIMER3?MAIN
-Program Size: data=15.3 xdata=1303 code=22811
+Program Size: data=15.3 xdata=1480 code=21038
+"master_final" - 0 Error(s), 5 Warning(s).
+Build target 'Target 1'
+compiling encodage_son.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?COURANT_ADC?ADC
+    CALLER1: ?C_C51STARTUP
+    CALLER2: ?PR?ISR_TIMER3?MAIN
+Program Size: data=15.3 xdata=1480 code=21092
+"master_final" - 0 Error(s), 5 Warning(s).
+Build target 'Target 1'
+compiling encodage_son.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?COURANT_ADC?ADC
+    CALLER1: ?C_C51STARTUP
+    CALLER2: ?PR?ISR_TIMER3?MAIN
+Program Size: data=15.3 xdata=1481 code=21093
+"master_final" - 0 Error(s), 5 Warning(s).
+Build target 'Target 1'
+compiling encodage_son.c...
+encodage_son.c(32): error C214: illegal pointer conversion
+Target not created
+Build target 'Target 1'
+compiling encodage_son.c...
+encodage_son.c(32): error C195: '*' illegal indirection
+Target not created
+Build target 'Target 1'
+compiling encodage_son.c...
+encodage_son.c(32): error C141: syntax error near ')'
+Target not created
+Build target 'Target 1'
+compiling encodage_son.c...
+encodage_son.c(30): warning C260: '=': pointer truncation
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?COURANT_ADC?ADC
+    CALLER1: ?C_C51STARTUP
+    CALLER2: ?PR?ISR_TIMER3?MAIN
+Program Size: data=15.3 xdata=1481 code=21094
+"master_final" - 0 Error(s), 6 Warning(s).
+Build target 'Target 1'
+compiling encodage_son.c...
+encodage_son.c(30): error C213: left side of asn-op not an lvalue
+Target not created
+Build target 'Target 1'
+compiling encodage_son.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?COURANT_ADC?ADC
+    CALLER1: ?C_C51STARTUP
+    CALLER2: ?PR?ISR_TIMER3?MAIN
+Program Size: data=15.3 xdata=1481 code=21106
+"master_final" - 0 Error(s), 5 Warning(s).
+Build target 'Target 1'
+compiling encodage_son.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?COURANT_ADC?ADC
+    CALLER1: ?C_C51STARTUP
+    CALLER2: ?PR?ISR_TIMER3?MAIN
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  ANGLE_SERVO
+    MODULE:  encodage_son.obj (ENCODAGE_SON)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ANGLE_SERVO
+    MODULE:  encodage_son.obj (ENCODAGE_SON)
+    ADDRESS: 4397H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ANGLE_SERVO
+    MODULE:  encodage_son.obj (ENCODAGE_SON)
+    ADDRESS: 4399H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ANGLE_SERVO
+    MODULE:  encodage_son.obj (ENCODAGE_SON)
+    ADDRESS: 43D8H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ANGLE_SERVO
+    MODULE:  encodage_son.obj (ENCODAGE_SON)
+    ADDRESS: 43DCH
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ANGLE_SERVO
+    MODULE:  encodage_son.obj (ENCODAGE_SON)
+    ADDRESS: 356EH
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ANGLE_SERVO
+    MODULE:  encodage_son.obj (ENCODAGE_SON)
+    ADDRESS: 35CFH
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ANGLE_SERVO
+    MODULE:  encodage_son.obj (ENCODAGE_SON)
+    ADDRESS: 35D3H
+Program Size: data=15.3 xdata=1479 code=21101
+"master_final" - 0 Error(s), 13 Warning(s).
+Rebuild target 'Target 1'
+assembling STARTUP.A51...
+compiling ADC.c...
+compiling Config_Globale.c...
+compiling Config_SPI.c...
+compiling Fonctions_cote_serializer.c...
+compiling Servomoteur_Horizontal.c...
+compiling Timers.c...
+compiling Transmission_SPI.c...
+compiling UART0_RingBuffer_lib.C...
+compiling UART1.c...
+compiling ultrason.c...
+compiling main.c...
+main.c(420): warning C280: 'com': unreferenced local variable
+main.c(558): warning C280: 'com': unreferenced local variable
+compiling Lien_Structure_commande.c...
+compiling encodage_son.c...
+compiling son_sonore.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?COURANT_ADC?ADC
+    CALLER1: ?C_C51STARTUP
+    CALLER2: ?PR?ISR_TIMER3?MAIN
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  ANGLE_SERVO
+    MODULE:  encodage_son.obj (ENCODAGE_SON)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ANGLE_SERVO
+    MODULE:  encodage_son.obj (ENCODAGE_SON)
+    ADDRESS: 4397H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ANGLE_SERVO
+    MODULE:  encodage_son.obj (ENCODAGE_SON)
+    ADDRESS: 4399H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ANGLE_SERVO
+    MODULE:  encodage_son.obj (ENCODAGE_SON)
+    ADDRESS: 43D8H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ANGLE_SERVO
+    MODULE:  encodage_son.obj (ENCODAGE_SON)
+    ADDRESS: 43DCH
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ANGLE_SERVO
+    MODULE:  encodage_son.obj (ENCODAGE_SON)
+    ADDRESS: 356EH
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ANGLE_SERVO
+    MODULE:  encodage_son.obj (ENCODAGE_SON)
+    ADDRESS: 35CFH
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ANGLE_SERVO
+    MODULE:  encodage_son.obj (ENCODAGE_SON)
+    ADDRESS: 35D3H
+Program Size: data=15.3 xdata=1479 code=21101
+"master_final" - 0 Error(s), 15 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+main.c(420): warning C280: 'com': unreferenced local variable
+main.c(565): warning C280: 'com': unreferenced local variable
+compiling encodage_son.c...
+encodage_son.c(30): error C141: syntax error near ';'
+Target not created
+Build target 'Target 1'
+compiling encodage_son.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?COURANT_ADC?ADC
+    CALLER1: ?C_C51STARTUP
+    CALLER2: ?PR?ISR_TIMER3?MAIN
+Program Size: data=15.3 xdata=1481 code=21108
+"master_final" - 0 Error(s), 5 Warning(s).
+Build target 'Target 1'
+compiling encodage_son.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?COURANT_ADC?ADC
+    CALLER1: ?C_C51STARTUP
+    CALLER2: ?PR?ISR_TIMER3?MAIN
+Program Size: data=15.3 xdata=1484 code=21090
+"master_final" - 0 Error(s), 5 Warning(s).
+Build target 'Target 1'
+compiling encodage_son.c...
+encodage_son.c(31): error C202: 'angle_servo': undefined identifier
+encodage_son.c(32): error C202: 'Angle_servo_': undefined identifier
+Target not created
+Build target 'Target 1'
+compiling encodage_son.c...
+encodage_son.c(32): error C202: 'Angle_servo_': undefined identifier
+Target not created
+Build target 'Target 1'
+compiling encodage_son.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?COURANT_ADC?ADC
+    CALLER1: ?C_C51STARTUP
+    CALLER2: ?PR?ISR_TIMER3?MAIN
+Program Size: data=15.3 xdata=1484 code=21130
+"master_final" - 0 Error(s), 5 Warning(s).
+Build target 'Target 1'
+compiling encodage_son.c...
+encodage_son.c(30): error C213: left side of asn-op not an lvalue
+Target not created
+Build target 'Target 1'
+compiling encodage_son.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?COURANT_ADC?ADC
+    CALLER1: ?C_C51STARTUP
+    CALLER2: ?PR?ISR_TIMER3?MAIN
+Program Size: data=15.3 xdata=1480 code=21134
+"master_final" - 0 Error(s), 5 Warning(s).
+Build target 'Target 1'
+compiling encodage_son.c...
+encodage_son.c(33): error C214: illegal pointer conversion
+Target not created
+Build target 'Target 1'
+compiling encodage_son.c...
+encodage_son.c(32): error C214: illegal pointer conversion
+Target not created
+Build target 'Target 1'
+compiling encodage_son.c...
+encodage_son.c(32): error C214: illegal pointer conversion
+Target not created
+Build target 'Target 1'
+compiling encodage_son.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?COURANT_ADC?ADC
+    CALLER1: ?C_C51STARTUP
+    CALLER2: ?PR?ISR_TIMER3?MAIN
+Program Size: data=15.3 xdata=1480 code=21123
+"master_final" - 0 Error(s), 5 Warning(s).
+Build target 'Target 1'
+compiling encodage_son.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?COURANT_ADC?ADC
+    CALLER1: ?C_C51STARTUP
+    CALLER2: ?PR?ISR_TIMER3?MAIN
+Program Size: data=15.3 xdata=1480 code=21123
+"master_final" - 0 Error(s), 5 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+main.c(420): warning C280: 'com': unreferenced local variable
+main.c(565): warning C280: 'com': unreferenced local variable
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?COURANT_ADC?ADC
+    CALLER1: ?C_C51STARTUP
+    CALLER2: ?PR?ISR_TIMER3?MAIN
+Program Size: data=15.3 xdata=1480 code=21125
 "master_final" - 0 Error(s), 7 Warning(s).
+Build target 'Target 1'
+compiling encodage_son.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?COURANT_ADC?ADC
+    CALLER1: ?C_C51STARTUP
+    CALLER2: ?PR?ISR_TIMER3?MAIN
+Program Size: data=15.3 xdata=1480 code=21148
+"master_final" - 0 Error(s), 5 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+main.c(420): warning C280: 'com': unreferenced local variable
+main.c(565): warning C280: 'com': unreferenced local variable
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?COURANT_ADC?ADC
+    CALLER1: ?C_C51STARTUP
+    CALLER2: ?PR?ISR_TIMER3?MAIN
+Program Size: data=15.3 xdata=1480 code=21148
+"master_final" - 0 Error(s), 7 Warning(s).
+Build target 'Target 1'
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?COURANT_ADC?ADC
+    CALLER1: ?C_C51STARTUP
+    CALLER2: ?PR?ISR_TIMER3?MAIN
+Program Size: data=15.3 xdata=1480 code=21148
+"master_final" - 0 Error(s), 5 Warning(s).
+Build target 'Target 1'
+compiling Servomoteur_Horizontal.c...
+compiling encodage_son.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?COURANT_ADC?ADC
+    CALLER1: ?C_C51STARTUP
+    CALLER2: ?PR?ISR_TIMER3?MAIN
+Program Size: data=15.3 xdata=1480 code=21114
+"master_final" - 0 Error(s), 5 Warning(s).
+Build target 'Target 1'
+compiling encodage_son.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?COURANT_ADC?ADC
+    CALLER1: ?C_C51STARTUP
+    CALLER2: ?PR?ISR_TIMER3?MAIN
+Program Size: data=15.3 xdata=1480 code=21135
+"master_final" - 0 Error(s), 5 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+main.c(420): warning C280: 'com': unreferenced local variable
+main.c(565): warning C280: 'com': unreferenced local variable
+compiling encodage_son.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?COURANT_ADC?ADC
+    CALLER1: ?C_C51STARTUP
+    CALLER2: ?PR?ISR_TIMER3?MAIN
+Program Size: data=15.3 xdata=1480 code=21151
+"master_final" - 0 Error(s), 7 Warning(s).
+Build target 'Target 1'
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?COURANT_ADC?ADC
+    CALLER1: ?C_C51STARTUP
+    CALLER2: ?PR?ISR_TIMER3?MAIN
+Program Size: data=15.3 xdata=1480 code=21151
+"master_final" - 0 Error(s), 5 Warning(s).
+Build target 'Target 1'
+compiling encodage_son.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?COURANT_ADC?ADC
+    CALLER1: ?C_C51STARTUP
+    CALLER2: ?PR?ISR_TIMER3?MAIN
+Program Size: data=15.3 xdata=1686 code=21357
+"master_final" - 0 Error(s), 5 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+main.c(420): warning C280: 'com': unreferenced local variable
+main.c(565): warning C280: 'com': unreferenced local variable
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?COURANT_ADC?ADC
+    CALLER1: ?C_C51STARTUP
+    CALLER2: ?PR?ISR_TIMER3?MAIN
+Program Size: data=15.3 xdata=1686 code=21363
+"master_final" - 0 Error(s), 7 Warning(s).
+Build target 'Target 1'
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?COURANT_ADC?ADC
+    CALLER1: ?C_C51STARTUP
+    CALLER2: ?PR?ISR_TIMER3?MAIN
+Program Size: data=15.3 xdata=1686 code=21363
+"master_final" - 0 Error(s), 5 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+main.c(420): warning C280: 'com': unreferenced local variable
+main.c(565): warning C280: 'com': unreferenced local variable
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?COURANT_ADC?ADC
+    CALLER1: ?C_C51STARTUP
+    CALLER2: ?PR?ISR_TIMER3?MAIN
+Program Size: data=15.3 xdata=1686 code=21365
+"master_final" - 0 Error(s), 7 Warning(s).
+Build target 'Target 1'
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?COURANT_ADC?ADC
+    CALLER1: ?C_C51STARTUP
+    CALLER2: ?PR?ISR_TIMER3?MAIN
+Program Size: data=15.3 xdata=1686 code=21365
+"master_final" - 0 Error(s), 5 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+main.c(420): warning C280: 'com': unreferenced local variable
+main.c(565): warning C280: 'com': unreferenced local variable
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?COURANT_ADC?ADC
+    CALLER1: ?C_C51STARTUP
+    CALLER2: ?PR?ISR_TIMER3?MAIN
+Program Size: data=15.3 xdata=1686 code=21361
+"master_final" - 0 Error(s), 7 Warning(s).
+Build target 'Target 1'
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?COURANT_ADC?ADC
+    CALLER1: ?C_C51STARTUP
+    CALLER2: ?PR?ISR_TIMER3?MAIN
+Program Size: data=15.3 xdata=1686 code=21361
+"master_final" - 0 Error(s), 5 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+main.c(421): warning C280: 'com': unreferenced local variable
+main.c(566): warning C280: 'com': unreferenced local variable
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?COURANT_ADC?ADC
+    CALLER1: ?C_C51STARTUP
+    CALLER2: ?PR?ISR_TIMER3?MAIN
+Program Size: data=15.3 xdata=1686 code=21356
+"master_final" - 0 Error(s), 7 Warning(s).
+Build target 'Target 1'
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?COURANT_ADC?ADC
+    CALLER1: ?C_C51STARTUP
+    CALLER2: ?PR?ISR_TIMER3?MAIN
+Program Size: data=15.3 xdata=1686 code=21356
+"master_final" - 0 Error(s), 5 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+main.c(420): warning C280: 'com': unreferenced local variable
+main.c(567): warning C280: 'com': unreferenced local variable
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?COURANT_ADC?ADC
+    CALLER1: ?C_C51STARTUP
+    CALLER2: ?PR?ISR_TIMER3?MAIN
+Program Size: data=15.3 xdata=1686 code=21347
+"master_final" - 0 Error(s), 7 Warning(s).
+Build target 'Target 1'
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?COURANT_ADC?ADC
+    CALLER1: ?C_C51STARTUP
+    CALLER2: ?PR?ISR_TIMER3?MAIN
+Program Size: data=15.3 xdata=1686 code=21347
+"master_final" - 0 Error(s), 5 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+main.c(420): warning C280: 'com': unreferenced local variable
+main.c(465): error C213: left side of asn-op not an lvalue
+Target not created
+Build target 'Target 1'
+compiling main.c...
+main.c(420): warning C280: 'com': unreferenced local variable
+main.c(567): warning C280: 'com': unreferenced local variable
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?COURANT_ADC?ADC
+    CALLER1: ?C_C51STARTUP
+    CALLER2: ?PR?ISR_TIMER3?MAIN
+Program Size: data=15.3 xdata=1686 code=21347
+"master_final" - 0 Error(s), 7 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+main.c(420): warning C280: 'com': unreferenced local variable
+main.c(465): error C213: left side of asn-op not an lvalue
+Target not created
+Build target 'Target 1'
+compiling main.c...
+main.c(420): warning C280: 'com': unreferenced local variable
+main.c(465): error C193: '': bad operand type
+main.c(467): error C202: 'angle': undefined identifier
+main.c(484): error C202: 'angle': undefined identifier
+main.c(487): error C202: 'angle': undefined identifier
+main.c(516): error C202: 'angle': undefined identifier
+main.c(517): error C202: 'angle': undefined identifier
+main.c(519): error C202: 'angle': undefined identifier
+main.c(536): error C202: 'angle': undefined identifier
+main.c(537): error C202: 'angle': undefined identifier
+main.c(539): error C202: 'angle': undefined identifier
+Target not created
+Build target 'Target 1'
+compiling main.c...
+main.c(420): warning C280: 'com': unreferenced local variable
+main.c(465): error C193: '': bad operand type
+main.c(467): error C202: 'angle': undefined identifier
+main.c(484): error C202: 'angle': undefined identifier
+main.c(487): error C202: 'angle': undefined identifier
+main.c(516): error C202: 'angle': undefined identifier
+main.c(517): error C202: 'angle': undefined identifier
+main.c(519): error C202: 'angle': undefined identifier
+main.c(536): error C202: 'angle': undefined identifier
+main.c(537): error C202: 'angle': undefined identifier
+main.c(539): error C202: 'angle': undefined identifier
+Target not created
+Build target 'Target 1'
+compiling main.c...
+main.c(420): warning C280: 'com': unreferenced local variable
+main.c(465): error C193: '': bad operand type
+main.c(484): error C202: 'angle': undefined identifier
+main.c(516): error C202: 'angle': undefined identifier
+main.c(517): error C202: 'angle': undefined identifier
+main.c(519): error C202: 'angle': undefined identifier
+main.c(536): error C202: 'angle': undefined identifier
+main.c(537): error C202: 'angle': undefined identifier
+main.c(539): error C202: 'angle': undefined identifier
+Target not created
+Build target 'Target 1'
+compiling main.c...
+main.c(420): warning C280: 'com': unreferenced local variable
+main.c(465): error C193: '': bad operand type
+main.c(516): error C202: 'angle': undefined identifier
+main.c(517): error C202: 'angle': undefined identifier
+main.c(519): error C202: 'angle': undefined identifier
+main.c(536): error C202: 'angle': undefined identifier
+main.c(537): error C202: 'angle': undefined identifier
+main.c(539): error C202: 'angle': undefined identifier
+Target not created
+Build target 'Target 1'
+compiling main.c...
+main.c(420): warning C280: 'com': unreferenced local variable
+main.c(465): error C193: '': bad operand type
+Target not created
+Build target 'Target 1'
+compiling main.c...
+main.c(420): warning C280: 'com': unreferenced local variable
+main.c(565): warning C280: 'com': unreferenced local variable
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?COURANT_ADC?ADC
+    CALLER1: ?C_C51STARTUP
+    CALLER2: ?PR?ISR_TIMER3?MAIN
+Program Size: data=15.3 xdata=1686 code=21363
+"master_final" - 0 Error(s), 7 Warning(s).
+Build target 'Target 1'
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?COURANT_ADC?ADC
+    CALLER1: ?C_C51STARTUP
+    CALLER2: ?PR?ISR_TIMER3?MAIN
+Program Size: data=15.3 xdata=1686 code=21363
+"master_final" - 0 Error(s), 5 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+main.c(420): warning C280: 'com': unreferenced local variable
+main.c(565): warning C280: 'com': unreferenced local variable
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?COURANT_ADC?ADC
+    CALLER1: ?C_C51STARTUP
+    CALLER2: ?PR?ISR_TIMER3?MAIN
+Program Size: data=15.3 xdata=1686 code=21361
+"master_final" - 0 Error(s), 7 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+main.c(420): warning C280: 'com': unreferenced local variable
+main.c(565): warning C280: 'com': unreferenced local variable
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?COURANT_ADC?ADC
+    CALLER1: ?C_C51STARTUP
+    CALLER2: ?PR?ISR_TIMER3?MAIN
+Program Size: data=15.3 xdata=1686 code=21362
+"master_final" - 0 Error(s), 7 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+main.c(420): warning C280: 'com': unreferenced local variable
+main.c(565): warning C280: 'com': unreferenced local variable
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?COURANT_ADC?ADC
+    CALLER1: ?C_C51STARTUP
+    CALLER2: ?PR?ISR_TIMER3?MAIN
+Program Size: data=15.3 xdata=1686 code=21361
+"master_final" - 0 Error(s), 7 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+main.c(420): warning C280: 'com': unreferenced local variable
+main.c(465): error C141: syntax error near '='
+main.c(465): error C141: syntax error near ')'
+main.c(470): error C141: syntax error near 'else'
+Target not created
+Build target 'Target 1'
+compiling main.c...
+main.c(420): warning C280: 'com': unreferenced local variable
+main.c(565): warning C280: 'com': unreferenced local variable
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?COURANT_ADC?ADC
+    CALLER1: ?C_C51STARTUP
+    CALLER2: ?PR?ISR_TIMER3?MAIN
+Program Size: data=15.3 xdata=1686 code=21362
+"master_final" - 0 Error(s), 7 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+main.c(420): warning C280: 'com': unreferenced local variable
+main.c(565): warning C280: 'com': unreferenced local variable
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?COURANT_ADC?ADC
+    CALLER1: ?C_C51STARTUP
+    CALLER2: ?PR?ISR_TIMER3?MAIN
+Program Size: data=15.3 xdata=1686 code=21361
+"master_final" - 0 Error(s), 7 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+main.c(420): warning C280: 'com': unreferenced local variable
+main.c(471): error C141: syntax error near 'else'
+main.c(560): error C176: more than one 'default'
+main.c(566): error C141: syntax error near 'struct'
+main.c(566): error C202: 'COMMANDES': undefined identifier
+main.c(571): error C141: syntax error near 'struct'
+main.c(571): error C202: 'COMMANDES': undefined identifier
+main.c(577): error C141: syntax error near 'struct'
+main.c(577): error C202: 'COMMANDES': undefined identifier
+main.c(650): error C141: syntax error near 'struct'
+main.c(650): error C202: 'COMMANDES': undefined identifier
+main.c(740): error C141: syntax error near 'struct'
+main.c(740): error C202: 'COMMANDES': undefined identifier
+main.c(764): error C141: syntax error near 'struct'
+main.c(764): error C202: 'COMMANDES': undefined identifier
+Target not created
+Build target 'Target 1'
+compiling main.c...
+main.c(420): warning C280: 'com': unreferenced local variable
+main.c(566): warning C280: 'com': unreferenced local variable
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?COURANT_ADC?ADC
+    CALLER1: ?C_C51STARTUP
+    CALLER2: ?PR?ISR_TIMER3?MAIN
+Program Size: data=15.3 xdata=1686 code=21364
+"master_final" - 0 Error(s), 7 Warning(s).
+Rebuild target 'Target 1'
+assembling STARTUP.A51...
+compiling ADC.c...
+compiling Config_Globale.c...
+compiling Config_SPI.c...
+compiling Fonctions_cote_serializer.c...
+compiling Servomoteur_Horizontal.c...
+compiling Timers.c...
+compiling Transmission_SPI.c...
+compiling UART0_RingBuffer_lib.C...
+compiling UART1.c...
+compiling ultrason.c...
+compiling main.c...
+main.c(420): warning C280: 'com': unreferenced local variable
+main.c(566): warning C280: 'com': unreferenced local variable
+compiling Lien_Structure_commande.c...
+compiling encodage_son.c...
+compiling son_sonore.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?COURANT_ADC?ADC
+    CALLER1: ?C_C51STARTUP
+    CALLER2: ?PR?ISR_TIMER3?MAIN
+Program Size: data=15.3 xdata=1686 code=21368
+"master_final" - 0 Error(s), 7 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+main.c(420): warning C280: 'com': unreferenced local variable
+main.c(569): warning C280: 'com': unreferenced local variable
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?COURANT_ADC?ADC
+    CALLER1: ?C_C51STARTUP
+    CALLER2: ?PR?ISR_TIMER3?MAIN
+Program Size: data=15.3 xdata=1686 code=21374
+"master_final" - 0 Error(s), 7 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+main.c(420): warning C280: 'com': unreferenced local variable
+main.c(569): warning C280: 'com': unreferenced local variable
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?COURANT_ADC?ADC
+    CALLER1: ?C_C51STARTUP
+    CALLER2: ?PR?ISR_TIMER3?MAIN
+Program Size: data=15.3 xdata=1686 code=21376
+"master_final" - 0 Error(s), 7 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+main.c(420): warning C280: 'com': unreferenced local variable
+main.c(569): warning C280: 'com': unreferenced local variable
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?COURANT_ADC?ADC
+    CALLER1: ?C_C51STARTUP
+    CALLER2: ?PR?ISR_TIMER3?MAIN
+Program Size: data=15.3 xdata=1686 code=21376
+"master_final" - 0 Error(s), 7 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+main.c(420): warning C280: 'com': unreferenced local variable
+main.c(569): warning C280: 'com': unreferenced local variable
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?COURANT_ADC?ADC
+    CALLER1: ?C_C51STARTUP
+    CALLER2: ?PR?ISR_TIMER3?MAIN
+Program Size: data=15.3 xdata=1686 code=21376
+"master_final" - 0 Error(s), 7 Warning(s).
+Build target 'Target 1'
+compiling encodage_son.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?COURANT_ADC?ADC
+    CALLER1: ?C_C51STARTUP
+    CALLER2: ?PR?ISR_TIMER3?MAIN
+Program Size: data=15.3 xdata=1686 code=21412
+"master_final" - 0 Error(s), 5 Warning(s).

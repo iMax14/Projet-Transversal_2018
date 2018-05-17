@@ -462,10 +462,11 @@ struct COMMANDES traitement_M(char *com, struct COMMANDES commande)
 										tab[j-6]=com[j];
 									}
 									angle=conversioncoord(tab);
-									if (angle%5==0 && (angle>5 || angle<45))
-									{
-										commande.DCT_Obst_Resolution=angle;
-										commande_correct=1;
+									if (angle%5==0){
+										if(angle>=5 && angle<=45){
+											commande.DCT_Obst_Resolution=angle;
+											commande_correct=1;
+										}
 									}
 									else
 									{
@@ -482,10 +483,11 @@ struct COMMANDES traitement_M(char *com, struct COMMANDES commande)
 											tab[j-8]=com[j];
 										}
 										angle=conversioncoord(tab);
-										if (angle%5==0 && (angle>5 || angle<45))
-										{
-										commande.DCT_Obst_Resolution=angle;
-										commande_correct=1;
+										if (angle%5==0){
+											if(angle>=5 && angle<=45){
+												commande.DCT_Obst_Resolution=angle;
+												commande_correct=1;
+											}
 										}
 										else
 										{
@@ -504,7 +506,7 @@ struct COMMANDES traitement_M(char *com, struct COMMANDES commande)
 									break;
 							}
 						case 'S': // cas MOS
-							commande.A_Obst=Obst_balayage;
+							commande.A_Obst=Obst_proche_balayage;
 							switch(com[4])
 							{
 								case 'A':
@@ -514,10 +516,11 @@ struct COMMANDES traitement_M(char *com, struct COMMANDES commande)
 										tab[j-6]=com[j];
 									}
 									angle=conversioncoord(tab);
-									if (angle%5==0 && (angle>5 || angle<45))
-									{
-										commande.DCT_Obst_Resolution=angle;
-										commande_correct=1;
+									if (angle%5==0){
+										if(angle>=5 && angle<=45){
+											commande.DCT_Obst_Resolution=angle;
+											commande_correct=1;
+										}
 									}
 									else
 									{
@@ -534,10 +537,11 @@ struct COMMANDES traitement_M(char *com, struct COMMANDES commande)
 											tab[j-8]=com[j];
 										}
 										angle=conversioncoord(tab);
-										if ((angle%5==0) && (angle>=5) && (angle<=45))
-										{
-											commande.DCT_Obst_Resolution=angle;
-											commande_correct=1;
+										if (angle%5==0){
+											if(angle>=5 && angle<=45){
+												commande.DCT_Obst_Resolution=angle;
+												commande_correct=1;
+											}
 										}
 										else
 										{
@@ -948,7 +952,8 @@ void main (void)
 			}while(a!=0x0D); Commenté pour les tests avec le simulateur*/
 
 		//strcpy(com,"CS V A:-90");
-		strcpy(com,"SD F:12 P:50 W:60 B:5");
+		//strcpy(com,"SD F:12 P:50 W:60 B:5");
+		strcpy(com,"MOS D A:05");
 		
 		commande = Message(com/*, f_b, t_son, t_silence, bip_b*/);
 			/*if(commande.son==emission)
