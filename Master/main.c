@@ -947,8 +947,9 @@ void main (void)
 				}
 			}while(a!=0x0D); Commenté pour les tests avec le simulateur*/
 
-		strcpy(com,"CS V A:-90");
-
+		//strcpy(com,"CS V A:-90");
+		strcpy(com,"SD F:12 P:50 W:60 B:5");
+		
 		commande = Message(com/*, f_b, t_son, t_silence, bip_b*/);
 			/*if(commande.son==emission)
 			{

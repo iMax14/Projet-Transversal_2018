@@ -11,32 +11,6 @@ Build target 'Target 1'
 compiling main.c...
 main.c(420): warning C280: 'com': unreferenced local variable
 main.c(565): warning C280: 'com': unreferenced local variable
-linking...
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
-*** WARNING L15: MULTIPLE CALL TO SEGMENT
-    SEGMENT: ?PR?COURANT_ADC?ADC
-    CALLER1: ?C_C51STARTUP
-    CALLER2: ?PR?ISR_TIMER3?MAIN
-Program Size: data=15.3 xdata=1303 code=22794
-"master_final" - 0 Error(s), 7 Warning(s).
-Build target 'Target 1'
-compiling Lien_Structure_commande.c...
-Lien_Structure_commande.c(105): error C202: 'not': undefined identifier
-Lien_Structure_commande.c(105): error C141: syntax error near 'trame'
-Target not created
-Build target 'Target 1'
-compiling Lien_Structure_commande.c...
-Lien_Structure_commande.c(105): error C141: syntax error near '~'
-Lien_Structure_commande.c(105): error C141: syntax error near '='
-Target not created
-Build target 'Target 1'
 compiling Lien_Structure_commande.c...
 linking...
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
@@ -51,60 +25,5 @@ linking...
     SEGMENT: ?PR?COURANT_ADC?ADC
     CALLER1: ?C_C51STARTUP
     CALLER2: ?PR?ISR_TIMER3?MAIN
-Program Size: data=15.3 xdata=1303 code=22800
-"master_final" - 0 Error(s), 5 Warning(s).
-Build target 'Target 1'
-compiling main.c...
-main.c(420): warning C280: 'com': unreferenced local variable
-main.c(565): warning C280: 'com': unreferenced local variable
-linking...
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
-*** WARNING L15: MULTIPLE CALL TO SEGMENT
-    SEGMENT: ?PR?COURANT_ADC?ADC
-    CALLER1: ?C_C51STARTUP
-    CALLER2: ?PR?ISR_TIMER3?MAIN
-Program Size: data=15.3 xdata=1303 code=22800
-"master_final" - 0 Error(s), 7 Warning(s).
-Build target 'Target 1'
-compiling Lien_Structure_commande.c...
-linking...
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
-*** WARNING L15: MULTIPLE CALL TO SEGMENT
-    SEGMENT: ?PR?COURANT_ADC?ADC
-    CALLER1: ?C_C51STARTUP
-    CALLER2: ?PR?ISR_TIMER3?MAIN
-Program Size: data=15.3 xdata=1303 code=22802
-"master_final" - 0 Error(s), 5 Warning(s).
-Build target 'Target 1'
-compiling main.c...
-main.c(420): warning C280: 'com': unreferenced local variable
-main.c(565): warning C280: 'com': unreferenced local variable
-linking...
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
-*** WARNING L15: MULTIPLE CALL TO SEGMENT
-    SEGMENT: ?PR?COURANT_ADC?ADC
-    CALLER1: ?C_C51STARTUP
-    CALLER2: ?PR?ISR_TIMER3?MAIN
-Program Size: data=15.3 xdata=1303 code=22802
+Program Size: data=15.3 xdata=1303 code=22811
 "master_final" - 0 Error(s), 7 Warning(s).

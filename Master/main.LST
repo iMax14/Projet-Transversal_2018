@@ -1,4 +1,4 @@
-C51 COMPILER V9.51   MAIN                                                                  05/17/2018 11:41:38 PAGE 1   
+C51 COMPILER V9.51   MAIN                                                                  05/17/2018 11:54:21 PAGE 1   
 
 
 C51 COMPILER V9.51, COMPILATION OF MODULE MAIN
@@ -62,7 +62,7 @@ line level    source
   53          
   54            centaine= (tableau[0]-'0')*100;
   55            dizaine= (tableau[1]-'0')*10;
-C51 COMPILER V9.51   MAIN                                                                  05/17/2018 11:41:38 PAGE 2   
+C51 COMPILER V9.51   MAIN                                                                  05/17/2018 11:54:21 PAGE 2   
 
   56            unite= (tableau[2]-'0');
   57          
@@ -126,7 +126,7 @@ line level    source
  114   1        char duree;
  115   1      
  116   1        switch (com[1]) //AJOUTER LA DUREE
-C51 COMPILER V9.51   MAIN                                                                  05/17/2018 11:41:38 PAGE 3   
+C51 COMPILER V9.51   MAIN                                                                  05/17/2018 11:54:21 PAGE 3   
 
  117   1            {
  118   2              case 'S': // cas ASS (Dur�e)
@@ -190,7 +190,7 @@ line level    source
  176          {
  177   1        char vitesse;
  178   1        char tab[3];
-C51 COMPILER V9.51   MAIN                                                                  05/17/2018 11:41:38 PAGE 4   
+C51 COMPILER V9.51   MAIN                                                                  05/17/2018 11:54:21 PAGE 4   
 
  179   1        int j;
  180   1        commande.Etat_Mouvement=Reculer;
@@ -254,7 +254,7 @@ line level    source
  238   3          }
  239   2          case 'V':
  240   2          {
-C51 COMPILER V9.51   MAIN                                                                  05/17/2018 11:41:38 PAGE 5   
+C51 COMPILER V9.51   MAIN                                                                  05/17/2018 11:54:21 PAGE 5   
 
  241   3            commande.Etat_Servo=Servo_V;
  242   3            if (com[5]=='A')
@@ -318,7 +318,7 @@ line level    source
  300   2              case '3': //�preuve 3
  301   2              {
  302   3                commande.Etat_Epreuve=epreuve3;
-C51 COMPILER V9.51   MAIN                                                                  05/17/2018 11:41:38 PAGE 6   
+C51 COMPILER V9.51   MAIN                                                                  05/17/2018 11:54:21 PAGE 6   
 
  303   3                epreuve_en_cours = epreuve3;
  304   3                strcpy(message_PC_com, "\r\nInvite de commande 3\r\n>");
@@ -382,7 +382,7 @@ line level    source
  362   1      }
  363          struct COMMANDES traitement_E(struct COMMANDES commande)//FIN DEPREUVE OK
  364          {
-C51 COMPILER V9.51   MAIN                                                                  05/17/2018 11:41:38 PAGE 7   
+C51 COMPILER V9.51   MAIN                                                                  05/17/2018 11:54:21 PAGE 7   
 
  365   1        //serOutstring("Fin de l'�preuve");
  366   1        commande.Etat_Epreuve=Epreuve_non;
@@ -446,7 +446,7 @@ line level    source
  424   1      }
 *** WARNING C280 IN LINE 420 OF main.c: 'com': unreferenced local variable
  425          struct COMMANDES traitement_M(char *com, struct COMMANDES commande)
-C51 COMPILER V9.51   MAIN                                                                  05/17/2018 11:41:38 PAGE 8   
+C51 COMPILER V9.51   MAIN                                                                  05/17/2018 11:54:21 PAGE 8   
 
  426          {
  427   1        int j;
@@ -510,7 +510,7 @@ line level    source
  485   5                          if (angle%5==0 && (angle>5 || angle<45))
  486   5                          {
  487   6                          commande.DCT_Obst_Resolution=angle;
-C51 COMPILER V9.51   MAIN                                                                  05/17/2018 11:41:38 PAGE 9   
+C51 COMPILER V9.51   MAIN                                                                  05/17/2018 11:54:21 PAGE 9   
 
  488   6                          commande_correct=1;
  489   6                          }
@@ -574,7 +574,7 @@ line level    source
  547   4      
  548   4                        else
  549   4                        {
-C51 COMPILER V9.51   MAIN                                                                  05/17/2018 11:41:38 PAGE 10  
+C51 COMPILER V9.51   MAIN                                                                  05/17/2018 11:54:21 PAGE 10  
 
  550   5                          commande.DCT_Obst_Resolution=30;
  551   5                        }
@@ -638,7 +638,7 @@ line level    source
  608   3              switch (com[3])
  609   3              {
  610   4                case 'D':
-C51 COMPILER V9.51   MAIN                                                                  05/17/2018 11:41:38 PAGE 11  
+C51 COMPILER V9.51   MAIN                                                                  05/17/2018 11:54:21 PAGE 11  
 
  611   4                {
  612   5                  commande.Etat_Mouvement=Rot_AngD;
@@ -702,7 +702,7 @@ line level    source
  669   4                tab[i-5]=com[i];
  670   4              }
  671   3              frequence=conversioncoord(tab);
-C51 COMPILER V9.51   MAIN                                                                  05/17/2018 11:41:38 PAGE 12  
+C51 COMPILER V9.51   MAIN                                                                  05/17/2018 11:54:21 PAGE 12  
 
  672   3              if (frequence >99 ||frequence <1)
  673   3              {
@@ -766,7 +766,7 @@ line level    source
  730   3              commande.nombre_Bips=bip_b;             // nombre de bips
  731   3            }
  732   2        }
-C51 COMPILER V9.51   MAIN                                                                  05/17/2018 11:41:38 PAGE 13  
+C51 COMPILER V9.51   MAIN                                                                  05/17/2018 11:54:21 PAGE 13  
 
  733   1        else
  734   1        {
@@ -830,7 +830,7 @@ line level    source
  792   2          {
  793   3            commande=traitement_A(com,commande);
  794   3            break;
-C51 COMPILER V9.51   MAIN                                                                  05/17/2018 11:41:38 PAGE 14  
+C51 COMPILER V9.51   MAIN                                                                  05/17/2018 11:54:21 PAGE 14  
 
  795   3          }
  796   2          case 'T':// si on recoit un TV Reglage de la vitesse seulement
@@ -894,7 +894,7 @@ line level    source
  854   2          {
  855   3            commande=traitement_R(com,commande);
  856   3            break;
-C51 COMPILER V9.51   MAIN                                                                  05/17/2018 11:41:38 PAGE 15  
+C51 COMPILER V9.51   MAIN                                                                  05/17/2018 11:54:21 PAGE 15  
 
  857   3          }
  858   2          case 'C':
@@ -958,7 +958,7 @@ line level    source
  916   1      // a commenter si le robot est d�ja allum� avant le lancement du code
  917   1      // Pour recevoir le message de d�marrage du serializer
  918   1      /*  do{
-C51 COMPILER V9.51   MAIN                                                                  05/17/2018 11:41:38 PAGE 16  
+C51 COMPILER V9.51   MAIN                                                                  05/17/2018 11:54:21 PAGE 16  
 
  919   1            a=serInchar1();
  920   1            echo[0] = a;
@@ -991,47 +991,48 @@ line level    source
  947   2              }
  948   2            }while(a!=0x0D); Commenté pour les tests avec le simulateur*/
  949   2      
- 950   2          strcpy(com,"CS V A:-90");
- 951   2      
- 952   2          commande = Message(com/*, f_b, t_son, t_silence, bip_b*/);
- 953   2            /*if(commande.son==emission)
- 954   2            {
- 955   2              f_b=commande.frequence;
- 956   2              t_son=commande.duree_son;
- 957   2              t_silence=commande.duree_silence;
- 958   2              bip_b=commande.nombre_Bips;
- 959   2            }*/
- 960   2          if (commande_correct == 1){
- 961   3              fonctionRoutage(commande);
- 962   3          }
- 963   2          if (commande_correct == 2){
- 964   3            serOutstring(message_PC_com); // si erreur
- 965   3          }
- 966   2          if(commande_correct == 0){
- 967   3            strcpy(mess, "\n\r#\n\r>");
- 968   3            serOutstring(mess); // si erreur
- 969   3          }
- 970   2        //serOutstring(message_PC_com); // si erreur
- 971   2        }
- 972   1      
- 973   1      }
- 974          
- 975          void ISR_Timer2 (void) interrupt 5 {
- 976   1        TF2 = 0; //Remise � '0' du flag d'overflow
- 977   1        PWM_servo=!PWM_servo; //On envoie le signal PWM au servomoteur
- 978   1      }
- 979          
- 980          void ISR_Timer3 (void) interrupt 14 {
-C51 COMPILER V9.51   MAIN                                                                  05/17/2018 11:41:38 PAGE 17  
+ 950   2          //strcpy(com,"CS V A:-90");
+ 951   2          strcpy(com,"SD F:12 P:50 W:60 B:5");
+ 952   2          
+ 953   2          commande = Message(com/*, f_b, t_son, t_silence, bip_b*/);
+ 954   2            /*if(commande.son==emission)
+ 955   2            {
+ 956   2              f_b=commande.frequence;
+ 957   2              t_son=commande.duree_son;
+ 958   2              t_silence=commande.duree_silence;
+ 959   2              bip_b=commande.nombre_Bips;
+ 960   2            }*/
+ 961   2          if (commande_correct == 1){
+ 962   3              fonctionRoutage(commande);
+ 963   3          }
+ 964   2          if (commande_correct == 2){
+ 965   3            serOutstring(message_PC_com); // si erreur
+ 966   3          }
+ 967   2          if(commande_correct == 0){
+ 968   3            strcpy(mess, "\n\r#\n\r>");
+ 969   3            serOutstring(mess); // si erreur
+ 970   3          }
+ 971   2        //serOutstring(message_PC_com); // si erreur
+ 972   2        }
+ 973   1      
+ 974   1      }
+ 975          
+ 976          void ISR_Timer2 (void) interrupt 5 {
+ 977   1        TF2 = 0; //Remise � '0' du flag d'overflow
+ 978   1        PWM_servo=!PWM_servo; //On envoie le signal PWM au servomoteur
+ 979   1      }
+ 980          
+C51 COMPILER V9.51   MAIN                                                                  05/17/2018 11:54:21 PAGE 17  
 
- 981   1        TMR3CN &= 0x04; //Remise � '0' du flag d'overflow
- 982   1        energie += 9.6*Courant_ADC()*0.001*0.035;
- 983   1      }
+ 981          void ISR_Timer3 (void) interrupt 14 {
+ 982   1        TMR3CN &= 0x04; //Remise � '0' du flag d'overflow
+ 983   1        energie += 9.6*Courant_ADC()*0.001*0.035;
+ 984   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
    CODE SIZE        =   5477    ----
-   CONSTANT SIZE    =    386    ----
+   CONSTANT SIZE    =    397    ----
    XDATA SIZE       =     59     782
    PDATA SIZE       =   ----    ----
    DATA SIZE        =   ----    ----
