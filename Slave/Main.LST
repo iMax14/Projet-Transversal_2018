@@ -1,7 +1,7 @@
-C51 COMPILER V9.51   MAIN                                                                  05/05/2018 16:30:10 PAGE 1   
+C51 COMPILER V9.52.0.0   MAIN                                                              05/16/2018 11:56:16 PAGE 1   
 
 
-C51 COMPILER V9.51, COMPILATION OF MODULE MAIN
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE MAIN
 OBJECT MODULE PLACED IN Main.OBJ
 COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE Main.c LARGE BROWSE DEBUG OBJECTEXTEND TABS(2)
 
@@ -20,114 +20,118 @@ line level    source
   11          #include "Transmission_SPI.h"
   12          #include "Transmission_UART0.h"
   13          #include "Config_UART0.h"
-  14          
-  15          #define SYSCLK 22118400L
+  14          #include "Config_UART1.h"
+  15          
   16          
-  17          int Dest_msg_SPI[5] = 0;
-  18          unsigned char Angle_atteint;
-  19          int w,j;
-  20          
-  21          //Variables globales
-  22          extern unsigned char msg_CM4[256];
-  23          extern unsigned char msg_PointLum[256];
-  24          extern unsigned char msg_ServVert[256];
-  25          extern unsigned char msg_Vue[256];
-  26          extern unsigned char msg_FPGA[256];
-  27          int a;
-  28          
-  29          
-  30          void main (void) {
-  31   1        
-  32   1        EA=0;
-  33   1        Init_Device();  //Initialisation du microcontrôleur
-  34   1        Config_Timer2();
-  35   1        Config_SPI_SLAVE();
-  36   1        Config_Clock_UART0();
-  37   1        Config_UART0();
-  38   1        EA=1;
-  39   1      
-  40   1      /*Fonctions de tests de la connexion SPI
-  41   1        trame_recue_test(0xD1);
-  42   1        trame_recue_test(0xD1);
-  43   1        trame_recue_test(0x01);
-  44   1        trame_recue_test(0x05);
-  45   1        trame_recue_test(0x32);
-  46   1        trame_recue_test(0x19);
-  47   1        trame_recue_test(0xFF);
-  48   1        trame_recue_test(0xFF);*/
-  49   1        
-  50   1        
-  51   1        
-  52   1        while (1){
-  53   2          for(w=0; w<sizeof(Dest_msg_SPI);w++){
-  54   3            if(Dest_msg_SPI[w] == 1)
-  55   3              break;
-C51 COMPILER V9.51   MAIN                                                                  05/05/2018 16:30:10 PAGE 2   
+  17          #define SYSCLK 22118400L
+  18          
+  19          int Dest_msg_SPI[5] = 0;
+  20          unsigned char Angle_atteint;
+  21          int w,j;
+  22          
+  23          //Variables globales
+  24          extern unsigned char msg_CM4[256];
+  25          extern unsigned char msg_PointLum[256];
+  26          extern unsigned char msg_ServVert[256];
+  27          extern unsigned char msg_Vue[256];
+  28          extern unsigned char msg_FPGA[256];
+  29          int a;
+  30          
+  31          
+  32          void main (void) {
+  33   1        
+  34   1        EA=0;
+  35   1        Init_Device();  //Initialisation du microcontrôleur
+  36   1        Config_Timer2();
+  37   1        Config_SPI_SLAVE();
+  38   1        Config_Clock_UART1();
+  39   1        Config_Clock_UART0();
+  40   1        Config_UART0();
+  41   1        Config_UART1();
+  42   1        EA=1;
+  43   1      
+  44   1      /*Fonctions de tests de la connexion SPI
+  45   1        trame_recue_test(0xD1);
+  46   1        trame_recue_test(0xD1);
+  47   1        trame_recue_test(0x01);
+  48   1        trame_recue_test(0x05);
+  49   1        trame_recue_test(0x32);
+  50   1        trame_recue_test(0x19);
+  51   1        trame_recue_test(0xFF);
+  52   1        trame_recue_test(0xFF);*/
+  53   1        
+  54   1        
+  55   1        
+C51 COMPILER V9.52.0.0   MAIN                                                              05/16/2018 11:56:16 PAGE 2   
 
-  56   3          }
-  57   2          switch(w){
-  58   3            case 0 : 
-  59   3              UART_CortexM4(msg_CM4); //On appelle sa fonction associée en lui envoyant son message
-  60   3              trame_emise(0xEE);
-  61   3              for(j=0 ; j<255 ; msg_CM4[j++]=0); // RAZ du message
-  62   3              Dest_msg_SPI[w] = 0;
-  63   3              break;
-  64   3            case 1 : 
-  65   3              for(j=0 ; j<255 ; msg_PointLum[j++]=0);
+  56   1        while (1){
+  57   2          for(w=0; w<sizeof(Dest_msg_SPI);w++){
+  58   3            if(Dest_msg_SPI[w] == 1)
+  59   3              break;
+  60   3          }
+  61   2          switch(w){
+  62   3            case 0 : 
+  63   3              UART_CortexM4(msg_CM4); //On appelle sa fonction associée en lui envoyant son message
+  64   3              trame_emise(0xEE);
+  65   3              for(j=0 ; j<255 ; msg_CM4[j++]=0); // RAZ du message
   66   3              Dest_msg_SPI[w] = 0;
   67   3              break;
-  68   3            case 2 : 
-  69   3              Angle_atteint = CDE_Servo_V(msg_ServVert[0]); //On appelle sa fonction associée en lui envoyant son m
+  68   3            case 1 : 
+  69   3              for(j=0 ; j<255 ; msg_PointLum[j++]=0);
+  70   3              Dest_msg_SPI[w] = 0;
+  71   3              break;
+  72   3            case 2 : 
+  73   3              Angle_atteint = CDE_Servo_V(msg_ServVert[0]); //On appelle sa fonction associée en lui envoyant son m
              -essage
-  70   3              trame_emise(Angle_atteint);
-  71   3              for(j=0 ; j<255 ; msg_ServVert[j++]=0); // RAZ du message
-  72   3              Dest_msg_SPI[w] = 0;
-  73   3              break;
-  74   3            case 3 : 
-  75   3              for(j=0 ; j<255 ; msg_Vue[j++]=0);
+  74   3              trame_emise(Angle_atteint);
+  75   3              for(j=0 ; j<255 ; msg_ServVert[j++]=0); // RAZ du message
   76   3              Dest_msg_SPI[w] = 0;
   77   3              break;
-  78   3            case 4 : 
-  79   3              for(j=0 ; j<255 ; msg_FPGA[j++]=0);
+  78   3            case 3 : 
+  79   3              for(j=0 ; j<255 ; msg_Vue[j++]=0);
   80   3              Dest_msg_SPI[w] = 0;
   81   3              break;
-  82   3            default : 
-  83   3              break;
-  84   3          }
-  85   2      
-  86   2        }
-  87   1      
-  88   1      }
-  89          
-  90          
-  91          void ISR_Timer2 (void) interrupt 5 {
-  92   1        TF2 = 0; //Remise à '0' du flag d'overflow
-  93   1        PWM_servo=!PWM_servo; //On envoie le signal PWM au servomoteur
-  94   1      }
-  95          
-  96          
-  97          
-  98          
-  99          void ISR_SPI (void) interrupt 6 {
- 100   1      
- 101   1          SPIF = 0; //RAZ du flag d'écriture
- 102   1          
- 103   1          trame_recue(); // On réceptionne le message du Master
- 104   1          trame_emise(0xEE); // On renvoie un message au Master pour lui accuser bonne réception
- 105   1      
- 106   1      }
+  82   3            case 4 : 
+  83   3              for(j=0 ; j<255 ; msg_FPGA[j++]=0);
+  84   3              Dest_msg_SPI[w] = 0;
+  85   3              break;
+  86   3            default : 
+  87   3              break;
+  88   3          }
+  89   2      
+  90   2        }
+  91   1      
+  92   1      }
+  93          
+  94          
+  95          void ISR_Timer2 (void) interrupt 5 {
+  96   1        TF2 = 0; //Remise à '0' du flag d'overflow
+  97   1        PWM_servo=!PWM_servo; //On envoie le signal PWM au servomoteur
+  98   1      }
+  99          
+ 100          
+ 101          
+ 102          
+ 103          void ISR_SPI (void) interrupt 6 {
+ 104   1      
+ 105   1          SPIF = 0; //RAZ du flag d'écriture
+ 106   1          
+ 107   1          trame_recue(); // On réceptionne le message du Master
+ 108   1          trame_emise(0xEE); // On renvoie un message au Master pour lui accuser bonne réception
+ 109   1      
+ 110   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    523    ----
+   CODE SIZE        =    531    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =     17    ----
+C51 COMPILER V9.52.0.0   MAIN                                                              05/16/2018 11:56:16 PAGE 3   
+
    PDATA SIZE       =   ----    ----
    DATA SIZE        =   ----    ----
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
-C51 COMPILER V9.51   MAIN                                                                  05/05/2018 16:30:10 PAGE 3   
-
 END OF MODULE INFORMATION.
 
 

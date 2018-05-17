@@ -10,26 +10,26 @@
 
 
 char CDE_Servo_V(unsigned char Angle){
-	//Déclaration des variables
-	int rech_int; 
+	//Dï¿½claration des variables
+	int rech_int;
 	int i=0;
 	float temps_imp;
 	temps_imp = 0.01*Angle + 1.5; //Temps de l'impulsion en ms
 
 	rech_int = ceil(65535 - temps_imp*0.001*SYSCLK/12);
-	TR2 = 0; //Timer2 désactivé
-	
-	//Programmation des registres de rechargement 
+	TR2 = 0; //Timer2 dï¿½sactivï¿½
+
+	//Programmation des registres de rechargement
 	RCAP2L = rech_int ;
 	RCAP2H = rech_int >> 8;
-	
-	TR2 = 1; //Timer2 activé
+
+	TR2 = 1; //Timer2 activï¿½
 	while(i < 50){ //Cette boucle permet de laisser le temps au servomoteur de se mettre en position (= 50 interruptions)
 		if (TF2 == 1){
 			i++;
 		}
 	}
-	TR2 = 0; //Timer2 désactivé pour le servomoteur vertical
-	
+	TR2 = 0; //Timer2 dï¿½sactivï¿½ pour le servomoteur vertical
+
 	return Angle;
 }

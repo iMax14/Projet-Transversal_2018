@@ -5,7 +5,7 @@
 
 
 #define SYSCLK 22118400UL
-#define Baudrate 115200UL
+#define Baudrate_UART2 115200UL
 
 
 void Config_Clock_UART0(void){
@@ -13,7 +13,7 @@ void Config_Clock_UART0(void){
 	TMOD |= 0x20; // Timer 1 configuré en timer 8 bits avec auto-rechargement
 	TMOD &= 0x2f; // idem
 	TL1=0x00; // Non nécessaire
-	TH1= 256UL - SYSCLK/(16UL*Baudrate) ; // car on a une SYSLCLOCK de 22.1184MHz et un Baud Rate de 115200 --- 256 - (SYSCLK/BAUDRATE*16)
+	TH1= 256UL - SYSCLK/(16UL*Baudrate_UART2) ; // car on a une SYSLCLOCK de 22.1184MHz et un Baud Rate de 115200 --- 256 - (SYSCLK/BAUDRATE*16)
 	ET1 = 0; //Désactivation des intéruption de Timer1 (Registre IE)
 	TR1 = 1 ; // Registre TCON, activation du timer 1
 }

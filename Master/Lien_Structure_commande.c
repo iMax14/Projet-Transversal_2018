@@ -39,7 +39,6 @@ float courant_actuel;
 float dist_avant;
 float dist_arriere;
 char Angle_voulu,Angle_atteint,msg_Slave,angle;
-extern unsigned int energie;
 
 void routage(struct COMMANDES commande, enum Routage * type){
 
@@ -71,8 +70,14 @@ void fonctionRoutage(struct COMMANDES commande){
 	unsigned char commande_SPI = 0x00;
 	unsigned char trame[1] = {0x00};
 	unsigned char taille_trame = 1;
+	double alpha;
+	int distance;
 	char angle_ascii[3];
 	char mess[50] = {0};
+	char mess1[50] = {0}; // utilis� dans le cas du d�placement �l�mentaire
+	char mess2[50] = {0}; // idem
+	char mess3[50] = {0}; // idem
+	int compteur = 0;
 	char msg_Slave_ascii[256];
   struct INFORMATIONS info;
 	char courant_ascii[4];
@@ -80,6 +85,7 @@ void fonctionRoutage(struct COMMANDES commande){
 	routage(commande,&route);
 
 	switch (route){
+    
 		case Servo_H:
 			Angle_voulu=commande.Servo_Angle;
 			Angle_atteint = CDE_Servo_H(Angle_voulu);
@@ -94,36 +100,112 @@ void fonctionRoutage(struct COMMANDES commande){
 		case Servo_V:
 			commande_SPI = 0xD3;
 			trame[0]=commande.Servo_Angle;
-			taille_trame = 1;
+      if (commande.Servo_Angle < 0){
+        trame[1] = 0xAA; //Pour prévenir le Slave que l'angle qu'il va recevoir est négatif
+      }
+      else{
+        trame[1] = 0xBB;
+      }
+			taille_trame = 2;
 			echange_trame(trame,taille_trame,commande_SPI);
 			tempo_emiss();
 			msg_Slave = trame_recue();
 			tempo_emiss();
-
 			sprintf(msg_Slave_ascii,"%f",msg_Slave);
 			serOutstring("\n\r AS V");
 			serOutstring("\n\r>");
 			break;
 
 		case Deplacement:
-			commande_serializer = transcode_commande_to_serializer(commande);
-			formate_serializer(commande_serializer, message_s);
-			serOutstring1(message_s);
-			serOutstring(message_s);
+			if (commande.Etat_Mouvement == Depl_Coord) {
+				alpha = atan(commande.Coord_Y / commande.Coord_X) * 180/3.1415; // r�sultat de atan en radian
+				distance = ceil(pow(pow(commande.Coord_Y,2)+pow(commande.Coord_X,2),0.5)); // Pythagore
+				if (alpha < 0){
+					alpha+= 360; }
+				// !!! L'ordre de cr�ation des messages est important (�crasement de variable)
+				// instruction pour faire avancer le robot de la distance "distance"
+				commande.Etat_Mouvement = Depl_Coord;
+				commande.Coord_X = distance;
+				commande_serializer = transcode_commande_to_serializer(commande);
+				formate_serializer(commande_serializer, mess2);
 
-			i=0;
-			a=0;
-			do{
+				// Instruction	pour positionner le robot � l'angle finale
+				commande.Etat_Mouvement = Rot_AngD;
+				commande.Vitesse = 5;
+				commande_serializer = transcode_commande_to_serializer(commande);
+				formate_serializer(commande_serializer, mess3);
+
+				// instruction pour positionner le robot dans l'angle de d�part
+				commande.Etat_Mouvement = Rot_AngD;
+				commande.Vitesse = 5;
+				commande.Angle = alpha;
+				commande_serializer = transcode_commande_to_serializer(commande);
+				formate_serializer(commande_serializer, mess1);
+
+				serOutstring1(mess1);
+				serOutstring("\r\n 1er com pppppppppppppppppppppppppppppp\r\n");
+				serOutstring(mess1);
+				compteur = 0;
+//				for(compteur = 0; compteur<65535; compteur++); //temporisation
+				compteur=0;
+				do {
+					serOutstring1("pids\r"); // Attente que le serializer est fini (il renvoie 1 quand occup� et 0 sinon
+						do{
+							a=serInchar1();
+							if (a!=0x00){
+								mess[compteur]=a;
+								compteur=compteur+1;
+									}
+							}while(a!=0x3E);
+						}while ( mess[compteur-1] == 1);
+										compteur = 0;
+
+				serOutstring("\r\n 2em com \r\n");
+				serOutstring1(mess2);
+				serOutstring(mess2);
+
+//				for(compteur = 0; compteur<65535; compteur++); //temporisation
+				compteur=0;
+				do {serOutstring1("pids\r");
+						do{
+							a=serInchar1();
+							if (a!=0x00){
+								mess[compteur]=a;
+								compteur=compteur+1;
+								}
+							}while(a!=0x3E);
+						}while ( mess[compteur-1] == 1);
+											compteur = 0;
+
+				serOutstring("\r\n 3em com \r\n");
+				serOutstring1(mess3);
+				serOutstring(mess3);
+
+			}
+			else
+			{
+				commande_serializer = transcode_commande_to_serializer(commande);
+				formate_serializer(commande_serializer, message_s);
+				serOutstring1(message_s);
+				serOutstring(message_s);
+
+				i=0;
+				a=0;
+
+				do{
 				a=serInchar1();
 				if (a!=0x00){
 					mess[i]=a;
 					i=i+1;
 				}
-			}while(a!=0x3E);
+				}while(a!=0x3E);
+			}
+
 
 			mess[i] = '\0';
 			serOutstring(mess);
 			break;
+
 
 		case Obstacle:
 			memset(mess,0,strlen(mess));

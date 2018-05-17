@@ -140,7 +140,7 @@
             <RestoreTracepoints>1</RestoreTracepoints>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
-          <TargetSelection>-1</TargetSelection>
+          <TargetSelection>9</TargetSelection>
           <SimDlls>
             <CpuDll></CpuDll>
             <CpuDllArguments></CpuDllArguments>
@@ -166,6 +166,7 @@
             <Capability>1</Capability>
             <DriverSelection>4102</DriverSelection>
           </Flash1>
+          <bUseTDR>0</bUseTDR>
           <Flash2>BIN\SiC8051F.dll</Flash2>
           <Flash3>"" ()</Flash3>
           <Flash4></Flash4>
@@ -394,6 +395,11 @@
               <FileName>Config_UART0.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Config_UART0.c</FilePath>
+            </File>
+            <File>
+              <FileName>Config_UART1.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Config_UART1.c</FilePath>
             </File>
           </Files>
         </Group>

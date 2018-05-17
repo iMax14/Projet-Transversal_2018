@@ -31,7 +31,7 @@ int vitesse_par_defaut = 10;
 char message_PC_com[50] = {0};
 enum Epreuve epreuve_en_cours = Epreuve_non;
 int commande_correct = 0;
-unsigned int energie = 0;
+double energie = 0;
 
 char conversioncoord (unsigned char tableau[2]){
 	int dizaine=0;
@@ -59,17 +59,51 @@ char conversioncoord (unsigned char tableau[2]){
 	return valeur	;
 }*/
 
+signed int conv(char* nbr, int taille)
+{
+	int k=0;
+	double t1 = 0;
+	signed int ret=0;
+	int numero=0;
+	
+	if(nbr[0]=='-')
+	{
+		for(k=1;k<taille;k++)
+		{
+			numero=nbr[k]-'0';
+			t1 = pow(10,taille-1-k);
+			numero = numero*ceil(pow(10,taille-1-k));
+			ret+=numero;
+		}
+		ret=-1*ret;
+	}
+	else
+	{
+		for(k=0;k<taille;k++)
+		{
+			numero=(nbr[k]-'0')*ceil(pow(10,taille-1-k));
+			ret+=numero;
+		}
+	}
+	return ret;
+}
 signed int conversionangle_positif (unsigned char tableau[3]){
 	signed int centaine=0;
 	signed int dizaine=0;
-	signed int unite=0;
+	signed int unite=0; 
 	signed int valeur;
-
-	centaine= (tableau[0]-'0')*100;
-	dizaine= (tableau[1]-'0')*10;
-	unite= (tableau[2]-'0');
-
-	valeur= centaine+dizaine+unite;
+	
+	if (tableau[0] == '-') {
+		dizaine= (tableau[1]-'0')*10;
+		unite= (tableau[2]-'0');
+		valeur = -1* (dizaine + unite);
+	}
+	else {
+		centaine= (tableau[0]-'0')*100;
+		dizaine= (tableau[1]-'0')*10;
+		unite= (tableau[2]-'0');
+		valeur= centaine+dizaine+unite;
+	}
 	return valeur	;
 }
 
@@ -336,137 +370,52 @@ struct COMMANDES traitement_E(struct COMMANDES commande)//FIN DEPREUVE OK
 }
 struct COMMANDES traitement_G(char * com, struct COMMANDES commande) // DEPLACEMENT AVEC ANGLE : OK
 {
-
-	int cpt=0;
-	int bin=1;
-	signed int angle;
-	int signe_angle=0; // positif si 0 n�gatif si 1
-	int signe_x=0; // positif si 0 n�gatif si 1
-	int signe_y=0; // positif si 0 n�gatif si 1
-	int k;
-	signed char coordx;
-	signed char coordy;
-	char tabcoordx[2];
-	char tabcoordy[2];
-	unsigned char tabangle[3];
-	commande.Etat_Mouvement=Depl_Coord;
-
-			for(k=0;k<=50;k++)
+		int i=4;
+		int k=0;
+		char coord[10];
+		if (epreuve_en_cours == epreuve1 && com[1]==' ' && com[2]=='X' && com[3]==':')
+		{
+			commande.Etat_Mouvement = Depl_Coord;
+			
+			while(com[i]!= ' ')
 			{
-				bin=1;
-				if (com[k]==':' && cpt==0 && bin==1)
-				{
-
-						if (com[k+1]=='-')
-						{
-							tabcoordx[0]=com[k+2];
-							tabcoordx[1]=com[k+3];
-
-							coordx=conversioncoord(tabcoordx);
-							coordx=coordx;
-							signe_x=1;
-							cpt=cpt+1;
-							bin=0;
-
-						}
-						else
-						{
-							tabcoordx[0]=com[k+1];
-							tabcoordx[1]=com[k+2];
-							coordx=conversioncoord(tabcoordx);
-							cpt=cpt+1;
-							bin=0;
-						}
-					}
-					if (com[k]==':' && cpt==1 && bin==1)
-						{
-							if (com[k+1]=='-')
-							{
-
-								tabcoordy[0]=com[k+2];
-								tabcoordy[1]=com[k+3];
-								coordy=conversioncoord(tabcoordy);
-								coordy=coordy;
-								signe_y=1;
-								cpt=cpt+1;
-								bin=0;
-							}
-							else
-							{
-								tabcoordy[0]=com[k+1];
-								tabcoordy[1]=com[k+2];
-								coordy=conversioncoord(tabcoordy);
-								cpt=cpt+1;
-								bin=0;
-							}
-					}
-					if (com[k]==':' && cpt==2 && bin==1)
-					{
-						if (com[k+1] =='-')
-						{
-						tabangle[0]=com[k+2]; // saut du signe -
-						tabangle[1]=com[k+3];
-						tabangle[2]=com[k+4];
-						signe_angle=1;
-						angle=conversionangle_positif(tabangle);
-						}
-						else
-						{
-						tabangle[0]=com[k+1];
-						tabangle[1]=com[k+2];
-						tabangle[2]=com[k+3];
-						angle=conversionangle_positif(tabangle);
-						}
-						// DEMANDER A THibaut comment il traite G
-						switch (signe_angle)
-						{
-							case 1: // cas angle n�gatif selon le sens trigonom�trique
-								{
-									if (signe_x==1 && signe_y==0)
-									{
-										angle=-angle;
-										//commande.Etat_Mouvement=Rot_AngG;
-									}
-									if (signe_x==1 && signe_y==1)
-									{
-										angle=180-angle;
-										//commande.Etat_Mouvement=Rot_AngG;
-									}
-									bin=0;
-									if (signe_x==0 && signe_y==1)
-									{
-										angle=-(180-angle);
-										//commande.Etat_Mouvement=Rot_AngD;
-
-									}
-									break;
-								}
-							default:// cas angle positif selon le sens trigonom�trique
-							{
-								if (signe_x==1 && signe_y==0)
-									{
-										angle=-angle;
-									}
-								if (signe_x==1 && signe_y==1)
-									{
-										//commande.Etat_Mouvement=Rot_AngD;
-										angle=-(180-angle);
-									}
-								if (signe_x==0 && signe_y==1)
-									{
-										//commande.Etat_Mouvement=Rot_AngG;
-										angle=180-angle;
-									}
-								break;
-							}
-						}
-						bin=0;
-					}
+				coord[k]=com[i];
+				i=i+1;
+				k++;
 			}
-		commande.Coord_X=coordx;
-		commande.Coord_Y=coordy;
-		commande.Angle=angle;
-		return commande;
+			coord[k]='\0';
+			commande.Coord_X=conv(coord,strlen(coord));
+			i = i+ 3;
+			k=0;
+			while(com[i]!= ' ')
+			{
+				coord[k]=com[i];
+				i=i+1;
+				k=k+1;
+			}
+			coord[i]='\0';
+			commande.Coord_Y=conv(coord,strlen(coord));
+			k=0;
+			i = i+ 3;
+			while(com[i]!= '\0')
+			{
+				coord[k]=com[i];
+				i=i+1;
+				k=k+1;
+			}
+			coord[i-1]='\0';
+			commande.Angle=conv(coord,strlen(coord));
+			
+		
+		}
+		else
+		{
+			commande_correct=0;
+		}
+			
+	
+			return commande;
+
 }
 struct COMMANDES traitement_I(char * com, struct COMMANDES commande) // pas encore utilis�
 {
@@ -811,7 +760,7 @@ struct COMMANDES traitement_T(char * com, struct COMMANDES commande) // VITESSE 
 
 }
 
-struct COMMANDES Message (char * com, char f_b,char t_son,char t_silence,char bip_b){
+struct COMMANDES Message (char * com/*, char f_b,char t_son,char t_silence,char bip_b*/){
 //	char tabcoordx[2];
 //	char tabcoordy[2];
 //	char tabangle[2];
@@ -891,7 +840,7 @@ struct COMMANDES Message (char * com, char f_b,char t_son,char t_silence,char bi
 		}
 		case 'S': // si on recoit S
 		{
-			commande=traitement_S(com/*, commande,f_b, t_son, t_silence, bip_b*/);
+			commande=traitement_S(com, commande/*,f_b, t_son, t_silence, bip_b*/);
 
 			break;
 		}
@@ -945,6 +894,7 @@ void main (void)
 	Init_Device();  // Initialisation du microcontr�leur
 	Config_Timer2();
 	Config_timer0();
+	Config_Timer3();
 	Config_SPI_MASTER();
 	CFG_VREF();
 	CFG_ADC0();
@@ -985,22 +935,22 @@ void main (void)
 		i=0;
 		a=0;
 		memset(com, 0, 50);
-//		do{
-//			a=serInchar();
-//			echo[0] = a;
-//			echo[1] = '\0';
-//			serOutstring(echo);
-//			memset(echo,0,strlen(echo));
-//			if (a!=0x00)
-//				{
-//				com[i]=a;
-//				i=i+1;
-//				}
-//			}while(a!=0x0D);
+		do{
+			a=serInchar();
+			echo[0] = a;
+			echo[1] = '\0';
+			serOutstring(echo);
+			memset(echo,0,strlen(echo));
+			if (a!=0x00)
+				{
+				com[i]=a;
+				i=i+1;
+				}
+			}while(a!=0x0D);
 
 
 		//strcpy(com,"SD F:13 P:10 W:50 B:50");
-		strcpy(com,"CS H 45");
+		//strcpy(com,"CS H 45");
 
 		commande = Message(com/*, f_b, t_son, t_silence, bip_b*/);
 			/*if(commande.son==emission)
@@ -1032,5 +982,5 @@ void ISR_Timer2 (void) interrupt 5 {
 
 void ISR_Timer3 (void) interrupt 14 {
 	TMR3CN &= 0x04; //Remise � '0' du flag d'overflow
-	energie =+ (int) 9.6*Courant_ADC()*0.035;
+	energie += 9.6*Courant_ADC()*0.001*0.035;
 }

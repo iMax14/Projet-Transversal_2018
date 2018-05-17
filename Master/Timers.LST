@@ -1,4 +1,4 @@
-C51 COMPILER V9.52.0.0   TIMERS                                                            05/15/2018 17:33:27 PAGE 1   
+C51 COMPILER V9.52.0.0   TIMERS                                                            05/16/2018 12:04:50 PAGE 1   
 
 
 C51 COMPILER V9.52.0.0, COMPILATION OF MODULE TIMERS
@@ -8,64 +8,83 @@ COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE Timers.c LARGE BROWSE DEBUG OBJECTE
 line level    source
 
    1          #include <c8051f020.h>
-   2          
-   3          #include "Timers.h"
-   4          
-   5          #define SYSCLK 22118400L
+   2          #include <math.h>
+   3          #include <stdio.h>
+   4          #include <intrins.h>
+   5          #include "Timers.h"
    6          
-   7          void Config_Timer2 (void){
-   8   1        TR2 = 0; //Désactivation du Timer2 ; Bit2 du registre T2CON
-   9   1        
-  10   1        CKCON &= ~0x20; //CLK_Timer2 = sysclk/12 ; Mise à '0' du bit 5 du registre CKCON, les autres bits sont �
-             -� '1' 
-  11   1        
-  12   1        TF2 = 0; //Aucun flag d'Overflow
-  13   1        EXF2 = 0; //Aucun flag extern d'Overflow, pour éviter une interruption intempestive
-  14   1        //Configuration du mode 1 de Timer2 : 
-  15   1        RCLK0 = 0;
-  16   1        TCLK0 = 0;
-  17   1        
-  18   1        T2CON &= ~(0x03);
-  19   1        //Configuration en mode Timer
-  20   1        EXEN2 = 0; //Dévalidation de l'entrée T2EX
-  21   1      
-  22   1        //Programmation des registres de rechargement 
-  23   1        RCAP2L = 0x00;
-  24   1        RCAP2H = 0x00;
-  25   1      
-  26   1        //Initialisation des registres de comptage du Timer 
-  27   1        TL2 = 0xFF;
-  28   1        TH2 = 0xFF;
-  29   1      
-  30   1        //Haute prioritée du Timer2 
-  31   1        PT2 = 1; //Bit 5 du registre IP
-  32   1      
-  33   1        //Activation des interruption
-  34   1        ET2 = 1; //Bit 5 du registre IE
-  35   1        
-  36   1        TR2 = 1;
-  37   1      }
-  38          
-  39          void Config_timer0(void){
-  40   1        CKCON = ~0x28;
-  41   1        TR0 = 0;
-  42   1        TF0 = 0;
-  43   1        TMOD &= 0xF0; 
-  44   1      }
-  45          
-  46          void initialisation_Timer0(void){
-  47   1        TR0 = 0;
-  48   1        TF0 = 0; // Flag Timer2 Low  
-  49   1        TL0 = 0x00;//Timer2 à 0.
-  50   1        TH0 = 0x00;
-  51   1      }
-  52          
+   7          #define SYSCLK 22118400L
+   8          
+   9          void Config_Timer2 (void){
+  10   1        TR2 = 0; //Désactivation du Timer2 ; Bit2 du registre T2CON
+  11   1      
+  12   1        CKCON &= ~0x20; //CLK_Timer2 = sysclk/12 ; Mise à '0' du bit 5 du registre CKCON, les autres bits sont �
+             -� '1'
+  13   1      
+  14   1        TF2 = 0; //Aucun flag d'Overflow
+  15   1        EXF2 = 0; //Aucun flag extern d'Overflow, pour éviter une interruption intempestive
+  16   1        //Configuration du mode 1 de Timer2 :
+  17   1        RCLK0 = 0;
+  18   1        TCLK0 = 0;
+  19   1      
+  20   1        T2CON &= ~(0x03);
+  21   1        //Configuration en mode Timer
+  22   1        EXEN2 = 0; //Dévalidation de l'entrée T2EX
+  23   1      
+  24   1        //Programmation des registres de rechargement
+  25   1        RCAP2L = 0x00;
+  26   1        RCAP2H = 0x00;
+  27   1      
+  28   1        //Initialisation des registres de comptage du Timer
+  29   1        TL2 = 0xFF;
+  30   1        TH2 = 0xFF;
+  31   1      
+  32   1        //Haute prioritée du Timer2
+  33   1        PT2 = 1; //Bit 5 du registre IP
+  34   1      
+  35   1        //Activation des interruption
+  36   1        ET2 = 1; //Bit 5 du registre IE
+  37   1      
+  38   1        TR2 = 1;
+  39   1      }
+  40          
+  41          void Config_timer0(void){
+  42   1        CKCON = ~0x28;
+  43   1        TR0 = 0;
+  44   1        TF0 = 0;
+  45   1        TMOD &= 0xF0;
+  46   1      }
+  47          
+  48          void initialisation_Timer0(void){
+  49   1        TR0 = 0;
+  50   1        TF0 = 0; // Flag Timer2 Low
+  51   1        TL0 = 0x00;//Timer2 à 0.
+  52   1        TH0 = 0x00;
+  53   1      }
+  54          
+C51 COMPILER V9.52.0.0   TIMERS                                                            05/16/2018 12:04:50 PAGE 2   
 
+  55          void Config_Timer3(void){
+  56   1        int recharge;
+  57   1      
+  58   1        TMR3CN &= 0x00; // Timer3 disable ; Flag d'OverFlow RAZ ; Use Clock/12
+  59   1      
+  60   1        recharge = ceil(65535 - 35*0.001*SYSCLK/12); // Interruption toutes les 35 ms
+  61   1        TMR3RLL = recharge;
+  62   1        TMR3RLH = recharge >> 8;
+  63   1      
+  64   1        TMR3L = 0xFF;
+  65   1        TMR3H = 0xFF;
+  66   1        
+  67   1        EIE2 |=0x01;
+  68   1      
+  69   1        TMR3CN |= 0x04; // Timer3 enable
+  70   1      
+  71   1      }
 
-C51 COMPILER V9.52.0.0   TIMERS                                                            05/15/2018 17:33:27 PAGE 2   
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =     57    ----
+   CODE SIZE        =     93    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----

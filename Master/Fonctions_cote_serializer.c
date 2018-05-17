@@ -37,15 +37,15 @@ NACK/r/n< -> échec
 
 **/
 
-int conv_distance_ticks(int d){ // convertion d[m] en ticks  
-	int ret = ceil(d/(0.3*0.001)); //624ticks = 1tour et diamêtre roue = 60mm
+int conv_distance_ticks(int d){ // convertion d[cm] en ticks  
+	int ret = ceil(d*(624/(6*3.1415))); //624ticks = 1tour et diamêtre roue = 60mm
 	return ret;
 }
 
 int conv_angle_ticks(int angle){ 
 	int ret;
 	float a = angle/360.0;
-	ret = ceil(4600*a); //2346ticks = 1 360° du robot
+	ret = ceil(4600*a); //2346ticks = un 360° du robot
 	return ret;
 }
 
@@ -106,10 +106,7 @@ fonctionnement : à l'aide de l'enum Etat_commande qui représente l'action à éffe
  on effectue un switch qui construit une chaine de caractère avec les paramêtre necessaire
 */
 
-/*
-A faire : astuce pour les ticks négatif : test avant le sprintf si 
-le int > 63... et si oui copie  d'un moins avant sinon copie normale
-*/
+
 void formate_serializer(struct COMMANDES_SERIALIZER com, char * ret){
 	char nbr[9];
 	
@@ -377,21 +374,12 @@ struct COMMANDES_SERIALIZER transcode_commande_to_serializer (struct COMMANDES c
 				if (com.Vitesse == '0'){
 					com.Vitesse = v_angl;
 				}
-				if (com.Angle >= 0 ){
-					ret.Etat_Commande = digo_1_2;
-					ret.Vitesse_Mot1 = (com.Vitesse);
-					ret.Ticks_mot1 = conv_angle_ticks(com.Angle/2);
-					ret.Vitesse_Mot2 = com.Vitesse + 100;
-					ret.Ticks_mot2 = -conv_angle_ticks(com.Angle/2);
-				}
-				else {
-					com.Angle = -com.Angle;
-					ret.Etat_Commande = digo_1_2;
-					ret.Vitesse_Mot1 = com.Vitesse + 100;
-					ret.Ticks_mot1 = -conv_angle_ticks(com.Angle/2);
-					ret.Vitesse_Mot2 = (com.Vitesse);
-					ret.Ticks_mot2 = conv_angle_ticks(com.Angle/2);
-				}
+				ret.Etat_Commande = digo_1_2;
+				ret.Vitesse_Mot1 = com.Vitesse;
+				ret.Ticks_mot1 = conv_distance_ticks(com.Coord_X);
+				ret.Vitesse_Mot2 = com.Vitesse;
+				ret.Ticks_mot2 = conv_distance_ticks(com.Coord_X);
+				
 				break;
 		}
 		default:

@@ -1,5 +1,7 @@
 #include <c8051f020.h>
-
+#include <math.h>
+#include <stdio.h>
+#include <intrins.h>
 #include "Timers.h"
 
 #define SYSCLK 22118400L
@@ -61,6 +63,8 @@ void Config_Timer3(void){
 
 	TMR3L = 0xFF;
 	TMR3H = 0xFF;
+	
+	EIE2 |=0x01;
 
 	TMR3CN |= 0x04; // Timer3 enable
 

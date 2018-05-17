@@ -8,7 +8,7 @@
 #define SYSCLK 22118400L
 
 
-char CDE_Servo_H(char Angle){
+char CDE_Servo_H(signed int Angle){
 	// Déclaration des variables
 	int rech_int , i=0;
 	float temps_imp;

@@ -1,4 +1,4 @@
-C51 COMPILER V9.52.0.0   FONCTIONS_COTE_SERIALIZER                                         05/15/2018 17:33:26 PAGE 1   
+C51 COMPILER V9.52.0.0   FONCTIONS_COTE_SERIALIZER                                         05/16/2018 12:04:50 PAGE 1   
 
 
 C51 COMPILER V9.52.0.0, COMPILATION OF MODULE FONCTIONS_COTE_SERIALIZER
@@ -46,15 +46,15 @@ line level    source
   37          
   38          **/
   39          
-  40          int conv_distance_ticks(int d){ // convertion d[m] en ticks  
-  41   1        int ret = ceil(d/(0.3*0.001)); //624ticks = 1tour et diamêtre roue = 60mm
+  40          int conv_distance_ticks(int d){ // convertion d[cm] en ticks  
+  41   1        int ret = ceil(d*(624/(6*3.1415))); //624ticks = 1tour et diamêtre roue = 60mm
   42   1        return ret;
   43   1      }
   44          
   45          int conv_angle_ticks(int angle){ 
   46   1        int ret;
   47   1        float a = angle/360.0;
-  48   1        ret = ceil(4600*a); //2346ticks = 1 360° du robot
+  48   1        ret = ceil(4600*a); //2346ticks = un 360° du robot
   49   1        return ret;
   50   1      }
   51          
@@ -62,7 +62,7 @@ line level    source
   53   1        char nbr3[3];
   54   1        char nbr2[2];
   55   1        char nbr1[1];
-C51 COMPILER V9.52.0.0   FONCTIONS_COTE_SERIALIZER                                         05/15/2018 17:33:26 PAGE 2   
+C51 COMPILER V9.52.0.0   FONCTIONS_COTE_SERIALIZER                                         05/16/2018 12:04:50 PAGE 2   
 
   56   1        int c = i/100;
   57   1        int d = (i-c*100)/10;
@@ -117,318 +117,306 @@ line level    source
  106           on effectue un switch qui construit une chaine de caractère avec les paramêtre necessaire
  107          */
  108          
- 109          /*
- 110          A faire : astuce pour les ticks négatif : test avant le sprintf si 
- 111          le int > 63... et si oui copie  d'un moins avant sinon copie normale
- 112          */
- 113          void formate_serializer(struct COMMANDES_SERIALIZER com, char * ret){
- 114   1        char nbr[9];
- 115   1        
- 116   1        switch (com.Etat_Commande){
- 117   2          case Reset :{
-C51 COMPILER V9.52.0.0   FONCTIONS_COTE_SERIALIZER                                         05/15/2018 17:33:26 PAGE 3   
+ 109          
+ 110          void formate_serializer(struct COMMANDES_SERIALIZER com, char * ret){
+ 111   1        char nbr[9];
+ 112   1        
+ 113   1        switch (com.Etat_Commande){
+ 114   2          case Reset :{
+ 115   3            strcpy(ret,"reset");
+ 116   3            break;
+ 117   3          }
+C51 COMPILER V9.52.0.0   FONCTIONS_COTE_SERIALIZER                                         05/16/2018 12:04:50 PAGE 3   
 
- 118   3            strcpy(ret,"reset");
+ 118   2          case Getenc_1 :{
  119   3            break;
  120   3          }
- 121   2          case Getenc_1 :{
+ 121   2          case Getenc_2 :{
  122   3            break;
  123   3          }
- 124   2          case Getenc_2 :{
+ 124   2          case Getenc_1_2 :{
  125   3            break;
  126   3          }
- 127   2          case Getenc_1_2 :{
- 128   3            break;
+ 127   2          case Clrenc_1 :{
+ 128   3              break;
  129   3          }
- 130   2          case Clrenc_1 :{
- 131   3              break;
+ 130   2          case Clrenc_2 :{
+ 131   3            break;
  132   3          }
- 133   2          case Clrenc_2 :{
+ 133   2          case Clrenc_1_2 :{
  134   3            break;
  135   3          }
- 136   2          case Clrenc_1_2 :{
- 137   3            break;
- 138   3          }
- 139   2          case mogo_1 :{
- 140   3            strcpy(ret,"mogo 1:");
- 141   3            sprintf(nbr, "%d", true_vit(com.Vitesse_Mot1));
- 142   3            strcat(ret,nbr);
- 143   3            break;
- 144   3          }
- 145   2          case mogo_2 :{
- 146   3            strcpy(ret,"mogo 2:");
- 147   3            sprintf(nbr, "%d", true_vit(com.Vitesse_Mot2));
- 148   3            strcat(ret,nbr);
- 149   3            break;
- 150   3          }
- 151   2          case mogo_1_2 :{
- 152   3            strcpy(ret,"mogo 1:");
- 153   3            sprintf(nbr, "%d", true_vit(com.Vitesse_Mot1));
+ 136   2          case mogo_1 :{
+ 137   3            strcpy(ret,"mogo 1:");
+ 138   3            sprintf(nbr, "%d", true_vit(com.Vitesse_Mot1));
+ 139   3            strcat(ret,nbr);
+ 140   3            break;
+ 141   3          }
+ 142   2          case mogo_2 :{
+ 143   3            strcpy(ret,"mogo 2:");
+ 144   3            sprintf(nbr, "%d", true_vit(com.Vitesse_Mot2));
+ 145   3            strcat(ret,nbr);
+ 146   3            break;
+ 147   3          }
+ 148   2          case mogo_1_2 :{
+ 149   3            strcpy(ret,"mogo 1:");
+ 150   3            sprintf(nbr, "%d", true_vit(com.Vitesse_Mot1));
+ 151   3            strcat(ret,nbr);
+ 152   3            strcat(ret," 2:");
+ 153   3            sprintf(nbr, "%d", true_vit(com.Vitesse_Mot2));
  154   3            strcat(ret,nbr);
- 155   3            strcat(ret," 2:");
- 156   3            sprintf(nbr, "%d", true_vit(com.Vitesse_Mot2));
- 157   3            strcat(ret,nbr);
- 158   3            break;
- 159   3          }
- 160   2          case Vpid_set :{
- 161   3            strcpy(ret,"vpid ");
- 162   3            sprintf(nbr, "%d", com.Set_P);
+ 155   3            break;
+ 156   3          }
+ 157   2          case Vpid_set :{
+ 158   3            strcpy(ret,"vpid ");
+ 159   3            sprintf(nbr, "%d", com.Set_P);
+ 160   3            strcat(ret,nbr);
+ 161   3            strcat(ret,":");
+ 162   3            sprintf(nbr, "%d", com.Set_I);
  163   3            strcat(ret,nbr);
  164   3            strcat(ret,":");
- 165   3            sprintf(nbr, "%d", com.Set_I);
+ 165   3            sprintf(nbr, "%d", com.Set_D);
  166   3            strcat(ret,nbr);
  167   3            strcat(ret,":");
- 168   3            sprintf(nbr, "%d", com.Set_D);
+ 168   3            sprintf(nbr, "%d", com.Set_L_A);
  169   3            strcat(ret,nbr);
  170   3            strcat(ret,":");
- 171   3            sprintf(nbr, "%d", com.Set_L_A);
- 172   3            strcat(ret,nbr);
- 173   3            strcat(ret,":");
- 174   3            break;
- 175   3          }
- 176   2          case Vpid_read :{
- 177   3            strcpy(ret,"vpid");
- 178   3            break;
- 179   3          }
-C51 COMPILER V9.52.0.0   FONCTIONS_COTE_SERIALIZER                                         05/15/2018 17:33:26 PAGE 4   
+ 171   3            break;
+ 172   3          }
+ 173   2          case Vpid_read :{
+ 174   3            strcpy(ret,"vpid");
+ 175   3            break;
+ 176   3          }
+ 177   2          case digo_1 :{
+ 178   3            strcpy(ret,"digo 1:");
+ 179   3            true_ticks(com.Ticks_mot1, nbr);
+C51 COMPILER V9.52.0.0   FONCTIONS_COTE_SERIALIZER                                         05/16/2018 12:04:50 PAGE 4   
 
- 180   2          case digo_1 :{
- 181   3            strcpy(ret,"digo 1:");
- 182   3            true_ticks(com.Ticks_mot1, nbr);
+ 180   3            strcat(ret,nbr);
+ 181   3            strcat(ret,":");
+ 182   3            sprintf(nbr, "%d", true_vit(com.Vitesse_Mot1));
  183   3            strcat(ret,nbr);
- 184   3            strcat(ret,":");
- 185   3            sprintf(nbr, "%d", true_vit(com.Vitesse_Mot1));
- 186   3            strcat(ret,nbr);
- 187   3            break;
- 188   3          }
- 189   2          case digo_2 :{
- 190   3            strcpy(ret,"digo 2:");
- 191   3            sprintf(nbr, "%d", true_vit(com.Vitesse_Mot2));
+ 184   3            break;
+ 185   3          }
+ 186   2          case digo_2 :{
+ 187   3            strcpy(ret,"digo 2:");
+ 188   3            sprintf(nbr, "%d", true_vit(com.Vitesse_Mot2));
+ 189   3            strcat(ret,nbr);
+ 190   3            strcat(ret,":");
+ 191   3            true_ticks(com.Ticks_mot2, nbr);
  192   3            strcat(ret,nbr);
- 193   3            strcat(ret,":");
- 194   3            true_ticks(com.Ticks_mot2, nbr);
- 195   3            strcat(ret,nbr);
- 196   3            break;
- 197   3          }
- 198   2          case digo_1_2 :{
- 199   3            strcpy(ret,"digo 1:");
- 200   3            true_ticks(com.Ticks_mot1, nbr);
+ 193   3            break;
+ 194   3          }
+ 195   2          case digo_1_2 :{
+ 196   3            strcpy(ret,"digo 1:");
+ 197   3            true_ticks(com.Ticks_mot1, nbr);
+ 198   3            strcat(ret,nbr);
+ 199   3            strcat(ret,":");
+ 200   3            sprintf(nbr, "%d", true_vit(com.Vitesse_Mot1));
  201   3            strcat(ret,nbr);
- 202   3            strcat(ret,":");
- 203   3            sprintf(nbr, "%d", true_vit(com.Vitesse_Mot1));
+ 202   3            strcat(ret," 2:");
+ 203   3            true_ticks(com.Ticks_mot2, nbr);
  204   3            strcat(ret,nbr);
- 205   3            strcat(ret," 2:");
- 206   3            true_ticks(com.Ticks_mot2, nbr);
+ 205   3            strcat(ret,":");
+ 206   3            sprintf(nbr, "%d", true_vit(com.Vitesse_Mot2));
  207   3            strcat(ret,nbr);
- 208   3            strcat(ret,":");
- 209   3            sprintf(nbr, "%d", true_vit(com.Vitesse_Mot2));
- 210   3            strcat(ret,nbr);
- 211   3            break;
- 212   3          }
- 213   2          case Dpid_set :{
- 214   3            strcpy(ret,"dpid ");
- 215   3            sprintf(nbr, "%d",com.Set_P);
+ 208   3            break;
+ 209   3          }
+ 210   2          case Dpid_set :{
+ 211   3            strcpy(ret,"dpid ");
+ 212   3            sprintf(nbr, "%d",com.Set_P);
+ 213   3            strcat(ret,nbr);
+ 214   3            strcat(ret,":");
+ 215   3            sprintf(nbr, "%d", com.Set_I);
  216   3            strcat(ret,nbr);
  217   3            strcat(ret,":");
- 218   3            sprintf(nbr, "%d", com.Set_I);
+ 218   3            sprintf(nbr, "%d", com.Set_D);
  219   3            strcat(ret,nbr);
  220   3            strcat(ret,":");
- 221   3            sprintf(nbr, "%d", com.Set_D);
+ 221   3            sprintf(nbr, "%d", com.Set_L_A);
  222   3            strcat(ret,nbr);
  223   3            strcat(ret,":");
- 224   3            sprintf(nbr, "%d", com.Set_L_A);
- 225   3            strcat(ret,nbr);
- 226   3            strcat(ret,":");
- 227   3            break;
- 228   3          }
- 229   2          case Dpid_read :{
- 230   3            strcpy(ret,"vpid");
+ 224   3            break;
+ 225   3          }
+ 226   2          case Dpid_read :{
+ 227   3            strcpy(ret,"vpid");
+ 228   3            break;
+ 229   3          }
+ 230   2          case Rpid_Stinger :{
  231   3            break;
  232   3          }
- 233   2          case Rpid_Stinger :{
+ 233   2          case Pids :{
  234   3            break;
  235   3          }
- 236   2          case Pids :{
- 237   3            break;
- 238   3          }
- 239   2          case Stop :{
- 240   3            strcpy(ret,"stop");
- 241   3            break;
-C51 COMPILER V9.52.0.0   FONCTIONS_COTE_SERIALIZER                                         05/15/2018 17:33:26 PAGE 5   
+ 236   2          case Stop :{
+ 237   3            strcpy(ret,"stop");
+ 238   3            break;
+ 239   3          }
+ 240   2          case Vel :{
+ 241   3            strcpy(ret,"vel");
+C51 COMPILER V9.52.0.0   FONCTIONS_COTE_SERIALIZER                                         05/16/2018 12:04:50 PAGE 5   
 
- 242   3          }
- 243   2          case Vel :{
- 244   3            strcpy(ret,"vel");
- 245   3            break;
- 246   3          }
- 247   2          case Restore :{
- 248   3            strcpy(ret,"restore");
- 249   3            break;
- 250   3          }
- 251   2          default:
- 252   2            break;
- 253   2        }
- 254   1        strcat(ret,"\r");
- 255   1      }
- 256          /* entré : une structure représentant une commande envoyé par le PC de commande
- 257            sortie : une structure représentant une commande destiné 
- 258          
- 259          fonctionnement : à l'aide de l'enum Etat_Epreuve et Etat_Mouvement
- 260          on remplit une strucutre COMMANDES_SERIALIZER avec les paramètre destiné au serializer
- 261          */
- 262          struct COMMANDES_SERIALIZER transcode_commande_to_serializer (struct COMMANDES com) {
- 263   1        struct  COMMANDES_SERIALIZER ret;
- 264   1        char v_angl = 20;
- 265   1        char v_line = 30;
- 266   1      
- 267   1        switch (com.Etat_Epreuve){//"D" "E" "Q"
- 268   2          case Stop_Urgence:{
- 269   3            ret.Etat_Commande = Stop;
- 270   3            break;
- 271   3          }
- 272   2          default:
- 273   2            break;
- 274   2        }
- 275   1          
- 276   1        switch (com.Etat_Mouvement){
- 277   2          // avancer  
- 278   2          case Avancer:{ 
- 279   3            ret.Etat_Commande = mogo_1_2;
- 280   3            if (com.Vitesse == '0'){
- 281   4              com.Vitesse = v_line;
- 282   4            }
- 283   3            ret.Vitesse_Mot1 = com.Vitesse;
- 284   3            ret.Vitesse_Mot2 = com.Vitesse;
- 285   3            break;
- 286   3          }
- 287   2          // reculer
- 288   2          case(Reculer):{ 
- 289   3              ret.Etat_Commande = mogo_1_2;
- 290   3              if (com.Vitesse == '0'){
- 291   4                com.Vitesse = v_line;
- 292   4              }
- 293   3              ret.Vitesse_Mot1 = com.Vitesse + 100;
- 294   3              ret.Vitesse_Mot2 = com.Vitesse + 100;
- 295   3              break;
- 296   3          }
- 297   2          // stop   
- 298   2          case(Stopper):{ 
- 299   3              ret.Etat_Commande = Stop;
- 300   3              break;
- 301   3          }
- 302   2          // rotation 90° droite 
- 303   2          case(Rot_90D):{ // motor1 = droite motor2 = gauche
-C51 COMPILER V9.52.0.0   FONCTIONS_COTE_SERIALIZER                                         05/15/2018 17:33:26 PAGE 6   
+ 242   3            break;
+ 243   3          }
+ 244   2          case Restore :{
+ 245   3            strcpy(ret,"restore");
+ 246   3            break;
+ 247   3          }
+ 248   2          default:
+ 249   2            break;
+ 250   2        }
+ 251   1        strcat(ret,"\r");
+ 252   1      }
+ 253          /* entré : une structure représentant une commande envoyé par le PC de commande
+ 254            sortie : une structure représentant une commande destiné 
+ 255          
+ 256          fonctionnement : à l'aide de l'enum Etat_Epreuve et Etat_Mouvement
+ 257          on remplit une strucutre COMMANDES_SERIALIZER avec les paramètre destiné au serializer
+ 258          */
+ 259          struct COMMANDES_SERIALIZER transcode_commande_to_serializer (struct COMMANDES com) {
+ 260   1        struct  COMMANDES_SERIALIZER ret;
+ 261   1        char v_angl = 20;
+ 262   1        char v_line = 30;
+ 263   1      
+ 264   1        switch (com.Etat_Epreuve){//"D" "E" "Q"
+ 265   2          case Stop_Urgence:{
+ 266   3            ret.Etat_Commande = Stop;
+ 267   3            break;
+ 268   3          }
+ 269   2          default:
+ 270   2            break;
+ 271   2        }
+ 272   1          
+ 273   1        switch (com.Etat_Mouvement){
+ 274   2          // avancer  
+ 275   2          case Avancer:{ 
+ 276   3            ret.Etat_Commande = mogo_1_2;
+ 277   3            if (com.Vitesse == '0'){
+ 278   4              com.Vitesse = v_line;
+ 279   4            }
+ 280   3            ret.Vitesse_Mot1 = com.Vitesse;
+ 281   3            ret.Vitesse_Mot2 = com.Vitesse;
+ 282   3            break;
+ 283   3          }
+ 284   2          // reculer
+ 285   2          case(Reculer):{ 
+ 286   3              ret.Etat_Commande = mogo_1_2;
+ 287   3              if (com.Vitesse == '0'){
+ 288   4                com.Vitesse = v_line;
+ 289   4              }
+ 290   3              ret.Vitesse_Mot1 = com.Vitesse + 100;
+ 291   3              ret.Vitesse_Mot2 = com.Vitesse + 100;
+ 292   3              break;
+ 293   3          }
+ 294   2          // stop   
+ 295   2          case(Stopper):{ 
+ 296   3              ret.Etat_Commande = Stop;
+ 297   3              break;
+ 298   3          }
+ 299   2          // rotation 90° droite 
+ 300   2          case(Rot_90D):{ // motor1 = droite motor2 = gauche
+ 301   3              if (com.Vitesse == '0'){
+ 302   4                com.Vitesse = v_angl;
+ 303   4              }
+C51 COMPILER V9.52.0.0   FONCTIONS_COTE_SERIALIZER                                         05/16/2018 12:04:50 PAGE 6   
 
- 304   3              if (com.Vitesse == '0'){
- 305   4                com.Vitesse = v_angl;
- 306   4              }
- 307   3              ret.Etat_Commande = digo_1_2;
- 308   3              ret.Vitesse_Mot1 = com.Vitesse;
- 309   3              ret.Ticks_mot1 = -conv_angle_ticks(45);
- 310   3              ret.Vitesse_Mot2 = (com.Vitesse);
- 311   3              ret.Ticks_mot2 = conv_angle_ticks(45);
- 312   3              break;
- 313   3          }
- 314   2          // rotation 90° gauche
- 315   2          case(Rot_90G):{ 
- 316   3              if (com.Vitesse == '0'){
- 317   4                com.Vitesse = v_angl;
- 318   4              }
- 319   3              ret.Etat_Commande = digo_1_2;
- 320   3              ret.Vitesse_Mot1 = (com.Vitesse);
- 321   3              ret.Ticks_mot1 = conv_angle_ticks(45);
- 322   3              ret.Vitesse_Mot2 = com.Vitesse;
- 323   3              ret.Ticks_mot2 = -conv_angle_ticks(45);
- 324   3              break;
- 325   3          }
- 326   2          // rotation 180° droite
- 327   2          case(Rot_180D):{ 
- 328   3              if (com.Vitesse == '0'){
- 329   4                com.Vitesse = v_angl;
- 330   4              }
- 331   3              ret.Etat_Commande = digo_1_2;
- 332   3              ret.Vitesse_Mot1 = com.Vitesse;
- 333   3              ret.Ticks_mot1 = -conv_angle_ticks(90);
- 334   3              ret.Vitesse_Mot2 = (com.Vitesse);
- 335   3              ret.Ticks_mot2 = conv_angle_ticks(90);
- 336   3              break;
- 337   3          }
- 338   2          // rotation 180° gauche
- 339   2          case(Rot_180G):{ 
- 340   3              if (com.Vitesse == '0'){
- 341   4                com.Vitesse = v_angl;
- 342   4              }
- 343   3              ret.Etat_Commande = digo_1_2;
- 344   3              ret.Vitesse_Mot1 = (com.Vitesse);
- 345   3              ret.Ticks_mot1 = conv_angle_ticks(90);
- 346   3              ret.Vitesse_Mot2 = com.Vitesse;
- 347   3              ret.Ticks_mot2 = -conv_angle_ticks(90);
- 348   3              break;
- 349   3          }
- 350   2              
- 351   2          // rotation d'un angle donné à droite
- 352   2          case(Rot_AngD):{ 
- 353   3              if (com.Vitesse == '0'){
- 354   4                com.Vitesse = v_angl;
- 355   4              }
- 356   3              ret.Etat_Commande = digo_1_2;
- 357   3              ret.Vitesse_Mot1 = com.Vitesse;
- 358   3              ret.Ticks_mot1 = -conv_angle_ticks(com.Angle/2);
- 359   3              ret.Vitesse_Mot2 = (com.Vitesse);
- 360   3              ret.Ticks_mot2 = conv_angle_ticks(com.Angle/2);
- 361   3              break;
- 362   3          }
- 363   2          // rotation d'un angle donné à droite   
- 364   2          case(Rot_AngG):{ 
- 365   3              if (com.Vitesse == '0'){
-C51 COMPILER V9.52.0.0   FONCTIONS_COTE_SERIALIZER                                         05/15/2018 17:33:26 PAGE 7   
+ 304   3              ret.Etat_Commande = digo_1_2;
+ 305   3              ret.Vitesse_Mot1 = com.Vitesse;
+ 306   3              ret.Ticks_mot1 = -conv_angle_ticks(45);
+ 307   3              ret.Vitesse_Mot2 = (com.Vitesse);
+ 308   3              ret.Ticks_mot2 = conv_angle_ticks(45);
+ 309   3              break;
+ 310   3          }
+ 311   2          // rotation 90° gauche
+ 312   2          case(Rot_90G):{ 
+ 313   3              if (com.Vitesse == '0'){
+ 314   4                com.Vitesse = v_angl;
+ 315   4              }
+ 316   3              ret.Etat_Commande = digo_1_2;
+ 317   3              ret.Vitesse_Mot1 = (com.Vitesse);
+ 318   3              ret.Ticks_mot1 = conv_angle_ticks(45);
+ 319   3              ret.Vitesse_Mot2 = com.Vitesse;
+ 320   3              ret.Ticks_mot2 = -conv_angle_ticks(45);
+ 321   3              break;
+ 322   3          }
+ 323   2          // rotation 180° droite
+ 324   2          case(Rot_180D):{ 
+ 325   3              if (com.Vitesse == '0'){
+ 326   4                com.Vitesse = v_angl;
+ 327   4              }
+ 328   3              ret.Etat_Commande = digo_1_2;
+ 329   3              ret.Vitesse_Mot1 = com.Vitesse;
+ 330   3              ret.Ticks_mot1 = -conv_angle_ticks(90);
+ 331   3              ret.Vitesse_Mot2 = (com.Vitesse);
+ 332   3              ret.Ticks_mot2 = conv_angle_ticks(90);
+ 333   3              break;
+ 334   3          }
+ 335   2          // rotation 180° gauche
+ 336   2          case(Rot_180G):{ 
+ 337   3              if (com.Vitesse == '0'){
+ 338   4                com.Vitesse = v_angl;
+ 339   4              }
+ 340   3              ret.Etat_Commande = digo_1_2;
+ 341   3              ret.Vitesse_Mot1 = (com.Vitesse);
+ 342   3              ret.Ticks_mot1 = conv_angle_ticks(90);
+ 343   3              ret.Vitesse_Mot2 = com.Vitesse;
+ 344   3              ret.Ticks_mot2 = -conv_angle_ticks(90);
+ 345   3              break;
+ 346   3          }
+ 347   2              
+ 348   2          // rotation d'un angle donné à droite
+ 349   2          case(Rot_AngD):{ 
+ 350   3              if (com.Vitesse == '0'){
+ 351   4                com.Vitesse = v_angl;
+ 352   4              }
+ 353   3              ret.Etat_Commande = digo_1_2;
+ 354   3              ret.Vitesse_Mot1 = com.Vitesse;
+ 355   3              ret.Ticks_mot1 = -conv_angle_ticks(com.Angle/2);
+ 356   3              ret.Vitesse_Mot2 = (com.Vitesse);
+ 357   3              ret.Ticks_mot2 = conv_angle_ticks(com.Angle/2);
+ 358   3              break;
+ 359   3          }
+ 360   2          // rotation d'un angle donné à droite   
+ 361   2          case(Rot_AngG):{ 
+ 362   3              if (com.Vitesse == '0'){
+ 363   4                com.Vitesse = v_angl;
+ 364   4              }
+ 365   3              ret.Etat_Commande = digo_1_2;
+C51 COMPILER V9.52.0.0   FONCTIONS_COTE_SERIALIZER                                         05/16/2018 12:04:50 PAGE 7   
 
- 366   4                com.Vitesse = v_angl;
- 367   4              }
- 368   3              ret.Etat_Commande = digo_1_2;
- 369   3              ret.Vitesse_Mot1 = (com.Vitesse);
- 370   3              ret.Ticks_mot1 = conv_angle_ticks(com.Angle/2);
- 371   3              ret.Vitesse_Mot2 = com.Vitesse;
- 372   3              ret.Ticks_mot2 = -conv_angle_ticks(com.Angle/2);
- 373   3              break;
- 374   3          }
- 375   2              
- 376   2          case(Depl_Coord):{
- 377   3              if (com.Vitesse == '0'){
- 378   4                com.Vitesse = v_angl;
- 379   4              }
- 380   3              if (com.Angle >= 0 ){
- 381   4                ret.Etat_Commande = digo_1_2;
- 382   4                ret.Vitesse_Mot1 = (com.Vitesse);
- 383   4                ret.Ticks_mot1 = conv_angle_ticks(com.Angle/2);
- 384   4                ret.Vitesse_Mot2 = com.Vitesse + 100;
- 385   4                ret.Ticks_mot2 = -conv_angle_ticks(com.Angle/2);
- 386   4              }
- 387   3              else {
- 388   4                com.Angle = -com.Angle;
- 389   4                ret.Etat_Commande = digo_1_2;
- 390   4                ret.Vitesse_Mot1 = com.Vitesse + 100;
- 391   4                ret.Ticks_mot1 = -conv_angle_ticks(com.Angle/2);
- 392   4                ret.Vitesse_Mot2 = (com.Vitesse);
- 393   4                ret.Ticks_mot2 = conv_angle_ticks(com.Angle/2);
- 394   4              }
- 395   3              break;
- 396   3          }
- 397   2          default:
- 398   2              break;
- 399   2        }
- 400   1      
- 401   1        return ret;
- 402   1      }
- 403            
- 404            
+ 366   3              ret.Vitesse_Mot1 = (com.Vitesse);
+ 367   3              ret.Ticks_mot1 = conv_angle_ticks(com.Angle/2);
+ 368   3              ret.Vitesse_Mot2 = com.Vitesse;
+ 369   3              ret.Ticks_mot2 = -conv_angle_ticks(com.Angle/2);
+ 370   3              break;
+ 371   3          }
+ 372   2              
+ 373   2          case(Depl_Coord):{
+ 374   3              if (com.Vitesse == '0'){
+ 375   4                com.Vitesse = v_angl;
+ 376   4              }
+ 377   3              ret.Etat_Commande = digo_1_2;
+ 378   3              ret.Vitesse_Mot1 = com.Vitesse;
+ 379   3              ret.Ticks_mot1 = conv_distance_ticks(com.Coord_X);
+ 380   3              ret.Vitesse_Mot2 = com.Vitesse;
+ 381   3              ret.Ticks_mot2 = conv_distance_ticks(com.Coord_X);
+ 382   3              
+ 383   3              break;
+ 384   3          }
+ 385   2          default:
+ 386   2              break;
+ 387   2        }
+ 388   1      
+ 389   1        return ret;
+ 390   1      }
+ 391            
+ 392            
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =   2732    ----
+   CODE SIZE        =   2631    ----
    CONSTANT SIZE    =     89    ----
-   XDATA SIZE       =   ----     109
+   XDATA SIZE       =   ----     112
    PDATA SIZE       =   ----    ----
    DATA SIZE        =   ----    ----
    IDATA SIZE       =   ----    ----

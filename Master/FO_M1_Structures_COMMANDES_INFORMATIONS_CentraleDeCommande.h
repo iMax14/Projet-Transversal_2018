@@ -32,9 +32,9 @@ typedef struct COMMANDES       // Cette structure contient toutes les commandes 
    enum  Mouvement Etat_Mouvement; //Contient le type de mouvement demandé - Commandes "A" "B" "S" "RD" "RG" "RC" "RA" "G"
                                    // Paramètres des commandes précédentes:     
    BYTE  Vitesse;                  // Paramètre vitesse - Peut aussi être modifié par la commande "TV"
-   BYTE  Coord_X;	                 // Paramètre coordonnée X
-   BYTE  Coord_Y;                  // Paramètre coordonnée Y
-   int   Angle;                    // Paramètre angle
+   signed int  Coord_X;	                 // Paramètre coordonnée X
+   signed int  Coord_Y;                  // Paramètre coordonnée Y
+   signed int   Angle;                    // Paramètre angle
    
    enum  ACQ_Son Etat_ACQ_Son;     // Contient la commande d'acquisition de signaux sonores "ASS"
                                    // Paramètre de la commande précédente:     
@@ -63,7 +63,7 @@ typedef struct COMMANDES       // Cette structure contient toutes les commandes 
    
    enum  Servo Etat_Servo;        // Contient la commande de positionnement d'un servo "CS C" "CS H" "CS V" 
                                   // Paramètre de la commande précédente:     
-   SIGNED_BYTE  Servo_Angle;      // Paramètre angle de rotation
+   signed int  Servo_Angle;      // Paramètre angle de rotation
    enum  Energie Etat_Energie;    // Contient la commande d'envoi du courant instantané ou de l'energie consommée - Commandes "MI" "ME"
    enum  Position Etat_Position;  // Contient les commandes de gestion de la position, initialisation ou demande d'envoi
 		                              // de la position - Commandes: "IPO" "POS"		

@@ -6,6 +6,7 @@
 "Timers.obj",
 "Transmission_SPI.obj",
 "Transmission_UART0.obj",
-"Config_UART0.obj" 
+"Config_UART0.obj",
+"Config_UART1.obj" 
 TO "Slave" 
 RAMSIZE(256) 
