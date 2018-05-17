@@ -1,9 +1,9 @@
-C51 COMPILER V9.52.0.0   SERVOMOTEUR_VERTICAL                                              05/16/2018 11:56:16 PAGE 1   
+C51 COMPILER V9.51   SERVOMOTEUR_VERTICAL                                                  05/17/2018 11:32:00 PAGE 1   
 
 
-C51 COMPILER V9.52.0.0, COMPILATION OF MODULE SERVOMOTEUR_VERTICAL
+C51 COMPILER V9.51, COMPILATION OF MODULE SERVOMOTEUR_VERTICAL
 OBJECT MODULE PLACED IN Servomoteur_Vertical.OBJ
-COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE Servomoteur_Vertical.c LARGE BROWSE DEBUG OBJECTEXTEND TABS(2)
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.exe Servomoteur_Vertical.c LARGE BROWSE DEBUG OBJECTEXTEND TABS(2)
 
 line level    source
 
@@ -19,34 +19,34 @@ line level    source
   10          
   11          
   12          char CDE_Servo_V(signed int Angle){
-  13   1        //Déclaration des variables
-  14   1        int rech_int; 
+  13   1        //Dï¿½claration des variables
+  14   1        int rech_int;
   15   1        int i=0;
   16   1        float temps_imp;
   17   1        temps_imp = 0.01*Angle + 1.5; //Temps de l'impulsion en ms
   18   1      
   19   1        rech_int = ceil(65535 - temps_imp*0.001*SYSCLK/12);
-  20   1        TR2 = 0; //Timer2 désactivé
-  21   1        
-  22   1        //Programmation des registres de rechargement 
+  20   1        TR2 = 0; //Timer2 dï¿½sactivï¿½
+  21   1      
+  22   1        //Programmation des registres de rechargement
   23   1        RCAP2L = rech_int ;
   24   1        RCAP2H = rech_int >> 8;
-  25   1        
-  26   1        TR2 = 1; //Timer2 activé
-  27   1        while(i < 50){ //Cette boucle permet de laisser le temps au servomoteur de se mettre en position (= 50 in
-             -terruptions)
-  28   2          if (TF2 == 1){
-  29   3            i++;
-  30   3          }
-  31   2        }
-  32   1        TR2 = 0; //Timer2 désactivé pour le servomoteur vertical
-  33   1        
+  25   1      
+  26   1        TR2 = 1; //Timer2 activï¿½
+  27   1        /*while(i < 50){ //Cette boucle permet de laisser le temps au servomoteur de se mettre en position (= 50 
+             -interruptions)
+  28   1          if (TF2 == 1){
+  29   1            i++;
+  30   1          }
+  31   1        }*/
+  32   1        TR2 = 0; //Timer2 dï¿½sactivï¿½ pour le servomoteur vertical
+  33   1      
   34   1        return Angle;
   35   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    161    ----
+   CODE SIZE        =    127    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----       8
    PDATA SIZE       =   ----    ----

@@ -140,7 +140,7 @@
             <RestoreTracepoints>1</RestoreTracepoints>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
-          <TargetSelection>9</TargetSelection>
+          <TargetSelection>-1</TargetSelection>
           <SimDlls>
             <CpuDll></CpuDll>
             <CpuDllArguments></CpuDllArguments>
@@ -394,6 +394,11 @@
               <FileName>Config_UART0.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Config_UART0.c</FilePath>
+            </File>
+            <File>
+              <FileName>Config_UART1.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Config_UART1.c</FilePath>
             </File>
           </Files>
         </Group>

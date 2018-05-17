@@ -9,7 +9,7 @@
 
 
 
-char CDE_Servo_V(unsigned char Angle){
+char CDE_Servo_V(signed int Angle){
 	//D�claration des variables
 	int rech_int;
 	int i=0;
@@ -24,11 +24,11 @@ char CDE_Servo_V(unsigned char Angle){
 	RCAP2H = rech_int >> 8;
 
 	TR2 = 1; //Timer2 activ�
-	while(i < 50){ //Cette boucle permet de laisser le temps au servomoteur de se mettre en position (= 50 interruptions)
+	/*while(i < 50){ //Cette boucle permet de laisser le temps au servomoteur de se mettre en position (= 50 interruptions)
 		if (TF2 == 1){
 			i++;
 		}
-	}
+	}*/
 	TR2 = 0; //Timer2 d�sactiv� pour le servomoteur vertical
 
 	return Angle;

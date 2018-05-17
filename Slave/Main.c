@@ -17,8 +17,8 @@
 #define SYSCLK 22118400L
 
 int Dest_msg_SPI[5] = 0;
-unsigned char Angle_voulu;
-unsigned char Angle_atteint;
+signed int Angle_voulu = 0x0000;
+char Angle_atteint;
 int w,j;
 
 //Variables globales
@@ -43,12 +43,10 @@ void main (void) {
 	EA=1;
 
 /*Fonctions de tests de la connexion SPI
-	trame_recue_test(0xD1);
-	trame_recue_test(0xD1);
-	trame_recue_test(0x01);
-	trame_recue_test(0x05);
-	trame_recue_test(0x32);
-	trame_recue_test(0x19);
+	trame_recue_test(0xD3);
+	trame_recue_test(0xD3);
+	trame_recue_test(0xA9);
+	trame_recue_test(0xBB);
 	trame_recue_test(0xFF);
 	trame_recue_test(0xFF);*/
 
@@ -72,8 +70,9 @@ void main (void) {
 				break;
 			case 2 :
 				if (msg_ServVert[1] == 0xAA){ //L'angle est négatif
-					Angle_voulu = 0xFF; //Valider le sens de la concaténation /!!!!!/
-					strcat(Angle_voulu,msg_ServVert[0]);
+					msg_ServVert[0] =~ msg_ServVert[0];//On refait le complément pour bien réceptionner le message qui a été complémenter dans le Master
+					Angle_voulu |= msg_ServVert[0]; 
+					Angle_voulu |= 0xFF00;
 					Angle_atteint = CDE_Servo_V(Angle_voulu); //On appelle sa fonction associée en lui envoyant son message
 				}
 				else{ //L'angle est positif

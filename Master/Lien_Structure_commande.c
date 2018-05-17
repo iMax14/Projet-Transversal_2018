@@ -68,7 +68,7 @@ void routage(struct COMMANDES commande, enum Routage * type){
 void fonctionRoutage(struct COMMANDES commande){
 	enum Routage route = Initialisation;
 	unsigned char commande_SPI = 0x00;
-	unsigned char trame[1] = {0x00};
+	unsigned char trame[2] = 0;
 	unsigned char taille_trame = 1;
 	double alpha;
 	int distance;
@@ -102,6 +102,7 @@ void fonctionRoutage(struct COMMANDES commande){
 			trame[0]=commande.Servo_Angle;
       if (commande.Servo_Angle < 0){
         trame[1] = 0xAA; //Pour prévenir le Slave que l'angle qu'il va recevoir est négatif
+				trame[0] =~ trame[0]; //On prend le complément pour ne pas envoyé un début ou une fin de trame dans la SPI
       }
       else{
         trame[1] = 0xBB;

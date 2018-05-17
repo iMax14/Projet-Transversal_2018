@@ -913,7 +913,6 @@ void main (void)
 	//fonctionRoutage(commande);
 
 	serOutstring("\n\rDemarrage robot\n\r>");
-	CDE_Servo_H(90);
 // a commenter si le robot est d�ja allum� avant le lancement du code
 // Pour recevoir le message de d�marrage du serializer
 /*	do{
@@ -935,7 +934,7 @@ void main (void)
 		i=0;
 		a=0;
 		memset(com, 0, 50);
-		do{
+		/*do{
 			a=serInchar();
 			echo[0] = a;
 			echo[1] = '\0';
@@ -946,11 +945,9 @@ void main (void)
 				com[i]=a;
 				i=i+1;
 				}
-			}while(a!=0x0D);
+			}while(a!=0x0D); Commenté pour les tests avec le simulateur*/
 
-
-		//strcpy(com,"SD F:13 P:10 W:50 B:50");
-		//strcpy(com,"CS H 45");
+		strcpy(com,"CS V A:-90");
 
 		commande = Message(com/*, f_b, t_son, t_silence, bip_b*/);
 			/*if(commande.son==emission)

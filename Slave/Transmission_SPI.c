@@ -185,6 +185,8 @@ void trame_recue(void){
 }
 
 
+
+
 /*Fonction de test de la réception de la connexion SPI :
 void trame_recue_test(unsigned char s){
 
