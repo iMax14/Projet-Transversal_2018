@@ -40,192 +40,219 @@ linking...
     SEGMENT: ?PR?COURANT_ADC?MESURE_COURANT
     CALLER1: ?C_C51STARTUP
     CALLER2: ?PR?ISR_TIMER3?MAIN
-Program Size: data=15.3 xdata=1686 code=21412
-"Master" - 0 Error(s), 7 Warning(s).
-Rebuild target 'Target 1'
-assembling STARTUP.A51...
-compiling Config_ADC.c...
-compiling Config_Globale.c...
-compiling Config_SPI.c...
-compiling Detect_Obst.c...
-compiling Fonctions_cote_serializer.c...
-compiling Generation_son.c...
-compiling Gpio.c...
-compiling Lien_Structure_commande.c...
-compiling main.c...
-Src\main.c(421): warning C280: 'com': unreferenced local variable
-Src\main.c(570): warning C280: 'com': unreferenced local variable
-compiling Mesure_courant.c...
-compiling Servomoteur_Horizontal.c...
-compiling Timers.c...
-compiling Transmission_SPI.c...
-compiling UART0_RingBuffer_lib.C...
-compiling UART1.c...
-compiling ultrason.c...
-linking...
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
-*** WARNING L15: MULTIPLE CALL TO SEGMENT
-    SEGMENT: ?PR?COURANT_ADC?MESURE_COURANT
-    CALLER1: ?C_C51STARTUP
-    CALLER2: ?PR?ISR_TIMER3?MAIN
-Program Size: data=15.3 xdata=1737 code=21482
-"Master" - 0 Error(s), 7 Warning(s).
-Build target 'Target 1'
-compiling Detect_Obst.c...
-Src\Detect_Obst.c(131): warning C182: pointer to different objects
-Src\Detect_Obst.c(133): warning C182: pointer to different objects
-Src\Detect_Obst.c(154): error C214: illegal pointer conversion
-Target not created
-Build target 'Target 1'
-compiling Detect_Obst.c...
-Src\Detect_Obst.c(154): error C214: illegal pointer conversion
-Target not created
-Rebuild target 'Target 1'
-assembling STARTUP.A51...
-compiling Config_ADC.c...
-compiling Config_Globale.c...
-compiling Config_SPI.c...
-compiling Detect_Obst.c...
-Src\Detect_Obst.c(154): error C214: illegal pointer conversion
-compiling Fonctions_cote_serializer.c...
-compiling Generation_son.c...
-compiling Gpio.c...
-compiling Lien_Structure_commande.c...
-compiling main.c...
-Src\main.c(421): warning C280: 'com': unreferenced local variable
-Src\main.c(570): warning C280: 'com': unreferenced local variable
-compiling Mesure_courant.c...
-compiling Servomoteur_Horizontal.c...
-compiling Timers.c...
-compiling Transmission_SPI.c...
-compiling UART0_RingBuffer_lib.C...
-compiling UART1.c...
-compiling ultrason.c...
-Target not created
-Build target 'Target 1'
-compiling Detect_Obst.c...
-linking...
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
-*** WARNING L15: MULTIPLE CALL TO SEGMENT
-    SEGMENT: ?PR?COURANT_ADC?MESURE_COURANT
-    CALLER1: ?C_C51STARTUP
-    CALLER2: ?PR?ISR_TIMER3?MAIN
-Program Size: data=15.3 xdata=1787 code=21458
-"Master" - 0 Error(s), 5 Warning(s).
-Build target 'Target 1'
-compiling Detect_Obst.c...
-linking...
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
-*** WARNING L15: MULTIPLE CALL TO SEGMENT
-    SEGMENT: ?PR?COURANT_ADC?MESURE_COURANT
-    CALLER1: ?C_C51STARTUP
-    CALLER2: ?PR?ISR_TIMER3?MAIN
-Program Size: data=15.3 xdata=1797 code=21596
-"Master" - 0 Error(s), 5 Warning(s).
-Rebuild target 'Target 1'
-assembling STARTUP.A51...
-compiling Config_ADC.c...
-compiling Config_Globale.c...
-compiling Config_SPI.c...
-compiling Detect_Obst.c...
-compiling Fonctions_cote_serializer.c...
-compiling Generation_son.c...
-compiling Gpio.c...
-compiling Lien_Structure_commande.c...
-compiling main.c...
-Src\main.c(421): warning C280: 'com': unreferenced local variable
-Src\main.c(570): warning C280: 'com': unreferenced local variable
-compiling Mesure_courant.c...
-compiling Servomoteur_Horizontal.c...
-compiling Timers.c...
-compiling Transmission_SPI.c...
-compiling UART0_RingBuffer_lib.C...
-compiling UART1.c...
-compiling ultrason.c...
-linking...
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
-*** WARNING L15: MULTIPLE CALL TO SEGMENT
-    SEGMENT: ?PR?COURANT_ADC?MESURE_COURANT
-    CALLER1: ?C_C51STARTUP
-    CALLER2: ?PR?ISR_TIMER3?MAIN
-Program Size: data=15.3 xdata=1797 code=21596
-"Master" - 0 Error(s), 7 Warning(s).
-Build target 'Target 1'
-compiling Detect_Obst.c...
-linking...
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
-*** WARNING L15: MULTIPLE CALL TO SEGMENT
-    SEGMENT: ?PR?COURANT_ADC?MESURE_COURANT
-    CALLER1: ?C_C51STARTUP
-    CALLER2: ?PR?ISR_TIMER3?MAIN
-Program Size: data=15.3 xdata=1797 code=21706
-"Master" - 0 Error(s), 5 Warning(s).
-Build target 'Target 1'
-compiling Detect_Obst.c...
-linking...
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
-*** WARNING L15: MULTIPLE CALL TO SEGMENT
-    SEGMENT: ?PR?COURANT_ADC?MESURE_COURANT
-    CALLER1: ?C_C51STARTUP
-    CALLER2: ?PR?ISR_TIMER3?MAIN
-Program Size: data=15.3 xdata=1797 code=21710
-"Master" - 0 Error(s), 5 Warning(s).
-Build target 'Target 1'
-compiling Detect_Obst.c...
-linking...
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
-*** WARNING L15: MULTIPLE CALL TO SEGMENT
-    SEGMENT: ?PR?COURANT_ADC?MESURE_COURANT
-    CALLER1: ?C_C51STARTUP
-    CALLER2: ?PR?ISR_TIMER3?MAIN
 Program Size: data=15.3 xdata=1797 code=21707
+"Master" - 0 Error(s), 7 Warning(s).
+Build target 'Target 1'
+compiling Detect_Obst.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?COURANT_ADC?MESURE_COURANT
+    CALLER1: ?C_C51STARTUP
+    CALLER2: ?PR?ISR_TIMER3?MAIN
+Program Size: data=15.3 xdata=2097 code=21959
+"Master" - 0 Error(s), 5 Warning(s).
+Build target 'Target 1'
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?COURANT_ADC?MESURE_COURANT
+    CALLER1: ?C_C51STARTUP
+    CALLER2: ?PR?ISR_TIMER3?MAIN
+Program Size: data=15.3 xdata=2097 code=21959
+"Master" - 0 Error(s), 5 Warning(s).
+Rebuild target 'Target 1'
+assembling STARTUP.A51...
+compiling Config_ADC.c...
+compiling Config_Globale.c...
+compiling Config_SPI.c...
+compiling Detect_Obst.c...
+compiling Fonctions_cote_serializer.c...
+compiling Generation_son.c...
+compiling Gpio.c...
+compiling Lien_Structure_commande.c...
+compiling main.c...
+Src\main.c(421): warning C280: 'com': unreferenced local variable
+Src\main.c(570): warning C280: 'com': unreferenced local variable
+compiling Mesure_courant.c...
+compiling Servomoteur_Horizontal.c...
+compiling Timers.c...
+compiling Transmission_SPI.c...
+compiling UART0_RingBuffer_lib.C...
+compiling UART1.c...
+compiling ultrason.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?COURANT_ADC?MESURE_COURANT
+    CALLER1: ?C_C51STARTUP
+    CALLER2: ?PR?ISR_TIMER3?MAIN
+Program Size: data=15.3 xdata=2097 code=21959
+"Master" - 0 Error(s), 7 Warning(s).
+Build target 'Target 1'
+compiling Detect_Obst.c...
+Src\Detect_Obst.c(85): error C141: syntax error near 'int'
+compiling main.c...
+Src\main.c(421): warning C280: 'com': unreferenced local variable
+Src\main.c(570): warning C280: 'com': unreferenced local variable
+Target not created
+Build target 'Target 1'
+compiling Detect_Obst.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?COURANT_ADC?MESURE_COURANT
+    CALLER1: ?C_C51STARTUP
+    CALLER2: ?PR?ISR_TIMER3?MAIN
+Program Size: data=15.3 xdata=2097 code=21967
+"Master" - 0 Error(s), 5 Warning(s).
+Build target 'Target 1'
+compiling Detect_Obst.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?COURANT_ADC?MESURE_COURANT
+    CALLER1: ?C_C51STARTUP
+    CALLER2: ?PR?ISR_TIMER3?MAIN
+Program Size: data=15.3 xdata=2097 code=21987
+"Master" - 0 Error(s), 5 Warning(s).
+Rebuild target 'Target 1'
+assembling STARTUP.A51...
+compiling Config_ADC.c...
+compiling Config_Globale.c...
+compiling Config_SPI.c...
+compiling Detect_Obst.c...
+compiling Fonctions_cote_serializer.c...
+compiling Generation_son.c...
+compiling Gpio.c...
+compiling Lien_Structure_commande.c...
+compiling main.c...
+Src\main.c(421): warning C280: 'com': unreferenced local variable
+Src\main.c(570): warning C280: 'com': unreferenced local variable
+compiling Mesure_courant.c...
+compiling Servomoteur_Horizontal.c...
+compiling Timers.c...
+compiling Transmission_SPI.c...
+compiling UART0_RingBuffer_lib.C...
+compiling UART1.c...
+compiling ultrason.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?COURANT_ADC?MESURE_COURANT
+    CALLER1: ?C_C51STARTUP
+    CALLER2: ?PR?ISR_TIMER3?MAIN
+Program Size: data=15.3 xdata=2097 code=21998
+"Master" - 0 Error(s), 7 Warning(s).
+Build target 'Target 1'
+compiling Detect_Obst.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?COURANT_ADC?MESURE_COURANT
+    CALLER1: ?C_C51STARTUP
+    CALLER2: ?PR?ISR_TIMER3?MAIN
+Program Size: data=15.3 xdata=2097 code=22001
+"Master" - 0 Error(s), 5 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+Src\main.c(421): warning C280: 'com': unreferenced local variable
+Src\main.c(570): warning C280: 'com': unreferenced local variable
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?COURANT_ADC?MESURE_COURANT
+    CALLER1: ?C_C51STARTUP
+    CALLER2: ?PR?ISR_TIMER3?MAIN
+Program Size: data=15.3 xdata=2097 code=21999
+"Master" - 0 Error(s), 7 Warning(s).
+Build target 'Target 1'
+compiling Detect_Obst.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?COURANT_ADC?MESURE_COURANT
+    CALLER1: ?C_C51STARTUP
+    CALLER2: ?PR?ISR_TIMER3?MAIN
+Program Size: data=15.3 xdata=2097 code=22039
+"Master" - 0 Error(s), 5 Warning(s).
+Build target 'Target 1'
+compiling Detect_Obst.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ITOS?FONCTIONS_COTE_SERIALIZER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SERINCHAR_BIN1?UART1
+*** WARNING L15: MULTIPLE CALL TO SEGMENT
+    SEGMENT: ?PR?COURANT_ADC?MESURE_COURANT
+    CALLER1: ?C_C51STARTUP
+    CALLER2: ?PR?ISR_TIMER3?MAIN
+Program Size: data=15.3 xdata=2097 code=22050
 "Master" - 0 Error(s), 5 Warning(s).

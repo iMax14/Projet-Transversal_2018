@@ -954,7 +954,7 @@ void main (void)
 
 		//strcpy(com,"CS V A:-90");
 		//strcpy(com,"SD F:12 P:50 W:60 B:5");
-		strcpy(com,"MOS D A:05");
+		strcpy(com,"MOS A:45");
 
 		commande = Message(com/*, f_b, t_son, t_silence, bip_b*/);
 			/*if(commande.son==emission)

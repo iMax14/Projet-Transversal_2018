@@ -68,10 +68,11 @@ char detection_AV_AR(struct COMMANDES com){
 
 struct INFORMATIONS Detect_Obst(struct COMMANDES com){
 	signed int i;
-	int j,k=0;
+	int j;
+	int k=0;
 	extern float detection_avant,detection_arriere;
-	char tab_dist_AV [50];
-	char tab_dist_AR [50];
+	float tab_dist_AV [50];
+	float tab_dist_AR [50];
 	signed int tab_angles [50];
 	float dist_min_AV [5];
 	float dist_min_AR [5];
@@ -79,7 +80,9 @@ struct INFORMATIONS Detect_Obst(struct COMMANDES com){
 	char dist_min_ascii [5];
 	signed int angle [5];
 	char angle_ascii [5];
-	int min,min_AV,min_AR = 0;
+	int min = 0;
+	int min_AV = 0;
+	int min_AR = 0;
 
 	switch(com.A_Obst){
 		case Obst_unique:
@@ -115,7 +118,7 @@ struct INFORMATIONS Detect_Obst(struct COMMANDES com){
 					tab_dist_AV[k] = detection_AV(com); //On fait une d�tection AV
 					k++;
 				}
-				for (j=0; j<sizeof(tab_dist_AV); j++){//Recherche de la distance minimale parmis toutes celle trouv�e
+				for (j=0; j<= (180/com.DCT_Obst_Resolution); j++){//Recherche de la distance minimale parmis toutes celle trouv�e
 		 			if(tab_dist_AV[j] < tab_dist_AV[min]){
 						min = j;
 					}
@@ -124,8 +127,8 @@ struct INFORMATIONS Detect_Obst(struct COMMANDES com){
 				angle[0] = tab_angles[min];
 
 				//Affichage
-				sprintf(dist_min_ascii,"%f",dist_min); // Convertion de float � char
-				sprintf(angle_ascii,"%si",angle); // Convertion de int � char
+				sprintf(dist_min_ascii,"%f",dist_min[0]); // Convertion de float � char
+				sprintf(angle_ascii,"%d",angle[0]); // Convertion de int � char
 
 				strcat(affichage,angle_ascii); //On donne la position du Servomoteur_Horizontal
 				strcat(affichage," : AV -> ");
@@ -137,13 +140,13 @@ struct INFORMATIONS Detect_Obst(struct COMMANDES com){
 					tab_dist_AV[k],tab_dist_AR[k] = detection_AV_AR(com); //On fait une d�tection AV et AR
 					k++;
 				}
-				for (j=0; j<sizeof(tab_dist_AV); j++){//Recherche de la distance minimale AV parmis toutes celle trouv�e
+				for (j=0; j<= (180/com.DCT_Obst_Resolution); j++){//Recherche de la distance minimale AV parmis toutes celle trouv�e
 					if(tab_dist_AV[j] < tab_dist_AV[min_AV]){
 						min_AV = j;
 					}
 				}
 				dist_min_AV[0] = tab_dist_AV[min_AV];
-				for (j=0; j<sizeof(tab_dist_AR); j++){//Recherche de la distance minimale AR parmis toutes celle trouv�e
+				for (j=0; j<= (180/com.DCT_Obst_Resolution); j++){//Recherche de la distance minimale AR parmis toutes celle trouv�e
 					if(tab_dist_AR[j] < tab_dist_AR[min_AR]){
 						min_AR = j;
 					}
@@ -159,8 +162,8 @@ struct INFORMATIONS Detect_Obst(struct COMMANDES com){
 				}
 
 				//Affichage
-				sprintf(dist_min_ascii,"%f",dist_min); // Convertion de float � char
-				sprintf(angle_ascii,"%si",angle); // Convertion de int � char
+				sprintf(dist_min_ascii,"%f",dist_min[0]); // Convertion de float � char
+				sprintf(angle_ascii,"%d",angle[0]); // Convertion de int � char
 
 				strcat(affichage,angle_ascii); //On donne la position du Servomoteur_Horizontal
 				strcat(affichage," : ");
