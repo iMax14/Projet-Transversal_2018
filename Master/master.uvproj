@@ -44,7 +44,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\</OutputDirectory>
-          <OutputName>master_final</OutputName>
+          <OutputName>Master</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>0</CreateHexFile>
@@ -159,15 +159,15 @@
         </DebugOption>
         <Utilities>
           <Flash1>
-            <UseTargetDll>1</UseTargetDll>
+            <UseTargetDll>0</UseTargetDll>
             <UseExternalTool>0</UseExternalTool>
             <RunIndependent>0</RunIndependent>
             <UpdateFlashBeforeDebugging>0</UpdateFlashBeforeDebugging>
-            <Capability>1</Capability>
-            <DriverSelection>4101</DriverSelection>
+            <Capability>0</Capability>
+            <DriverSelection>-1</DriverSelection>
           </Flash1>
-          <Flash2>BIN\SiC8051F.dll</Flash2>
-          <Flash3>"" ()</Flash3>
+          <Flash2></Flash2>
+          <Flash3></Flash3>
           <Flash4></Flash4>
         </Utilities>
         <Target51>
@@ -217,7 +217,7 @@
               <RCB>
                 <Type>0</Type>
                 <StartAddress>0x0</StartAddress>
-                <Size>0xffff</Size>
+                <Size>0x10000</Size>
               </RCB>
               <RXB>
                 <Type>0</Type>
@@ -356,74 +356,84 @@
               <FilePath>.\STARTUP.A51</FilePath>
             </File>
             <File>
-              <FileName>ADC.c</FileName>
+              <FileName>Config_ADC.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\ADC.c</FilePath>
+              <FilePath>.\Src\Config_ADC.c</FilePath>
             </File>
             <File>
               <FileName>Config_Globale.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\Config_Globale.c</FilePath>
+              <FilePath>.\Src\Config_Globale.c</FilePath>
             </File>
             <File>
               <FileName>Config_SPI.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\Config_SPI.c</FilePath>
+              <FilePath>.\Src\Config_SPI.c</FilePath>
+            </File>
+            <File>
+              <FileName>Detect_Obst.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Src\Detect_Obst.c</FilePath>
             </File>
             <File>
               <FileName>Fonctions_cote_serializer.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\Fonctions_cote_serializer.c</FilePath>
+              <FilePath>.\Src\Fonctions_cote_serializer.c</FilePath>
             </File>
             <File>
-              <FileName>Servomoteur_Horizontal.c</FileName>
+              <FileName>Generation_son.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\Servomoteur_Horizontal.c</FilePath>
+              <FilePath>.\Src\Generation_son.c</FilePath>
             </File>
             <File>
-              <FileName>Timers.c</FileName>
+              <FileName>Gpio.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\Timers.c</FilePath>
-            </File>
-            <File>
-              <FileName>Transmission_SPI.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Transmission_SPI.c</FilePath>
-            </File>
-            <File>
-              <FileName>UART0_RingBuffer_lib.C</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\UART0_RingBuffer_lib.C</FilePath>
-            </File>
-            <File>
-              <FileName>UART1.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\UART1.c</FilePath>
-            </File>
-            <File>
-              <FileName>ultrason.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ultrason.c</FilePath>
-            </File>
-            <File>
-              <FileName>main.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\main.c</FilePath>
+              <FilePath>.\Src\Gpio.c</FilePath>
             </File>
             <File>
               <FileName>Lien_Structure_commande.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\Lien_Structure_commande.c</FilePath>
+              <FilePath>.\Src\Lien_Structure_commande.c</FilePath>
             </File>
             <File>
-              <FileName>encodage_son.c</FileName>
+              <FileName>main.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\encodage_son.c</FilePath>
+              <FilePath>.\Src\main.c</FilePath>
             </File>
             <File>
-              <FileName>son_sonore.c</FileName>
+              <FileName>Mesure_courant.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\son_sonore.c</FilePath>
+              <FilePath>.\Src\Mesure_courant.c</FilePath>
+            </File>
+            <File>
+              <FileName>Servomoteur_Horizontal.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Src\Servomoteur_Horizontal.c</FilePath>
+            </File>
+            <File>
+              <FileName>Timers.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Src\Timers.c</FilePath>
+            </File>
+            <File>
+              <FileName>Transmission_SPI.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Src\Transmission_SPI.c</FilePath>
+            </File>
+            <File>
+              <FileName>UART0_RingBuffer_lib.C</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Src\UART0_RingBuffer_lib.C</FilePath>
+            </File>
+            <File>
+              <FileName>UART1.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Src\UART1.c</FilePath>
+            </File>
+            <File>
+              <FileName>ultrason.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Src\ultrason.c</FilePath>
             </File>
           </Files>
         </Group>

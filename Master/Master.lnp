@@ -1,17 +1,19 @@
 "STARTUP.obj",
-"ADC.obj",
+"Config_ADC.obj",
 "Config_Globale.obj",
 "Config_SPI.obj",
+"Detect_Obst.obj",
 "Fonctions_cote_serializer.obj",
+"Generation_son.obj",
+"Gpio.obj",
+"Lien_Structure_commande.obj",
+"main.obj",
+"Mesure_courant.obj",
 "Servomoteur_Horizontal.obj",
 "Timers.obj",
 "Transmission_SPI.obj",
 "UART0_RingBuffer_lib.obj",
 "UART1.obj",
-"ultrason.obj",
-"main.obj",
-"Lien_Structure_commande.obj",
-"encodage_son.obj",
-"son_sonore.obj" 
-TO "master_final" 
+"ultrason.obj" 
+TO "Master" 
 RAMSIZE(256) 

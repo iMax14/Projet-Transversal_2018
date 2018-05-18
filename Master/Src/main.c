@@ -10,17 +10,18 @@
 #include "ultrason.h"
 #include "Config_SPI.h"
 #include "Transmission_SPI.h"
-#include "ADC.h"
+#include "Config_ADC.h"
 #include "FO_M1_Structures_COMMANDES_INFORMATIONS_CentraleDeCommande.h"
 #include "UART0_RingBuffer_lib.h"
 #include "ConfigUART1.h"
 #include "UART0_RingBuffer_lib.h"
 #include "Fonctions_cote_serializer.h"
 #include "Lien_Structure_commande.h"
+#include "Mesure_courant.h"
 
 #ifndef CFG_Globale
   #define CFG_Globale
-  #include <CFG_Globale.h>
+  #include "CFG_Globale.h"
 #endif
 
 
@@ -65,7 +66,7 @@ signed int conv(char* nbr, int taille)
 	double t1 = 0;
 	signed int ret=0;
 	int numero=0;
-	
+
 	if(nbr[0]=='-')
 	{
 		for(k=1;k<taille;k++)
@@ -90,9 +91,9 @@ signed int conv(char* nbr, int taille)
 signed int conversionangle_positif (unsigned char tableau[3]){
 	signed int centaine=0;
 	signed int dizaine=0;
-	signed int unite=0; 
+	signed int unite=0;
 	signed int valeur;
-	
+
 	if (tableau[0] == '-') {
 		dizaine= (tableau[1]-'0')*10;
 		unite= (tableau[2]-'0');
@@ -376,7 +377,7 @@ struct COMMANDES traitement_G(char * com, struct COMMANDES commande) // DEPLACEM
 		if (epreuve_en_cours == epreuve1 && com[1]==' ' && com[2]=='X' && com[3]==':')
 		{
 			commande.Etat_Mouvement = Depl_Coord;
-			
+
 			while(com[i]!= ' ')
 			{
 				coord[k]=com[i];
@@ -405,15 +406,15 @@ struct COMMANDES traitement_G(char * com, struct COMMANDES commande) // DEPLACEM
 			}
 			coord[i-1]='\0';
 			commande.Angle=conv(coord,strlen(coord));
-			
-		
+
+
 		}
 		else
 		{
 			commande_correct=0;
 		}
-			
-	
+
+
 			return commande;
 
 }
@@ -954,7 +955,7 @@ void main (void)
 		//strcpy(com,"CS V A:-90");
 		//strcpy(com,"SD F:12 P:50 W:60 B:5");
 		strcpy(com,"MOS D A:05");
-		
+
 		commande = Message(com/*, f_b, t_son, t_silence, bip_b*/);
 			/*if(commande.son==emission)
 			{

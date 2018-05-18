@@ -1,9 +1,10 @@
-C51 COMPILER V9.51   LIEN_STRUCTURE_COMMANDE                                               05/17/2018 18:20:28 PAGE 1   
+C51 COMPILER V9.51   LIEN_STRUCTURE_COMMANDE                                               05/18/2018 09:08:54 PAGE 1   
 
 
 C51 COMPILER V9.51, COMPILATION OF MODULE LIEN_STRUCTURE_COMMANDE
-OBJECT MODULE PLACED IN Lien_Structure_commande.OBJ
-COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.exe Lien_Structure_commande.c LARGE BROWSE DEBUG OBJECTEXTEND TABS(2)
+OBJECT MODULE PLACED IN Lien_Structure_commande.obj
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.exe Src\Lien_Structure_commande.c LARGE BROWSE DEBUG OBJECTEXTEND PRINT(.\Lien_
+                    -Structure_commande.lst) TABS(2) OBJECT(Lien_Structure_commande.obj)
 
 line level    source
 
@@ -13,7 +14,7 @@ line level    source
    4          #include <intrins.h>
    5          
    6          #include "FO_M1_Structures_COMMANDES_INFORMATIONS_CentraleDeCommande.h"
-   7          #include "ADC.h"
+   7          #include "Config_ADC.h"
    8          #include "Servomoteur_horizontal.h"
    9          #include "ultrason.h"
   10          #include "Fonctions_cote_serializer.h"
@@ -25,13 +26,13 @@ line level    source
   16          #include "UART0_RingBuffer_lib.h"
   17          #include "ConfigUART1.h"
   18          #include "Lien_Structure_commande.h"
-  19          #include "encodage_son.h"
-  20          #include "son_sonore.h"
-  21          #include "mesure_courant.h"
+  19          #include "Detect_Obst.h"
+  20          #include "Generation_son.h"
+  21          #include "Mesure_courant.h"
   22          
   23          #ifndef CFG_Globale
   24            #define CFG_Globale
-  25            #include <CFG_Globale.h>
+  25            #include "CFG_Globale.h"
   26          #endif
   27          
   28          //------------------------------------------------------------------------------------
@@ -61,9 +62,9 @@ line level    source
   52   2          *type=Deplacement;
   53   2        }
   54   1        else if (commande.A_Obst!=DCT_non){
-  55   2          *type=Obstacle;
-C51 COMPILER V9.51   LIEN_STRUCTURE_COMMANDE                                               05/17/2018 18:20:28 PAGE 2   
+C51 COMPILER V9.51   LIEN_STRUCTURE_COMMANDE                                               05/18/2018 09:08:54 PAGE 2   
 
+  55   2          *type=Obstacle;
   56   2        }
   57   1        else if (commande.Etat_Energie==Mesure_I){
   58   2          *type=Courant;
@@ -97,7 +98,7 @@ line level    source
   86   1        routage(commande,&route);
   87   1      
   88   1        switch (route){
-  89   2          
+  89   2      
   90   2          case Servo_H:
   91   2            Angle_voulu=commande.Servo_Angle;
   92   2            Angle_atteint = CDE_Servo_H(Angle_voulu);
@@ -125,9 +126,9 @@ line level    source
  113   2            tempo_emiss();
  114   2            msg_Slave = trame_recue();
  115   2            tempo_emiss();
- 116   2            sprintf(msg_Slave_ascii,"%f",msg_Slave);
-C51 COMPILER V9.51   LIEN_STRUCTURE_COMMANDE                                               05/17/2018 18:20:28 PAGE 3   
+C51 COMPILER V9.51   LIEN_STRUCTURE_COMMANDE                                               05/18/2018 09:08:54 PAGE 3   
 
+ 116   2            sprintf(msg_Slave_ascii,"%f",msg_Slave);
  117   2            serOutstring("\n\r AS V");
  118   2            serOutstring("\n\r>");
  119   2            break;
@@ -189,9 +190,9 @@ line level    source
  174   5                    if (a!=0x00){
  175   6                      mess[compteur]=a;
  176   6                      compteur=compteur+1;
- 177   6                      }
-C51 COMPILER V9.51   LIEN_STRUCTURE_COMMANDE                                               05/17/2018 18:20:28 PAGE 4   
+C51 COMPILER V9.51   LIEN_STRUCTURE_COMMANDE                                               05/18/2018 09:08:54 PAGE 4   
 
+ 177   6                      }
  178   5                    }while(a!=0x3E);
  179   4                  }while ( mess[compteur-1] == 1);
  180   3                            compteur = 0;
@@ -253,9 +254,9 @@ line level    source
  236   2      
  237   2          default:
  238   2            strcpy(mess, "\n\r#\n\r>");
- 239   2            serOutstring(mess);
-C51 COMPILER V9.51   LIEN_STRUCTURE_COMMANDE                                               05/17/2018 18:20:28 PAGE 5   
+C51 COMPILER V9.51   LIEN_STRUCTURE_COMMANDE                                               05/18/2018 09:08:54 PAGE 5   
 
+ 239   2            serOutstring(mess);
  240   2            break;
  241   2      
  242   2        }

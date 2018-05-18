@@ -4,7 +4,7 @@
 #include <intrins.h>
 
 #include "FO_M1_Structures_COMMANDES_INFORMATIONS_CentraleDeCommande.h"
-#include "ADC.h"
+#include "Config_ADC.h"
 #include "Servomoteur_horizontal.h"
 #include "ultrason.h"
 #include "Fonctions_cote_serializer.h"
@@ -16,13 +16,13 @@
 #include "UART0_RingBuffer_lib.h"
 #include "ConfigUART1.h"
 #include "Lien_Structure_commande.h"
-#include "encodage_son.h"
-#include "son_sonore.h"
-#include "mesure_courant.h"
+#include "Detect_Obst.h"
+#include "Generation_son.h"
+#include "Mesure_courant.h"
 
 #ifndef CFG_Globale
   #define CFG_Globale
-  #include <CFG_Globale.h>
+  #include "CFG_Globale.h"
 #endif
 
 //------------------------------------------------------------------------------------
@@ -86,7 +86,7 @@ void fonctionRoutage(struct COMMANDES commande){
 	routage(commande,&route);
 
 	switch (route){
-    
+
 		case Servo_H:
 			Angle_voulu=commande.Servo_Angle;
 			Angle_atteint = CDE_Servo_H(Angle_voulu);

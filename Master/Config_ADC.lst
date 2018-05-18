@@ -1,16 +1,17 @@
-C51 COMPILER V9.51   ADC                                                                   05/17/2018 18:20:24 PAGE 1   
+C51 COMPILER V9.51   CONFIG_ADC                                                            05/18/2018 09:08:52 PAGE 1   
 
 
-C51 COMPILER V9.51, COMPILATION OF MODULE ADC
-OBJECT MODULE PLACED IN ADC.OBJ
-COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.exe ADC.c LARGE BROWSE DEBUG OBJECTEXTEND TABS(2)
+C51 COMPILER V9.51, COMPILATION OF MODULE CONFIG_ADC
+OBJECT MODULE PLACED IN Config_ADC.obj
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.exe Src\Config_ADC.c LARGE BROWSE DEBUG OBJECTEXTEND PRINT(.\Config_ADC.lst) TA
+                    -BS(2) OBJECT(Config_ADC.obj)
 
 line level    source
 
    1          #include <c8051f020.h>
    2          #include <intrins.h>
    3          
-   4          #include "ADC.h"
+   4          #include "Config_ADC.h"
    5          
    6          #define SYSCLK 22118400L
    7          
@@ -47,29 +48,12 @@ line level    source
   37   1        while(!AD0INT); //On attend la fin de la conversion à l'aide du flag AD0INT
   38   1        return ADC0H; // On retourne le résulat qui est sur 12 bits
   39   1      }
-  40          
-  41          int Courant_ADC(void){
-  42   1        // Au préalable, on envoie la tension de sortie de l'AO sur l'entrée AINO.0 (Broche A31 du 8051F020)
-  43   1        //Cette tension doit être inférieure à 3.3V, il faut donc faire attention au gain de l'AO.
-  44   1        float tension_AO;
-  45   1        int courant;
-  46   1        int gain_AO = 101;
-  47   1        float R_SHUNT = 50*0.001;
-  48   1      
-  49   1        tension_AO = (ACQ_ADC()*3.3)/0xFF; // On appelle la fonction ACQ_ADC() pour récupérer la conversion (Te
-             -nsion en V)
-  50   1        courant = (int) (tension_AO*1000)/(gain_AO*0.32*R_SHUNT); //Valeur du courant en mA
-  51   1      
-  52   1        return courant;
-  53   1      }
-C51 COMPILER V9.51   ADC                                                                   05/17/2018 18:20:24 PAGE 2   
-
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    184    ----
+   CODE SIZE        =     33    ----
    CONSTANT SIZE    =   ----    ----
-   XDATA SIZE       =   ----      10
+   XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
    DATA SIZE        =   ----    ----
    IDATA SIZE       =   ----    ----
