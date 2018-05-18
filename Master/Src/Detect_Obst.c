@@ -15,7 +15,7 @@ float detection_arriere;
 char obstacle_avant[5];
 char obstacle_arriere[5];
 char affichage [256] = 0;
-extern char Angle_atteint; // Initaliser � "XX"
+extern signed int Angle_atteint; // Initaliser � "XX"
 char Angle_servo [1] = 0;
 
 char detection_AV(struct COMMANDES com){
@@ -28,7 +28,7 @@ char detection_AV(struct COMMANDES com){
   if(com.A_Obst != Obst_proche_balayage){
     //Affichage
     sprintf(obstacle_avant,"%f",detection_avant); // Convertion de float � char
-		sprintf(Angle_servo,"%c",Angle_atteint); // Convertion de float � char
+		sprintf(Angle_servo,"%si",Angle_atteint); // Convertion de float � char
 
     strcat(affichage,Angle_servo); //On donne la position du Servomoteur_Horizontal
     strcat(affichage," : AV -> ");
@@ -53,7 +53,7 @@ char detection_AV_AR(struct COMMANDES com){
 
     sprintf(obstacle_avant,"%f",detection_avant); // Convertion de float � char
     sprintf(obstacle_arriere,"%f",detection_arriere); // Convertion de float � char
-		sprintf(Angle_servo,"%c",Angle_atteint); // Convertion de float � char
+		sprintf(Angle_servo,"%si",Angle_atteint); // Convertion de float � char
 
     strcat(affichage,Angle_servo); //On donne la position du Servomoteur_Horizontal
     strcat(affichage," : AV -> ");
@@ -72,11 +72,13 @@ struct INFORMATIONS Detect_Obst(struct COMMANDES com){
 	extern float detection_avant,detection_arriere;
 	char tab_dist_AV [50];
 	char tab_dist_AR [50];
-	char tab_angles [50];
-	char dist_min_AV [5];
-	char dist_min_AR [5];
-	char dist_min [5];
-	char angle [5];
+	signed int tab_angles [50];
+	float dist_min_AV [5];
+	float dist_min_AR [5];
+	float dist_min [5];
+	char dist_min_ascii [5];
+	signed int angle [5];
+	char angle_ascii [5];
 	int min,min_AV,min_AR = 0;
 
 	switch(com.A_Obst){
@@ -105,12 +107,6 @@ struct INFORMATIONS Detect_Obst(struct COMMANDES com){
 			break;
 
 
-
-
-
-
-
-
 // A TESTER AVEC LE SIMULATEUR
 		case Obst_proche_balayage:
 			if (com.Etat_DCT_Obst==oui_180){ //detection AV sur 180�
@@ -128,9 +124,12 @@ struct INFORMATIONS Detect_Obst(struct COMMANDES com){
 				angle[0] = tab_angles[min];
 
 				//Affichage
-				strcat(affichage,angle); //On donne la position du Servomoteur_Horizontal
+				sprintf(dist_min_ascii,"%f",dist_min); // Convertion de float � char
+				sprintf(angle_ascii,"%si",angle); // Convertion de int � char
+
+				strcat(affichage,angle_ascii); //On donne la position du Servomoteur_Horizontal
 				strcat(affichage," : AV -> ");
-				strcat(affichage,dist_min); //On donne la distance � laquelle est l'obstacle AV
+				strcat(affichage,dist_min_ascii); //On donne la distance � laquelle est l'obstacle AV
 			}
 			else{ //detection AV et AR sur 360�
 				for(i = -90;i<=90;i = i+com.DCT_Obst_Resolution){
@@ -151,18 +150,21 @@ struct INFORMATIONS Detect_Obst(struct COMMANDES com){
 				}
 				dist_min_AR[0] = tab_dist_AR[min];
 				if (dist_min_AR < dist_min_AV){
-					dist_min[0] = dist_min_AR;
+					dist_min[0] = dist_min_AR[min_AR];
 					angle[0] = tab_angles[min_AR];
 				}
 				else{
-					dist_min[0] = dist_min_AV;
+					dist_min[0] = dist_min_AV[min_AV];
 					angle[0] = tab_angles[min_AV];
 				}
 
 				//Affichage
-				strcat(affichage,angle); //On donne la position du Servomoteur_Horizontal
-				strcat(affichage," : AR -> ");
-				strcat(affichage,dist_min); //On donne la distance � laquelle est l'obstacle AR
+				sprintf(dist_min_ascii,"%f",dist_min); // Convertion de float � char
+				sprintf(angle_ascii,"%si",angle); // Convertion de int � char
+
+				strcat(affichage,angle_ascii); //On donne la position du Servomoteur_Horizontal
+				strcat(affichage," : ");
+				strcat(affichage,dist_min_ascii); //On donne la distance � laquelle est l'obstacle AV
 			}
 			break;
 	}

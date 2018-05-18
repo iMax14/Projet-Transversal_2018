@@ -1,4 +1,4 @@
-C51 COMPILER V9.51   MAIN                                                                  05/18/2018 09:08:55 PAGE 1   
+C51 COMPILER V9.51   MAIN                                                                  05/18/2018 10:57:14 PAGE 1   
 
 
 C51 COMPILER V9.51, COMPILATION OF MODULE MAIN
@@ -62,7 +62,7 @@ line level    source
   52            int unite=0;
   53            char valeur;
   54          
-C51 COMPILER V9.51   MAIN                                                                  05/18/2018 09:08:55 PAGE 2   
+C51 COMPILER V9.51   MAIN                                                                  05/18/2018 10:57:14 PAGE 2   
 
   55            centaine= (tableau[0]-'0')*100;
   56            dizaine= (tableau[1]-'0')*10;
@@ -126,7 +126,7 @@ line level    source
  113   1        char tab[3];
  114   1        int j;
  115   1        char duree;
-C51 COMPILER V9.51   MAIN                                                                  05/18/2018 09:08:55 PAGE 3   
+C51 COMPILER V9.51   MAIN                                                                  05/18/2018 10:57:14 PAGE 3   
 
  116   1      
  117   1        switch (com[1]) //AJOUTER LA DUREE
@@ -190,7 +190,7 @@ line level    source
  175   1      }
  176          struct COMMANDES traitement_B(char* com, struct COMMANDES commande) // RECULER OK
  177          {
-C51 COMPILER V9.51   MAIN                                                                  05/18/2018 09:08:55 PAGE 4   
+C51 COMPILER V9.51   MAIN                                                                  05/18/2018 10:57:14 PAGE 4   
 
  178   1        char vitesse;
  179   1        char tab[3];
@@ -254,7 +254,7 @@ line level    source
  237   3            commande.Servo_Angle=angle;
  238   3            break;
  239   3          }
-C51 COMPILER V9.51   MAIN                                                                  05/18/2018 09:08:55 PAGE 5   
+C51 COMPILER V9.51   MAIN                                                                  05/18/2018 10:57:14 PAGE 5   
 
  240   2          case 'V':
  241   2          {
@@ -318,7 +318,7 @@ line level    source
  299   3      
  300   3              }
  301   2              case '3': //�preuve 3
-C51 COMPILER V9.51   MAIN                                                                  05/18/2018 09:08:55 PAGE 6   
+C51 COMPILER V9.51   MAIN                                                                  05/18/2018 10:57:14 PAGE 6   
 
  302   2              {
  303   3                commande.Etat_Epreuve=epreuve3;
@@ -382,7 +382,7 @@ line level    source
  361   1            commande_correct = 2;
  362   1            return commande;
  363   1      }
-C51 COMPILER V9.51   MAIN                                                                  05/18/2018 09:08:55 PAGE 7   
+C51 COMPILER V9.51   MAIN                                                                  05/18/2018 10:57:14 PAGE 7   
 
  364          struct COMMANDES traitement_E(struct COMMANDES commande)//FIN DEPREUVE OK
  365          {
@@ -446,7 +446,7 @@ line level    source
  423   1        // a compl�ter
  424   1        return commande;
  425   1      }
-C51 COMPILER V9.51   MAIN                                                                  05/18/2018 09:08:55 PAGE 8   
+C51 COMPILER V9.51   MAIN                                                                  05/18/2018 10:57:14 PAGE 8   
 
 *** WARNING C280 IN LINE 421 OF Src\main.c: 'com': unreferenced local variable
  426          struct COMMANDES traitement_M(char *com, struct COMMANDES commande)
@@ -510,7 +510,7 @@ line level    source
  484   6                            tab[j-8]=com[j];
  485   6                          }
  486   5                          angle=conversioncoord(tab);
-C51 COMPILER V9.51   MAIN                                                                  05/18/2018 09:08:55 PAGE 9   
+C51 COMPILER V9.51   MAIN                                                                  05/18/2018 10:57:14 PAGE 9   
 
  487   5                          if (angle%5==0){
  488   6                            if(angle>=5 && angle<=45){
@@ -574,7 +574,7 @@ line level    source
  546   6                          }
  547   5                          else
  548   5                          {
-C51 COMPILER V9.51   MAIN                                                                  05/18/2018 09:08:55 PAGE 10  
+C51 COMPILER V9.51   MAIN                                                                  05/18/2018 10:57:14 PAGE 10  
 
  549   6                            commande_correct=0;
  550   6                          }
@@ -638,7 +638,7 @@ line level    source
  607   4                commande.Etat_Mouvement=Rot_180G;
  608   4                break;
  609   4              }
-C51 COMPILER V9.51   MAIN                                                                  05/18/2018 09:08:55 PAGE 11  
+C51 COMPILER V9.51   MAIN                                                                  05/18/2018 10:57:14 PAGE 11  
 
  610   3            }
  611   2            case 'A': // on recoit RA
@@ -702,7 +702,7 @@ line level    source
  668   1        {
  669   2          commande.son=emission;
  670   2            if(com[3]=='F')
-C51 COMPILER V9.51   MAIN                                                                  05/18/2018 09:08:55 PAGE 12  
+C51 COMPILER V9.51   MAIN                                                                  05/18/2018 10:57:14 PAGE 12  
 
  671   2            {
  672   3              for (i=5; i<7;i++)
@@ -766,7 +766,7 @@ line level    source
  730   2            else
  731   2            {
  732   3              commande.frequence=f_b;               // d�finit par le code fr�quence allant de 1 a 99 (mais defini de 1
-C51 COMPILER V9.51   MAIN                                                                  05/18/2018 09:08:55 PAGE 13  
+C51 COMPILER V9.51   MAIN                                                                  05/18/2018 10:57:14 PAGE 13  
 
              - a 21)
  733   3              commande.duree_son=t_son;                 // dur�e du signal sonore
@@ -830,7 +830,7 @@ line level    source
  791   1        commande.Etat_Position = Position_non;
  792   1        commande.son=non_emission;
  793   1      
-C51 COMPILER V9.51   MAIN                                                                  05/18/2018 09:08:55 PAGE 14  
+C51 COMPILER V9.51   MAIN                                                                  05/18/2018 10:57:14 PAGE 14  
 
  794   1          switch (com[0])
  795   1          {
@@ -894,7 +894,7 @@ line level    source
  853   2          {
  854   3            commande=traitement_G(com,commande);
  855   3            break;
-C51 COMPILER V9.51   MAIN                                                                  05/18/2018 09:08:55 PAGE 15  
+C51 COMPILER V9.51   MAIN                                                                  05/18/2018 10:57:14 PAGE 15  
 
  856   3          }
  857   2      
@@ -958,7 +958,7 @@ line level    source
  915   1      
  916   1      
  917   1        //Courant_ADC();
-C51 COMPILER V9.51   MAIN                                                                  05/18/2018 09:08:55 PAGE 16  
+C51 COMPILER V9.51   MAIN                                                                  05/18/2018 10:57:14 PAGE 16  
 
  918   1        //fonctionRoutage(commande);
  919   1      
@@ -1022,7 +1022,7 @@ line level    source
  977   2        //serOutstring(message_PC_com); // si erreur
  978   2        }
  979   1      
-C51 COMPILER V9.51   MAIN                                                                  05/18/2018 09:08:55 PAGE 17  
+C51 COMPILER V9.51   MAIN                                                                  05/18/2018 10:57:14 PAGE 17  
 
  980   1      }
  981          

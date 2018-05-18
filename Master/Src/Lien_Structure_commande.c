@@ -38,7 +38,8 @@ struct COMMANDES_SERIALIZER commande_serializer;
 float courant_actuel;
 float dist_avant;
 float dist_arriere;
-char Angle_voulu,Angle_atteint,msg_Slave,angle;
+char Angle_voulu,msg_Slave,angle;
+signed int Angle_atteint;
 
 void routage(struct COMMANDES commande, enum Routage * type){
 

@@ -1,4 +1,4 @@
-C51 COMPILER V9.51   LIEN_STRUCTURE_COMMANDE                                               05/18/2018 09:08:54 PAGE 1   
+C51 COMPILER V9.51   LIEN_STRUCTURE_COMMANDE                                               05/18/2018 10:57:13 PAGE 1   
 
 
 C51 COMPILER V9.51, COMPILATION OF MODULE LIEN_STRUCTURE_COMMANDE
@@ -48,234 +48,235 @@ line level    source
   38          float courant_actuel;
   39          float dist_avant;
   40          float dist_arriere;
-  41          char Angle_voulu,Angle_atteint,msg_Slave,angle;
-  42          
-  43          void routage(struct COMMANDES commande, enum Routage * type){
-  44   1      
-  45   1        if (commande.Etat_Servo==Servo_H){
-  46   2          *type=Servo_Hor;
-  47   2        }
-  48   1        else  if (commande.Etat_Servo==Servo_V){
-  49   2          *type=Servo_Vert;
-  50   2        }
-  51   1        else if (commande.Etat_Mouvement!=Mouvement_non){
-  52   2          *type=Deplacement;
-  53   2        }
-  54   1        else if (commande.A_Obst!=DCT_non){
-C51 COMPILER V9.51   LIEN_STRUCTURE_COMMANDE                                               05/18/2018 09:08:54 PAGE 2   
+  41          char Angle_voulu,msg_Slave,angle;
+  42          signed int Angle_atteint;
+  43          
+  44          void routage(struct COMMANDES commande, enum Routage * type){
+  45   1      
+  46   1        if (commande.Etat_Servo==Servo_H){
+  47   2          *type=Servo_Hor;
+  48   2        }
+  49   1        else  if (commande.Etat_Servo==Servo_V){
+  50   2          *type=Servo_Vert;
+  51   2        }
+  52   1        else if (commande.Etat_Mouvement!=Mouvement_non){
+  53   2          *type=Deplacement;
+  54   2        }
+C51 COMPILER V9.51   LIEN_STRUCTURE_COMMANDE                                               05/18/2018 10:57:13 PAGE 2   
 
-  55   2          *type=Obstacle;
-  56   2        }
-  57   1        else if (commande.Etat_Energie==Mesure_I){
-  58   2          *type=Courant;
-  59   2        }
-  60   1        else if (commande.Etat_Energie==Mesure_E){
-  61   2          *type=Energie;
-  62   2        }
-  63   1        else if ( commande.frequence!=0){
-  64   2          *type=Gene_Son;
-  65   2        }
-  66   1      }
-  67          // verifier attention effectuer les d�claration avant toute execution de code.
-  68          void fonctionRoutage(struct COMMANDES commande){
-  69   1        enum Routage route = Initialisation;
-  70   1        unsigned char commande_SPI = 0x00;
-  71   1        unsigned char trame[2] = 0;
-  72   1        unsigned char taille_trame = 1;
-  73   1        double alpha;
-  74   1        int distance;
-  75   1        char angle_ascii[3];
-  76   1        char mess[50] = {0};
-  77   1        char mess1[50] = {0}; // utilis� dans le cas du d�placement �l�mentaire
-  78   1        char mess2[50] = {0}; // idem
-  79   1        char mess3[50] = {0}; // idem
-  80   1        int compteur = 0;
-  81   1        char msg_Slave_ascii[256];
-  82   1        struct INFORMATIONS info;
-  83   1        char courant_ascii[4];
-  84   1        char energie_ascii[4];
-  85   1        extern char affichage [50];
-  86   1        routage(commande,&route);
-  87   1      
-  88   1        switch (route){
-  89   2      
-  90   2          case Servo_H:
-  91   2            Angle_voulu=commande.Servo_Angle;
-  92   2            Angle_atteint = CDE_Servo_H(Angle_voulu);
-  93   2            serOutstring("\n\r AS H");
-  94   2      
-  95   2            memset(mess,0,strlen(mess));
-  96   2            strcpy(mess,angle_ascii);
-  97   2            strcat(mess,"\n\r>");
-  98   2            serOutstring(mess);
-  99   2            break;
- 100   2      
- 101   2          case Servo_V:
- 102   2            commande_SPI = 0xD3;
- 103   2            trame[0]=commande.Servo_Angle;
- 104   2            if (commande.Servo_Angle < 0){
- 105   3              trame[1] = 0xAA; //Pour prévenir le Slave que l'angle qu'il va recevoir est négatif
- 106   3              trame[0] =~ trame[0]; //On prend le complément pour ne pas envoyé un début ou une fin de trame dans
+  55   1        else if (commande.A_Obst!=DCT_non){
+  56   2          *type=Obstacle;
+  57   2        }
+  58   1        else if (commande.Etat_Energie==Mesure_I){
+  59   2          *type=Courant;
+  60   2        }
+  61   1        else if (commande.Etat_Energie==Mesure_E){
+  62   2          *type=Energie;
+  63   2        }
+  64   1        else if ( commande.frequence!=0){
+  65   2          *type=Gene_Son;
+  66   2        }
+  67   1      }
+  68          // verifier attention effectuer les d�claration avant toute execution de code.
+  69          void fonctionRoutage(struct COMMANDES commande){
+  70   1        enum Routage route = Initialisation;
+  71   1        unsigned char commande_SPI = 0x00;
+  72   1        unsigned char trame[2] = 0;
+  73   1        unsigned char taille_trame = 1;
+  74   1        double alpha;
+  75   1        int distance;
+  76   1        char angle_ascii[3];
+  77   1        char mess[50] = {0};
+  78   1        char mess1[50] = {0}; // utilis� dans le cas du d�placement �l�mentaire
+  79   1        char mess2[50] = {0}; // idem
+  80   1        char mess3[50] = {0}; // idem
+  81   1        int compteur = 0;
+  82   1        char msg_Slave_ascii[256];
+  83   1        struct INFORMATIONS info;
+  84   1        char courant_ascii[4];
+  85   1        char energie_ascii[4];
+  86   1        extern char affichage [50];
+  87   1        routage(commande,&route);
+  88   1      
+  89   1        switch (route){
+  90   2      
+  91   2          case Servo_H:
+  92   2            Angle_voulu=commande.Servo_Angle;
+  93   2            Angle_atteint = CDE_Servo_H(Angle_voulu);
+  94   2            serOutstring("\n\r AS H");
+  95   2      
+  96   2            memset(mess,0,strlen(mess));
+  97   2            strcpy(mess,angle_ascii);
+  98   2            strcat(mess,"\n\r>");
+  99   2            serOutstring(mess);
+ 100   2            break;
+ 101   2      
+ 102   2          case Servo_V:
+ 103   2            commande_SPI = 0xD3;
+ 104   2            trame[0]=commande.Servo_Angle;
+ 105   2            if (commande.Servo_Angle < 0){
+ 106   3              trame[1] = 0xAA; //Pour prévenir le Slave que l'angle qu'il va recevoir est négatif
+ 107   3              trame[0] =~ trame[0]; //On prend le complément pour ne pas envoyé un début ou une fin de trame dans
              - la SPI
- 107   3            }
- 108   2            else{
- 109   3              trame[1] = 0xBB;
- 110   3            }
- 111   2            taille_trame = 2;
- 112   2            echange_trame(trame,taille_trame,commande_SPI);
- 113   2            tempo_emiss();
- 114   2            msg_Slave = trame_recue();
- 115   2            tempo_emiss();
-C51 COMPILER V9.51   LIEN_STRUCTURE_COMMANDE                                               05/18/2018 09:08:54 PAGE 3   
+ 108   3            }
+ 109   2            else{
+ 110   3              trame[1] = 0xBB;
+ 111   3            }
+ 112   2            taille_trame = 2;
+ 113   2            echange_trame(trame,taille_trame,commande_SPI);
+ 114   2            tempo_emiss();
+ 115   2            msg_Slave = trame_recue();
+C51 COMPILER V9.51   LIEN_STRUCTURE_COMMANDE                                               05/18/2018 10:57:13 PAGE 3   
 
- 116   2            sprintf(msg_Slave_ascii,"%f",msg_Slave);
- 117   2            serOutstring("\n\r AS V");
- 118   2            serOutstring("\n\r>");
- 119   2            break;
- 120   2      
- 121   2          case Deplacement:
- 122   2            if (commande.Etat_Mouvement == Depl_Coord) {
- 123   3              alpha = atan(commande.Coord_Y / commande.Coord_X) * 180/3.1415; // r�sultat de atan en radian
- 124   3              distance = ceil(pow(pow(commande.Coord_Y,2)+pow(commande.Coord_X,2),0.5)); // Pythagore
- 125   3              if (alpha < 0){
- 126   4                alpha+= 360; }
- 127   3              // !!! L'ordre de cr�ation des messages est important (�crasement de variable)
- 128   3              // instruction pour faire avancer le robot de la distance "distance"
- 129   3              commande.Etat_Mouvement = Depl_Coord;
- 130   3              commande.Coord_X = distance;
- 131   3              commande_serializer = transcode_commande_to_serializer(commande);
- 132   3              formate_serializer(commande_serializer, mess2);
- 133   3      
- 134   3              // Instruction  pour positionner le robot � l'angle finale
- 135   3              commande.Etat_Mouvement = Rot_AngD;
- 136   3              commande.Vitesse = 5;
- 137   3              commande_serializer = transcode_commande_to_serializer(commande);
- 138   3              formate_serializer(commande_serializer, mess3);
- 139   3      
- 140   3              // instruction pour positionner le robot dans l'angle de d�part
- 141   3              commande.Etat_Mouvement = Rot_AngD;
- 142   3              commande.Vitesse = 5;
- 143   3              commande.Angle = alpha;
- 144   3              commande_serializer = transcode_commande_to_serializer(commande);
- 145   3              formate_serializer(commande_serializer, mess1);
- 146   3      
- 147   3              serOutstring1(mess1);
- 148   3              serOutstring("\r\n 1er com pppppppppppppppppppppppppppppp\r\n");
- 149   3              serOutstring(mess1);
- 150   3              compteur = 0;
- 151   3      //        for(compteur = 0; compteur<65535; compteur++); //temporisation
- 152   3              compteur=0;
- 153   3              do {
- 154   4                serOutstring1("pids\r"); // Attente que le serializer est fini (il renvoie 1 quand occup� et 0 sino
+ 116   2            tempo_emiss();
+ 117   2            sprintf(msg_Slave_ascii,"%f",msg_Slave);
+ 118   2            serOutstring("\n\r AS V");
+ 119   2            serOutstring("\n\r>");
+ 120   2            break;
+ 121   2      
+ 122   2          case Deplacement:
+ 123   2            if (commande.Etat_Mouvement == Depl_Coord) {
+ 124   3              alpha = atan(commande.Coord_Y / commande.Coord_X) * 180/3.1415; // r�sultat de atan en radian
+ 125   3              distance = ceil(pow(pow(commande.Coord_Y,2)+pow(commande.Coord_X,2),0.5)); // Pythagore
+ 126   3              if (alpha < 0){
+ 127   4                alpha+= 360; }
+ 128   3              // !!! L'ordre de cr�ation des messages est important (�crasement de variable)
+ 129   3              // instruction pour faire avancer le robot de la distance "distance"
+ 130   3              commande.Etat_Mouvement = Depl_Coord;
+ 131   3              commande.Coord_X = distance;
+ 132   3              commande_serializer = transcode_commande_to_serializer(commande);
+ 133   3              formate_serializer(commande_serializer, mess2);
+ 134   3      
+ 135   3              // Instruction  pour positionner le robot � l'angle finale
+ 136   3              commande.Etat_Mouvement = Rot_AngD;
+ 137   3              commande.Vitesse = 5;
+ 138   3              commande_serializer = transcode_commande_to_serializer(commande);
+ 139   3              formate_serializer(commande_serializer, mess3);
+ 140   3      
+ 141   3              // instruction pour positionner le robot dans l'angle de d�part
+ 142   3              commande.Etat_Mouvement = Rot_AngD;
+ 143   3              commande.Vitesse = 5;
+ 144   3              commande.Angle = alpha;
+ 145   3              commande_serializer = transcode_commande_to_serializer(commande);
+ 146   3              formate_serializer(commande_serializer, mess1);
+ 147   3      
+ 148   3              serOutstring1(mess1);
+ 149   3              serOutstring("\r\n 1er com pppppppppppppppppppppppppppppp\r\n");
+ 150   3              serOutstring(mess1);
+ 151   3              compteur = 0;
+ 152   3      //        for(compteur = 0; compteur<65535; compteur++); //temporisation
+ 153   3              compteur=0;
+ 154   3              do {
+ 155   4                serOutstring1("pids\r"); // Attente que le serializer est fini (il renvoie 1 quand occup� et 0 sino
              -n
- 155   4                  do{
- 156   5                    a=serInchar1();
- 157   5                    if (a!=0x00){
- 158   6                      mess[compteur]=a;
- 159   6                      compteur=compteur+1;
- 160   6                        }
- 161   5                    }while(a!=0x3E);
- 162   4                  }while ( mess[compteur-1] == 1);
- 163   3                          compteur = 0;
- 164   3      
- 165   3              serOutstring("\r\n 2em com \r\n");
- 166   3              serOutstring1(mess2);
- 167   3              serOutstring(mess2);
- 168   3      
- 169   3      //        for(compteur = 0; compteur<65535; compteur++); //temporisation
- 170   3              compteur=0;
- 171   3              do {serOutstring1("pids\r");
- 172   4                  do{
- 173   5                    a=serInchar1();
- 174   5                    if (a!=0x00){
- 175   6                      mess[compteur]=a;
- 176   6                      compteur=compteur+1;
-C51 COMPILER V9.51   LIEN_STRUCTURE_COMMANDE                                               05/18/2018 09:08:54 PAGE 4   
+ 156   4                  do{
+ 157   5                    a=serInchar1();
+ 158   5                    if (a!=0x00){
+ 159   6                      mess[compteur]=a;
+ 160   6                      compteur=compteur+1;
+ 161   6                        }
+ 162   5                    }while(a!=0x3E);
+ 163   4                  }while ( mess[compteur-1] == 1);
+ 164   3                          compteur = 0;
+ 165   3      
+ 166   3              serOutstring("\r\n 2em com \r\n");
+ 167   3              serOutstring1(mess2);
+ 168   3              serOutstring(mess2);
+ 169   3      
+ 170   3      //        for(compteur = 0; compteur<65535; compteur++); //temporisation
+ 171   3              compteur=0;
+ 172   3              do {serOutstring1("pids\r");
+ 173   4                  do{
+ 174   5                    a=serInchar1();
+ 175   5                    if (a!=0x00){
+ 176   6                      mess[compteur]=a;
+C51 COMPILER V9.51   LIEN_STRUCTURE_COMMANDE                                               05/18/2018 10:57:13 PAGE 4   
 
- 177   6                      }
- 178   5                    }while(a!=0x3E);
- 179   4                  }while ( mess[compteur-1] == 1);
- 180   3                            compteur = 0;
- 181   3      
- 182   3              serOutstring("\r\n 3em com \r\n");
- 183   3              serOutstring1(mess3);
- 184   3              serOutstring(mess3);
- 185   3      
- 186   3            }
- 187   2            else
- 188   2            {
- 189   3              commande_serializer = transcode_commande_to_serializer(commande);
- 190   3              formate_serializer(commande_serializer, message_s);
- 191   3              serOutstring1(message_s);
- 192   3              serOutstring(message_s);
- 193   3      
- 194   3              i=0;
- 195   3              a=0;
- 196   3      
- 197   3              do{
- 198   4              a=serInchar1();
- 199   4              if (a!=0x00){
- 200   5                mess[i]=a;
- 201   5                i=i+1;
- 202   5              }
- 203   4              }while(a!=0x3E);
- 204   3            }
- 205   2      
+ 177   6                      compteur=compteur+1;
+ 178   6                      }
+ 179   5                    }while(a!=0x3E);
+ 180   4                  }while ( mess[compteur-1] == 1);
+ 181   3                            compteur = 0;
+ 182   3      
+ 183   3              serOutstring("\r\n 3em com \r\n");
+ 184   3              serOutstring1(mess3);
+ 185   3              serOutstring(mess3);
+ 186   3      
+ 187   3            }
+ 188   2            else
+ 189   2            {
+ 190   3              commande_serializer = transcode_commande_to_serializer(commande);
+ 191   3              formate_serializer(commande_serializer, message_s);
+ 192   3              serOutstring1(message_s);
+ 193   3              serOutstring(message_s);
+ 194   3      
+ 195   3              i=0;
+ 196   3              a=0;
+ 197   3      
+ 198   3              do{
+ 199   4              a=serInchar1();
+ 200   4              if (a!=0x00){
+ 201   5                mess[i]=a;
+ 202   5                i=i+1;
+ 203   5              }
+ 204   4              }while(a!=0x3E);
+ 205   3            }
  206   2      
- 207   2            mess[i] = '\0';
- 208   2            serOutstring(mess);
- 209   2            break;
- 210   2      
+ 207   2      
+ 208   2            mess[i] = '\0';
+ 209   2            serOutstring(mess);
+ 210   2            break;
  211   2      
- 212   2          case Obstacle:
- 213   2            Detect_Obst(commande);
- 214   2            serOutstring(affichage);
- 215   2            serOutstring("\n\r>");
- 216   2            strcpy(affichage,"");
- 217   2            break;
- 218   2      
- 219   2          case Courant:
- 220   2            info.Mesure_Courant = Courant_ADC();
- 221   2            sprintf( courant_ascii,"%d", info.Mesure_Courant);
- 222   2            serOutstring(courant_ascii);
- 223   2            serOutstring("mA\n\r>");
- 224   2            break;
- 225   2          case Energie :
- 226   2            info.Mesure_Courant = Courant_ADC();
- 227   2            info.Mesure_Energie = (int) 9.6*info.Mesure_Courant*2; // E = U*I*t
- 228   2            sprintf(energie_ascii,"%d", info.Mesure_Energie);
- 229   2            serOutstring(energie_ascii);
- 230   2            serOutstring("J\n\r>");
- 231   2            break;
- 232   2      
- 233   2          case Gene_Son:
- 234   2            son_sonore(commande);
- 235   2            break;
- 236   2      
- 237   2          default:
- 238   2            strcpy(mess, "\n\r#\n\r>");
-C51 COMPILER V9.51   LIEN_STRUCTURE_COMMANDE                                               05/18/2018 09:08:54 PAGE 5   
+ 212   2      
+ 213   2          case Obstacle:
+ 214   2            Detect_Obst(commande);
+ 215   2            serOutstring(affichage);
+ 216   2            serOutstring("\n\r>");
+ 217   2            strcpy(affichage,"");
+ 218   2            break;
+ 219   2      
+ 220   2          case Courant:
+ 221   2            info.Mesure_Courant = Courant_ADC();
+ 222   2            sprintf( courant_ascii,"%d", info.Mesure_Courant);
+ 223   2            serOutstring(courant_ascii);
+ 224   2            serOutstring("mA\n\r>");
+ 225   2            break;
+ 226   2          case Energie :
+ 227   2            info.Mesure_Courant = Courant_ADC();
+ 228   2            info.Mesure_Energie = (int) 9.6*info.Mesure_Courant*2; // E = U*I*t
+ 229   2            sprintf(energie_ascii,"%d", info.Mesure_Energie);
+ 230   2            serOutstring(energie_ascii);
+ 231   2            serOutstring("J\n\r>");
+ 232   2            break;
+ 233   2      
+ 234   2          case Gene_Son:
+ 235   2            son_sonore(commande);
+ 236   2            break;
+ 237   2      
+ 238   2          default:
+C51 COMPILER V9.51   LIEN_STRUCTURE_COMMANDE                                               05/18/2018 10:57:13 PAGE 5   
 
- 239   2            serOutstring(mess);
- 240   2            break;
- 241   2      
- 242   2        }
- 243   1      }
- 244          
- 245          void tempo_emiss(void){
- 246   1        unsigned int x = 0;
- 247   1      
- 248   1        for(x=0;x<65000;x++);
+ 239   2            strcpy(mess, "\n\r#\n\r>");
+ 240   2            serOutstring(mess);
+ 241   2            break;
+ 242   2      
+ 243   2        }
+ 244   1      }
+ 245          
+ 246          void tempo_emiss(void){
+ 247   1        unsigned int x = 0;
+ 248   1      
  249   1        for(x=0;x<65000;x++);
  250   1        for(x=0;x<65000;x++);
  251   1        for(x=0;x<65000;x++);
- 252   1      }
+ 252   1        for(x=0;x<65000;x++);
+ 253   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =   1987    ----
+   CODE SIZE        =   1990    ----
    CONSTANT SIZE    =    325    ----
-   XDATA SIZE       =    133     585
+   XDATA SIZE       =    134     585
    PDATA SIZE       =   ----    ----
    DATA SIZE        =   ----    ----
    IDATA SIZE       =   ----    ----
