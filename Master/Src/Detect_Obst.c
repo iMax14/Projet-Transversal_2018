@@ -16,7 +16,7 @@ char obstacle_avant[5];
 char obstacle_arriere[5];
 char affichage [256] = 0;
 extern signed int Angle_atteint; // Initaliser � "XX"
-char Angle_servo [1] = 0;
+signed char Angle_servo [1] = 0;
 
 char detection_AV(struct COMMANDES com){
 
@@ -28,11 +28,12 @@ char detection_AV(struct COMMANDES com){
   if(com.A_Obst != Obst_proche_balayage){
     //Affichage
     sprintf(obstacle_avant,"%f",detection_avant); // Convertion de float � char
-		sprintf(Angle_servo,"%si",Angle_atteint); // Convertion de float � char
+		sprintf(Angle_servo,"%i",Angle_atteint); // Convertion de float � char
 
     strcat(affichage,Angle_servo); //On donne la position du Servomoteur_Horizontal
     strcat(affichage," : AV -> ");
     strcat(affichage,obstacle_avant); //On donne la distance � laquelle est l'obstacle AV
+		strcat(affichage,"\r");
   }
 
   return detection_avant;
@@ -53,13 +54,15 @@ char detection_AV_AR(struct COMMANDES com){
 
     sprintf(obstacle_avant,"%f",detection_avant); // Convertion de float � char
     sprintf(obstacle_arriere,"%f",detection_arriere); // Convertion de float � char
-		sprintf(Angle_servo,"%si",Angle_atteint); // Convertion de float � char
+		sprintf(Angle_servo,"%i",Angle_atteint); // Convertion de float � char
 
     strcat(affichage,Angle_servo); //On donne la position du Servomoteur_Horizontal
     strcat(affichage," : AV -> ");
     strcat(affichage,obstacle_avant); //On donne la distance � laquelle est l'obstacle AV
     strcat(affichage," : AR -> ");
     strcat(affichage,obstacle_arriere); //On donne la distance � laquelle est l'obstacle AR
+		strcat(affichage,"\r");
+
   }
 
   return detection_avant,detection_arriere;
@@ -76,10 +79,10 @@ struct INFORMATIONS Detect_Obst(struct COMMANDES com){
 	signed int tab_angles [50];
 	float dist_min_AV [5];
 	float dist_min_AR [5];
-	float dist_min [5];
+	float dist_min;
 	char dist_min_ascii [5];
-	signed int angle [5];
-	char angle_ascii [5];
+	signed int angle;
+	signed char angle_ascii [5];
 	int min = 0;
 	int min_AV = 0;
 	int min_AR = 0;
@@ -97,20 +100,18 @@ struct INFORMATIONS Detect_Obst(struct COMMANDES com){
 		case Obst_balayage:
 			if (com.Etat_DCT_Obst==oui_180){ //detection AV sur 180�
 				for(i = -90;i<=90;i = i+com.DCT_Obst_Resolution){
-					CDE_Servo_H(i); // On met le servomoteur en position
+					Angle_atteint = CDE_Servo_H(i); // On met le servomoteur en position
 					detection_AV(com); //On fait une d�tection AV
 				}
 			}
 			else{ //detection AV et AR sur 360�
 				for(i = -90;i<=90;i = i+com.DCT_Obst_Resolution){
-					CDE_Servo_H(i); // On met le servomoteur en position
+					Angle_atteint = CDE_Servo_H(i); // On met le servomoteur en position
 					detection_AV_AR(com); //On fait une d�tection AV et AR
 				}
 			}
 			break;
 
-
-// A TESTER AVEC LE SIMULATEUR
 		case Obst_proche_balayage:
 			if (com.Etat_DCT_Obst==oui_180){ //detection AV sur 180�
 				for(i = -90;i<=90;i = i+com.DCT_Obst_Resolution){
@@ -123,12 +124,12 @@ struct INFORMATIONS Detect_Obst(struct COMMANDES com){
 						min = j;
 					}
 				}
-				dist_min[0] = tab_dist_AV[min];
-				angle[0] = tab_angles[min];
+				dist_min = tab_dist_AV[min];
+				angle = tab_angles[min];
 
 				//Affichage
-				sprintf(dist_min_ascii,"%f",dist_min[0]); // Convertion de float � char
-				sprintf(angle_ascii,"%d",angle[0]); // Convertion de int � char
+				sprintf(dist_min_ascii,"%f",dist_min); // Convertion de float � char
+				sprintf(angle_ascii,"%d",angle); // Convertion de int � char
 
 				strcat(affichage,angle_ascii); //On donne la position du Servomoteur_Horizontal
 				strcat(affichage," : AV -> ");
@@ -153,17 +154,17 @@ struct INFORMATIONS Detect_Obst(struct COMMANDES com){
 				}
 				dist_min_AR[0] = tab_dist_AR[min];
 				if (dist_min_AR < dist_min_AV){
-					dist_min[0] = dist_min_AR[min_AR];
-					angle[0] = tab_angles[min_AR];
+					dist_min = dist_min_AR[min_AR];
+					angle = tab_angles[min_AR];
 				}
 				else{
-					dist_min[0] = dist_min_AV[min_AV];
-					angle[0] = tab_angles[min_AV];
+					dist_min = dist_min_AV[min_AV];
+					angle = tab_angles[min_AV];
 				}
 
 				//Affichage
-				sprintf(dist_min_ascii,"%f",dist_min[0]); // Convertion de float � char
-				sprintf(angle_ascii,"%d",angle[0]); // Convertion de int � char
+				sprintf(dist_min_ascii,"%f",dist_min); // Convertion de float � char
+				sprintf(angle_ascii,"%d",angle); // Convertion de int � char
 
 				strcat(affichage,angle_ascii); //On donne la position du Servomoteur_Horizontal
 				strcat(affichage," : ");

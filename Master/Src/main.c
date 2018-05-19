@@ -506,6 +506,7 @@ struct COMMANDES traitement_M(char *com, struct COMMANDES commande)
 									commande.DCT_Obst_Resolution=30;
 									break;
 							}
+							break;
 						case 'S': // cas MOS
 							commande.A_Obst=Obst_proche_balayage;
 							switch(com[4])
@@ -954,7 +955,7 @@ void main (void)
 
 		//strcpy(com,"CS V A:-90");
 		//strcpy(com,"SD F:12 P:50 W:60 B:5");
-		strcpy(com,"MOS A:45");
+		//strcpy(com,"MOB");
 
 		commande = Message(com/*, f_b, t_son, t_silence, bip_b*/);
 			/*if(commande.son==emission)
