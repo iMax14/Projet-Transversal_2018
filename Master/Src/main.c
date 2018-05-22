@@ -39,11 +39,25 @@ char conversioncoord (unsigned char tableau[2]){
 	int dizaine=0;
 	int unite=0;
 	char valeur;
-
+	
 	dizaine= (tableau[0]-'0')*10;
 	unite= (tableau[1]-'0');
 
 	valeur=dizaine+unite;
+	return valeur	;
+}
+
+char conversioncoord_2 (unsigned char tableau[3]){
+	int dizaine=0;
+	int unite=0;
+	int centaine = 0;
+	char valeur;
+	
+	centaine = (tableau[0]-'0')*100;
+	dizaine= (tableau[1]-'0')*10;
+	unite= (tableau[2]-'0');
+
+	valeur=centaine+dizaine+unite;
 	return valeur	;
 }
 
@@ -425,6 +439,92 @@ struct COMMANDES traitement_G(char * com, struct COMMANDES commande) // DEPLACEM
 	// a compl�ter
 	return commande;
 }*/
+
+struct COMMANDES traitement_L(char * com,struct COMMANDES commande)
+{
+	char Lumiere_Intensite;
+	char Lumiere_Duree;
+	char Lumiere_Extinction;
+	char Lumiere_Nbre;
+	unsigned char tab[4];
+	int j;
+
+	if (com[1]=='S'){
+		commande.Etat_Lumiere=Eteindre;
+	}
+	else{
+		switch(com[2]){
+			case 'I':
+			{
+				for (j=4; j<8;j++){
+					tab[j-4]=com[j];
+				}
+
+				Lumiere_Intensite = conversioncoord_2(tab);
+				if (Lumiere_Intensite >= 0 & Lumiere_Intensite <= 100){
+						commande_correct=1;
+						commande.Lumiere_Intensite=Lumiere_Intensite;
+				}
+				else{
+						commande_correct=0;
+				}
+				for (j=10; j<13;j++){
+					tab[j-10]=com[j];
+				}
+				
+				Lumiere_Duree = conversioncoord_2(tab);
+				if(Lumiere_Duree >= 1 && Lumiere_Duree <= 99){
+					commande_correct=1;
+					commande.Lumiere_Duree=Lumiere_Duree;
+				}
+				else{
+					commande_correct=0;
+				}
+				for (j=16; j<19;j++){
+					tab[j-16]=com[j];
+				}
+				Lumiere_Extinction =  conversioncoord_2(tab);
+				if(Lumiere_Extinction>=0 && Lumiere_Extinction<=99){
+					commande_correct=1;
+					commande.Lumiere_Extinction=Lumiere_Extinction;
+				}
+				else{
+					commande_correct=0;
+				}
+				for (j=22; j<25;j++){
+					tab[j-22]=com[j];
+				}
+				Lumiere_Nbre = conversioncoord_2(tab);
+				if(Lumiere_Nbre>=0 && Lumiere_Nbre<=100){
+					commande_correct=1;
+					commande.Lumiere_Nbre=Lumiere_Nbre;
+				}
+				else{
+					commande_correct=0;
+				}
+				break;
+			}
+			
+			
+			default:
+			{
+				commande.Lumiere_Intensite=100;
+				commande.Lumiere_Nbre=1;
+				commande.Lumiere_Extinction=0;
+				commande.Lumiere_Duree=99;
+				commande_correct=1;
+				break;
+			}
+			break;
+		}
+	}
+	return commande;
+}
+
+
+
+
+
 struct COMMANDES traitement_M(char *com, struct COMMANDES commande)
 {
 	int j;
@@ -823,7 +923,12 @@ struct COMMANDES Message (char * com/*, char f_b,char t_son,char t_silence,char 
 			break;
 
 		}
-		case 'M':// si on recoit un M (mesure et autre) PAS UTILISE
+		case 'L':// si on recoit un M (mesure et autre)
+		{
+			commande=traitement_L(com,commande);
+			break;
+		}
+		case 'M':// si on recoit un M (mesure et autre)
 		{
 			commande=traitement_M(com,commande);
 			break;
@@ -938,7 +1043,7 @@ void main (void)
 		i=0;
 		a=0;
 		memset(com, 0, 50);
-		do{
+		/*do{
 			a=serInchar();
 			echo[0] = a;
 			echo[1] = '\0';
@@ -949,11 +1054,15 @@ void main (void)
 				com[i]=a;
 				i=i+1;
 				}
-			}while(a!=0x0D); //Commenté pour les tests avec le simulateur
+			}while(a!=0x0D); //Commenté pour les tests avec le simulateur*/
 
 		//strcpy(com,"CS V A:-45");
 		//strcpy(com,"SD F:12 P:50 W:60 B:05");
 		//strcpy(com,"MOB");
+		//strcpy(com,"L I:100 D:007 E:006 N:090");
+		strcpy(com,"L");
+
+
 
 		commande = Message(com);
 			

@@ -140,7 +140,7 @@
             <RestoreTracepoints>1</RestoreTracepoints>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
-          <TargetSelection>9</TargetSelection>
+          <TargetSelection>-1</TargetSelection>
           <SimDlls>
             <CpuDll></CpuDll>
             <CpuDllArguments></CpuDllArguments>
@@ -166,7 +166,6 @@
             <Capability>1</Capability>
             <DriverSelection>4102</DriverSelection>
           </Flash1>
-          <bUseTDR>0</bUseTDR>
           <Flash2>BIN\SiC8051F.dll</Flash2>
           <Flash3>"" ()</Flash3>
           <Flash4></Flash4>
@@ -435,6 +434,11 @@
               <FileName>ultrason.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Src\ultrason.c</FilePath>
+            </File>
+            <File>
+              <FileName>Encodage_Pointeur_lum.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Src\Encodage_Pointeur_lum.c</FilePath>
             </File>
           </Files>
         </Group>

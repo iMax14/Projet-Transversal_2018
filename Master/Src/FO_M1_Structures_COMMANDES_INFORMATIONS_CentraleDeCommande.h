@@ -56,10 +56,10 @@ typedef struct COMMANDES       // Cette structure contient toutes les commandes 
    //BYTE
    enum  Lumiere Etat_Lumiere;     // Contient la commande d'allumage du pointeur lumineux "L" "LS"
                                    // Paramètres de la commande précédente:     
-   BYTE  Lumiere_Intensite;        // Paramètre intensité lumineuse 							  
-   BYTE  Lumiere_Duree;            // Paramètre durée d'allumage
-   BYTE  Lumiere_Extinction;        // Paramètre durée d'extinction
-   BYTE  Lumiere_Nbre;             // Paramètre nombre de cycles d'allumage/extinction
+   char  Lumiere_Intensite;        // Paramètre intensité lumineuse 							  
+   char  Lumiere_Duree;            // Paramètre durée d'allumage
+   char  Lumiere_Extinction;        // Paramètre durée d'extinction
+   char  Lumiere_Nbre;             // Paramètre nombre de cycles d'allumage/extinction
    
    enum  Servo Etat_Servo;        // Contient la commande de positionnement d'un servo "CS C" "CS H" "CS V" 
                                   // Paramètre de la commande précédente:     
@@ -92,7 +92,7 @@ enum RESULT_Energie{RESULT_Energie_non,RESULT_Energie_oui};
 enum RESULT_Position{RESULT_Position_non,RESULT_Position_oui};
 enum RESULT_DCT_Obst {DCT_Obst_non, DCT_Obst_180_oui, DCT_Obst_360_oui};
 enum Aux {Aux_non, Aux_oui};
-enum Routage {Initialisation, Servo_Hor, Servo_Vert,Deplacement,Obstacle,Energie,Courant,Gene_Son};
+enum Routage {Initialisation, Servo_Hor, Servo_Vert,Deplacement,Obstacle,Energie,Courant,Gene_Son,Pointeur_Lum};
 
 
 typedef struct INFORMATIONS       // Cette structure contient toutes les informations susceptibles d'être transmises à la centrale de commande

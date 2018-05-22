@@ -19,6 +19,7 @@
 #include "Detect_Obst.h"
 #include "Generation_son.h"
 #include "Mesure_courant.h"
+#include "Encodage_Pointeur_lum.h"
 
 #ifndef CFG_Globale
   #define CFG_Globale
@@ -63,8 +64,11 @@ void routage(struct COMMANDES commande, enum Routage * type){
 	else if (commande.Etat_Energie==Mesure_E){
 		*type=Energie;
 	}
-	else if ( commande.frequence!=0){
+	else if (commande.frequence!=0){
 		*type=Gene_Son;
+	}
+	else if (commande.Lumiere_Intensite!=0){
+		*type=Pointeur_Lum;
 	}
 }
 // verifier attention effectuer les d�claration avant toute execution de code.
@@ -258,6 +262,11 @@ void fonctionRoutage(struct COMMANDES commande){
 // OK
 		case Gene_Son:
 			son_sonore(commande);
+			serOutstring("\n\r>");
+			break;
+// A TESTER
+		case Pointeur_Lum:
+			pointeur_lum(commande);
 			serOutstring("\n\r>");
 			break;
 

@@ -1,4 +1,4 @@
-C51 COMPILER V9.51   MAIN                                                                  05/22/2018 19:07:47 PAGE 1   
+C51 COMPILER V9.51   MAIN                                                                  05/22/2018 23:25:47 PAGE 1   
 
 
 C51 COMPILER V9.51, COMPILATION OF MODULE MAIN
@@ -49,7 +49,7 @@ line level    source
   39   1        int dizaine=0;
   40   1        int unite=0;
   41   1        char valeur;
-  42   1      
+  42   1        
   43   1        dizaine= (tableau[0]-'0')*10;
   44   1        unite= (tableau[1]-'0');
   45   1      
@@ -57,988 +57,1101 @@ line level    source
   47   1        return valeur ;
   48   1      }
   49          
-  50          /*char conversionvitesse (unsigned char tableau[3]){
-  51            int centaine=0;
-  52            int dizaine=0;
-  53            int unite=0;
-  54            char valeur;
-C51 COMPILER V9.51   MAIN                                                                  05/22/2018 19:07:47 PAGE 2   
+  50          char conversioncoord_2 (unsigned char tableau[3]){
+  51   1        int dizaine=0;
+  52   1        int unite=0;
+  53   1        int centaine = 0;
+  54   1        char valeur;
+C51 COMPILER V9.51   MAIN                                                                  05/22/2018 23:25:47 PAGE 2   
 
-  55          
-  56            centaine= (tableau[0]-'0')*100;
-  57            dizaine= (tableau[1]-'0')*10;
-  58            unite= (tableau[2]-'0');
-  59          
-  60            valeur= centaine+dizaine+unite;
-  61            return valeur ;
-  62          }*/
+  55   1        
+  56   1        centaine = (tableau[0]-'0')*100;
+  57   1        dizaine= (tableau[1]-'0')*10;
+  58   1        unite= (tableau[2]-'0');
+  59   1      
+  60   1        valeur=centaine+dizaine+unite;
+  61   1        return valeur ;
+  62   1      }
   63          
-  64          signed int conv(char* nbr, int taille)
-  65          {
-  66   1        int k=0;
-  67   1        double t1 = 0;
-  68   1        signed int ret=0;
-  69   1        int numero=0;
-  70   1      
-  71   1        if(nbr[0]=='-')
-  72   1        {
-  73   2          for(k=1;k<taille;k++)
-  74   2          {
-  75   3            numero=nbr[k]-'0';
-  76   3            t1 = pow(10,taille-1-k);
-  77   3            numero = numero*ceil(pow(10,taille-1-k));
-  78   3            ret+=numero;
-  79   3          }
-  80   2          ret=-1*ret;
-  81   2        }
-  82   1        else
-  83   1        {
-  84   2          for(k=0;k<taille;k++)
-  85   2          {
-  86   3            numero=(nbr[k]-'0')*ceil(pow(10,taille-1-k));
-  87   3            ret+=numero;
-  88   3          }
-  89   2        }
-  90   1        return ret;
-  91   1      }
-  92          signed int conversionangle_positif (unsigned char tableau[3]){
-  93   1        signed int centaine=0;
-  94   1        signed int dizaine=0;
-  95   1        signed int unite=0;
-  96   1        signed int valeur;
-  97   1      
-  98   1        if (tableau[0] == '-') {
-  99   2          dizaine= (tableau[1]-'0')*10;
- 100   2          unite= (tableau[2]-'0');
- 101   2          valeur = -1* (dizaine + unite);
- 102   2        }
- 103   1        else {
- 104   2          centaine= (tableau[0]-'0')*100;
- 105   2          dizaine= (tableau[1]-'0')*10;
- 106   2          unite= (tableau[2]-'0');
- 107   2          valeur= centaine+dizaine+unite;
- 108   2        }
- 109   1        return valeur ;
- 110   1      }
- 111          
- 112          struct COMMANDES traitement_A(char * com, struct COMMANDES commande){ // traitement lorsque la premi�re 
+  64          /*char conversionvitesse (unsigned char tableau[3]){
+  65            int centaine=0;
+  66            int dizaine=0;
+  67            int unite=0;
+  68            char valeur;
+  69          
+  70            centaine= (tableau[0]-'0')*100;
+  71            dizaine= (tableau[1]-'0')*10;
+  72            unite= (tableau[2]-'0');
+  73          
+  74            valeur= centaine+dizaine+unite;
+  75            return valeur ;
+  76          }*/
+  77          
+  78          signed int conv(char* nbr, int taille)
+  79          {
+  80   1        int k=0;
+  81   1        double t1 = 0;
+  82   1        signed int ret=0;
+  83   1        int numero=0;
+  84   1      
+  85   1        if(nbr[0]=='-')
+  86   1        {
+  87   2          for(k=1;k<taille;k++)
+  88   2          {
+  89   3            numero=nbr[k]-'0';
+  90   3            t1 = pow(10,taille-1-k);
+  91   3            numero = numero*ceil(pow(10,taille-1-k));
+  92   3            ret+=numero;
+  93   3          }
+  94   2          ret=-1*ret;
+  95   2        }
+  96   1        else
+  97   1        {
+  98   2          for(k=0;k<taille;k++)
+  99   2          {
+ 100   3            numero=(nbr[k]-'0')*ceil(pow(10,taille-1-k));
+ 101   3            ret+=numero;
+ 102   3          }
+ 103   2        }
+ 104   1        return ret;
+ 105   1      }
+ 106          signed int conversionangle_positif (unsigned char tableau[3]){
+ 107   1        signed int centaine=0;
+ 108   1        signed int dizaine=0;
+ 109   1        signed int unite=0;
+ 110   1        signed int valeur;
+ 111   1      
+ 112   1        if (tableau[0] == '-') {
+ 113   2          dizaine= (tableau[1]-'0')*10;
+ 114   2          unite= (tableau[2]-'0');
+ 115   2          valeur = -1* (dizaine + unite);
+ 116   2        }
+C51 COMPILER V9.51   MAIN                                                                  05/22/2018 23:25:47 PAGE 3   
+
+ 117   1        else {
+ 118   2          centaine= (tableau[0]-'0')*100;
+ 119   2          dizaine= (tableau[1]-'0')*10;
+ 120   2          unite= (tableau[2]-'0');
+ 121   2          valeur= centaine+dizaine+unite;
+ 122   2        }
+ 123   1        return valeur ;
+ 124   1      }
+ 125          
+ 126          struct COMMANDES traitement_A(char * com, struct COMMANDES commande){ // traitement lorsque la premi�re 
              -lettre est A (AVANCER A DUREE DAQUISITION) AVANCER OK
- 113   1        char vitesse;
- 114   1        char tab[3];
- 115   1        int j;
-C51 COMPILER V9.51   MAIN                                                                  05/22/2018 19:07:47 PAGE 3   
+ 127   1        char vitesse;
+ 128   1        char tab[3];
+ 129   1        int j;
+ 130   1        char duree;
+ 131   1      
+ 132   1        switch (com[1]) //AJOUTER LA DUREE
+ 133   1            {
+ 134   2              case 'S': // cas ASS (Dur�e)
+ 135   2                {
+ 136   3                  commande_correct = 0; //TODO commande_correct = nbr pour aquisition signal
+ 137   3                  for (j=4; j<7;j++)
+ 138   3                    {
+ 139   4                    tab[j-4]=com[j];
+ 140   4                  }
+ 141   3                  duree=conversionangle_positif(tab);
+ 142   3                  if (duree >= 100 ||duree <1)
+ 143   3                    {
+ 144   4                    commande_correct = 0;
+ 145   4                  }
+ 146   3                  else{commande.ACQ_Duree=duree;}
+ 147   3                  break;
+ 148   3              }
+ 149   2              case ' ':// cas d'avancer A
+ 150   2              {
+ 151   3                if (epreuve_en_cours == epreuve1){
+ 152   4                  commande.Etat_Mouvement=Avancer;
+ 153   4                  // on regarde le param�tre de la vitesse
+ 154   4                  if (com[2] >= 0x30)
+ 155   4                  {
+ 156   5                    for (j=2; j<5;j++)
+ 157   5                      {
+ 158   6                        tab[j-2]=com[j];
+ 159   6                    }
+ 160   5                    vitesse=conversionangle_positif(tab);
+ 161   5                  if (vitesse >= 100 ||vitesse <=0)
+ 162   5                    {
+ 163   6                      commande_correct = 0;
+ 164   6                    }
+ 165   5                  else
+ 166   5                    {
+ 167   6                    commande.Vitesse=vitesse;
+ 168   6                    commande_correct = 1; // nbr 1 pour routage vers le serializer
+ 169   6      
+ 170   6                    }}
+ 171   4                  else{ commande_correct = 1; // nbr 1 pour routage vers le serializer
+ 172   5                  }
+ 173   4                }
+ 174   3                    else {
+ 175   4                      commande_correct = 2;
+ 176   4                      strcpy(message_PC_com,"\r\nErreur non epreuve 1\r\n>");}
+ 177   3                break;
+C51 COMPILER V9.51   MAIN                                                                  05/22/2018 23:25:47 PAGE 4   
 
- 116   1        char duree;
- 117   1      
- 118   1        switch (com[1]) //AJOUTER LA DUREE
- 119   1            {
- 120   2              case 'S': // cas ASS (Dur�e)
- 121   2                {
- 122   3                  commande_correct = 0; //TODO commande_correct = nbr pour aquisition signal
- 123   3                  for (j=4; j<7;j++)
- 124   3                    {
- 125   4                    tab[j-4]=com[j];
- 126   4                  }
- 127   3                  duree=conversionangle_positif(tab);
- 128   3                  if (duree >= 100 ||duree <1)
- 129   3                    {
- 130   4                    commande_correct = 0;
- 131   4                  }
- 132   3                  else{commande.ACQ_Duree=duree;}
- 133   3                  break;
- 134   3              }
- 135   2              case ' ':// cas d'avancer A
- 136   2              {
- 137   3                if (epreuve_en_cours == epreuve1){
- 138   4                  commande.Etat_Mouvement=Avancer;
- 139   4                  // on regarde le param�tre de la vitesse
- 140   4                  if (com[2] >= 0x30)
- 141   4                  {
- 142   5                    for (j=2; j<5;j++)
- 143   5                      {
- 144   6                        tab[j-2]=com[j];
- 145   6                    }
- 146   5                    vitesse=conversionangle_positif(tab);
- 147   5                  if (vitesse >= 100 ||vitesse <=0)
- 148   5                    {
- 149   6                      commande_correct = 0;
- 150   6                    }
- 151   5                  else
- 152   5                    {
- 153   6                    commande.Vitesse=vitesse;
- 154   6                    commande_correct = 1; // nbr 1 pour routage vers le serializer
- 155   6      
- 156   6                    }}
- 157   4                  else{ commande_correct = 1; // nbr 1 pour routage vers le serializer
- 158   5                  }
- 159   4                }
- 160   3                    else {
- 161   4                      commande_correct = 2;
- 162   4                      strcpy(message_PC_com,"\r\nErreur non epreuve 1\r\n>");}
- 163   3                break;
- 164   3              }
- 165   2            default:
- 166   2              {
- 167   3              if (epreuve_en_cours == epreuve1){
- 168   4                commande.Etat_Mouvement=Avancer;
- 169   4                commande_correct = 1;}
- 170   3                else{
- 171   4                      commande_correct = 2;
- 172   4                      strcpy(message_PC_com,"\r\nErreur non epreuve 1\r\n>");}
- 173   3            }
- 174   2          }
- 175   1          return commande;
- 176   1      }
- 177          struct COMMANDES traitement_B(char* com, struct COMMANDES commande) // RECULER OK
-C51 COMPILER V9.51   MAIN                                                                  05/22/2018 19:07:47 PAGE 4   
+ 178   3              }
+ 179   2            default:
+ 180   2              {
+ 181   3              if (epreuve_en_cours == epreuve1){
+ 182   4                commande.Etat_Mouvement=Avancer;
+ 183   4                commande_correct = 1;}
+ 184   3                else{
+ 185   4                      commande_correct = 2;
+ 186   4                      strcpy(message_PC_com,"\r\nErreur non epreuve 1\r\n>");}
+ 187   3            }
+ 188   2          }
+ 189   1          return commande;
+ 190   1      }
+ 191          struct COMMANDES traitement_B(char* com, struct COMMANDES commande) // RECULER OK
+ 192          {
+ 193   1        char vitesse;
+ 194   1        char tab[3];
+ 195   1        int j;
+ 196   1        commande.Etat_Mouvement=Reculer;
+ 197   1            if (com[1]==' ')
+ 198   1              {
+ 199   2              for (j=2; j<=4;j++)
+ 200   2              {
+ 201   3                  tab[j-2]=com[j];
+ 202   3              }
+ 203   2              vitesse=conversionangle_positif(tab);
+ 204   2                if (vitesse >= 100 ||vitesse <0)
+ 205   2                  {
+ 206   3                    commande_correct = 0;
+ 207   3                  }
+ 208   2                else
+ 209   2                  {
+ 210   3                  commande.Vitesse=vitesse;
+ 211   3                  commande_correct = 1;
+ 212   3                  }
+ 213   2              }
+ 214   1      
+ 215   1            else {
+ 216   2                  commande_correct = 1;
+ 217   2            }
+ 218   1      
+ 219   1            return commande;
+ 220   1      }
+ 221          struct COMMANDES traitement_C(char* com, struct COMMANDES commande) // pilotage du servomoteur
+ 222          {
+ 223   1        signed int angle;
+ 224   1        unsigned char tab[3];
+ 225   1        int j=0;
+ 226   1        switch (com[3])
+ 227   1        {
+ 228   2          case 'H':
+ 229   2          {
+ 230   3            commande.Etat_Servo=Servo_H;
+ 231   3            if (com[5]=='A')
+ 232   3              {
+ 233   4              for (j=7; j<10;j++)
+ 234   4                {
+ 235   5                    tab[j-7]=com[j];
+ 236   5                }
+ 237   4              angle=conversionangle_positif(tab);
+ 238   4                if (angle > 90 ||angle <-90)
+ 239   4                {
+C51 COMPILER V9.51   MAIN                                                                  05/22/2018 23:25:47 PAGE 5   
 
- 178          {
- 179   1        char vitesse;
- 180   1        char tab[3];
- 181   1        int j;
- 182   1        commande.Etat_Mouvement=Reculer;
- 183   1            if (com[1]==' ')
- 184   1              {
- 185   2              for (j=2; j<=4;j++)
- 186   2              {
- 187   3                  tab[j-2]=com[j];
- 188   3              }
- 189   2              vitesse=conversionangle_positif(tab);
- 190   2                if (vitesse >= 100 ||vitesse <0)
- 191   2                  {
- 192   3                    commande_correct = 0;
- 193   3                  }
- 194   2                else
- 195   2                  {
- 196   3                  commande.Vitesse=vitesse;
- 197   3                  commande_correct = 1;
- 198   3                  }
- 199   2              }
- 200   1      
- 201   1            else {
- 202   2                  commande_correct = 1;
- 203   2            }
- 204   1      
- 205   1            return commande;
- 206   1      }
- 207          struct COMMANDES traitement_C(char* com, struct COMMANDES commande) // pilotage du servomoteur
- 208          {
- 209   1        signed int angle;
- 210   1        unsigned char tab[3];
- 211   1        int j=0;
- 212   1        switch (com[3])
- 213   1        {
- 214   2          case 'H':
- 215   2          {
- 216   3            commande.Etat_Servo=Servo_H;
- 217   3            if (com[5]=='A')
- 218   3              {
- 219   4              for (j=7; j<10;j++)
- 220   4                {
- 221   5                    tab[j-7]=com[j];
- 222   5                }
- 223   4              angle=conversionangle_positif(tab);
- 224   4                if (angle > 90 ||angle <-90)
- 225   4                {
- 226   5                  commande_correct = 0;
- 227   5                }
- 228   4                else
- 229   4                {
- 230   5                  commande.Servo_Angle=angle;
- 231   5                  commande_correct = 1;
- 232   5                }
- 233   4            }
- 234   3            else
- 235   3            {
- 236   4              angle=0;
- 237   4            }
- 238   3            commande.Servo_Angle=angle;
- 239   3            break;
-C51 COMPILER V9.51   MAIN                                                                  05/22/2018 19:07:47 PAGE 5   
+ 240   5                  commande_correct = 0;
+ 241   5                }
+ 242   4                else
+ 243   4                {
+ 244   5                  commande.Servo_Angle=angle;
+ 245   5                  commande_correct = 1;
+ 246   5                }
+ 247   4            }
+ 248   3            else
+ 249   3            {
+ 250   4              angle=0;
+ 251   4            }
+ 252   3            commande.Servo_Angle=angle;
+ 253   3            break;
+ 254   3          }
+ 255   2          case 'V':
+ 256   2          {
+ 257   3            commande.Etat_Servo=Servo_V;
+ 258   3            if (com[5]=='A')
+ 259   3              {
+ 260   4              for (j=7; j<10;j++)
+ 261   4                {
+ 262   5                    tab[j-7]=com[j];
+ 263   5                }
+ 264   4              angle=conversionangle_positif(tab);
+ 265   4                if (angle > 90 ||angle <-90)
+ 266   4                {
+ 267   5                  commande_correct = 0;
+ 268   5                }
+ 269   4                else
+ 270   4                {
+ 271   5                  commande.Servo_Angle=angle;
+ 272   5                  commande_correct = 1;
+ 273   5                }
+ 274   4            }
+ 275   3      
+ 276   3            else
+ 277   3            {
+ 278   4              angle=0;
+ 279   4              commande.Servo_Angle=angle;
+ 280   4            }
+ 281   3      
+ 282   3            break;
+ 283   3          }
+ 284   2          default:
+ 285   2          {
+ 286   3            commande.Etat_Servo=Servo_H;
+ 287   3            angle=0;
+ 288   3            commande.Servo_Angle=angle;
+ 289   3            break;
+ 290   3          }
+ 291   2        }
+ 292   1        return commande;
+ 293   1      }
+ 294          struct COMMANDES traitement_D(char * com, struct COMMANDES commande)// DEBUT DEPREUVE OK
+ 295          {
+ 296   1        switch (com[2]) // exemple message:  D 1
+ 297   1            {
+ 298   2              case '1': //�preuve 1
+ 299   2              {
+ 300   3                commande.Etat_Epreuve=epreuve1;
+ 301   3                strcpy(message_PC_com, "\r\nInvite de commande 1\r\n>");
+C51 COMPILER V9.51   MAIN                                                                  05/22/2018 23:25:47 PAGE 6   
 
- 240   3          }
- 241   2          case 'V':
- 242   2          {
- 243   3            commande.Etat_Servo=Servo_V;
- 244   3            if (com[5]=='A')
- 245   3              {
- 246   4              for (j=7; j<10;j++)
- 247   4                {
- 248   5                    tab[j-7]=com[j];
- 249   5                }
- 250   4              angle=conversionangle_positif(tab);
- 251   4                if (angle > 90 ||angle <-90)
- 252   4                {
- 253   5                  commande_correct = 0;
- 254   5                }
- 255   4                else
- 256   4                {
- 257   5                  commande.Servo_Angle=angle;
- 258   5                  commande_correct = 1;
- 259   5                }
- 260   4            }
- 261   3      
- 262   3            else
- 263   3            {
- 264   4              angle=0;
- 265   4              commande.Servo_Angle=angle;
- 266   4            }
- 267   3      
- 268   3            break;
- 269   3          }
- 270   2          default:
- 271   2          {
- 272   3            commande.Etat_Servo=Servo_H;
- 273   3            angle=0;
- 274   3            commande.Servo_Angle=angle;
- 275   3            break;
- 276   3          }
- 277   2        }
- 278   1        return commande;
- 279   1      }
- 280          struct COMMANDES traitement_D(char * com, struct COMMANDES commande)// DEBUT DEPREUVE OK
- 281          {
- 282   1        switch (com[2]) // exemple message:  D 1
- 283   1            {
- 284   2              case '1': //�preuve 1
- 285   2              {
- 286   3                commande.Etat_Epreuve=epreuve1;
- 287   3                strcpy(message_PC_com, "\r\nInvite de commande 1\r\n>");
- 288   3                epreuve_en_cours = epreuve1;
- 289   3                //serOutstring("Invite de commande 1");
- 290   3                break;
- 291   3      
- 292   3              }
- 293   2              case '2': //�preuve 2
- 294   2              {
- 295   3                commande.Etat_Epreuve=epreuve2;
- 296   3                strcpy(message_PC_com, "\r\nInvite de commande 2\r\n>");
- 297   3                epreuve_en_cours = epreuve2;
- 298   3                //serOutstring("Invite de commande 2");
- 299   3                break;
- 300   3      
- 301   3              }
-C51 COMPILER V9.51   MAIN                                                                  05/22/2018 19:07:47 PAGE 6   
+ 302   3                epreuve_en_cours = epreuve1;
+ 303   3                //serOutstring("Invite de commande 1");
+ 304   3                break;
+ 305   3      
+ 306   3              }
+ 307   2              case '2': //�preuve 2
+ 308   2              {
+ 309   3                commande.Etat_Epreuve=epreuve2;
+ 310   3                strcpy(message_PC_com, "\r\nInvite de commande 2\r\n>");
+ 311   3                epreuve_en_cours = epreuve2;
+ 312   3                //serOutstring("Invite de commande 2");
+ 313   3                break;
+ 314   3      
+ 315   3              }
+ 316   2              case '3': //�preuve 3
+ 317   2              {
+ 318   3                commande.Etat_Epreuve=epreuve3;
+ 319   3                epreuve_en_cours = epreuve3;
+ 320   3                strcpy(message_PC_com, "\r\nInvite de commande 3\r\n>");
+ 321   3                //serOutstring("Invite de commande 3");
+ 322   3                break;
+ 323   3      
+ 324   3              }
+ 325   2              case '4': //�preuve 4
+ 326   2              {
+ 327   3                commande.Etat_Epreuve=epreuve4;
+ 328   3                epreuve_en_cours = epreuve4;
+ 329   3                strcpy(message_PC_com, "\r\nInvite de commande 4\r\n>");
+ 330   3                //serOutstring("Invite de commande 4");
+ 331   3                break;
+ 332   3      
+ 333   3              }
+ 334   2              case '5': //�preuve 5
+ 335   2              {
+ 336   3                commande.Etat_Epreuve=epreuve5;
+ 337   3                epreuve_en_cours = epreuve5;
+ 338   3                strcpy(message_PC_com, "\r\nInvite de commande 5\r\n>");
+ 339   3                //serOutstring("Invite de commande 5");
+ 340   3                break;
+ 341   3              }
+ 342   2              case '6': //�preuve 6
+ 343   2              {
+ 344   3                commande.Etat_Epreuve=epreuve6;
+ 345   3                epreuve_en_cours = epreuve6;
+ 346   3                strcpy(message_PC_com, "\r\nInvite de commande 6\r\n>");
+ 347   3                //serOutstring("Invite de commande 6");
+ 348   3                break;
+ 349   3      
+ 350   3              }
+ 351   2              case '7': //�preuve 7
+ 352   2              {
+ 353   3                commande.Etat_Epreuve=epreuve7;
+ 354   3                epreuve_en_cours = epreuve7;
+ 355   3                strcpy(message_PC_com, "\r\nInvite de commande 7\r\n>");
+ 356   3                //serOutstring("Invite de commande 7");
+ 357   3                break;
+ 358   3              }
+ 359   2              case '8': //�preuve 8
+ 360   2              {
+ 361   3                commande.Etat_Epreuve=epreuve8;
+ 362   3                epreuve_en_cours = epreuve8;
+ 363   3                strcpy(message_PC_com, "\r\nInvite de commande 8\r\n>");
+C51 COMPILER V9.51   MAIN                                                                  05/22/2018 23:25:47 PAGE 7   
 
- 302   2              case '3': //�preuve 3
- 303   2              {
- 304   3                commande.Etat_Epreuve=epreuve3;
- 305   3                epreuve_en_cours = epreuve3;
- 306   3                strcpy(message_PC_com, "\r\nInvite de commande 3\r\n>");
- 307   3                //serOutstring("Invite de commande 3");
- 308   3                break;
- 309   3      
- 310   3              }
- 311   2              case '4': //�preuve 4
- 312   2              {
- 313   3                commande.Etat_Epreuve=epreuve4;
- 314   3                epreuve_en_cours = epreuve4;
- 315   3                strcpy(message_PC_com, "\r\nInvite de commande 4\r\n>");
- 316   3                //serOutstring("Invite de commande 4");
- 317   3                break;
- 318   3      
- 319   3              }
- 320   2              case '5': //�preuve 5
- 321   2              {
- 322   3                commande.Etat_Epreuve=epreuve5;
- 323   3                epreuve_en_cours = epreuve5;
- 324   3                strcpy(message_PC_com, "\r\nInvite de commande 5\r\n>");
- 325   3                //serOutstring("Invite de commande 5");
- 326   3                break;
- 327   3              }
- 328   2              case '6': //�preuve 6
- 329   2              {
- 330   3                commande.Etat_Epreuve=epreuve6;
- 331   3                epreuve_en_cours = epreuve6;
- 332   3                strcpy(message_PC_com, "\r\nInvite de commande 6\r\n>");
- 333   3                //serOutstring("Invite de commande 6");
- 334   3                break;
- 335   3      
- 336   3              }
- 337   2              case '7': //�preuve 7
- 338   2              {
- 339   3                commande.Etat_Epreuve=epreuve7;
- 340   3                epreuve_en_cours = epreuve7;
- 341   3                strcpy(message_PC_com, "\r\nInvite de commande 7\r\n>");
- 342   3                //serOutstring("Invite de commande 7");
- 343   3                break;
- 344   3              }
- 345   2              case '8': //�preuve 8
- 346   2              {
- 347   3                commande.Etat_Epreuve=epreuve8;
- 348   3                epreuve_en_cours = epreuve8;
- 349   3                strcpy(message_PC_com, "\r\nInvite de commande 8\r\n>");
- 350   3                //serOutstring("Invite de commande 8");
- 351   3                break;
- 352   3              }
- 353   2              default:
- 354   2              {
- 355   3              commande.Etat_Epreuve=epreuve1;
- 356   3                epreuve_en_cours = epreuve1;
- 357   3              strcpy(message_PC_com, "\r\nInvite de commande 1\r\n>");
- 358   3              //serOutstring("Invite de commande 1");
- 359   3      
- 360   3              }
- 361   2            }
- 362   1            commande_correct = 2;
- 363   1            return commande;
-C51 COMPILER V9.51   MAIN                                                                  05/22/2018 19:07:47 PAGE 7   
+ 364   3                //serOutstring("Invite de commande 8");
+ 365   3                break;
+ 366   3              }
+ 367   2              default:
+ 368   2              {
+ 369   3              commande.Etat_Epreuve=epreuve1;
+ 370   3                epreuve_en_cours = epreuve1;
+ 371   3              strcpy(message_PC_com, "\r\nInvite de commande 1\r\n>");
+ 372   3              //serOutstring("Invite de commande 1");
+ 373   3      
+ 374   3              }
+ 375   2            }
+ 376   1            commande_correct = 2;
+ 377   1            return commande;
+ 378   1      }
+ 379          struct COMMANDES traitement_E(struct COMMANDES commande)//FIN DEPREUVE OK
+ 380          {
+ 381   1        //serOutstring("Fin de l'�preuve");
+ 382   1        commande.Etat_Epreuve=Epreuve_non;
+ 383   1        commande.Etat_Mouvement =Mouvement_non;
+ 384   1        epreuve_en_cours = Epreuve_non;
+ 385   1        return commande;
+ 386   1      }
+ 387          struct COMMANDES traitement_G(char * com, struct COMMANDES commande) // DEPLACEMENT AVEC ANGLE : OK
+ 388          {
+ 389   1          int i=4;
+ 390   1          int k=0;
+ 391   1          char coord[10];
+ 392   1          if (epreuve_en_cours == epreuve1 && com[1]==' ' && com[2]=='X' && com[3]==':')
+ 393   1          {
+ 394   2            commande.Etat_Mouvement = Depl_Coord;
+ 395   2      
+ 396   2            while(com[i]!= ' ')
+ 397   2            {
+ 398   3              coord[k]=com[i];
+ 399   3              i=i+1;
+ 400   3              k++;
+ 401   3            }
+ 402   2            coord[k]='\0';
+ 403   2            commande.Coord_X=conv(coord,strlen(coord));
+ 404   2            i = i+ 3;
+ 405   2            k=0;
+ 406   2            while(com[i]!= ' ')
+ 407   2            {
+ 408   3              coord[k]=com[i];
+ 409   3              i=i+1;
+ 410   3              k=k+1;
+ 411   3            }
+ 412   2            coord[i]='\0';
+ 413   2            commande.Coord_Y=conv(coord,strlen(coord));
+ 414   2            k=0;
+ 415   2            i = i+ 3;
+ 416   2            while(com[i]!= '\0')
+ 417   2            {
+ 418   3              coord[k]=com[i];
+ 419   3              i=i+1;
+ 420   3              k=k+1;
+ 421   3            }
+ 422   2            coord[i-1]='\0';
+ 423   2            commande.Angle=conv(coord,strlen(coord));
+ 424   2      
+ 425   2      
+C51 COMPILER V9.51   MAIN                                                                  05/22/2018 23:25:47 PAGE 8   
 
- 364   1      }
- 365          struct COMMANDES traitement_E(struct COMMANDES commande)//FIN DEPREUVE OK
- 366          {
- 367   1        //serOutstring("Fin de l'�preuve");
- 368   1        commande.Etat_Epreuve=Epreuve_non;
- 369   1        commande.Etat_Mouvement =Mouvement_non;
- 370   1        epreuve_en_cours = Epreuve_non;
- 371   1        return commande;
- 372   1      }
- 373          struct COMMANDES traitement_G(char * com, struct COMMANDES commande) // DEPLACEMENT AVEC ANGLE : OK
- 374          {
- 375   1          int i=4;
- 376   1          int k=0;
- 377   1          char coord[10];
- 378   1          if (epreuve_en_cours == epreuve1 && com[1]==' ' && com[2]=='X' && com[3]==':')
- 379   1          {
- 380   2            commande.Etat_Mouvement = Depl_Coord;
- 381   2      
- 382   2            while(com[i]!= ' ')
- 383   2            {
- 384   3              coord[k]=com[i];
- 385   3              i=i+1;
- 386   3              k++;
- 387   3            }
- 388   2            coord[k]='\0';
- 389   2            commande.Coord_X=conv(coord,strlen(coord));
- 390   2            i = i+ 3;
- 391   2            k=0;
- 392   2            while(com[i]!= ' ')
- 393   2            {
- 394   3              coord[k]=com[i];
- 395   3              i=i+1;
- 396   3              k=k+1;
- 397   3            }
- 398   2            coord[i]='\0';
- 399   2            commande.Coord_Y=conv(coord,strlen(coord));
- 400   2            k=0;
- 401   2            i = i+ 3;
- 402   2            while(com[i]!= '\0')
- 403   2            {
- 404   3              coord[k]=com[i];
- 405   3              i=i+1;
- 406   3              k=k+1;
- 407   3            }
- 408   2            coord[i-1]='\0';
- 409   2            commande.Angle=conv(coord,strlen(coord));
- 410   2      
- 411   2      
- 412   2          }
- 413   1          else
- 414   1          {
- 415   2            commande_correct=0;
- 416   2          }
- 417   1      
- 418   1      
- 419   1            return commande;
- 420   1      
- 421   1      }
- 422          
- 423          /*struct COMMANDES traitement_I(char * com, struct COMMANDES commande) // pas encore utilis�
- 424          {
- 425            // a compl�ter
-C51 COMPILER V9.51   MAIN                                                                  05/22/2018 19:07:47 PAGE 8   
+ 426   2          }
+ 427   1          else
+ 428   1          {
+ 429   2            commande_correct=0;
+ 430   2          }
+ 431   1      
+ 432   1      
+ 433   1            return commande;
+ 434   1      
+ 435   1      }
+ 436          
+ 437          /*struct COMMANDES traitement_I(char * com, struct COMMANDES commande) // pas encore utilis�
+ 438          {
+ 439            // a compl�ter
+ 440            return commande;
+ 441          }*/
+ 442          
+ 443          struct COMMANDES traitement_L(char * com,struct COMMANDES commande)
+ 444          {
+ 445   1        char Lumiere_Intensite;
+ 446   1        char Lumiere_Duree;
+ 447   1        char Lumiere_Extinction;
+ 448   1        char Lumiere_Nbre;
+ 449   1        unsigned char tab[4];
+ 450   1        int j;
+ 451   1      
+ 452   1        if (com[1]=='S'){
+ 453   2          commande.Etat_Lumiere=Eteindre;
+ 454   2        }
+ 455   1        else{
+ 456   2          switch(com[2]){
+ 457   3            case 'I':
+ 458   3            {
+ 459   4              for (j=4; j<8;j++){
+ 460   5                tab[j-4]=com[j];
+ 461   5              }
+ 462   4      
+ 463   4              Lumiere_Intensite = conversioncoord_2(tab);
+ 464   4              if (Lumiere_Intensite >= 0 & Lumiere_Intensite <= 100){
+ 465   5                  commande_correct=1;
+ 466   5                  commande.Lumiere_Intensite=Lumiere_Intensite;
+ 467   5              }
+ 468   4              else{
+ 469   5                  commande_correct=0;
+ 470   5              }
+ 471   4              for (j=10; j<13;j++){
+ 472   5                tab[j-10]=com[j];
+ 473   5              }
+ 474   4              
+ 475   4              Lumiere_Duree = conversioncoord_2(tab);
+ 476   4              if(Lumiere_Duree >= 1 && Lumiere_Duree <= 99){
+ 477   5                commande_correct=1;
+ 478   5                commande.Lumiere_Duree=Lumiere_Duree;
+ 479   5              }
+ 480   4              else{
+ 481   5                commande_correct=0;
+ 482   5              }
+ 483   4              for (j=16; j<19;j++){
+ 484   5                tab[j-16]=com[j];
+ 485   5              }
+ 486   4              Lumiere_Extinction =  conversioncoord_2(tab);
+ 487   4              if(Lumiere_Extinction>=0 && Lumiere_Extinction<=99){
+C51 COMPILER V9.51   MAIN                                                                  05/22/2018 23:25:47 PAGE 9   
 
- 426            return commande;
- 427          }*/
- 428          struct COMMANDES traitement_M(char *com, struct COMMANDES commande)
- 429          {
- 430   1        int j;
- 431   1        char tab[2];
- 432   1        char angle;
- 433   1        switch(com[1])
- 434   1          {
- 435   2              case 'I': //MI Mesure de courant
- 436   2                commande.Etat_Energie=Mesure_I;
- 437   2                break;
- 438   2              case 'E': //ME Mesure de l'�nergie
- 439   2                commande.Etat_Energie=Mesure_E;
- 440   2                break;
- 441   2              case 'O': //cas MO
- 442   2                switch (com[2])
- 443   2                {
- 444   3                  case 'U': // cas MOU
- 445   3                    commande.A_Obst=Obst_unique;
- 446   3                    switch (com[4])
- 447   3                    {
- 448   4                      case 'D':
- 449   4                        commande.Det=avant_arriere;//avant et arriere
- 450   4                        break;
- 451   4                      default:
- 452   4                        commande.Det=avant;
- 453   4                        //avant
- 454   4                        break;
- 455   4                    }
- 456   3                    break;
- 457   3                  case 'B': // cas MOB
- 458   3                    commande.A_Obst=Obst_balayage;
- 459   3                    switch(com[4])
- 460   3                    {
- 461   4                      case 'A':
- 462   4                        commande.Etat_DCT_Obst=oui_360; // d�fault de D
- 463   4                        for (j=6; j<8;j++)
- 464   4                        {
- 465   5                          tab[j-6]=com[j];
- 466   5                        }
- 467   4                        angle=conversioncoord(tab);
- 468   4                        if (angle%5==0){
- 469   5                          if(angle>=5 && angle<=45){
- 470   6                            commande.DCT_Obst_Resolution=angle;
- 471   6                            commande_correct=1;
- 472   6                          }
- 473   5                        }
- 474   4                        else
- 475   4                        {
- 476   5                          commande_correct=0;
- 477   5                        }
- 478   4      
- 479   4                        break;
- 480   4                      case 'D':
- 481   4                        commande.Etat_DCT_Obst=oui_180;
- 482   4                        if (com[6]=='A')
- 483   4                        {
- 484   5                          for (j=8; j<10;j++)
- 485   5                          {
- 486   6                            tab[j-8]=com[j];
- 487   6                          }
-C51 COMPILER V9.51   MAIN                                                                  05/22/2018 19:07:47 PAGE 9   
+ 488   5                commande_correct=1;
+ 489   5                commande.Lumiere_Extinction=Lumiere_Extinction;
+ 490   5              }
+ 491   4              else{
+ 492   5                commande_correct=0;
+ 493   5              }
+ 494   4              for (j=22; j<25;j++){
+ 495   5                tab[j-22]=com[j];
+ 496   5              }
+ 497   4              Lumiere_Nbre = conversioncoord_2(tab);
+ 498   4              if(Lumiere_Nbre>=0 && Lumiere_Nbre<=100){
+ 499   5                commande_correct=1;
+ 500   5                commande.Lumiere_Nbre=Lumiere_Nbre;
+ 501   5              }
+ 502   4              else{
+ 503   5                commande_correct=0;
+ 504   5              }
+ 505   4              break;
+ 506   4            }
+ 507   3            
+ 508   3            
+ 509   3            default:
+ 510   3            {
+ 511   4              commande.Lumiere_Intensite=100;
+ 512   4              commande.Lumiere_Nbre=1;
+ 513   4              commande.Lumiere_Extinction=0;
+ 514   4              commande.Lumiere_Duree=99;
+ 515   4              commande_correct=1;
+ 516   4              break;
+ 517   4            }
+ 518   3            break;
+ 519   3          }
+ 520   2        }
+ 521   1        return commande;
+ 522   1      }
+ 523          
+ 524          
+ 525          
+ 526          
+ 527          
+ 528          struct COMMANDES traitement_M(char *com, struct COMMANDES commande)
+ 529          {
+ 530   1        int j;
+ 531   1        char tab[2];
+ 532   1        char angle;
+ 533   1        switch(com[1])
+ 534   1          {
+ 535   2              case 'I': //MI Mesure de courant
+ 536   2                commande.Etat_Energie=Mesure_I;
+ 537   2                break;
+ 538   2              case 'E': //ME Mesure de l'�nergie
+ 539   2                commande.Etat_Energie=Mesure_E;
+ 540   2                break;
+ 541   2              case 'O': //cas MO
+ 542   2                switch (com[2])
+ 543   2                {
+ 544   3                  case 'U': // cas MOU
+ 545   3                    commande.A_Obst=Obst_unique;
+ 546   3                    switch (com[4])
+ 547   3                    {
+ 548   4                      case 'D':
+ 549   4                        commande.Det=avant_arriere;//avant et arriere
+C51 COMPILER V9.51   MAIN                                                                  05/22/2018 23:25:47 PAGE 10  
 
- 488   5                          angle=conversioncoord(tab);
- 489   5                          if (angle%5==0){
- 490   6                            if(angle>=5 && angle<=45){
- 491   7                              commande.DCT_Obst_Resolution=angle;
- 492   7                              commande_correct=1;
- 493   7                            }
- 494   6                          }
- 495   5                          else
- 496   5                          {
- 497   6                            commande_correct=0;
- 498   6                          }
- 499   5                        }
- 500   4      
- 501   4                        else
- 502   4                        {
- 503   5                          commande.DCT_Obst_Resolution=30;
- 504   5                        }
- 505   4                        break;
- 506   4                      default:
- 507   4                        commande.Etat_DCT_Obst=oui_360;
- 508   4                        commande.DCT_Obst_Resolution=30;
- 509   4                        break;
- 510   4                    }
- 511   3                    break;
- 512   3                  case 'S': // cas MOS
- 513   3                    commande.A_Obst=Obst_proche_balayage;
- 514   3                    switch(com[4])
- 515   3                    {
- 516   4                      case 'A':
- 517   4                        commande.Etat_DCT_Obst=oui_360; // d�fault de D
- 518   4                        for (j=6; j<8;j++)
- 519   4                        {
- 520   5                          tab[j-6]=com[j];
- 521   5                        }
- 522   4                        angle=conversioncoord(tab);
- 523   4                        if (angle%5==0){
- 524   5                          if(angle>=5 && angle<=45){
- 525   6                            commande.DCT_Obst_Resolution=angle;
- 526   6                            commande_correct=1;
- 527   6                          }
- 528   5                        }
- 529   4                        else
- 530   4                        {
- 531   5                          commande_correct=0;
- 532   5                        }
- 533   4      
- 534   4                        break;
- 535   4                      case 'D':
- 536   4                        commande.Etat_DCT_Obst=oui_180;
- 537   4                        if (com[6]=='A')
- 538   4                        {
- 539   5                          for (j=8; j<10;j++)
- 540   5                          {
- 541   6                            tab[j-8]=com[j];
- 542   6                          }
- 543   5                          angle=conversioncoord(tab);
- 544   5                          if (angle%5==0){
- 545   6                            if(angle>=5 && angle<=45){
- 546   7                              commande.DCT_Obst_Resolution=angle;
- 547   7                              commande_correct=1;
- 548   7                            }
- 549   6                          }
-C51 COMPILER V9.51   MAIN                                                                  05/22/2018 19:07:47 PAGE 10  
+ 550   4                        break;
+ 551   4                      default:
+ 552   4                        commande.Det=avant;
+ 553   4                        //avant
+ 554   4                        break;
+ 555   4                    }
+ 556   3                    break;
+ 557   3                  case 'B': // cas MOB
+ 558   3                    commande.A_Obst=Obst_balayage;
+ 559   3                    switch(com[4])
+ 560   3                    {
+ 561   4                      case 'A':
+ 562   4                        commande.Etat_DCT_Obst=oui_360; // d�fault de D
+ 563   4                        for (j=6; j<8;j++)
+ 564   4                        {
+ 565   5                          tab[j-6]=com[j];
+ 566   5                        }
+ 567   4                        angle=conversioncoord(tab);
+ 568   4                        if (angle%5==0){
+ 569   5                          if(angle>=5 && angle<=45){
+ 570   6                            commande.DCT_Obst_Resolution=angle;
+ 571   6                            commande_correct=1;
+ 572   6                          }
+ 573   5                        }
+ 574   4                        else
+ 575   4                        {
+ 576   5                          commande_correct=0;
+ 577   5                        }
+ 578   4      
+ 579   4                        break;
+ 580   4                      case 'D':
+ 581   4                        commande.Etat_DCT_Obst=oui_180;
+ 582   4                        if (com[6]=='A')
+ 583   4                        {
+ 584   5                          for (j=8; j<10;j++)
+ 585   5                          {
+ 586   6                            tab[j-8]=com[j];
+ 587   6                          }
+ 588   5                          angle=conversioncoord(tab);
+ 589   5                          if (angle%5==0){
+ 590   6                            if(angle>=5 && angle<=45){
+ 591   7                              commande.DCT_Obst_Resolution=angle;
+ 592   7                              commande_correct=1;
+ 593   7                            }
+ 594   6                          }
+ 595   5                          else
+ 596   5                          {
+ 597   6                            commande_correct=0;
+ 598   6                          }
+ 599   5                        }
+ 600   4      
+ 601   4                        else
+ 602   4                        {
+ 603   5                          commande.DCT_Obst_Resolution=30;
+ 604   5                        }
+ 605   4                        break;
+ 606   4                      default:
+ 607   4                        commande.Etat_DCT_Obst=oui_360;
+ 608   4                        commande.DCT_Obst_Resolution=30;
+ 609   4                        break;
+ 610   4                    }
+ 611   3                    break;
+C51 COMPILER V9.51   MAIN                                                                  05/22/2018 23:25:47 PAGE 11  
 
- 550   5                          else
- 551   5                          {
- 552   6                            commande_correct=0;
- 553   6                          }
- 554   5                        }
- 555   4      
- 556   4                        else
- 557   4                        {
- 558   5                          commande.DCT_Obst_Resolution=30;
- 559   5                        }
- 560   4                        break;
- 561   4                      default:
- 562   4                        commande.Etat_DCT_Obst=oui_360;
- 563   4                        commande.DCT_Obst_Resolution=30;
- 564   4                        break;
- 565   4                    }
- 566   3                    break;
- 567   3                  default:break;
- 568   3                }
- 569   2                break;
- 570   2              }
- 571   1            return commande;
- 572   1      }
- 573          /*struct COMMANDES traitement_P(char *com, struct COMMANDES commande) // PAS ENCORE UTILISE (POS)
- 574          {
- 575            // a compl�ter
- 576            return commande;
- 577          }*/
- 578          struct COMMANDES traitement_Q(struct COMMANDES commande) //ARRET DURGENCE
- 579          {
- 580   1        //serOutstring("arret d'urgence");
- 581   1        commande.Etat_Epreuve=Stop_Urgence;
- 582   1        return commande;
- 583   1      }
- 584          struct COMMANDES traitement_R(char * com, struct COMMANDES commande)// DIFFERENTES ROTATIONS OK
- 585          {
- 586   1        signed int angle;
- 587   1        unsigned char tab[3];
- 588   1        int j;
- 589   1        switch (com[1])
- 590   1            {
- 591   2            case 'D': // si on recoit RD
- 592   2            {
- 593   3              commande.Etat_Mouvement=Rot_90D;
- 594   3              break;
- 595   3            }
- 596   2            case 'G': //Si on recoit RG
- 597   2            {
- 598   3              commande.Etat_Mouvement=Rot_90G;
- 599   3              break;
- 600   3            }
- 601   2            case 'C':// si on recoit RC
- 602   2            {
- 603   3              if (com[3]== 'D')
- 604   3              {
- 605   4                commande.Etat_Mouvement=Rot_180D;
- 606   4                break;
- 607   4              }
- 608   3              if (com[3]== 'G')
- 609   3              {
- 610   4                commande.Etat_Mouvement=Rot_180G;
- 611   4                break;
-C51 COMPILER V9.51   MAIN                                                                  05/22/2018 19:07:47 PAGE 11  
+ 612   3                  case 'S': // cas MOS
+ 613   3                    commande.A_Obst=Obst_proche_balayage;
+ 614   3                    switch(com[4])
+ 615   3                    {
+ 616   4                      case 'A':
+ 617   4                        commande.Etat_DCT_Obst=oui_360; // d�fault de D
+ 618   4                        for (j=6; j<8;j++)
+ 619   4                        {
+ 620   5                          tab[j-6]=com[j];
+ 621   5                        }
+ 622   4                        angle=conversioncoord(tab);
+ 623   4                        if (angle%5==0){
+ 624   5                          if(angle>=5 && angle<=45){
+ 625   6                            commande.DCT_Obst_Resolution=angle;
+ 626   6                            commande_correct=1;
+ 627   6                          }
+ 628   5                        }
+ 629   4                        else
+ 630   4                        {
+ 631   5                          commande_correct=0;
+ 632   5                        }
+ 633   4      
+ 634   4                        break;
+ 635   4                      case 'D':
+ 636   4                        commande.Etat_DCT_Obst=oui_180;
+ 637   4                        if (com[6]=='A')
+ 638   4                        {
+ 639   5                          for (j=8; j<10;j++)
+ 640   5                          {
+ 641   6                            tab[j-8]=com[j];
+ 642   6                          }
+ 643   5                          angle=conversioncoord(tab);
+ 644   5                          if (angle%5==0){
+ 645   6                            if(angle>=5 && angle<=45){
+ 646   7                              commande.DCT_Obst_Resolution=angle;
+ 647   7                              commande_correct=1;
+ 648   7                            }
+ 649   6                          }
+ 650   5                          else
+ 651   5                          {
+ 652   6                            commande_correct=0;
+ 653   6                          }
+ 654   5                        }
+ 655   4      
+ 656   4                        else
+ 657   4                        {
+ 658   5                          commande.DCT_Obst_Resolution=30;
+ 659   5                        }
+ 660   4                        break;
+ 661   4                      default:
+ 662   4                        commande.Etat_DCT_Obst=oui_360;
+ 663   4                        commande.DCT_Obst_Resolution=30;
+ 664   4                        break;
+ 665   4                    }
+ 666   3                    break;
+ 667   3                  default:break;
+ 668   3                }
+ 669   2                break;
+ 670   2              }
+ 671   1            return commande;
+ 672   1      }
+ 673          /*struct COMMANDES traitement_P(char *com, struct COMMANDES commande) // PAS ENCORE UTILISE (POS)
+C51 COMPILER V9.51   MAIN                                                                  05/22/2018 23:25:47 PAGE 12  
 
- 612   4              }
- 613   3            }
- 614   2            case 'A': // on recoit RA
- 615   2            {
- 616   3              switch (com[3])
- 617   3              {
- 618   4                case 'D':
- 619   4                {
- 620   5                  commande.Etat_Mouvement=Rot_AngD;
- 621   5                  for (j=5; j<=7;j++)
- 622   5                  {
- 623   6                      tab[j-5]=com[j];
- 624   6                  }
- 625   5                  angle=conversionangle_positif(tab);
- 626   5                  commande.Angle=angle;
- 627   5                  break;
- 628   5                }
- 629   4                case 'G':
- 630   4                {
- 631   5                  commande.Etat_Mouvement=Rot_AngG;
- 632   5                  for (j=5; j<=7;j++)
- 633   5                  {
- 634   6                      tab[j-5]=com[j];
- 635   6                  }
- 636   5                  angle=conversionangle_positif(tab);
- 637   5                  commande.Angle=angle;
- 638   5                  break;
- 639   5                }
- 640   4                default :
- 641   4                {
- 642   5                  commande.Etat_Mouvement=Rot_AngD;
- 643   5                  angle=90;
- 644   5                  commande.Angle=angle;
- 645   5                  break;
- 646   5                }
- 647   4            }
- 648   3            break;
- 649   3          }
- 650   2            default:
- 651   2            {
- 652   3              break;
- 653   3            }
- 654   2          }
- 655   1          return commande;
- 656   1      }
- 657          struct COMMANDES traitement_S(char * com, struct COMMANDES commande/*,char f_b, char t_son, char t_silence
-             -, char bip_b*/) // STOPPER
- 658          {
- 659   1        int i;
- 660   1        char f_b=6;
- 661   1        char t_son=25;
- 662   1        char t_silence=50;
- 663   1        char bip_b=3;
- 664   1        char tab[2];
- 665   1        char frequence;
- 666   1        char duree_son;
- 667   1        char duree_silence;
- 668   1        char nombre_Bips;
- 669   1      
- 670   1        if( com[1]=='D')
- 671   1        {
- 672   2          commande.son=emission;
-C51 COMPILER V9.51   MAIN                                                                  05/22/2018 19:07:47 PAGE 12  
-
- 673   2            if(com[3]=='F')
- 674   2            {
- 675   3              for (i=5; i<7;i++)
- 676   3              {
- 677   4                tab[i-5]=com[i];
- 678   4              }
- 679   3              frequence=conversioncoord(tab);
- 680   3              if (frequence >99 ||frequence <1)
- 681   3              {
- 682   4                  commande_correct = 0;
- 683   4              }
- 684   3              else
- 685   3              {
- 686   4                commande.frequence=frequence;
- 687   4                commande_correct = 1;
- 688   4              }
- 689   3              for (i=10; i<12;i++)
- 690   3              {
- 691   4                tab[i-10]=com[i];
- 692   4              }
- 693   3              duree_son=conversioncoord(tab);
- 694   3              if (duree_son >99 ||duree_son <1)
- 695   3              {
- 696   4                  commande_correct = 0;
- 697   4              }
- 698   3              else
- 699   3              {
- 700   4                commande.duree_son=duree_son;
- 701   4                commande_correct = 1;
- 702   4              }
- 703   3              for (i=15; i<17;i++)
+ 674          {
+ 675            // a compl�ter
+ 676            return commande;
+ 677          }*/
+ 678          struct COMMANDES traitement_Q(struct COMMANDES commande) //ARRET DURGENCE
+ 679          {
+ 680   1        //serOutstring("arret d'urgence");
+ 681   1        commande.Etat_Epreuve=Stop_Urgence;
+ 682   1        return commande;
+ 683   1      }
+ 684          struct COMMANDES traitement_R(char * com, struct COMMANDES commande)// DIFFERENTES ROTATIONS OK
+ 685          {
+ 686   1        signed int angle;
+ 687   1        unsigned char tab[3];
+ 688   1        int j;
+ 689   1        switch (com[1])
+ 690   1            {
+ 691   2            case 'D': // si on recoit RD
+ 692   2            {
+ 693   3              commande.Etat_Mouvement=Rot_90D;
+ 694   3              break;
+ 695   3            }
+ 696   2            case 'G': //Si on recoit RG
+ 697   2            {
+ 698   3              commande.Etat_Mouvement=Rot_90G;
+ 699   3              break;
+ 700   3            }
+ 701   2            case 'C':// si on recoit RC
+ 702   2            {
+ 703   3              if (com[3]== 'D')
  704   3              {
- 705   4                tab[i-15]=com[i];
- 706   4              }
- 707   3              duree_silence=conversioncoord(tab);
- 708   3              if (duree_silence >99 ||duree_silence <1)
+ 705   4                commande.Etat_Mouvement=Rot_180D;
+ 706   4                break;
+ 707   4              }
+ 708   3              if (com[3]== 'G')
  709   3              {
- 710   4                  commande_correct = 0;
- 711   4              }
- 712   3              else
- 713   3              {
- 714   4                commande.duree_silence=duree_silence;
- 715   4                commande_correct = 1;
- 716   4              }
- 717   3              for (i=20; i<22;i++)
- 718   3              {
- 719   4                tab[i-20]=com[i];
- 720   4              }
- 721   3              nombre_Bips=conversioncoord(tab);
- 722   3              if (nombre_Bips >99 ||nombre_Bips <1)
- 723   3              {
- 724   4                  commande_correct = 0;
- 725   4              }
- 726   3              else
- 727   3              {
- 728   4                commande.nombre_Bips=nombre_Bips;
- 729   4                commande_correct = 1;
- 730   4              }
- 731   3      
- 732   3            }
- 733   2            else
- 734   2            {
-C51 COMPILER V9.51   MAIN                                                                  05/22/2018 19:07:47 PAGE 13  
+ 710   4                commande.Etat_Mouvement=Rot_180G;
+ 711   4                break;
+ 712   4              }
+ 713   3            }
+ 714   2            case 'A': // on recoit RA
+ 715   2            {
+ 716   3              switch (com[3])
+ 717   3              {
+ 718   4                case 'D':
+ 719   4                {
+ 720   5                  commande.Etat_Mouvement=Rot_AngD;
+ 721   5                  for (j=5; j<=7;j++)
+ 722   5                  {
+ 723   6                      tab[j-5]=com[j];
+ 724   6                  }
+ 725   5                  angle=conversionangle_positif(tab);
+ 726   5                  commande.Angle=angle;
+ 727   5                  break;
+ 728   5                }
+ 729   4                case 'G':
+ 730   4                {
+ 731   5                  commande.Etat_Mouvement=Rot_AngG;
+ 732   5                  for (j=5; j<=7;j++)
+ 733   5                  {
+ 734   6                      tab[j-5]=com[j];
+ 735   6                  }
+C51 COMPILER V9.51   MAIN                                                                  05/22/2018 23:25:47 PAGE 13  
 
- 735   3              commande.frequence=f_b;               // d�finit par le code fr�quence allant de 1 a 99 (mais defini de 1
+ 736   5                  angle=conversionangle_positif(tab);
+ 737   5                  commande.Angle=angle;
+ 738   5                  break;
+ 739   5                }
+ 740   4                default :
+ 741   4                {
+ 742   5                  commande.Etat_Mouvement=Rot_AngD;
+ 743   5                  angle=90;
+ 744   5                  commande.Angle=angle;
+ 745   5                  break;
+ 746   5                }
+ 747   4            }
+ 748   3            break;
+ 749   3          }
+ 750   2            default:
+ 751   2            {
+ 752   3              break;
+ 753   3            }
+ 754   2          }
+ 755   1          return commande;
+ 756   1      }
+ 757          struct COMMANDES traitement_S(char * com, struct COMMANDES commande/*,char f_b, char t_son, char t_silence
+             -, char bip_b*/) // STOPPER
+ 758          {
+ 759   1        int i;
+ 760   1        char f_b=6;
+ 761   1        char t_son=25;
+ 762   1        char t_silence=50;
+ 763   1        char bip_b=3;
+ 764   1        char tab[2];
+ 765   1        char frequence;
+ 766   1        char duree_son;
+ 767   1        char duree_silence;
+ 768   1        char nombre_Bips;
+ 769   1      
+ 770   1        if( com[1]=='D')
+ 771   1        {
+ 772   2          commande.son=emission;
+ 773   2            if(com[3]=='F')
+ 774   2            {
+ 775   3              for (i=5; i<7;i++)
+ 776   3              {
+ 777   4                tab[i-5]=com[i];
+ 778   4              }
+ 779   3              frequence=conversioncoord(tab);
+ 780   3              if (frequence >99 ||frequence <1)
+ 781   3              {
+ 782   4                  commande_correct = 0;
+ 783   4              }
+ 784   3              else
+ 785   3              {
+ 786   4                commande.frequence=frequence;
+ 787   4                commande_correct = 1;
+ 788   4              }
+ 789   3              for (i=10; i<12;i++)
+ 790   3              {
+ 791   4                tab[i-10]=com[i];
+ 792   4              }
+ 793   3              duree_son=conversioncoord(tab);
+ 794   3              if (duree_son >99 ||duree_son <1)
+ 795   3              {
+ 796   4                  commande_correct = 0;
+C51 COMPILER V9.51   MAIN                                                                  05/22/2018 23:25:47 PAGE 14  
+
+ 797   4              }
+ 798   3              else
+ 799   3              {
+ 800   4                commande.duree_son=duree_son;
+ 801   4                commande_correct = 1;
+ 802   4              }
+ 803   3              for (i=15; i<17;i++)
+ 804   3              {
+ 805   4                tab[i-15]=com[i];
+ 806   4              }
+ 807   3              duree_silence=conversioncoord(tab);
+ 808   3              if (duree_silence >99 ||duree_silence <1)
+ 809   3              {
+ 810   4                  commande_correct = 0;
+ 811   4              }
+ 812   3              else
+ 813   3              {
+ 814   4                commande.duree_silence=duree_silence;
+ 815   4                commande_correct = 1;
+ 816   4              }
+ 817   3              for (i=20; i<22;i++)
+ 818   3              {
+ 819   4                tab[i-20]=com[i];
+ 820   4              }
+ 821   3              nombre_Bips=conversioncoord(tab);
+ 822   3              if (nombre_Bips >99 ||nombre_Bips <1)
+ 823   3              {
+ 824   4                  commande_correct = 0;
+ 825   4              }
+ 826   3              else
+ 827   3              {
+ 828   4                commande.nombre_Bips=nombre_Bips;
+ 829   4                commande_correct = 1;
+ 830   4              }
+ 831   3      
+ 832   3            }
+ 833   2            else
+ 834   2            {
+ 835   3              commande.frequence=f_b;               // d�finit par le code fr�quence allant de 1 a 99 (mais defini de 1
              - a 21)
- 736   3              commande.duree_son=t_son;                 // dur�e du signal sonore
- 737   3              commande.duree_silence=t_silence;             // duree du silence
- 738   3              commande.nombre_Bips=bip_b;             // nombre de bips
- 739   3            }
- 740   2        }
- 741   1        else
- 742   1        {
- 743   2          commande.Etat_Mouvement=Stopper;
- 744   2        }
- 745   1        return commande;
- 746   1      }
- 747          struct COMMANDES traitement_T(char * com, struct COMMANDES commande) // VITESSE A REGLER
- 748          {
- 749   1        char vitesse;
- 750   1        char tab[3];
- 751   1        int j;
- 752   1        // on regarde le param�tre de la vitesse
- 753   1      
- 754   1        for (j=3; j<=5;j++)
- 755   1        {
- 756   2            tab[j-3]=com[j];
- 757   2        }
- 758   1        vitesse=conversionangle_positif(tab);
- 759   1        j = ((int)vitesse& 0x00FF);
- 760   1        if (j >= 100){
- 761   2            commande_correct = 0;}
- 762   1        else {
- 763   2            vitesse_par_defaut=(vitesse & 0x00FF);
- 764   2            strcpy(message_PC_com,"\r\n>");
- 765   2            commande_correct = 2;
- 766   2        }
- 767   1        return commande;
- 768   1      
- 769   1      }
- 770          
- 771          struct COMMANDES Message (char * com/*, char f_b,char t_son,char t_silence,char bip_b*/){
- 772   1      //  char tabcoordx[2];
- 773   1      //  char tabcoordy[2];
- 774   1      //  char tabangle[2];
- 775   1      //  signed char coordx;
- 776   1      //  signed char coordy;
- 777   1      //  char angle;
- 778   1      //  int cpt=0;
- 779   1        //a modifier
- 780   1      
- 781   1      
- 782   1      
- 783   1        struct COMMANDES commande;
- 784   1        commande.Etat_Epreuve = Epreuve_non;
- 785   1        commande.Vitesse = vitesse_par_defaut;
- 786   1        commande.Etat_Mouvement = Mouvement_non;
- 787   1        commande.Etat_ACQ_Son = ACQ_non;
- 788   1        commande.A_Obst = Non_obst;
- 789   1        commande.Etat_DCT_Obst = DCT_non;
- 790   1        commande.Etat_Lumiere = Lumiere_non;
- 791   1        commande.Etat_Servo = Servo_non;
- 792   1        commande.Etat_Energie = Energie_non;
- 793   1        commande.Etat_Photo = Photo_non;
- 794   1        commande.Etat_Position = Position_non;
- 795   1        commande.son=non_emission;
-C51 COMPILER V9.51   MAIN                                                                  05/22/2018 19:07:47 PAGE 14  
+ 836   3              commande.duree_son=t_son;                 // dur�e du signal sonore
+ 837   3              commande.duree_silence=t_silence;             // duree du silence
+ 838   3              commande.nombre_Bips=bip_b;             // nombre de bips
+ 839   3            }
+ 840   2        }
+ 841   1        else
+ 842   1        {
+ 843   2          commande.Etat_Mouvement=Stopper;
+ 844   2        }
+ 845   1        return commande;
+ 846   1      }
+ 847          struct COMMANDES traitement_T(char * com, struct COMMANDES commande) // VITESSE A REGLER
+ 848          {
+ 849   1        char vitesse;
+ 850   1        char tab[3];
+ 851   1        int j;
+ 852   1        // on regarde le param�tre de la vitesse
+ 853   1      
+ 854   1        for (j=3; j<=5;j++)
+ 855   1        {
+ 856   2            tab[j-3]=com[j];
+ 857   2        }
+C51 COMPILER V9.51   MAIN                                                                  05/22/2018 23:25:47 PAGE 15  
 
- 796   1      
- 797   1          switch (com[0])
- 798   1          {
- 799   2          case 'A':// si on recoit un A AVANCER OU DUREE DAQUISITION FIXEE
- 800   2          {
- 801   3            commande=traitement_A(com,commande);
- 802   3            break;
- 803   3          }
- 804   2          case 'T':// si on recoit un TV Reglage de la vitesse seulement
- 805   2          {
- 806   3            commande=traitement_T(com,commande);
- 807   3            break;
- 808   3          }
- 809   2          case 'D':// si on recoit un D (D�but de l'epreuve)
- 810   2          {
- 811   3            commande=traitement_D(com,commande);
- 812   3            break;
- 813   3          }
- 814   2          case 'E':// si on recoit un E (fin de l'epreuve)
- 815   2          {
- 816   3            commande=traitement_E(commande);
- 817   3            break;
- 818   3      
- 819   3          }
- 820   2          case 'Q':// si on recoit un Q (arret d'urgence)
- 821   2          {
- 822   3            commande=traitement_Q(commande);
- 823   3            break;
- 824   3      
- 825   3          }
- 826   2          case 'M':// si on recoit un M (mesure et autre) PAS UTILISE
- 827   2          {
- 828   3            commande=traitement_M(com,commande);
- 829   3            break;
- 830   3          }
- 831   2          case 'I':// si on recoit un IPO (I)
- 832   2          {
- 833   3            // a faire
- 834   3            //commande=traitement_I(com,commande);
- 835   3            break;
- 836   3          }
- 837   2          case 'P':// si on recoit un POS
- 838   2          {
- 839   3            //commande=traitement_P(com,commande);
- 840   3            //envoie de information
- 841   3            break;
- 842   3      
- 843   3          }
- 844   2          case 'B': //si on recoit un B RECULER
- 845   2          {
- 846   3            commande=traitement_B(com,commande);
- 847   3            break;
- 848   3          }
- 849   2          case 'S': // si on recoit S
- 850   2          {
- 851   3            commande=traitement_S(com, commande/*,f_b, t_son, t_silence, bip_b*/);
- 852   3      
- 853   3            break;
- 854   3          }
- 855   2          case 'G': // si on recoit G
- 856   2          {
- 857   3            commande=traitement_G(com,commande);
-C51 COMPILER V9.51   MAIN                                                                  05/22/2018 19:07:47 PAGE 15  
+ 858   1        vitesse=conversionangle_positif(tab);
+ 859   1        j = ((int)vitesse& 0x00FF);
+ 860   1        if (j >= 100){
+ 861   2            commande_correct = 0;}
+ 862   1        else {
+ 863   2            vitesse_par_defaut=(vitesse & 0x00FF);
+ 864   2            strcpy(message_PC_com,"\r\n>");
+ 865   2            commande_correct = 2;
+ 866   2        }
+ 867   1        return commande;
+ 868   1      
+ 869   1      }
+ 870          
+ 871          struct COMMANDES Message (char * com/*, char f_b,char t_son,char t_silence,char bip_b*/){
+ 872   1      //  char tabcoordx[2];
+ 873   1      //  char tabcoordy[2];
+ 874   1      //  char tabangle[2];
+ 875   1      //  signed char coordx;
+ 876   1      //  signed char coordy;
+ 877   1      //  char angle;
+ 878   1      //  int cpt=0;
+ 879   1        //a modifier
+ 880   1      
+ 881   1      
+ 882   1      
+ 883   1        struct COMMANDES commande;
+ 884   1        commande.Etat_Epreuve = Epreuve_non;
+ 885   1        commande.Vitesse = vitesse_par_defaut;
+ 886   1        commande.Etat_Mouvement = Mouvement_non;
+ 887   1        commande.Etat_ACQ_Son = ACQ_non;
+ 888   1        commande.A_Obst = Non_obst;
+ 889   1        commande.Etat_DCT_Obst = DCT_non;
+ 890   1        commande.Etat_Lumiere = Lumiere_non;
+ 891   1        commande.Etat_Servo = Servo_non;
+ 892   1        commande.Etat_Energie = Energie_non;
+ 893   1        commande.Etat_Photo = Photo_non;
+ 894   1        commande.Etat_Position = Position_non;
+ 895   1        commande.son=non_emission;
+ 896   1      
+ 897   1          switch (com[0])
+ 898   1          {
+ 899   2          case 'A':// si on recoit un A AVANCER OU DUREE DAQUISITION FIXEE
+ 900   2          {
+ 901   3            commande=traitement_A(com,commande);
+ 902   3            break;
+ 903   3          }
+ 904   2          case 'T':// si on recoit un TV Reglage de la vitesse seulement
+ 905   2          {
+ 906   3            commande=traitement_T(com,commande);
+ 907   3            break;
+ 908   3          }
+ 909   2          case 'D':// si on recoit un D (D�but de l'epreuve)
+ 910   2          {
+ 911   3            commande=traitement_D(com,commande);
+ 912   3            break;
+ 913   3          }
+ 914   2          case 'E':// si on recoit un E (fin de l'epreuve)
+ 915   2          {
+ 916   3            commande=traitement_E(commande);
+ 917   3            break;
+ 918   3      
+ 919   3          }
+C51 COMPILER V9.51   MAIN                                                                  05/22/2018 23:25:47 PAGE 16  
 
- 858   3            break;
- 859   3          }
- 860   2      
- 861   2          case 'R': //Si On recoit R ROTATION
- 862   2          {
- 863   3            commande=traitement_R(com,commande);
- 864   3            break;
- 865   3          }
- 866   2          case 'C':
- 867   2            commande=traitement_C(com,commande);
- 868   2            break;
- 869   2          default:
- 870   2          {
- 871   3          commande_correct = 0;
- 872   3          }
- 873   2      }
- 874   1      //}
- 875   1      return commande;
- 876   1      }
- 877          
- 878          
- 879          
- 880          void main (void)
- 881          {
- 882   1      //D�claration des variables
- 883   1        //struct COMMANDES_SERIALIZER commande_serializer;
- 884   1        struct COMMANDES commande;
- 885   1        char message_s[50] = {0};
- 886   1        char mess[6] = {0};
- 887   1        char echo[3] = {0};
- 888   1        char com[50] = {0};
- 889   1      //  char nbr[10];
- 890   1        char a;
- 891   1        char i =0;
- 892   1        int b = 0;
- 893   1        unsigned char code_err = 0;
- 894   1      
- 895   1        //a modifier
- 896   1        char f_b=6;
- 897   1        char t_son=25;
- 898   1        char t_silence=50;
- 899   1        char bip_b=3;
- 900   1      
- 901   1        EA=0;
- 902   1        Init_Device();  // Initialisation du microcontr�leur
- 903   1        Config_Timer2();
- 904   1        Config_timer0();
- 905   1        Config_Timer3();
- 906   1        Config_SPI_MASTER();
- 907   1        CFG_VREF();
- 908   1        CFG_ADC0();
- 909   1        CFG_Clock_UART();
- 910   1        cfg_UART0_mode1();
- 911   1        init_Serial_Buffer();
- 912   1        init_Serial_Buffer1();
- 913   1        CFG_UART1();
- 914   1        NSS_slave = 1;
- 915   1        TR2 = 0;
- 916   1        energie = 0;
- 917   1        EA=1;
- 918   1      
- 919   1        serOutstring("\n\rDemarrage robot\n\r>");
-C51 COMPILER V9.51   MAIN                                                                  05/22/2018 19:07:47 PAGE 16  
+ 920   2          case 'Q':// si on recoit un Q (arret d'urgence)
+ 921   2          {
+ 922   3            commande=traitement_Q(commande);
+ 923   3            break;
+ 924   3      
+ 925   3          }
+ 926   2          case 'L':// si on recoit un M (mesure et autre)
+ 927   2          {
+ 928   3            commande=traitement_L(com,commande);
+ 929   3            break;
+ 930   3          }
+ 931   2          case 'M':// si on recoit un M (mesure et autre)
+ 932   2          {
+ 933   3            commande=traitement_M(com,commande);
+ 934   3            break;
+ 935   3          }
+ 936   2          case 'I':// si on recoit un IPO (I)
+ 937   2          {
+ 938   3            // a faire
+ 939   3            //commande=traitement_I(com,commande);
+ 940   3            break;
+ 941   3          }
+ 942   2          case 'P':// si on recoit un POS
+ 943   2          {
+ 944   3            //commande=traitement_P(com,commande);
+ 945   3            //envoie de information
+ 946   3            break;
+ 947   3      
+ 948   3          }
+ 949   2          case 'B': //si on recoit un B RECULER
+ 950   2          {
+ 951   3            commande=traitement_B(com,commande);
+ 952   3            break;
+ 953   3          }
+ 954   2          case 'S': // si on recoit S
+ 955   2          {
+ 956   3            commande=traitement_S(com, commande/*,f_b, t_son, t_silence, bip_b*/);
+ 957   3      
+ 958   3            break;
+ 959   3          }
+ 960   2          case 'G': // si on recoit G
+ 961   2          {
+ 962   3            commande=traitement_G(com,commande);
+ 963   3            break;
+ 964   3          }
+ 965   2      
+ 966   2          case 'R': //Si On recoit R ROTATION
+ 967   2          {
+ 968   3            commande=traitement_R(com,commande);
+ 969   3            break;
+ 970   3          }
+ 971   2          case 'C':
+ 972   2            commande=traitement_C(com,commande);
+ 973   2            break;
+ 974   2          default:
+ 975   2          {
+ 976   3          commande_correct = 0;
+ 977   3          }
+ 978   2      }
+ 979   1      //}
+ 980   1      return commande;
+ 981   1      }
+C51 COMPILER V9.51   MAIN                                                                  05/22/2018 23:25:47 PAGE 17  
 
- 920   1      // a commenter si le robot est d�ja allum� avant le lancement du code
- 921   1      // Pour recevoir le message de d�marrage du serializer
- 922   1      /*  do{
- 923   1            a=serInchar1();
- 924   1            echo[0] = a;
- 925   1            echo[1] = '\0';
- 926   1            serOutstring(echo);
- 927   1            memset(echo,0,strlen(echo));
- 928   1          }while(a!=0x3E);
- 929   1      */
- 930   1        while(1){
- 931   2      
- 932   2          memset(message_s,0,sizeof(message_s));
- 933   2          memset(mess, 0, strlen(mess));
- 934   2          memset(message_PC_com, 0, strlen(message_PC_com));
- 935   2      
- 936   2          commande_correct =1;
- 937   2      
- 938   2          i=0;
- 939   2          a=0;
- 940   2          memset(com, 0, 50);
- 941   2          do{
- 942   3            a=serInchar();
- 943   3            echo[0] = a;
- 944   3            echo[1] = '\0';
- 945   3            serOutstring(echo);
- 946   3            memset(echo,0,strlen(echo));
- 947   3            if (a!=0x00)
- 948   3              {
- 949   4              com[i]=a;
- 950   4              i=i+1;
- 951   4              }
- 952   3            }while(a!=0x0D); //Commenté pour les tests avec le simulateur
- 953   2      
- 954   2          //strcpy(com,"CS V A:-45");
- 955   2          //strcpy(com,"SD F:12 P:50 W:60 B:05");
- 956   2          //strcpy(com,"MOB");
- 957   2      
- 958   2          commande = Message(com);
- 959   2            
- 960   2          if (commande_correct == 1){
- 961   3              fonctionRoutage(commande);
- 962   3          }
- 963   2          if (commande_correct == 2){
- 964   3            serOutstring(message_PC_com); // si erreur
- 965   3          }
- 966   2          if(commande_correct == 0){
- 967   3            strcpy(mess, "\n\r#\n\r>");
- 968   3            serOutstring(mess); // si erreur
- 969   3          }
- 970   2        //serOutstring(message_PC_com); // si erreur
- 971   2        }
- 972   1      
- 973   1      }
- 974          
- 975          void ISR_Timer2 (void) interrupt 5 {
- 976   1        TF2 = 0; //Remise � '0' du flag d'overflow
- 977   1        PWM_servo=!PWM_servo; //On envoie le signal PWM au servomoteur
- 978   1      }
- 979          
- 980          void ISR_Timer3 (void) interrupt 14 {
- 981   1        TMR3CN &= 0x04; //Remise � '0' du flag d'overflow
-C51 COMPILER V9.51   MAIN                                                                  05/22/2018 19:07:47 PAGE 17  
+ 982          
+ 983          
+ 984          
+ 985          void main (void)
+ 986          {
+ 987   1      //D�claration des variables
+ 988   1        //struct COMMANDES_SERIALIZER commande_serializer;
+ 989   1        struct COMMANDES commande;
+ 990   1        char message_s[50] = {0};
+ 991   1        char mess[6] = {0};
+ 992   1        char echo[3] = {0};
+ 993   1        char com[50] = {0};
+ 994   1      //  char nbr[10];
+ 995   1        char a;
+ 996   1        char i =0;
+ 997   1        int b = 0;
+ 998   1        unsigned char code_err = 0;
+ 999   1      
+1000   1        //a modifier
+1001   1        char f_b=6;
+1002   1        char t_son=25;
+1003   1        char t_silence=50;
+1004   1        char bip_b=3;
+1005   1      
+1006   1        EA=0;
+1007   1        Init_Device();  // Initialisation du microcontr�leur
+1008   1        Config_Timer2();
+1009   1        Config_timer0();
+1010   1        Config_Timer3();
+1011   1        Config_SPI_MASTER();
+1012   1        CFG_VREF();
+1013   1        CFG_ADC0();
+1014   1        CFG_Clock_UART();
+1015   1        cfg_UART0_mode1();
+1016   1        init_Serial_Buffer();
+1017   1        init_Serial_Buffer1();
+1018   1        CFG_UART1();
+1019   1        NSS_slave = 1;
+1020   1        TR2 = 0;
+1021   1        energie = 0;
+1022   1        EA=1;
+1023   1      
+1024   1        serOutstring("\n\rDemarrage robot\n\r>");
+1025   1      // a commenter si le robot est d�ja allum� avant le lancement du code
+1026   1      // Pour recevoir le message de d�marrage du serializer
+1027   1      /*  do{
+1028   1            a=serInchar1();
+1029   1            echo[0] = a;
+1030   1            echo[1] = '\0';
+1031   1            serOutstring(echo);
+1032   1            memset(echo,0,strlen(echo));
+1033   1          }while(a!=0x3E);
+1034   1      */
+1035   1        while(1){
+1036   2      
+1037   2          memset(message_s,0,sizeof(message_s));
+1038   2          memset(mess, 0, strlen(mess));
+1039   2          memset(message_PC_com, 0, strlen(message_PC_com));
+1040   2      
+1041   2          commande_correct =1;
+1042   2      
+1043   2          i=0;
+C51 COMPILER V9.51   MAIN                                                                  05/22/2018 23:25:47 PAGE 18  
 
- 982   1        courant = Courant_ADC();
- 983   1        energie += 9.6*courant*0.001*0.035;
- 984   1        
- 985   1      }
+1044   2          a=0;
+1045   2          memset(com, 0, 50);
+1046   2          /*do{
+1047   2            a=serInchar();
+1048   2            echo[0] = a;
+1049   2            echo[1] = '\0';
+1050   2            serOutstring(echo);
+1051   2            memset(echo,0,strlen(echo));
+1052   2            if (a!=0x00)
+1053   2              {
+1054   2              com[i]=a;
+1055   2              i=i+1;
+1056   2              }
+1057   2            }while(a!=0x0D); //Commenté pour les tests avec le simulateur*/
+1058   2      
+1059   2          //strcpy(com,"CS V A:-45");
+1060   2          //strcpy(com,"SD F:12 P:50 W:60 B:05");
+1061   2          //strcpy(com,"MOB");
+1062   2          //strcpy(com,"L I:100 D:007 E:006 N:090");
+1063   2          strcpy(com,"L");
+1064   2      
+1065   2      
+1066   2      
+1067   2          commande = Message(com);
+1068   2            
+1069   2          if (commande_correct == 1){
+1070   3              fonctionRoutage(commande);
+1071   3          }
+1072   2          if (commande_correct == 2){
+1073   3            serOutstring(message_PC_com); // si erreur
+1074   3          }
+1075   2          if(commande_correct == 0){
+1076   3            strcpy(mess, "\n\r#\n\r>");
+1077   3            serOutstring(mess); // si erreur
+1078   3          }
+1079   2        //serOutstring(message_PC_com); // si erreur
+1080   2        }
+1081   1      
+1082   1      }
+1083          
+1084          void ISR_Timer2 (void) interrupt 5 {
+1085   1        TF2 = 0; //Remise � '0' du flag d'overflow
+1086   1        PWM_servo=!PWM_servo; //On envoie le signal PWM au servomoteur
+1087   1      }
+1088          
+1089          void ISR_Timer3 (void) interrupt 14 {
+1090   1        TMR3CN &= 0x04; //Remise � '0' du flag d'overflow
+1091   1        courant = Courant_ADC();
+1092   1        energie += 9.6*courant*0.001*0.035;
+1093   1        
+1094   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =   5445    ----
-   CONSTANT SIZE    =    375    ----
-   XDATA SIZE       =     61     715
+   CODE SIZE        =   6061    ----
+   CONSTANT SIZE    =    377    ----
+   XDATA SIZE       =     61     764
    PDATA SIZE       =   ----    ----
    DATA SIZE        =   ----    ----
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
 END OF MODULE INFORMATION.
+
+C51 COMPILER V9.51   MAIN                                                                  05/22/2018 23:25:47 PAGE 19  
 
 
 C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -14,6 +14,7 @@
 "Transmission_SPI.obj",
 "UART0_RingBuffer_lib.obj",
 "UART1.obj",
-"ultrason.obj" 
+"ultrason.obj",
+"Encodage_Pointeur_lum.obj" 
 TO "Master" 
 RAMSIZE(256) 
