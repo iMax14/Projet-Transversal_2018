@@ -191,36 +191,6 @@ unsigned char serOutstring1(char *buf) {
 }
 
 
-/*void CFG_Clock_UART1(void){
-	TCON &=0x7F;
-	CKCON |= 0x10;      // T1M: Timer 1 use the system clock.
-	PCON |= 0x10;
-	PCON &= 0xF7;
-
-
-	TH1=0xB8;
-	TH1=0xF4;
-	TL1=0x00;
-	
-	TMOD |= 0x20;       //  Timer1 CLK = system clock
-	TMOD &= 0x2F;			  // Timer1 configuré en timer 8 bit avec auto-reload	
-	ET1 = 0;				   // Interruption Timer 1 dévalidée
-	TR1 = 1;				   // Timer1 démarré
-}
-
-void CFG_UART1(void){
-	T4CON &= 0xCF ;
-	PCON |= 0x90; // SMOD0=1 On ne divise pas le Baud rate de l'uart0 par 2
-	PCON &=0xB7; //SSTAT0=0  Donne l'accès à SM20 - SM000
-	SCON1 = 0x70;   // Mode 1 - Check Stop bit - Reception validée
-	TI1 = 1;        // Transmission: octet transmis (prêt à recevoir un char
-								// pour transmettre			
-	IE = 1;        // interruption UART0 autorisée	
-	EIE2 |= 0x40;
-	SCON1 |= 0x72;
-	SCON1 &= 0x7E;
-
-}*/
 	
 void CFG_UART1(void){
 	T4CON &= 0xCF ;

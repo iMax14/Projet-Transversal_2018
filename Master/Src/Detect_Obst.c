@@ -16,7 +16,7 @@ char obstacle_avant[5];
 char obstacle_arriere[5];
 char affichage [256] = 0;
 extern signed int Angle_atteint; // Initaliser � "XX"
-signed char Angle_servo [1] = 0;
+char Angle_servo [3] = {0};
 
 char detection_AV(struct COMMANDES com){
 
@@ -29,11 +29,10 @@ char detection_AV(struct COMMANDES com){
     //Affichage
     sprintf(obstacle_avant,"%f",detection_avant); // Convertion de float � char
 		sprintf(Angle_servo,"%i",Angle_atteint); // Convertion de float � char
-
+		strcat(affichage," //// ");
     strcat(affichage,Angle_servo); //On donne la position du Servomoteur_Horizontal
-    strcat(affichage," : AV -> ");
+    strcat(affichage," : ");
     strcat(affichage,obstacle_avant); //On donne la distance � laquelle est l'obstacle AV
-		strcat(affichage,"\r");
   }
 
   return detection_avant;
@@ -57,11 +56,11 @@ char detection_AV_AR(struct COMMANDES com){
 		sprintf(Angle_servo,"%i",Angle_atteint); // Convertion de float � char
 
     strcat(affichage,Angle_servo); //On donne la position du Servomoteur_Horizontal
-    strcat(affichage," : AV -> ");
+    strcat(affichage," : ");
     strcat(affichage,obstacle_avant); //On donne la distance � laquelle est l'obstacle AV
-    strcat(affichage," : AR -> ");
+    strcat(affichage," : ");
     strcat(affichage,obstacle_arriere); //On donne la distance � laquelle est l'obstacle AR
-		strcat(affichage,"\r");
+    strcat(affichage," //// ");
 
   }
 
@@ -86,6 +85,7 @@ struct INFORMATIONS Detect_Obst(struct COMMANDES com){
 	int min = 0;
 	int min_AV = 0;
 	int min_AR = 0;
+	int z;
 
 	switch(com.A_Obst){
 		case Obst_unique:
@@ -99,19 +99,45 @@ struct INFORMATIONS Detect_Obst(struct COMMANDES com){
 
 		case Obst_balayage:
 			if (com.Etat_DCT_Obst==oui_180){ //detection AV sur 180�
-				for(i = -90;i<=90;i = i+com.DCT_Obst_Resolution){
+				for(i = 0xFFA6 ;i<=0x5A;i = i+com.DCT_Obst_Resolution){
 					Angle_atteint = CDE_Servo_H(i); // On met le servomoteur en position
+					for (z = 0;z<30000;z++);
 					detection_AV(com); //On fait une d�tection AV
 				}
 			}
 			else{ //detection AV et AR sur 360�
-				for(i = -90;i<=90;i = i+com.DCT_Obst_Resolution){
+				for(i = 0xFFA6;i<=0x5A;i = i+com.DCT_Obst_Resolution){
 					Angle_atteint = CDE_Servo_H(i); // On met le servomoteur en position
+					for (z = 0;z<30000;z++);
 					detection_AV_AR(com); //On fait une d�tection AV et AR
 				}
 			}
 			break;
 
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 		case Obst_proche_balayage:
 			if (com.Etat_DCT_Obst==oui_180){ //detection AV sur 180�
 				for(i = -90;i<=90;i = i+com.DCT_Obst_Resolution){

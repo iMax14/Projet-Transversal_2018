@@ -1,9 +1,9 @@
-C51 COMPILER V9.51   SERVOMOTEUR_VERTICAL                                                  05/17/2018 11:32:00 PAGE 1   
+C51 COMPILER V9.52.0.0   SERVOMOTEUR_VERTICAL                                              05/22/2018 16:41:44 PAGE 1   
 
 
-C51 COMPILER V9.51, COMPILATION OF MODULE SERVOMOTEUR_VERTICAL
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE SERVOMOTEUR_VERTICAL
 OBJECT MODULE PLACED IN Servomoteur_Vertical.OBJ
-COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.exe Servomoteur_Vertical.c LARGE BROWSE DEBUG OBJECTEXTEND TABS(2)
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE Servomoteur_Vertical.c LARGE BROWSE DEBUG OBJECTEXTEND TABS(2)
 
 line level    source
 
@@ -33,12 +33,12 @@ line level    source
   24   1        RCAP2H = rech_int >> 8;
   25   1      
   26   1        TR2 = 1; //Timer2 activ�
-  27   1        /*while(i < 50){ //Cette boucle permet de laisser le temps au servomoteur de se mettre en position (= 50 
-             -interruptions)
-  28   1          if (TF2 == 1){
-  29   1            i++;
-  30   1          }
-  31   1        }*/
+  27   1        while(i < 50){ //Cette boucle permet de laisser le temps au servomoteur de se mettre en position (= 50 in
+             -terruptions)
+  28   2          if (TF2 == 1){
+  29   3            i++;
+  30   3          }
+  31   2        }
   32   1        TR2 = 0; //Timer2 d�sactiv� pour le servomoteur vertical
   33   1      
   34   1        return Angle;
@@ -46,7 +46,7 @@ line level    source
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    127    ----
+   CODE SIZE        =    161    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----       8
    PDATA SIZE       =   ----    ----

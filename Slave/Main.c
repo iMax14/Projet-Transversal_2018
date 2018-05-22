@@ -69,10 +69,10 @@ void main (void) {
 				Dest_msg_SPI[w] = 0;
 				break;
 			case 2 :
-				if (msg_ServVert[1] == 0xAA){ //L'angle est négatif
+				if (msg_ServVert[2] == 0xAA){ //L'angle est négatif
 					msg_ServVert[0] =~ msg_ServVert[0];//On refait le complément pour bien réceptionner le message qui a été complémenter dans le Master
 					Angle_voulu |= msg_ServVert[0]; 
-					Angle_voulu |= 0xFF00;
+					Angle_voulu += 0xFF00;
 					Angle_atteint = CDE_Servo_V(Angle_voulu); //On appelle sa fonction associée en lui envoyant son message
 				}
 				else{ //L'angle est positif

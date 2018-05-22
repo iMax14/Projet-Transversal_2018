@@ -1,4 +1,4 @@
-C51 COMPILER V9.51   DETECT_OBST                                                           05/22/2018 11:21:01 PAGE 1   
+C51 COMPILER V9.51   DETECT_OBST                                                           05/22/2018 19:07:43 PAGE 1   
 
 
 C51 COMPILER V9.51, COMPILATION OF MODULE DETECT_OBST
@@ -26,7 +26,7 @@ line level    source
   16          char obstacle_arriere[5];
   17          char affichage [256] = 0;
   18          extern signed int Angle_atteint; // Initaliser � "XX"
-  19          signed char Angle_servo [1] = 0;
+  19          char Angle_servo [3] = {0};
   20          
   21          char detection_AV(struct COMMANDES com){
   22   1      
@@ -39,65 +39,65 @@ line level    source
   29   2          //Affichage
   30   2          sprintf(obstacle_avant,"%f",detection_avant); // Convertion de float � char
   31   2          sprintf(Angle_servo,"%i",Angle_atteint); // Convertion de float � char
-  32   2      
+  32   2          strcat(affichage," //// ");
   33   2          strcat(affichage,Angle_servo); //On donne la position du Servomoteur_Horizontal
-  34   2          strcat(affichage," : AV -> ");
+  34   2          strcat(affichage," : ");
   35   2          strcat(affichage,obstacle_avant); //On donne la distance � laquelle est l'obstacle AV
-  36   2          strcat(affichage,"\r");
-  37   2        }
-  38   1      
-  39   1        return detection_avant;
-  40   1      }
+  36   2        }
+  37   1      
+  38   1        return detection_avant;
+  39   1      }
+  40          
   41          
-  42          
-  43          char detection_AV_AR(struct COMMANDES com){
-  44   1        detection_avant=MES_Dist_AV();
-  45   1        detection_arriere=MES_Dist_AR();
-  46   1        if (detection_avant != 0){ //Si un obstacle est d�tect�
-  47   2          information.Nbre_Val_obst++; //On incr�mente le nbr d'abstacle d�tect�
-  48   2        }
-  49   1        if (detection_arriere != 0){ //Si un obstacle est d�tect�
-  50   2          information.Nbre_Val_obst++; //On incr�mente le nbr d'abstacle d�tect�
-  51   2        }
-  52   1        if(com.A_Obst != Obst_proche_balayage){
-  53   2          //Affichage
-  54   2      
-C51 COMPILER V9.51   DETECT_OBST                                                           05/22/2018 11:21:01 PAGE 2   
+  42          char detection_AV_AR(struct COMMANDES com){
+  43   1        detection_avant=MES_Dist_AV();
+  44   1        detection_arriere=MES_Dist_AR();
+  45   1        if (detection_avant != 0){ //Si un obstacle est d�tect�
+  46   2          information.Nbre_Val_obst++; //On incr�mente le nbr d'abstacle d�tect�
+  47   2        }
+  48   1        if (detection_arriere != 0){ //Si un obstacle est d�tect�
+  49   2          information.Nbre_Val_obst++; //On incr�mente le nbr d'abstacle d�tect�
+  50   2        }
+  51   1        if(com.A_Obst != Obst_proche_balayage){
+  52   2          //Affichage
+  53   2      
+  54   2          sprintf(obstacle_avant,"%f",detection_avant); // Convertion de float � char
+C51 COMPILER V9.51   DETECT_OBST                                                           05/22/2018 19:07:43 PAGE 2   
 
-  55   2          sprintf(obstacle_avant,"%f",detection_avant); // Convertion de float � char
-  56   2          sprintf(obstacle_arriere,"%f",detection_arriere); // Convertion de float � char
-  57   2          sprintf(Angle_servo,"%i",Angle_atteint); // Convertion de float � char
-  58   2      
-  59   2          strcat(affichage,Angle_servo); //On donne la position du Servomoteur_Horizontal
-  60   2          strcat(affichage," : AV -> ");
-  61   2          strcat(affichage,obstacle_avant); //On donne la distance � laquelle est l'obstacle AV
-  62   2          strcat(affichage," : AR -> ");
-  63   2          strcat(affichage,obstacle_arriere); //On donne la distance � laquelle est l'obstacle AR
-  64   2          strcat(affichage,"\r");
-  65   2      
-  66   2        }
-  67   1      
-  68   1        return detection_avant,detection_arriere;
-  69   1      }
+  55   2          sprintf(obstacle_arriere,"%f",detection_arriere); // Convertion de float � char
+  56   2          sprintf(Angle_servo,"%i",Angle_atteint); // Convertion de float � char
+  57   2      
+  58   2          strcat(affichage,Angle_servo); //On donne la position du Servomoteur_Horizontal
+  59   2          strcat(affichage," : ");
+  60   2          strcat(affichage,obstacle_avant); //On donne la distance � laquelle est l'obstacle AV
+  61   2          strcat(affichage," : ");
+  62   2          strcat(affichage,obstacle_arriere); //On donne la distance � laquelle est l'obstacle AR
+  63   2          strcat(affichage," //// ");
+  64   2      
+  65   2        }
+  66   1      
+  67   1        return detection_avant,detection_arriere;
+  68   1      }
+  69          
   70          
-  71          
-  72          struct INFORMATIONS Detect_Obst(struct COMMANDES com){
-  73   1        signed int i;
-  74   1        int j;
-  75   1        int k=0;
-  76   1        extern float detection_avant,detection_arriere;
-  77   1        float tab_dist_AV [50];
-  78   1        float tab_dist_AR [50];
-  79   1        signed int tab_angles [50];
-  80   1        float dist_min_AV [5];
-  81   1        float dist_min_AR [5];
-  82   1        float dist_min;
-  83   1        char dist_min_ascii [5];
-  84   1        signed int angle;
-  85   1        signed char angle_ascii [5];
-  86   1        int min = 0;
-  87   1        int min_AV = 0;
-  88   1        int min_AR = 0;
+  71          struct INFORMATIONS Detect_Obst(struct COMMANDES com){
+  72   1        signed int i;
+  73   1        int j;
+  74   1        int k=0;
+  75   1        extern float detection_avant,detection_arriere;
+  76   1        float tab_dist_AV [50];
+  77   1        float tab_dist_AR [50];
+  78   1        signed int tab_angles [50];
+  79   1        float dist_min_AV [5];
+  80   1        float dist_min_AR [5];
+  81   1        float dist_min;
+  82   1        char dist_min_ascii [5];
+  83   1        signed int angle;
+  84   1        signed char angle_ascii [5];
+  85   1        int min = 0;
+  86   1        int min_AV = 0;
+  87   1        int min_AR = 0;
+  88   1        int z;
   89   1      
   90   1        switch(com.A_Obst){
   91   2          case Obst_unique:
@@ -111,95 +111,121 @@ line level    source
   99   2      
  100   2          case Obst_balayage:
  101   2            if (com.Etat_DCT_Obst==oui_180){ //detection AV sur 180�
- 102   3              for(i = -90;i<=90;i = i+com.DCT_Obst_Resolution){
+ 102   3              for(i = 0xFFA6 ;i<=0x5A;i = i+com.DCT_Obst_Resolution){
  103   4                Angle_atteint = CDE_Servo_H(i); // On met le servomoteur en position
- 104   4                detection_AV(com); //On fait une d�tection AV
- 105   4              }
- 106   3            }
- 107   2            else{ //detection AV et AR sur 360�
- 108   3              for(i = -90;i<=90;i = i+com.DCT_Obst_Resolution){
- 109   4                Angle_atteint = CDE_Servo_H(i); // On met le servomoteur en position
- 110   4                detection_AV_AR(com); //On fait une d�tection AV et AR
- 111   4              }
- 112   3            }
- 113   2            break;
- 114   2      
- 115   2          case Obst_proche_balayage:
- 116   2            if (com.Etat_DCT_Obst==oui_180){ //detection AV sur 180�
-C51 COMPILER V9.51   DETECT_OBST                                                           05/22/2018 11:21:01 PAGE 3   
+ 104   4                for (z = 0;z<30000;z++);
+ 105   4                detection_AV(com); //On fait une d�tection AV
+ 106   4              }
+ 107   3            }
+ 108   2            else{ //detection AV et AR sur 360�
+ 109   3              for(i = 0xFFA6;i<=0x5A;i = i+com.DCT_Obst_Resolution){
+ 110   4                Angle_atteint = CDE_Servo_H(i); // On met le servomoteur en position
+ 111   4                for (z = 0;z<30000;z++);
+ 112   4                detection_AV_AR(com); //On fait une d�tection AV et AR
+ 113   4              }
+ 114   3            }
+ 115   2            break;
+ 116   2      
+C51 COMPILER V9.51   DETECT_OBST                                                           05/22/2018 19:07:43 PAGE 3   
 
- 117   3              for(i = -90;i<=90;i = i+com.DCT_Obst_Resolution){
- 118   4                tab_angles[k] = CDE_Servo_H(i); // On met le servomoteur en position
- 119   4                tab_dist_AV[k] = detection_AV(com); //On fait une d�tection AV
- 120   4                k++;
- 121   4              }
- 122   3              for (j=0; j<= (180/com.DCT_Obst_Resolution); j++){//Recherche de la distance minimale parmis toutes ce
+ 117   2            
+ 118   2            
+ 119   2            
+ 120   2            
+ 121   2            
+ 122   2            
+ 123   2            
+ 124   2            
+ 125   2            
+ 126   2            
+ 127   2            
+ 128   2            
+ 129   2            
+ 130   2            
+ 131   2            
+ 132   2            
+ 133   2            
+ 134   2            
+ 135   2            
+ 136   2            
+ 137   2            
+ 138   2            
+ 139   2            
+ 140   2            
+ 141   2          case Obst_proche_balayage:
+ 142   2            if (com.Etat_DCT_Obst==oui_180){ //detection AV sur 180�
+ 143   3              for(i = -90;i<=90;i = i+com.DCT_Obst_Resolution){
+ 144   4                tab_angles[k] = CDE_Servo_H(i); // On met le servomoteur en position
+ 145   4                tab_dist_AV[k] = detection_AV(com); //On fait une d�tection AV
+ 146   4                k++;
+ 147   4              }
+ 148   3              for (j=0; j<= (180/com.DCT_Obst_Resolution); j++){//Recherche de la distance minimale parmis toutes ce
              -lle trouv�e
- 123   4                if(tab_dist_AV[j] < tab_dist_AV[min]){
- 124   5                  min = j;
- 125   5                }
- 126   4              }
- 127   3              dist_min = tab_dist_AV[min];
- 128   3              angle = tab_angles[min];
- 129   3      
- 130   3              //Affichage
- 131   3              sprintf(dist_min_ascii,"%f",dist_min); // Convertion de float � char
- 132   3              sprintf(angle_ascii,"%d",angle); // Convertion de int � char
- 133   3      
- 134   3              strcat(affichage,angle_ascii); //On donne la position du Servomoteur_Horizontal
- 135   3              strcat(affichage," : AV -> ");
- 136   3              strcat(affichage,dist_min_ascii); //On donne la distance � laquelle est l'obstacle AV
- 137   3            }
- 138   2            else{ //detection AV et AR sur 360�
- 139   3              for(i = -90;i<=90;i = i+com.DCT_Obst_Resolution){
- 140   4                tab_angles[k] = CDE_Servo_H(i); // On met le servomoteur en position
- 141   4                tab_dist_AV[k],tab_dist_AR[k] = detection_AV_AR(com); //On fait une d�tection AV et AR
- 142   4                k++;
- 143   4              }
- 144   3              for (j=0; j<= (180/com.DCT_Obst_Resolution); j++){//Recherche de la distance minimale AV parmis toutes
+ 149   4                if(tab_dist_AV[j] < tab_dist_AV[min]){
+ 150   5                  min = j;
+ 151   5                }
+ 152   4              }
+ 153   3              dist_min = tab_dist_AV[min];
+ 154   3              angle = tab_angles[min];
+ 155   3      
+ 156   3              //Affichage
+ 157   3              sprintf(dist_min_ascii,"%f",dist_min); // Convertion de float � char
+ 158   3              sprintf(angle_ascii,"%d",angle); // Convertion de int � char
+ 159   3      
+ 160   3              strcat(affichage,angle_ascii); //On donne la position du Servomoteur_Horizontal
+ 161   3              strcat(affichage," : AV -> ");
+ 162   3              strcat(affichage,dist_min_ascii); //On donne la distance � laquelle est l'obstacle AV
+ 163   3            }
+ 164   2            else{ //detection AV et AR sur 360�
+ 165   3              for(i = -90;i<=90;i = i+com.DCT_Obst_Resolution){
+ 166   4                tab_angles[k] = CDE_Servo_H(i); // On met le servomoteur en position
+ 167   4                tab_dist_AV[k],tab_dist_AR[k] = detection_AV_AR(com); //On fait une d�tection AV et AR
+ 168   4                k++;
+ 169   4              }
+ 170   3              for (j=0; j<= (180/com.DCT_Obst_Resolution); j++){//Recherche de la distance minimale AV parmis toutes
              - celle trouv�e
- 145   4                if(tab_dist_AV[j] < tab_dist_AV[min_AV]){
- 146   5                  min_AV = j;
- 147   5                }
- 148   4              }
- 149   3              dist_min_AV[0] = tab_dist_AV[min_AV];
- 150   3              for (j=0; j<= (180/com.DCT_Obst_Resolution); j++){//Recherche de la distance minimale AR parmis toutes
-             - celle trouv�e
- 151   4                if(tab_dist_AR[j] < tab_dist_AR[min_AR]){
- 152   5                  min_AR = j;
- 153   5                }
- 154   4              }
- 155   3              dist_min_AR[0] = tab_dist_AR[min];
- 156   3              if (dist_min_AR < dist_min_AV){
- 157   4                dist_min = dist_min_AR[min_AR];
- 158   4                angle = tab_angles[min_AR];
- 159   4              }
- 160   3              else{
- 161   4                dist_min = dist_min_AV[min_AV];
- 162   4                angle = tab_angles[min_AV];
- 163   4              }
- 164   3      
- 165   3              //Affichage
- 166   3              sprintf(dist_min_ascii,"%f",dist_min); // Convertion de float � char
- 167   3              sprintf(angle_ascii,"%d",angle); // Convertion de int � char
- 168   3      
- 169   3              strcat(affichage,angle_ascii); //On donne la position du Servomoteur_Horizontal
- 170   3              strcat(affichage," : ");
- 171   3              strcat(affichage,dist_min_ascii); //On donne la distance � laquelle est l'obstacle AV
- 172   3            }
- 173   2            break;
- 174   2        }
- 175   1      
-C51 COMPILER V9.51   DETECT_OBST                                                           05/22/2018 11:21:01 PAGE 4   
+ 171   4                if(tab_dist_AV[j] < tab_dist_AV[min_AV]){
+ 172   5                  min_AV = j;
+ 173   5                }
+ 174   4              }
+ 175   3              dist_min_AV[0] = tab_dist_AV[min_AV];
+ 176   3              for (j=0; j<= (180/com.DCT_Obst_Resolution); j++){//Recherche de la distance minimale AR parmis toutes
+C51 COMPILER V9.51   DETECT_OBST                                                           05/22/2018 19:07:43 PAGE 4   
 
- 176   1        return information;
- 177   1      }
+             - celle trouv�e
+ 177   4                if(tab_dist_AR[j] < tab_dist_AR[min_AR]){
+ 178   5                  min_AR = j;
+ 179   5                }
+ 180   4              }
+ 181   3              dist_min_AR[0] = tab_dist_AR[min];
+ 182   3              if (dist_min_AR < dist_min_AV){
+ 183   4                dist_min = dist_min_AR[min_AR];
+ 184   4                angle = tab_angles[min_AR];
+ 185   4              }
+ 186   3              else{
+ 187   4                dist_min = dist_min_AV[min_AV];
+ 188   4                angle = tab_angles[min_AV];
+ 189   4              }
+ 190   3      
+ 191   3              //Affichage
+ 192   3              sprintf(dist_min_ascii,"%f",dist_min); // Convertion de float � char
+ 193   3              sprintf(angle_ascii,"%d",angle); // Convertion de int � char
+ 194   3      
+ 195   3              strcat(affichage,angle_ascii); //On donne la position du Servomoteur_Horizontal
+ 196   3              strcat(affichage," : ");
+ 197   3              strcat(affichage,dist_min_ascii); //On donne la distance � laquelle est l'obstacle AV
+ 198   3            }
+ 199   2            break;
+ 200   2        }
+ 201   1      
+ 202   1        return information;
+ 203   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =   2198    ----
-   CONSTANT SIZE    =     35    ----
-   XDATA SIZE       =    301     679
+   CODE SIZE        =   2297    ----
+   CONSTANT SIZE    =     30    ----
+   XDATA SIZE       =    303     684
    PDATA SIZE       =   ----    ----
    DATA SIZE        =   ----    ----
    IDATA SIZE       =   ----    ----

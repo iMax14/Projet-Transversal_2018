@@ -1,9 +1,9 @@
-C51 COMPILER V9.51   GENERATION_SON                                                        05/19/2018 15:55:48 PAGE 1   
+C51 COMPILER V9.51   GENERATION_SON                                                        05/22/2018 19:07:45 PAGE 1   
 
 
 C51 COMPILER V9.51, COMPILATION OF MODULE GENERATION_SON
 OBJECT MODULE PLACED IN Generation_son.obj
-COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE Src\Generation_son.c LARGE BROWSE DEBUG OBJECTEXTEND PRINT(.\Generation_son
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.exe Src\Generation_son.c LARGE BROWSE DEBUG OBJECTEXTEND PRINT(.\Generation_son
                     -.lst) TABS(2) OBJECT(Generation_son.obj)
 
 line level    source
@@ -18,15 +18,15 @@ line level    source
    8          #include "Generation_son.h"
    9          
   10          void son_sonore(struct COMMANDES com){
-  11   1        char rep[4]=0;
+  11   1        unsigned char rep[4]=0;
   12   1        unsigned char commande_SPI = 0x00;
   13   1        unsigned char taille_trame = 4;
   14   1      
   15   1        commande_SPI = 0xD1;
-  16   1        rep[0] = echange_octet(com.frequence);
-  17   1        rep[1] = echange_octet(com.duree_son);
-  18   1        rep[2] = echange_octet(com.duree_silence);
-  19   1        rep[3] = echange_octet(com.nombre_Bips);
+  16   1        rep[0] = com.frequence;
+  17   1        rep[1] = com.duree_son;
+  18   1        rep[2] = com.duree_silence;
+  19   1        rep[3] = com.nombre_Bips;
   20   1      
   21   1        echange_trame(rep,taille_trame,commande_SPI);
   22   1        tempo_emiss();
@@ -34,9 +34,9 @@ line level    source
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    111    ----
+   CODE SIZE        =     75    ----
    CONSTANT SIZE    =      4    ----
-   XDATA SIZE       =   ----      43
+   XDATA SIZE       =   ----      42
    PDATA SIZE       =   ----    ----
    DATA SIZE        =   ----    ----
    IDATA SIZE       =   ----    ----

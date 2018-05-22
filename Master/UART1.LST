@@ -1,9 +1,9 @@
-C51 COMPILER V9.51   UART1                                                                 05/19/2018 15:55:50 PAGE 1   
+C51 COMPILER V9.51   UART1                                                                 05/22/2018 19:07:52 PAGE 1   
 
 
 C51 COMPILER V9.51, COMPILATION OF MODULE UART1
 OBJECT MODULE PLACED IN UART1.obj
-COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE Src\UART1.c LARGE BROWSE DEBUG OBJECTEXTEND PRINT(.\UART1.lst) TABS(2) OBJE
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.exe Src\UART1.c LARGE BROWSE DEBUG OBJECTEXTEND PRINT(.\UART1.lst) TABS(2) OBJE
                     -CT(UART1.obj)
 
 line level    source
@@ -62,7 +62,7 @@ line level    source
   52          
   53          // Test: Buffer vide? 
   54          #define RB_EMPTY(rb) ( (rb)->rb_in==(rb)->rb_out )
-C51 COMPILER V9.51   UART1                                                                 05/19/2018 15:55:50 PAGE 2   
+C51 COMPILER V9.51   UART1                                                                 05/22/2018 19:07:52 PAGE 2   
 
   55          
   56          // Test: Buffer plein?
@@ -126,7 +126,7 @@ line level    source
  114   2        }
  115   1      }
  116          // **************************************************************************************************
-C51 COMPILER V9.51   UART1                                                                 05/19/2018 15:55:50 PAGE 3   
+C51 COMPILER V9.51   UART1                                                                 05/22/2018 19:07:52 PAGE 3   
 
  117          // init_Serial_Buffer: Initialisation des structuresde gestion des buffers transmission et reception
  118          // *************************************************************************************************
@@ -190,7 +190,7 @@ line level    source
  176   2          return 0xFF00+c;
  177   2        }
  178   1        // pas de caractère dans le buffer de réception.
-C51 COMPILER V9.51   UART1                                                                 05/19/2018 15:55:50 PAGE 4   
+C51 COMPILER V9.51   UART1                                                                 05/22/2018 19:07:52 PAGE 4   
 
  179   1        else 
  180   1          return return_code;
@@ -207,45 +207,15 @@ line level    source
  191   1      }
  192          
  193          
- 194          /*void CFG_Clock_UART1(void){
- 195            TCON &=0x7F;
- 196            CKCON |= 0x10;      // T1M: Timer 1 use the system clock.
- 197            PCON |= 0x10;
- 198            PCON &= 0xF7;
- 199          
- 200          
- 201            TH1=0xB8;
- 202            TH1=0xF4;
- 203            TL1=0x00;
- 204            
- 205            TMOD |= 0x20;       //  Timer1 CLK = system clock
- 206            TMOD &= 0x2F;       // Timer1 configuré en timer 8 bit avec auto-reload 
- 207            ET1 = 0;           // Interruption Timer 1 dévalidée
- 208            TR1 = 1;           // Timer1 démarré
- 209          }
- 210          
- 211          void CFG_UART1(void){
- 212            T4CON &= 0xCF ;
- 213            PCON |= 0x90; // SMOD0=1 On ne divise pas le Baud rate de l'uart0 par 2
- 214            PCON &=0xB7; //SSTAT0=0  Donne l'accès à SM20 - SM000
- 215            SCON1 = 0x70;   // Mode 1 - Check Stop bit - Reception validée
- 216            TI1 = 1;        // Transmission: octet transmis (prêt à recevoir un char
- 217                          // pour transmettre     
- 218            IE = 1;        // interruption UART0 autorisée  
- 219            EIE2 |= 0x40;
- 220            SCON1 |= 0x72;
- 221            SCON1 &= 0x7E;
- 222          
- 223          }*/
- 224            
- 225          void CFG_UART1(void){
- 226   1        T4CON &= 0xCF ;
- 227   1        PCON |= 0x90; // SMOD0=1 On ne divise pas le Baud rate de l'uart0 par 2
- 228   1        PCON &=0xB7; //SSTAT0=0  Donne l'accès à SM20 - SM000
- 229   1        SCON1 |= 0x72;   // Mode 1 - Check Stop bit - Reception validée
- 230   1              // Transmission: octet transmis (prêt à recevoir un char pour transmettre     
- 231   1        EIE2 |= 0x40;        // interruption UART0 autorisée  
- 232   1      }
+ 194            
+ 195          void CFG_UART1(void){
+ 196   1        T4CON &= 0xCF ;
+ 197   1        PCON |= 0x90; // SMOD0=1 On ne divise pas le Baud rate de l'uart0 par 2
+ 198   1        PCON &=0xB7; //SSTAT0=0  Donne l'accès à SM20 - SM000
+ 199   1        SCON1 |= 0x72;   // Mode 1 - Check Stop bit - Reception validée
+ 200   1              // Transmission: octet transmis (prêt à recevoir un char pour transmettre     
+ 201   1        EIE2 |= 0x40;        // interruption UART0 autorisée  
+ 202   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
@@ -254,8 +224,6 @@ MODULE INFORMATION:   STATIC OVERLAYABLE
    XDATA SIZE       =     80       7
    PDATA SIZE       =   ----    ----
    DATA SIZE        =   ----    ----
-C51 COMPILER V9.51   UART1                                                                 05/19/2018 15:55:50 PAGE 5   
-
    IDATA SIZE       =   ----    ----
    BIT SIZE         =      1    ----
 END OF MODULE INFORMATION.

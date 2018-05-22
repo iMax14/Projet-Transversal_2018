@@ -1,9 +1,9 @@
-C51 COMPILER V9.51   CONFIG_GLOBALE                                                        05/19/2018 15:55:47 PAGE 1   
+C51 COMPILER V9.51   CONFIG_GLOBALE                                                        05/22/2018 19:07:41 PAGE 1   
 
 
 C51 COMPILER V9.51, COMPILATION OF MODULE CONFIG_GLOBALE
 OBJECT MODULE PLACED IN Config_Globale.obj
-COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE Src\Config_Globale.c LARGE BROWSE DEBUG OBJECTEXTEND PRINT(.\Config_Globale
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.exe Src\Config_Globale.c LARGE BROWSE DEBUG OBJECTEXTEND PRINT(.\Config_Globale
                     -.lst) TABS(2) OBJECT(Config_Globale.obj)
 
 line level    source
@@ -62,7 +62,7 @@ line level    source
   50   1      
   51   1        P0MDOUT &= 0xD7; //11010111 ----- P0.3/5
   52   1        P2MDOUT &= 0xF5; //11110101 ----- P2.1/3
-C51 COMPILER V9.51   CONFIG_GLOBALE                                                        05/19/2018 15:55:47 PAGE 2   
+C51 COMPILER V9.51   CONFIG_GLOBALE                                                        05/22/2018 19:07:41 PAGE 2   
 
   53   1        
   54   1        P0 |= 0x28; //00101000 ----- P0.3/5

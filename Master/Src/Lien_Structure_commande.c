@@ -39,7 +39,9 @@ float courant_actuel;
 float dist_avant;
 float dist_arriere;
 char Angle_voulu,msg_Slave,angle;
-signed int Angle_atteint;
+signed int Angle_atteint = 0;
+extern unsigned int courant;
+extern double energie;
 
 void routage(struct COMMANDES commande, enum Routage * type){
 
@@ -84,10 +86,13 @@ void fonctionRoutage(struct COMMANDES commande){
 	char courant_ascii[4];
 	char energie_ascii[4];
 	extern char affichage [50];
+	char string_s[1000] = {2};
+	int cpt = 0;
 	routage(commande,&route);
 
 	switch (route){
 
+// OK
 		case Servo_H:
 			Angle_voulu=commande.Servo_Angle;
 			Angle_atteint = CDE_Servo_H(Angle_voulu);
@@ -99,6 +104,7 @@ void fonctionRoutage(struct COMMANDES commande){
 			serOutstring(mess);
 			break;
 
+// OK
 		case Servo_V:
 			commande_SPI = 0xD3;
 			trame[0]=commande.Servo_Angle;
@@ -118,7 +124,8 @@ void fonctionRoutage(struct COMMANDES commande){
 			serOutstring("\n\r AS V");
 			serOutstring("\n\r>");
 			break;
-
+			
+// A FINIR DE DEBEUGER
 		case Deplacement:
 			if (commande.Etat_Mouvement == Depl_Coord) {
 				alpha = atan(commande.Coord_Y / commande.Coord_X) * 180/3.1415; // r�sultat de atan en radian
@@ -131,108 +138,127 @@ void fonctionRoutage(struct COMMANDES commande){
 				commande.Coord_X = distance;
 				commande_serializer = transcode_commande_to_serializer(commande);
 				formate_serializer(commande_serializer, mess2);
-
 				// Instruction	pour positionner le robot � l'angle finale
 				commande.Etat_Mouvement = Rot_AngD;
 				commande.Vitesse = 5;
 				commande_serializer = transcode_commande_to_serializer(commande);
 				formate_serializer(commande_serializer, mess3);
-
 				// instruction pour positionner le robot dans l'angle de d�part
 				commande.Etat_Mouvement = Rot_AngD;
 				commande.Vitesse = 5;
 				commande.Angle = alpha;
 				commande_serializer = transcode_commande_to_serializer(commande);
 				formate_serializer(commande_serializer, mess1);
-
 				serOutstring1(mess1);
-				serOutstring("\r\n 1er com pppppppppppppppppppppppppppppp\r\n");
+				serOutstring("\r\n");
 				serOutstring(mess1);
 				compteur = 0;
-//				for(compteur = 0; compteur<65535; compteur++); //temporisation
-				compteur=0;
-				do {
-					serOutstring1("pids\r"); // Attente que le serializer est fini (il renvoie 1 quand occup� et 0 sinon
-						do{
-							a=serInchar1();
-							if (a!=0x00){
-								mess[compteur]=a;
-								compteur=compteur+1;
+				memset(string_s,2,strlen(string_s));
+				for(cpt = 0; cpt<10000; cpt++) //temporisation
+				{
+					_nop_();
+				}
+				do{
+					serOutstring1("pids\r");// Attente que le serializer est fini (il renvoie 1 quand occup� et 0 sinon
+					serOutstring("pids\r\n");// Attente que le serializer est fini (il renvoie 1 quand occup� et 0 sinon
+					for(cpt = 0; cpt<10000; cpt++) //temporisation
+					{
+						_nop_();
+					}	
+						do{ // recup reponse pids
+								a=serInchar1();
+								if (a!=0x00){
+									string_s[compteur]=a;
+									compteur=compteur+1;
 									}
-							}while(a!=0x3E);
-						}while ( mess[compteur-1] == 1);
-										compteur = 0;
-
-				serOutstring("\r\n 2em com \r\n");
+							}while( (a!='>') && !(string_s[compteur-5]== '0' || string_s[compteur-5]== '1') );
+							compteur = 0;
+						}while ( string_s[compteur-5] == '0');
+						compteur = 0;
+				serOutstring("\r\n");
 				serOutstring1(mess2);
 				serOutstring(mess2);
-
-//				for(compteur = 0; compteur<65535; compteur++); //temporisation
+				for(cpt = 0; cpt<10000; cpt++) //temporisation
+				{
+					_nop_();
+				}
 				compteur=0;
-				do {serOutstring1("pids\r");
-						do{
+				do{
+					
+					serOutstring1("pids\r");// Attente que le serializer est fini (il renvoie 1 quand occup� et 0 sinon
+					for(cpt = 0; cpt<10000; cpt++) //temporisation
+					{
+						_nop_();
+					}	
+					do{ // recup message ACK
 							a=serInchar1();
 							if (a!=0x00){
-								mess[compteur]=a;
+								string_s[compteur]=a;
 								compteur=compteur+1;
+							}
+					}while(a!='>');
+							do{ // recup reponse pids
+								a=serInchar1();
+								if (a!=0x00){
+									string_s[compteur]=a;
+									compteur=compteur+1;
 								}
-							}while(a!=0x3E);
-						}while ( mess[compteur-1] == 1);
-											compteur = 0;
-
-				serOutstring("\r\n 3em com \r\n");
+							}while(a!='>');
+							
+				}while ( string_s[compteur-4] == '0');
+				compteur = 0;
+				serOutstring("\r\n");
 				serOutstring1(mess3);
 				serOutstring(mess3);
-
 			}
-			else
-			{
+			else{
 				commande_serializer = transcode_commande_to_serializer(commande);
 				formate_serializer(commande_serializer, message_s);
 				serOutstring1(message_s);
 				serOutstring(message_s);
-
 				i=0;
 				a=0;
-
 				do{
-				a=serInchar1();
-				if (a!=0x00){
-					mess[i]=a;
-					i=i+1;
-				}
+					a=serInchar1();
+					if (a!=0x00){
+						mess[i]=a;
+						i=i+1;
+					}
 				}while(a!=0x3E);
 			}
-
-
 			mess[i] = '\0';
 			serOutstring(mess);
 			break;
 
 
+// A FINIR DE DEBEUGER (PB d'affichage et de cmd du servomoteur !)
 		case Obstacle:
 			Detect_Obst(commande);
 			serOutstring(affichage);
 			serOutstring("\n\r>");
-			strcpy(affichage,"");
+			memset(affichage,0,strlen(affichage));
 			break;
 
+// OK
 		case Courant:
-			info.Mesure_Courant = Courant_ADC();
+			info.Mesure_Courant = courant;
 			sprintf( courant_ascii,"%d", info.Mesure_Courant);
 			serOutstring(courant_ascii);
 			serOutstring("mA\n\r>");
 			break;
+		
+// OK
 		case Energie :
-			info.Mesure_Courant = Courant_ADC();
-			info.Mesure_Energie = (int) 9.6*info.Mesure_Courant*2; // E = U*I*t
+			info.Mesure_Energie = energie;
 			sprintf(energie_ascii,"%d", info.Mesure_Energie);
 			serOutstring(energie_ascii);
 			serOutstring("J\n\r>");
 			break;
-
+		
+// OK
 		case Gene_Son:
 			son_sonore(commande);
+			serOutstring("\n\r>");
 			break;
 
 		default:

@@ -30,7 +30,7 @@ void UART_CortexM4 (unsigned char trame[]){
 	unsigned char* p;
 	unsigned char csg_tempo = 100;
 	
-	for (p = trame; p < trame + 4;p++){	
+	for (p = trame; p < trame + 7;p=p+2){	
 		rep = Putchar(*p,csg_tempo);
 	}
 	

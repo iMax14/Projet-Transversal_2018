@@ -52,8 +52,8 @@ typedef struct COMMANDES       // Cette structure contient toutes les commandes 
   enum	Type_Analyse_Obst	A_Obst; // mou mos ou mob
 	enum  DCT_Obst Etat_DCT_Obst;   // Contient la commande de détection d'obstacle "MOB D" "MOB"
   enum	Detecteur Det;							// avant ou avant_arriere                                 
-   BYTE  DCT_Obst_Resolution;      // Paramètre résolution angulaire de la détection d'obstacle
-   
+   signed int  DCT_Obst_Resolution;      // Paramètre résolution angulaire de la détection d'obstacle
+   //BYTE
    enum  Lumiere Etat_Lumiere;     // Contient la commande d'allumage du pointeur lumineux "L" "LS"
                                    // Paramètres de la commande précédente:     
    BYTE  Lumiere_Intensite;        // Paramètre intensité lumineuse 							  

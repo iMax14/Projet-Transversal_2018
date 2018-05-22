@@ -33,6 +33,7 @@ char message_PC_com[50] = {0};
 enum Epreuve epreuve_en_cours = Epreuve_non;
 int commande_correct = 0;
 double energie = 0;
+unsigned int courant = 0;
 
 char conversioncoord (unsigned char tableau[2]){
 	int dizaine=0;
@@ -418,11 +419,12 @@ struct COMMANDES traitement_G(char * com, struct COMMANDES commande) // DEPLACEM
 			return commande;
 
 }
-struct COMMANDES traitement_I(char * com, struct COMMANDES commande) // pas encore utilis�
+
+/*struct COMMANDES traitement_I(char * com, struct COMMANDES commande) // pas encore utilis�
 {
 	// a compl�ter
 	return commande;
-}
+}*/
 struct COMMANDES traitement_M(char *com, struct COMMANDES commande)
 {
 	int j;
@@ -568,11 +570,11 @@ struct COMMANDES traitement_M(char *com, struct COMMANDES commande)
 				}
 			return commande;
 }
-struct COMMANDES traitement_P(char *com, struct COMMANDES commande) // PAS ENCORE UTILISE (POS)
+/*struct COMMANDES traitement_P(char *com, struct COMMANDES commande) // PAS ENCORE UTILISE (POS)
 {
 	// a compl�ter
 	return commande;
-}
+}*/
 struct COMMANDES traitement_Q(struct COMMANDES commande) //ARRET DURGENCE
 {
 	//serOutstring("arret d'urgence");
@@ -829,12 +831,12 @@ struct COMMANDES Message (char * com/*, char f_b,char t_son,char t_silence,char 
 		case 'I':// si on recoit un IPO (I)
 		{
 			// a faire
-			commande=traitement_I(com,commande);
+			//commande=traitement_I(com,commande);
 			break;
 		}
 		case 'P':// si on recoit un POS
 		{
-			commande=traitement_P(com,commande);
+			//commande=traitement_P(com,commande);
 			//envoie de information
 			break;
 
@@ -914,10 +916,6 @@ void main (void)
   energie = 0;
 	EA=1;
 
-
-	//Courant_ADC();
-	//fonctionRoutage(commande);
-
 	serOutstring("\n\rDemarrage robot\n\r>");
 // a commenter si le robot est d�ja allum� avant le lancement du code
 // Pour recevoir le message de d�marrage du serializer
@@ -953,18 +951,12 @@ void main (void)
 				}
 			}while(a!=0x0D); //Commenté pour les tests avec le simulateur
 
-		//strcpy(com,"CS V A:-90");
-		//strcpy(com,"SD F:12 P:50 W:60 B:5");
+		//strcpy(com,"CS V A:-45");
+		//strcpy(com,"SD F:12 P:50 W:60 B:05");
 		//strcpy(com,"MOB");
 
-		commande = Message(com/*, f_b, t_son, t_silence, bip_b*/);
-			/*if(commande.son==emission)
-			{
-				f_b=commande.frequence;
-				t_son=commande.duree_son;
-				t_silence=commande.duree_silence;
-				bip_b=commande.nombre_Bips;
-			}*/
+		commande = Message(com);
+			
 		if (commande_correct == 1){
 				fonctionRoutage(commande);
 		}
@@ -987,5 +979,7 @@ void ISR_Timer2 (void) interrupt 5 {
 
 void ISR_Timer3 (void) interrupt 14 {
 	TMR3CN &= 0x04; //Remise � '0' du flag d'overflow
-	energie += 9.6*Courant_ADC()*0.001*0.035;
+	courant = Courant_ADC();
+	energie += 9.6*courant*0.001*0.035;
+	
 }
