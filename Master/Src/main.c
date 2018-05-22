@@ -940,7 +940,7 @@ void main (void)
 		i=0;
 		a=0;
 		memset(com, 0, 50);
-		/*do{
+		do{
 			a=serInchar();
 			echo[0] = a;
 			echo[1] = '\0';
@@ -951,7 +951,7 @@ void main (void)
 				com[i]=a;
 				i=i+1;
 				}
-			}while(a!=0x0D); Commenté pour les tests avec le simulateur*/
+			}while(a!=0x0D); //Commenté pour les tests avec le simulateur
 
 		//strcpy(com,"CS V A:-90");
 		//strcpy(com,"SD F:12 P:50 W:60 B:5");
