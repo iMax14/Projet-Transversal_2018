@@ -246,7 +246,7 @@ void fonctionRoutage(struct COMMANDES commande){
 // OK
 		case Courant:
 			info.Mesure_Courant = courant;
-			sprintf( courant_ascii,"%d", info.Mesure_Courant);
+			sprintf(courant_ascii,"%d", info.Mesure_Courant);
 			serOutstring(courant_ascii);
 			serOutstring("mA\n\r>");
 			break;
@@ -264,7 +264,8 @@ void fonctionRoutage(struct COMMANDES commande){
 			son_sonore(commande);
 			serOutstring("\n\r>");
 			break;
-// A TESTER
+		
+// OK
 		case Pointeur_Lum:
 			pointeur_lum(commande);
 			serOutstring("\n\r>");

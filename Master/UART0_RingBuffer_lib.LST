@@ -1,4 +1,4 @@
-C51 COMPILER V9.51   UART0_RINGBUFFER_LIB                                                  05/22/2018 22:35:55 PAGE 1   
+C51 COMPILER V9.51   UART0_RINGBUFFER_LIB                                                  05/23/2018 10:33:04 PAGE 1   
 
 
 C51 COMPILER V9.51, COMPILATION OF MODULE UART0_RINGBUFFER_LIB
@@ -62,7 +62,7 @@ line level    source
   52          // La taille des buffers de réception et de transmission est modifiable avec la 
   53          // macro MAX_BUFLEN  
   54          
-C51 COMPILER V9.51   UART0_RINGBUFFER_LIB                                                  05/22/2018 22:35:55 PAGE 2   
+C51 COMPILER V9.51   UART0_RINGBUFFER_LIB                                                  05/23/2018 10:33:04 PAGE 2   
 
   55          //*************************************************************************************************
   56          #include <c8051f020.h>                    // SFR declarations
@@ -126,7 +126,7 @@ line level    source
  114          #define RB_PUSHSLOT(rb) ( (rb)->rb_in )
  115          
  116          // pointeur pour lire une valeur dans le buffer
-C51 COMPILER V9.51   UART0_RINGBUFFER_LIB                                                  05/22/2018 22:35:55 PAGE 3   
+C51 COMPILER V9.51   UART0_RINGBUFFER_LIB                                                  05/23/2018 10:33:04 PAGE 3   
 
  117          #define RB_POPSLOT(rb)  ( (rb)->rb_out )
  118          
@@ -190,7 +190,7 @@ line level    source
  176   3          TXactive = 1;                      /* indicate ongoing transmission */
  177   3          TI0 = 1;//   Placer le bit TI à 1 pour provoquer le déclenchement de l'interruption
  178   3          }
-C51 COMPILER V9.51   UART0_RINGBUFFER_LIB                                                  05/22/2018 22:35:55 PAGE 4   
+C51 COMPILER V9.51   UART0_RINGBUFFER_LIB                                                  05/23/2018 10:33:04 PAGE 4   
 
  179   2        return 0;  // opération correctement réalisée 
  180   2        }
@@ -254,7 +254,7 @@ line level    source
               #error "Valeur Preload Timer0 HORS SPECIFICATIONS"
               #endif 
  240          //*****************************************************************************  
-C51 COMPILER V9.51   UART0_RINGBUFFER_LIB                                                  05/22/2018 22:35:55 PAGE 5   
+C51 COMPILER V9.51   UART0_RINGBUFFER_LIB                                                  05/23/2018 10:33:04 PAGE 5   
 
  241          //cfg_Clock_UART
  242          //  Utilisation du Timer 1

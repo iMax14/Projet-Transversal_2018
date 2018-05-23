@@ -1,9 +1,9 @@
-C51 COMPILER V9.52.0.0   MAIN                                                              05/22/2018 16:41:43 PAGE 1   
+C51 COMPILER V9.51   MAIN                                                                  05/22/2018 23:32:25 PAGE 1   
 
 
-C51 COMPILER V9.52.0.0, COMPILATION OF MODULE MAIN
+C51 COMPILER V9.51, COMPILATION OF MODULE MAIN
 OBJECT MODULE PLACED IN Main.OBJ
-COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE Main.c LARGE BROWSE DEBUG OBJECTEXTEND TABS(2)
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.exe Main.c LARGE BROWSE DEBUG OBJECTEXTEND TABS(2)
 
 line level    source
 
@@ -62,7 +62,7 @@ line level    source
   53   1      
   54   1      
   55   1        while (1){
-C51 COMPILER V9.52.0.0   MAIN                                                              05/22/2018 16:41:43 PAGE 2   
+C51 COMPILER V9.51   MAIN                                                                  05/22/2018 23:32:25 PAGE 2   
 
   56   2          for(w=0; w<sizeof(Dest_msg_SPI);w++){
   57   3            if(Dest_msg_SPI[w] == 1)
@@ -72,70 +72,71 @@ line level    source
   61   3            case 0 :
   62   3              UART_CortexM4(msg_CM4); //On appelle sa fonction associée en lui envoyant son message
   63   3              trame_emise(0xEE);
-  64   3              for(j=0 ; j<255 ; msg_CM4[j++]=0); // RAZ du message
+  64   3              memset(msg_CM4,0,strlen(msg_CM4)); // RAZ du message
   65   3              Dest_msg_SPI[w] = 0;
   66   3              break;
   67   3            case 1 :
-  68   3              for(j=0 ; j<255 ; msg_PointLum[j++]=0);
-  69   3              Dest_msg_SPI[w] = 0;
-  70   3              break;
-  71   3            case 2 :
-  72   3              if (msg_ServVert[2] == 0xAA){ //L'angle est négatif
-  73   4                msg_ServVert[0] =~ msg_ServVert[0];//On refait le complément pour bien réceptionner le message qui 
+  68   3              
+  69   3              for(j=0 ; j<255 ; msg_PointLum[j++]=0);
+  70   3              Dest_msg_SPI[w] = 0;
+  71   3              break;
+  72   3            case 2 :
+  73   3              if (msg_ServVert[2] == 0xAA){ //L'angle est négatif
+  74   4                msg_ServVert[0] =~ msg_ServVert[0];//On refait le complément pour bien réceptionner le message qui 
              -a été complémenter dans le Master
-  74   4                Angle_voulu |= msg_ServVert[0]; 
-  75   4                Angle_voulu += 0xFF00;
-  76   4                Angle_atteint = CDE_Servo_V(Angle_voulu); //On appelle sa fonction associée en lui envoyant son mess
+  75   4                Angle_voulu |= msg_ServVert[0]; 
+  76   4                Angle_voulu += 0xFF00;
+  77   4                Angle_atteint = CDE_Servo_V(Angle_voulu); //On appelle sa fonction associée en lui envoyant son mess
              -age
-  77   4              }
-  78   3              else{ //L'angle est positif
-  79   4                Angle_voulu = msg_ServVert[0];
-  80   4                Angle_atteint = CDE_Servo_V(Angle_voulu); //On appelle sa fonction associée en lui envoyant son mess
+  78   4              }
+  79   3              else{ //L'angle est positif
+  80   4                Angle_voulu = msg_ServVert[0];
+  81   4                Angle_atteint = CDE_Servo_V(Angle_voulu); //On appelle sa fonction associée en lui envoyant son mess
              -age
-  81   4              }
-  82   3              trame_emise(Angle_atteint);
-  83   3              for(j=0 ; j<255 ; msg_ServVert[j++]=0); // RAZ du message
-  84   3              Dest_msg_SPI[w] = 0;
-  85   3              break;
-  86   3            case 3 :
-  87   3              for(j=0 ; j<255 ; msg_Vue[j++]=0);
-  88   3              Dest_msg_SPI[w] = 0;
-  89   3              break;
-  90   3            case 4 :
-  91   3              for(j=0 ; j<255 ; msg_FPGA[j++]=0);
-  92   3              Dest_msg_SPI[w] = 0;
-  93   3              break;
-  94   3            default :
-  95   3              break;
-  96   3          }
-  97   2      
-  98   2        }
-  99   1      
- 100   1      }
- 101          
+  82   4              }
+  83   3              trame_emise(Angle_atteint);
+  84   3              memset(msg_CM4,0,strlen(msg_CM4)); // RAZ du message
+  85   3              Dest_msg_SPI[w] = 0;
+  86   3              break;
+  87   3            case 3 :
+  88   3              for(j=0 ; j<255 ; msg_Vue[j++]=0);
+  89   3              Dest_msg_SPI[w] = 0;
+  90   3              break;
+  91   3            case 4 :
+  92   3              for(j=0 ; j<255 ; msg_FPGA[j++]=0);
+  93   3              Dest_msg_SPI[w] = 0;
+  94   3              break;
+  95   3            default :
+  96   3              break;
+  97   3          }
+  98   2      
+  99   2        }
+ 100   1      
+ 101   1      }
  102          
- 103          void ISR_Timer2 (void) interrupt 5 {
- 104   1        TF2 = 0; //Remise à '0' du flag d'overflow
- 105   1        PWM_servo=!PWM_servo; //On envoie le signal PWM au servomoteur
- 106   1      }
- 107          
+ 103          
+ 104          void ISR_Timer2 (void) interrupt 5 {
+ 105   1        TF2 = 0; //Remise à '0' du flag d'overflow
+ 106   1        PWM_servo=!PWM_servo; //On envoie le signal PWM au servomoteur
+ 107   1      }
  108          
  109          
  110          
- 111          void ISR_SPI (void) interrupt 6 {
- 112   1      
- 113   1          SPIF = 0; //RAZ du flag d'écriture
- 114   1      
-C51 COMPILER V9.52.0.0   MAIN                                                              05/22/2018 16:41:43 PAGE 3   
+ 111          
+ 112          void ISR_SPI (void) interrupt 6 {
+ 113   1      
+ 114   1          SPIF = 0; //RAZ du flag d'écriture
+C51 COMPILER V9.51   MAIN                                                                  05/22/2018 23:32:25 PAGE 3   
 
- 115   1          trame_recue(); // On réceptionne le message du Master
- 116   1          trame_emise(0xEE); // On renvoie un message au Master pour lui accuser bonne réception
- 117   1      
- 118   1      }
+ 115   1      
+ 116   1          trame_recue(); // On réceptionne le message du Master
+ 117   1          trame_emise(0xEE); // On renvoie un message au Master pour lui accuser bonne réception
+ 118   1      
+ 119   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    583    ----
+   CODE SIZE        =    505    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =     19    ----
    PDATA SIZE       =   ----    ----

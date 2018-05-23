@@ -1,4 +1,4 @@
-C51 COMPILER V9.51   MAIN                                                                  05/22/2018 23:25:47 PAGE 1   
+C51 COMPILER V9.51   MAIN                                                                  05/23/2018 10:37:22 PAGE 1   
 
 
 C51 COMPILER V9.51, COMPILATION OF MODULE MAIN
@@ -62,7 +62,7 @@ line level    source
   52   1        int unite=0;
   53   1        int centaine = 0;
   54   1        char valeur;
-C51 COMPILER V9.51   MAIN                                                                  05/22/2018 23:25:47 PAGE 2   
+C51 COMPILER V9.51   MAIN                                                                  05/23/2018 10:37:22 PAGE 2   
 
   55   1        
   56   1        centaine = (tableau[0]-'0')*100;
@@ -126,7 +126,7 @@ line level    source
  114   2          unite= (tableau[2]-'0');
  115   2          valeur = -1* (dizaine + unite);
  116   2        }
-C51 COMPILER V9.51   MAIN                                                                  05/22/2018 23:25:47 PAGE 3   
+C51 COMPILER V9.51   MAIN                                                                  05/23/2018 10:37:22 PAGE 3   
 
  117   1        else {
  118   2          centaine= (tableau[0]-'0')*100;
@@ -190,7 +190,7 @@ line level    source
  175   4                      commande_correct = 2;
  176   4                      strcpy(message_PC_com,"\r\nErreur non epreuve 1\r\n>");}
  177   3                break;
-C51 COMPILER V9.51   MAIN                                                                  05/22/2018 23:25:47 PAGE 4   
+C51 COMPILER V9.51   MAIN                                                                  05/23/2018 10:37:22 PAGE 4   
 
  178   3              }
  179   2            default:
@@ -254,7 +254,7 @@ line level    source
  237   4              angle=conversionangle_positif(tab);
  238   4                if (angle > 90 ||angle <-90)
  239   4                {
-C51 COMPILER V9.51   MAIN                                                                  05/22/2018 23:25:47 PAGE 5   
+C51 COMPILER V9.51   MAIN                                                                  05/23/2018 10:37:22 PAGE 5   
 
  240   5                  commande_correct = 0;
  241   5                }
@@ -318,7 +318,7 @@ line level    source
  299   2              {
  300   3                commande.Etat_Epreuve=epreuve1;
  301   3                strcpy(message_PC_com, "\r\nInvite de commande 1\r\n>");
-C51 COMPILER V9.51   MAIN                                                                  05/22/2018 23:25:47 PAGE 6   
+C51 COMPILER V9.51   MAIN                                                                  05/23/2018 10:37:22 PAGE 6   
 
  302   3                epreuve_en_cours = epreuve1;
  303   3                //serOutstring("Invite de commande 1");
@@ -382,7 +382,7 @@ line level    source
  361   3                commande.Etat_Epreuve=epreuve8;
  362   3                epreuve_en_cours = epreuve8;
  363   3                strcpy(message_PC_com, "\r\nInvite de commande 8\r\n>");
-C51 COMPILER V9.51   MAIN                                                                  05/22/2018 23:25:47 PAGE 7   
+C51 COMPILER V9.51   MAIN                                                                  05/23/2018 10:37:22 PAGE 7   
 
  364   3                //serOutstring("Invite de commande 8");
  365   3                break;
@@ -446,7 +446,7 @@ line level    source
  423   2            commande.Angle=conv(coord,strlen(coord));
  424   2      
  425   2      
-C51 COMPILER V9.51   MAIN                                                                  05/22/2018 23:25:47 PAGE 8   
+C51 COMPILER V9.51   MAIN                                                                  05/23/2018 10:37:22 PAGE 8   
 
  426   2          }
  427   1          else
@@ -510,7 +510,7 @@ line level    source
  485   5              }
  486   4              Lumiere_Extinction =  conversioncoord_2(tab);
  487   4              if(Lumiere_Extinction>=0 && Lumiere_Extinction<=99){
-C51 COMPILER V9.51   MAIN                                                                  05/22/2018 23:25:47 PAGE 9   
+C51 COMPILER V9.51   MAIN                                                                  05/23/2018 10:37:22 PAGE 9   
 
  488   5                commande_correct=1;
  489   5                commande.Lumiere_Extinction=Lumiere_Extinction;
@@ -574,7 +574,7 @@ line level    source
  547   3                    {
  548   4                      case 'D':
  549   4                        commande.Det=avant_arriere;//avant et arriere
-C51 COMPILER V9.51   MAIN                                                                  05/22/2018 23:25:47 PAGE 10  
+C51 COMPILER V9.51   MAIN                                                                  05/23/2018 10:37:22 PAGE 10  
 
  550   4                        break;
  551   4                      default:
@@ -638,7 +638,7 @@ line level    source
  609   4                        break;
  610   4                    }
  611   3                    break;
-C51 COMPILER V9.51   MAIN                                                                  05/22/2018 23:25:47 PAGE 11  
+C51 COMPILER V9.51   MAIN                                                                  05/23/2018 10:37:22 PAGE 11  
 
  612   3                  case 'S': // cas MOS
  613   3                    commande.A_Obst=Obst_proche_balayage;
@@ -702,7 +702,7 @@ line level    source
  671   1            return commande;
  672   1      }
  673          /*struct COMMANDES traitement_P(char *com, struct COMMANDES commande) // PAS ENCORE UTILISE (POS)
-C51 COMPILER V9.51   MAIN                                                                  05/22/2018 23:25:47 PAGE 12  
+C51 COMPILER V9.51   MAIN                                                                  05/23/2018 10:37:22 PAGE 12  
 
  674          {
  675            // a compl�ter
@@ -766,7 +766,7 @@ line level    source
  733   5                  {
  734   6                      tab[j-5]=com[j];
  735   6                  }
-C51 COMPILER V9.51   MAIN                                                                  05/22/2018 23:25:47 PAGE 13  
+C51 COMPILER V9.51   MAIN                                                                  05/23/2018 10:37:22 PAGE 13  
 
  736   5                  angle=conversionangle_positif(tab);
  737   5                  commande.Angle=angle;
@@ -830,7 +830,7 @@ line level    source
  794   3              if (duree_son >99 ||duree_son <1)
  795   3              {
  796   4                  commande_correct = 0;
-C51 COMPILER V9.51   MAIN                                                                  05/22/2018 23:25:47 PAGE 14  
+C51 COMPILER V9.51   MAIN                                                                  05/23/2018 10:37:22 PAGE 14  
 
  797   4              }
  798   3              else
@@ -894,7 +894,7 @@ line level    source
  855   1        {
  856   2            tab[j-3]=com[j];
  857   2        }
-C51 COMPILER V9.51   MAIN                                                                  05/22/2018 23:25:47 PAGE 15  
+C51 COMPILER V9.51   MAIN                                                                  05/23/2018 10:37:22 PAGE 15  
 
  858   1        vitesse=conversionangle_positif(tab);
  859   1        j = ((int)vitesse& 0x00FF);
@@ -958,7 +958,7 @@ line level    source
  917   3            break;
  918   3      
  919   3          }
-C51 COMPILER V9.51   MAIN                                                                  05/22/2018 23:25:47 PAGE 16  
+C51 COMPILER V9.51   MAIN                                                                  05/23/2018 10:37:22 PAGE 16  
 
  920   2          case 'Q':// si on recoit un Q (arret d'urgence)
  921   2          {
@@ -1022,7 +1022,7 @@ line level    source
  979   1      //}
  980   1      return commande;
  981   1      }
-C51 COMPILER V9.51   MAIN                                                                  05/22/2018 23:25:47 PAGE 17  
+C51 COMPILER V9.51   MAIN                                                                  05/23/2018 10:37:22 PAGE 17  
 
  982          
  983          
@@ -1086,7 +1086,7 @@ line level    source
 1041   2          commande_correct =1;
 1042   2      
 1043   2          i=0;
-C51 COMPILER V9.51   MAIN                                                                  05/22/2018 23:25:47 PAGE 18  
+C51 COMPILER V9.51   MAIN                                                                  05/23/2018 10:37:22 PAGE 18  
 
 1044   2          a=0;
 1045   2          memset(com, 0, 50);
@@ -1151,7 +1151,7 @@ MODULE INFORMATION:   STATIC OVERLAYABLE
    BIT SIZE         =   ----    ----
 END OF MODULE INFORMATION.
 
-C51 COMPILER V9.51   MAIN                                                                  05/22/2018 23:25:47 PAGE 19  
+C51 COMPILER V9.51   MAIN                                                                  05/23/2018 10:37:22 PAGE 19  
 
 
 C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

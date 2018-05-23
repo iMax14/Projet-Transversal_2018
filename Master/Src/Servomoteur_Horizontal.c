@@ -23,7 +23,7 @@ signed int CDE_Servo_H(signed int Angle){
 	RCAP2H = rech_int >> 8;
 	
 	TR2 = 1; //Timer2 activé
-	while(i < 50){
+	while(i < 70){
 		if (TF2 == 1){
 			i++;
 		}

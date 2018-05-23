@@ -61,10 +61,11 @@ void main (void) {
 			case 0 :
 				UART_CortexM4(msg_CM4); //On appelle sa fonction associée en lui envoyant son message
 				trame_emise(0xEE);
-				for(j=0 ; j<255 ; msg_CM4[j++]=0); // RAZ du message
+				memset(msg_CM4,0,strlen(msg_CM4)); // RAZ du message
 				Dest_msg_SPI[w] = 0;
 				break;
 			case 1 :
+				
 				for(j=0 ; j<255 ; msg_PointLum[j++]=0);
 				Dest_msg_SPI[w] = 0;
 				break;
@@ -80,7 +81,7 @@ void main (void) {
 					Angle_atteint = CDE_Servo_V(Angle_voulu); //On appelle sa fonction associée en lui envoyant son message
 				}
 				trame_emise(Angle_atteint);
-				for(j=0 ; j<255 ; msg_ServVert[j++]=0); // RAZ du message
+				memset(msg_CM4,0,strlen(msg_CM4)); // RAZ du message
 				Dest_msg_SPI[w] = 0;
 				break;
 			case 3 :
