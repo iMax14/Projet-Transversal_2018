@@ -1,4 +1,4 @@
-C51 COMPILER V9.51   LIEN_STRUCTURE_COMMANDE                                               05/23/2018 10:37:21 PAGE 1   
+C51 COMPILER V9.51   LIEN_STRUCTURE_COMMANDE                                               05/23/2018 18:49:22 PAGE 1   
 
 
 C51 COMPILER V9.51, COMPILATION OF MODULE LIEN_STRUCTURE_COMMANDE
@@ -62,7 +62,7 @@ line level    source
   52   1        else  if (commande.Etat_Servo==Servo_V){
   53   2          *type=Servo_Vert;
   54   2        }
-C51 COMPILER V9.51   LIEN_STRUCTURE_COMMANDE                                               05/23/2018 10:37:21 PAGE 2   
+C51 COMPILER V9.51   LIEN_STRUCTURE_COMMANDE                                               05/23/2018 18:49:22 PAGE 2   
 
   55   1        else if (commande.Etat_Mouvement!=Mouvement_non){
   56   2          *type=Deplacement;
@@ -79,7 +79,7 @@ line level    source
   67   1        else if (commande.frequence!=0){
   68   2          *type=Gene_Son;
   69   2        }
-  70   1        else if (commande.Lumiere_Intensite!=0){
+  70   1        else if (commande.Etat_Lumiere == Allumer){
   71   2          *type=Pointeur_Lum;
   72   2        }
   73   1      }
@@ -126,7 +126,7 @@ line level    source
  114   2            trame[0]=commande.Servo_Angle;
  115   2            if (commande.Servo_Angle < 0){
  116   3              trame[1] = 0xAA; //Pour prévenir le Slave que l'angle qu'il va recevoir est négatif
-C51 COMPILER V9.51   LIEN_STRUCTURE_COMMANDE                                               05/23/2018 10:37:21 PAGE 3   
+C51 COMPILER V9.51   LIEN_STRUCTURE_COMMANDE                                               05/23/2018 18:49:22 PAGE 3   
 
  117   3              trame[0] =~ trame[0]; //On prend le complément pour ne pas envoyé un début ou une fin de trame dans
              - la SPI
@@ -190,7 +190,7 @@ line level    source
  174   5                      if (a!=0x00){
  175   6                        string_s[compteur]=a;
  176   6                        compteur=compteur+1;
-C51 COMPILER V9.51   LIEN_STRUCTURE_COMMANDE                                               05/23/2018 10:37:21 PAGE 4   
+C51 COMPILER V9.51   LIEN_STRUCTURE_COMMANDE                                               05/23/2018 18:49:22 PAGE 4   
 
  177   6                        }
  178   5                    }while( (a!='>') && !(string_s[compteur-5]== '0' || string_s[compteur-5]== '1') );
@@ -254,7 +254,7 @@ line level    source
  236   2      
  237   2      
  238   2      // A FINIR DE DEBEUGER (PB d'affichage et de cmd du servomoteur !)
-C51 COMPILER V9.51   LIEN_STRUCTURE_COMMANDE                                               05/23/2018 10:37:21 PAGE 5   
+C51 COMPILER V9.51   LIEN_STRUCTURE_COMMANDE                                               05/23/2018 18:49:22 PAGE 5   
 
  239   2          case Obstacle:
  240   2            Detect_Obst(commande);
@@ -310,7 +310,7 @@ line level    source
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =   2327    ----
+   CODE SIZE        =   2328    ----
    CONSTANT SIZE    =   1262    ----
    XDATA SIZE       =    134    1589
    PDATA SIZE       =   ----    ----
@@ -319,7 +319,7 @@ MODULE INFORMATION:   STATIC OVERLAYABLE
    BIT SIZE         =   ----    ----
 END OF MODULE INFORMATION.
 
-C51 COMPILER V9.51   LIEN_STRUCTURE_COMMANDE                                               05/23/2018 10:37:21 PAGE 6   
+C51 COMPILER V9.51   LIEN_STRUCTURE_COMMANDE                                               05/23/2018 18:49:22 PAGE 6   
 
 
 C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

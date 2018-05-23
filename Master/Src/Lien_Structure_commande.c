@@ -67,7 +67,7 @@ void routage(struct COMMANDES commande, enum Routage * type){
 	else if (commande.frequence!=0){
 		*type=Gene_Son;
 	}
-	else if (commande.Lumiere_Intensite!=0){
+	else if (commande.Etat_Lumiere == Allumer){
 		*type=Pointeur_Lum;
 	}
 }

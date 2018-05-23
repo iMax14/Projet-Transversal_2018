@@ -453,6 +453,7 @@ struct COMMANDES traitement_L(char * com,struct COMMANDES commande)
 		commande.Etat_Lumiere=Eteindre;
 	}
 	else{
+		commande.Etat_Lumiere=Allumer;
 		switch(com[2]){
 			case 'I':
 			{
