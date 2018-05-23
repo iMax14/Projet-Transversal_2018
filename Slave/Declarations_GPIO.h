@@ -34,6 +34,7 @@ sbit P0__3 = P0^3;
 sbit P0__4 = P0^4;
 sbit P0__5 = P0^5;
 sbit P2__0 = P2^0;
+sbit P2__1 = P2^1;
 
 // Eléments pour le SLAVE
 sbit SCK_SPI = P0^2;//Broche A12
@@ -42,6 +43,8 @@ sbit MOSI_SPI = P0^4;//Broche B11
 sbit NSS__SPI = P0^5;//Broche A11
 
 sbit PWM_servo = P2^0; //Broche B7
+// PWM_Pin
+sbit PWM_Ptr_Lum = P2^1; // utilisation de P3.0
 
 
 

@@ -42,11 +42,11 @@ void GPIO_Config (void){
 //Configuration des SORTIES en PUSH-PULL
 	
 	P0MDOUT |= 0x09; //00001001 ----- P0.3
-	P2MDOUT |= 0x21; //00100001 ----- P2.0/5
-	P2 &= 0xFE;
+	P2MDOUT |= 0x03; //00100011 ----- P2.0/1/5
 	
 	//PO.O : TX0 ; P0.3 : MISO_SPI 
 	//P2.0 : Servo vertical
+	//P2.1 : Pointeur lumineux
 	
 //Configuration des ENTREES en DRAIN OUVERT
 

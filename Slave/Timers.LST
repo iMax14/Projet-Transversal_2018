@@ -1,4 +1,4 @@
-C51 COMPILER V9.51   TIMERS                                                                05/22/2018 23:31:48 PAGE 1   
+C51 COMPILER V9.51   TIMERS                                                                05/23/2018 18:43:34 PAGE 1   
 
 
 C51 COMPILER V9.51, COMPILATION OF MODULE TIMERS
@@ -10,46 +10,76 @@ line level    source
    1          #include <c8051f020.h>
    2          
    3          #include "Timers.h"
-   4          
-   5          #define SYSCLK 22118400L
-   6          
-   7          void Config_Timer2 (void){
-   8   1        TR2 = 0; //Désactivation du Timer2 ; Bit2 du registre T2CON
-   9   1        
-  10   1        CKCON &= ~0x20; //CLK_Timer2 = sysclk/12 ; Mise à '0' du bit 5 du registre CKCON, les autres bits sont �
+   4          #include <math.h>
+   5          #include <stdio.h>
+   6          #include <intrins.h>
+   7          
+   8          #define SYSCLK 22118400L
+   9          
+  10          
+  11          void Config_Timer2 (void){
+  12   1        TR2 = 0; //Désactivation du Timer2 ; Bit2 du registre T2CON
+  13   1        
+  14   1        CKCON &= ~0x20; //CLK_Timer2 = sysclk/12 ; Mise à '0' du bit 5 du registre CKCON, les autres bits sont �
              -� '1' 
-  11   1        
-  12   1        TF2 = 0; //Aucun flag d'Overflow
-  13   1        EXF2 = 0; //Aucun flag extern d'Overflow, pour éviter une interruption intempestive
-  14   1      //Configuration du mode 1 de Timer2 : 
-  15   1        RCLK0 = 0;
-  16   1        TCLK0 = 0;
-  17   1        
-  18   1        T2CON &= ~(0x03);
-  19   1       //Configuration en mode Timer
-  20   1        EXEN2 = 0; //Dévalidation de l'entrée T2EX
-  21   1      
-  22   1      //Programmation des registres de rechargement 
-  23   1        // A MODIFIER
-  24   1        RCAP2L = 0x00;
-  25   1        RCAP2H = 0x00;
-  26   1      
-  27   1      //Initialisation des registres de comptage du Timer 
-  28   1        TL2 = 0xFF;
-  29   1        TH2 = 0xFF;
+  15   1        
+  16   1        TF2 = 0; //Aucun flag d'Overflow
+  17   1        EXF2 = 0; //Aucun flag extern d'Overflow, pour éviter une interruption intempestive
+  18   1      //Configuration du mode 1 de Timer2 : 
+  19   1        RCLK0 = 0;
+  20   1        TCLK0 = 0;
+  21   1        
+  22   1        T2CON &= ~(0x03);
+  23   1       //Configuration en mode Timer
+  24   1        EXEN2 = 0; //Dévalidation de l'entrée T2EX
+  25   1      
+  26   1      //Programmation des registres de rechargement 
+  27   1        // A MODIFIER
+  28   1        RCAP2L = 0x00;
+  29   1        RCAP2H = 0x00;
   30   1      
-  31   1      //Haute prioritée du Timer2 
-  32   1        PT2 = 1; //Bit 5 du registre IP
-  33   1      
-  34   1      //Activation des interruption
-  35   1        ET2 = 1; //Bit 5 du registre IE
-  36   1        
-  37   1        TR2 = 0;
-  38   1      }
+  31   1      //Initialisation des registres de comptage du Timer 
+  32   1        TL2 = 0xFF;
+  33   1        TH2 = 0xFF;
+  34   1      
+  35   1      //Haute prioritée du Timer2 
+  36   1        PT2 = 1; //Bit 5 du registre IP
+  37   1      
+  38   1      //Activation des interruption
+  39   1        ET2 = 1; //Bit 5 du registre IE
+  40   1        
+  41   1        TR2 = 0;
+  42   1      }
+  43          
+  44          void InitTimer0(void){
+  45   1        TR0 = 0;
+  46   1        TMOD |= 0x01; // 16 bit auto-reload counter
+  47   1        TL0 = 0xFF;
+  48   1        TH0 = 0xFF;
+  49   1        
+  50   1        ET0 = 1;
+  51   1        PT0 = 1;
+  52   1      }
+  53          
+  54          void Config_Timer3(void){
+C51 COMPILER V9.51   TIMERS                                                                05/23/2018 18:43:34 PAGE 2   
+
+  55   1      
+  56   1        int recharge;
+  57   1        TMR3CN &= 0x00; // Timer3 disable ; Flag d'OverFlow RAZ ; Use Clock/12
+  58   1        recharge = ceil(65535 - 10*0.001*SYSCLK/12); // Interruption toutes les 10 ms
+  59   1        TMR3RLL = recharge;
+  60   1        TMR3RLH = recharge >> 8;
+  61   1        TMR3L = 0xFF;
+  62   1        TMR3H = 0xFF;
+  63   1        EIE2 |=0x01;
+  64   1        EIP2 |= 0x01;
+  65   1        TMR3CN |= 0x04; // Timer3 enable
+  66   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =     36    ----
+   CODE SIZE        =     91    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
