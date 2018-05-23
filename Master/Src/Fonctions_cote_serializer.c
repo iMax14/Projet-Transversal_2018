@@ -99,7 +99,7 @@ void true_ticks(int ticks, char * ret){
 		ret[l]='\0'; // on force la fin de chaine
 	}
 }
-/* entré : une structure représenatnt une commande destiné au serializer
+/* entrée : une structure représenatnt une commande destiné au serializer
 	sortie : une chaine de caractère qui est la commande à envoyer au serializer
 
 fonctionnement : à l'aide de l'enum Etat_commande qui représente l'action à éffectué par le serializer

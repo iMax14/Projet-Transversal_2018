@@ -9,10 +9,9 @@
 
 void son_sonore(struct COMMANDES com){
 	unsigned char rep[4]=0;
-	unsigned char commande_SPI = 0x00;
+	unsigned char commande_SPI = 0xD1;
 	unsigned char taille_trame = 4;
 
-	commande_SPI = 0xD1;
 	rep[0] = com.frequence;
 	rep[1] = com.duree_son;
 	rep[2] = com.duree_silence;

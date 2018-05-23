@@ -1,4 +1,4 @@
-C51 COMPILER V9.51   GENERATION_SON                                                        05/23/2018 10:37:21 PAGE 1   
+C51 COMPILER V9.51   GENERATION_SON                                                        05/23/2018 21:07:20 PAGE 1   
 
 
 C51 COMPILER V9.51, COMPILATION OF MODULE GENERATION_SON
@@ -19,22 +19,21 @@ line level    source
    9          
   10          void son_sonore(struct COMMANDES com){
   11   1        unsigned char rep[4]=0;
-  12   1        unsigned char commande_SPI = 0x00;
+  12   1        unsigned char commande_SPI = 0xD1;
   13   1        unsigned char taille_trame = 4;
   14   1      
-  15   1        commande_SPI = 0xD1;
-  16   1        rep[0] = com.frequence;
-  17   1        rep[1] = com.duree_son;
-  18   1        rep[2] = com.duree_silence;
-  19   1        rep[3] = com.nombre_Bips;
-  20   1      
-  21   1        echange_trame(rep,taille_trame,commande_SPI);
-  22   1        tempo_emiss();
-  23   1      }
+  15   1        rep[0] = com.frequence;
+  16   1        rep[1] = com.duree_son;
+  17   1        rep[2] = com.duree_silence;
+  18   1        rep[3] = com.nombre_Bips;
+  19   1      
+  20   1        echange_trame(rep,taille_trame,commande_SPI);
+  21   1        tempo_emiss();
+  22   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =     75    ----
+   CODE SIZE        =     74    ----
    CONSTANT SIZE    =      4    ----
    XDATA SIZE       =   ----      42
    PDATA SIZE       =   ----    ----

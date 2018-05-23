@@ -1,4 +1,4 @@
-C51 COMPILER V9.51   ENCODAGE_POINTEUR_LUM                                                 05/23/2018 10:33:05 PAGE 1   
+C51 COMPILER V9.51   ENCODAGE_POINTEUR_LUM                                                 05/23/2018 21:07:24 PAGE 1   
 
 
 C51 COMPILER V9.51, COMPILATION OF MODULE ENCODAGE_POINTEUR_LUM
@@ -18,18 +18,17 @@ line level    source
    8          
    9          void pointeur_lum(struct COMMANDES com){
   10   1        char rep[4]=0;
-  11   1        unsigned char commande_SPI = 0xD2; //A vérifier
+  11   1        unsigned char commande_SPI = 0xD2;
   12   1        unsigned char taille_trame = 4;
   13   1      
-  14   1        commande_SPI = 0xD2;
-  15   1        rep[0] = com.Lumiere_Intensite;
-  16   1        rep[1] = com.Lumiere_Duree;
-  17   1        rep[2] = com.Lumiere_Extinction;
-  18   1        rep[3] = com.Lumiere_Nbre;
-  19   1      
-  20   1        echange_trame(rep,taille_trame,commande_SPI);
-  21   1        tempo_emiss();
-  22   1      }
+  14   1        rep[0] = com.Lumiere_Intensite;
+  15   1        rep[1] = com.Lumiere_Duree;
+  16   1        rep[2] = com.Lumiere_Extinction;
+  17   1        rep[3] = com.Lumiere_Nbre;
+  18   1      
+  19   1        echange_trame(rep,taille_trame,commande_SPI);
+  20   1        tempo_emiss();
+  21   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE

@@ -235,12 +235,9 @@ void fonctionRoutage(struct COMMANDES commande){
 			break;
 
 
-// A FINIR DE DEBEUGER (PB d'affichage et de cmd du servomoteur !)
+// A FINIR DE DEBEUGER (PB d'affichage!)
 		case Obstacle:
 			Detect_Obst(commande);
-			serOutstring(affichage);
-			serOutstring("\n\r>");
-			memset(affichage,0,strlen(affichage));
 			break;
 
 // OK
@@ -272,7 +269,7 @@ void fonctionRoutage(struct COMMANDES commande){
 			break;
 
 		default:
-			strcpy(mess, "\n\r#\n\r>");
+			strcpy(mess,"\n\r#\n\r>");
 			serOutstring(mess);
 			break;
 
