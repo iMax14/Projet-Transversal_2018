@@ -7,3 +7,12 @@ Z:\Users\maxime\Documents\Projet-Transversal_2018\Slave\Slave.uvproj
 Project File Date:  05/22/2018
 
 <h2>Output:</h2>
+Build target 'Target 1'
+compiling Main.c...
+Main.c(72): error C141: syntax error near '/'
+Target not created
+Build target 'Target 1'
+compiling Main.c...
+linking...
+Program Size: data=9.0 xdata=1343 code=4732
+"Slave" - 0 Error(s), 0 Warning(s).
