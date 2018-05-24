@@ -1,4 +1,4 @@
-C51 COMPILER V9.51   CONFIG_PCA                                                            05/24/2018 14:01:42 PAGE 1   
+C51 COMPILER V9.51   CONFIG_PCA                                                            05/24/2018 14:42:43 PAGE 1   
 
 
 C51 COMPILER V9.51, COMPILATION OF MODULE CONFIG_PCA
@@ -22,18 +22,10 @@ line level    source
   13   1        PCA0CN |= 0x40; //On active le PCA
   14   1      }
   15          
-  16          void Allumage_Pointeur (unsigned int intensite){
-  17   1        unsigned int duty;
-  18   1        
-  19   1        duty = 0XFFFF - 0xFFFF*(float)intensite/100;
-  20   1      
-  21   1        PCA0CPL0 = duty;
-  22   1        PCA0CPH0 = duty >> 8;
-  23   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =     67    ----
+   CODE SIZE        =     10    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----

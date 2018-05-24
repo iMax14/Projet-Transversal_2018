@@ -13,11 +13,3 @@ void Config_PCA(void){
 	PCA0CN |= 0x40; //On active le PCA
 }
 
-void Allumage_Pointeur (unsigned int intensite){
-	unsigned int duty;
-	
-	duty = 0XFFFF - 0xFFFF*(float)intensite/100;
-
-	PCA0CPL0 = duty;
-	PCA0CPH0 = duty >> 8;
-}

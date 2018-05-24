@@ -33,5 +33,5 @@ linking...
     SEGMENT: ?PR?SERINCHAR_BIN?UART0_RINGBUFFER_LIB
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?SERINCHAR_BIN1?UART1
-Program Size: data=15.3 xdata=3085 code=24270
+Program Size: data=15.3 xdata=3085 code=24246
 "Master" - 0 Error(s), 3 Warning(s).

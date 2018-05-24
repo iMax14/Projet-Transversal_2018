@@ -61,9 +61,11 @@ void main (void) {
 	dureeAllumage = 88;
 	dureeExtinction = 22;
 	nombreCycle = 1;
-	cycleAllumageExtinction(intensite,dureeAllumage,dureeExtinction,nombreCycle);*/
+	Lumiere(intensite,dureeAllumage,dureeExtinction,nombreCycle);*/
 
 
+	
+	
 	while (1){
 		for(w=0; w<sizeof(Dest_msg_SPI);w++){
 			if(Dest_msg_SPI[w] == 1)
@@ -83,7 +85,7 @@ void main (void) {
 				dureeExtinction = (float) msg_PointLum[4];
 				nombreCycle = (int) msg_PointLum[6];
 			
-				cycleAllumageExtinction(intensite,dureeAllumage,dureeExtinction,nombreCycle);
+				Lumiere(intensite,dureeAllumage,dureeExtinction,nombreCycle);
 			
 				memset(msg_PointLum,0,strlen(msg_PointLum)); // RAZ du message
 				Dest_msg_SPI[w] = 0;

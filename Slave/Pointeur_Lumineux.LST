@@ -1,4 +1,4 @@
-C51 COMPILER V9.51   POINTEUR_LUMINEUX                                                     05/24/2018 14:01:41 PAGE 1   
+C51 COMPILER V9.51   POINTEUR_LUMINEUX                                                     05/24/2018 14:42:42 PAGE 1   
 
 
 C51 COMPILER V9.51, COMPILATION OF MODULE POINTEUR_LUMINEUX
@@ -14,35 +14,43 @@ line level    source
    5          
    6          #include "Declarations_GPIO.h"
    7          #include "Pointeur_Lumineux.h"
-   8          #include "Config_PCA.h"
+   8          
    9          
-  10          
-  11          #define SYSCLK 22118400L
+  10          #define SYSCLK 22118400L
+  11          
   12          
-  13          
-  14          // Global variables
-  15          extern int cpt;
-  16          unsigned int duty;
-  17          //controle du clignotement du pointeur lumineux
-  18          void cycleAllumageExtinction(int intensite, float dureeAllumage, float dureeExtinction, int nombreCycle)
-  19          {
-  20   1        int i=0;
-  21   1      
-  22   1        while(i<nombreCycle){
-  23   2          
-  24   2          cpt=0;
-  25   2          Allumage_Pointeur(intensite); // Allumage de la LED 
-  26   2          while(cpt*10*0.001<=dureeAllumage/10); // On attend que le Timer3 compte jusqu'à dureeAllumage
-  27   2          cpt=0;
-  28   2          Allumage_Pointeur(0x0000); // Exctinction de la LED 
-  29   2          while(cpt*10*0.01<=dureeExtinction/10); // On attend que le Timer3 compte jusqu'à dureeExtinction
-  30   2          i++;
-  31   2        }
-  32   1      }
+  13          // Global variables
+  14          extern int cpt;
+  15          unsigned int duty;
+  16          //controle du clignotement du pointeur lumineux
+  17          void Lumiere(int intensite, float dureeAllumage, float dureeExtinction, int nombreCycle)
+  18          {
+  19   1        int i=0;
+  20   1      
+  21   1        while(i<nombreCycle){
+  22   2          
+  23   2          cpt=0;
+  24   2          Allumage_Pointeur(intensite); // Allumage de la LED 
+  25   2          while(cpt*10*0.001<=dureeAllumage/10); // On attend que le Timer3 compte jusqu'à dureeAllumage
+  26   2          cpt=0;
+  27   2          Allumage_Pointeur(0); // Exctinction de la LED 
+  28   2          while(cpt*10*0.01<=dureeExtinction/10); // On attend que le Timer3 compte jusqu'à dureeExtinction
+  29   2          i++;
+  30   2        }
+  31   1      }
+  32          
+  33          void Allumage_Pointeur (unsigned int intensite){
+  34   1        unsigned int duty;
+  35   1        
+  36   1        duty = 0XFFFF - 0xFFFF*(float)intensite/100;
+  37   1      
+  38   1        PCA0CPL0 = duty;
+  39   1        PCA0CPH0 = duty >> 8;
+  40   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    270    ----
+   CODE SIZE        =    327    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =      2      14
    PDATA SIZE       =   ----    ----

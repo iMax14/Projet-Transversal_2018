@@ -462,7 +462,7 @@ struct COMMANDES traitement_L(char * com,struct COMMANDES commande)
 				}
 
 				Lumiere_Intensite = conversioncoord_2(tab);
-				if (Lumiere_Intensite >= 0 & Lumiere_Intensite <= 100){
+				if (Lumiere_Intensite >= 0 && Lumiere_Intensite <= 100){
 						commande_correct=1;
 						commande.Lumiere_Intensite=Lumiere_Intensite;
 				}
@@ -510,9 +510,9 @@ struct COMMANDES traitement_L(char * com,struct COMMANDES commande)
 			default:
 			{
 				commande.Lumiere_Intensite=100;
-				commande.Lumiere_Nbre=1;
-				commande.Lumiere_Extinction=0;
 				commande.Lumiere_Duree=99;
+				commande.Lumiere_Extinction=0;
+				commande.Lumiere_Nbre=1;
 				commande_correct=1;
 				break;
 			}
@@ -1062,9 +1062,7 @@ void main (void)
 		//strcpy(com,"MOB");
 		//strcpy(com,"L I:100 D:007 E:006 N:090");
 		//strcpy(com,"L");
-
-
-
+			
 		commande = Message(com);
 			
 		if (commande_correct == 1){
