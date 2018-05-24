@@ -339,7 +339,7 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>27</ColumnNumber>
+      <ColumnNumber>32</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
       <TopLine>119</TopLine>
       <CurrentLine>120</CurrentLine>
@@ -405,7 +405,7 @@
       <Focus>0</Focus>
       <ColumnNumber>38</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>237</TopLine>
+      <TopLine>123</TopLine>
       <CurrentLine>238</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\Src\Lien_Structure_commande.c</PathWithFileName>

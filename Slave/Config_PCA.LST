@@ -1,4 +1,4 @@
-C51 COMPILER V9.51   CONFIG_PCA                                                            05/24/2018 13:53:37 PAGE 1   
+C51 COMPILER V9.51   CONFIG_PCA                                                            05/24/2018 14:01:42 PAGE 1   
 
 
 C51 COMPILER V9.51, COMPILATION OF MODULE CONFIG_PCA
@@ -19,7 +19,7 @@ line level    source
   10   1        
   11   1        PCA0MD |= 0x02; //On utilise la SYCLK/12
   12   1        PCA0CPM0 |= 0xC2; //On active le mode PWM 16 bits 
-  13   1        PCA0CN |= 0x40;
+  13   1        PCA0CN |= 0x40; //On active le PCA
   14   1      }
   15          
   16          void Allumage_Pointeur (unsigned int intensite){

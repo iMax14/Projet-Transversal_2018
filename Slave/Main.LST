@@ -1,4 +1,4 @@
-C51 COMPILER V9.51   MAIN                                                                  05/24/2018 13:53:34 PAGE 1   
+C51 COMPILER V9.51   MAIN                                                                  05/24/2018 14:01:51 PAGE 1   
 
 
 C51 COMPILER V9.51, COMPILATION OF MODULE MAIN
@@ -62,7 +62,7 @@ line level    source
   53   1        trame_recue_test(0xD3);
   54   1        trame_recue_test(0xA9);
   55   1        trame_recue_test(0xBB);
-C51 COMPILER V9.51   MAIN                                                                  05/24/2018 13:53:34 PAGE 2   
+C51 COMPILER V9.51   MAIN                                                                  05/24/2018 14:01:51 PAGE 2   
 
   56   1        trame_recue_test(0xFF);
   57   1        trame_recue_test(0xFF);*/
@@ -72,97 +72,96 @@ line level    source
   61   1        dureeAllumage = 88;
   62   1        dureeExtinction = 22;
   63   1        nombreCycle = 1;
-  64   1      
-  65   1        cycleAllumageExtinction(intensite,dureeAllumage,dureeExtinction,nombreCycle);*/
+  64   1        cycleAllumageExtinction(intensite,dureeAllumage,dureeExtinction,nombreCycle);*/
+  65   1      
   66   1      
-  67   1      
-  68   1        while (1){
-  69   2          for(w=0; w<sizeof(Dest_msg_SPI);w++){
-  70   3            if(Dest_msg_SPI[w] == 1)
-  71   3              break;
-  72   3          }
-  73   2          switch(w){
-  74   3            case 0 :
-  75   3              UART_CortexM4(msg_CM4); //On appelle sa fonction associée en lui envoyant son message
-  76   3              trame_emise(0xEE);
-  77   3            
-  78   3              memset(msg_CM4,0,strlen(msg_CM4)); // RAZ du message
-  79   3              Dest_msg_SPI[w] = 0;
-  80   3              break;
-  81   3            case 1 :
-  82   3              intensite = (int) msg_PointLum[0];
-  83   3              dureeAllumage = (float) msg_PointLum[2];
-  84   3              dureeExtinction = (float) msg_PointLum[4];
-  85   3              nombreCycle = (int) msg_PointLum[6];
-  86   3            
-  87   3              cycleAllumageExtinction(intensite,dureeAllumage,dureeExtinction,nombreCycle);
-  88   3            
-  89   3              memset(msg_PointLum,0,strlen(msg_PointLum)); // RAZ du message
-  90   3              Dest_msg_SPI[w] = 0;
-  91   3              break;
-  92   3            case 2 :
-  93   3              if (msg_ServVert[2] == 0xAA){ //L'angle est négatif
-  94   4                msg_ServVert[0] =~ msg_ServVert[0];//On refait le complément pour bien réceptionner le message qui 
+  67   1        while (1){
+  68   2          for(w=0; w<sizeof(Dest_msg_SPI);w++){
+  69   3            if(Dest_msg_SPI[w] == 1)
+  70   3              break;
+  71   3          }
+  72   2          switch(w){
+  73   3            case 0 :
+  74   3              UART_CortexM4(msg_CM4); //On appelle sa fonction associée en lui envoyant son message
+  75   3              trame_emise(0xEE);
+  76   3            
+  77   3              memset(msg_CM4,0,strlen(msg_CM4)); // RAZ du message
+  78   3              Dest_msg_SPI[w] = 0;
+  79   3              break;
+  80   3            case 1 :
+  81   3              intensite = (int) msg_PointLum[0];
+  82   3              dureeAllumage = (float) msg_PointLum[2];
+  83   3              dureeExtinction = (float) msg_PointLum[4];
+  84   3              nombreCycle = (int) msg_PointLum[6];
+  85   3            
+  86   3              cycleAllumageExtinction(intensite,dureeAllumage,dureeExtinction,nombreCycle);
+  87   3            
+  88   3              memset(msg_PointLum,0,strlen(msg_PointLum)); // RAZ du message
+  89   3              Dest_msg_SPI[w] = 0;
+  90   3              break;
+  91   3            case 2 :
+  92   3              if (msg_ServVert[2] == 0xAA){ //L'angle est négatif
+  93   4                msg_ServVert[0] =~ msg_ServVert[0];//On refait le complément pour bien réceptionner le message qui 
              -a été complémenter dans le Master
-  95   4                Angle_voulu |= msg_ServVert[0]; 
-  96   4                Angle_voulu += 0xFF00;
-  97   4                Angle_atteint = CDE_Servo_V(Angle_voulu); //On appelle sa fonction associée en lui envoyant son mess
+  94   4                Angle_voulu |= msg_ServVert[0]; 
+  95   4                Angle_voulu += 0xFF00;
+  96   4                Angle_atteint = CDE_Servo_V(Angle_voulu); //On appelle sa fonction associée en lui envoyant son mess
              -age
-  98   4              }
-  99   3              else{ //L'angle est positif
- 100   4                Angle_voulu = msg_ServVert[0];
- 101   4                Angle_atteint = CDE_Servo_V(Angle_voulu); //On appelle sa fonction associée en lui envoyant son mess
+  97   4              }
+  98   3              else{ //L'angle est positif
+  99   4                Angle_voulu = msg_ServVert[0];
+ 100   4                Angle_atteint = CDE_Servo_V(Angle_voulu); //On appelle sa fonction associée en lui envoyant son mess
              -age
- 102   4              }
- 103   3              trame_emise(Angle_atteint);
- 104   3              
- 105   3              memset(msg_ServVert,0,strlen(msg_ServVert)); // RAZ du message
- 106   3              Dest_msg_SPI[w] = 0;
- 107   3              break;
- 108   3            case 3 :
- 109   3              
- 110   3              memset(msg_Vue,0,strlen(msg_Vue)); // RAZ du message
- 111   3              Dest_msg_SPI[w] = 0;
- 112   3              break;
- 113   3            case 4 :
- 114   3              
-C51 COMPILER V9.51   MAIN                                                                  05/24/2018 13:53:34 PAGE 3   
+ 101   4              }
+ 102   3              trame_emise(Angle_atteint);
+ 103   3              
+ 104   3              memset(msg_ServVert,0,strlen(msg_ServVert)); // RAZ du message
+ 105   3              Dest_msg_SPI[w] = 0;
+ 106   3              break;
+ 107   3            case 3 :
+ 108   3              
+ 109   3              memset(msg_Vue,0,strlen(msg_Vue)); // RAZ du message
+ 110   3              Dest_msg_SPI[w] = 0;
+ 111   3              break;
+ 112   3            case 4 :
+ 113   3              
+ 114   3              memset(msg_FPGA,0,strlen(msg_FPGA)); // RAZ du message
+C51 COMPILER V9.51   MAIN                                                                  05/24/2018 14:01:51 PAGE 3   
 
- 115   3              memset(msg_FPGA,0,strlen(msg_FPGA)); // RAZ du message
- 116   3              Dest_msg_SPI[w] = 0;
- 117   3              break;
- 118   3            default :
- 119   3              break;
- 120   3          }
- 121   2      
- 122   2        }
- 123   1      
- 124   1      }
+ 115   3              Dest_msg_SPI[w] = 0;
+ 116   3              break;
+ 117   3            default :
+ 118   3              break;
+ 119   3          }
+ 120   2      
+ 121   2        }
+ 122   1      
+ 123   1      }
+ 124          
  125          
- 126          
- 127          void ISR_Timer2 (void) interrupt 5 {
- 128   1        TF2 = 0; //Remise à '0' du flag d'overflow
- 129   1        PWM_servo=!PWM_servo; //On envoie le signal PWM au servomoteur
- 130   1      }
+ 126          void ISR_Timer2 (void) interrupt 5 {
+ 127   1        TF2 = 0; //Remise à '0' du flag d'overflow
+ 128   1        PWM_servo=!PWM_servo; //On envoie le signal PWM au servomoteur
+ 129   1      }
+ 130          
  131          
- 132          
- 133          void ISR_SPI (void) interrupt 6 {
- 134   1      
- 135   1          SPIF = 0; //RAZ du flag d'écriture
- 136   1      
- 137   1          trame_recue(); // On réceptionne le message du Master
- 138   1          trame_emise(0xEE); // On renvoie un message au Master pour lui accuser bonne réception
- 139   1      
- 140   1      }
- 141          
- 142          /******Cette fonction d'interruption permet d'incrémenter un compteur toutes les 10ms
- 143                 afin de pouvoir gérer le temps de ON et de OFF du pointeur ******/
- 144          void ISR_Timer3 (void) interrupt 14 {
- 145   1      
- 146   1        TMR3CN &= 0x04; //Remise � '0' du flag d'overflow
- 147   1        cpt++;
- 148   1      }
- 149          
+ 132          void ISR_SPI (void) interrupt 6 {
+ 133   1      
+ 134   1          SPIF = 0; //RAZ du flag d'écriture
+ 135   1      
+ 136   1          trame_recue(); // On réceptionne le message du Master
+ 137   1          trame_emise(0xEE); // On renvoie un message au Master pour lui accuser bonne réception
+ 138   1      
+ 139   1      }
+ 140          
+ 141          /******Cette fonction d'interruption permet d'incrémenter un compteur toutes les 10ms
+ 142                 afin de pouvoir gérer le temps de ON et de OFF du pointeur ******/
+ 143          void ISR_Timer3 (void) interrupt 14 {
+ 144   1      
+ 145   1        TMR3CN &= 0x04; //Remise � '0' du flag d'overflow
+ 146   1        cpt++;
+ 147   1      }
+ 148          
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE

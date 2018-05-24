@@ -61,7 +61,6 @@ void main (void) {
 	dureeAllumage = 88;
 	dureeExtinction = 22;
 	nombreCycle = 1;
-
 	cycleAllumageExtinction(intensite,dureeAllumage,dureeExtinction,nombreCycle);*/
 
 

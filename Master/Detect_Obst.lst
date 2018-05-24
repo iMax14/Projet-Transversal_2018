@@ -1,4 +1,4 @@
-C51 COMPILER V9.51   DETECT_OBST                                                           05/23/2018 21:07:19 PAGE 1   
+C51 COMPILER V9.51   DETECT_OBST                                                           05/24/2018 14:01:15 PAGE 1   
 
 
 C51 COMPILER V9.51, COMPILATION OF MODULE DETECT_OBST
@@ -62,7 +62,7 @@ line level    source
   52   1          strcat(affichage," : ");
   53   1          strcat(affichage,obst_AV); //On donne la distance à laquelle est l'obstacle AV
   54   1          strcat(affichage," : ");
-C51 COMPILER V9.51   DETECT_OBST                                                           05/23/2018 21:07:19 PAGE 2   
+C51 COMPILER V9.51   DETECT_OBST                                                           05/24/2018 14:01:15 PAGE 2   
 
   55   1          strcat(affichage,obst_AR); //On donne la distance à laquelle est l'obstacle AR
   56   1        
@@ -126,7 +126,7 @@ line level    source
  114   2      
  115   2          case Obst_balayage:
  116   2            if (com.Etat_DCT_Obst==oui_180){ //detection AV sur 180°
-C51 COMPILER V9.51   DETECT_OBST                                                           05/23/2018 21:07:19 PAGE 3   
+C51 COMPILER V9.51   DETECT_OBST                                                           05/24/2018 14:01:15 PAGE 3   
 
  117   3              for(c = 0xFFA6 ;c<=0x5A;c=c+com.DCT_Obst_Resolution){
  118   4                Angle_atteint = CDE_Servo_H(c); // On met le servomoteur en position
@@ -190,7 +190,7 @@ line level    source
  173   4              }
  174   3              dist_min_AR[0] = tab_dist_AR[min];
  175   3              //On regarde quelle est la distance minimale entre l'AV et l'AR
-C51 COMPILER V9.51   DETECT_OBST                                                           05/23/2018 21:07:19 PAGE 4   
+C51 COMPILER V9.51   DETECT_OBST                                                           05/24/2018 14:01:15 PAGE 4   
 
  176   3              if (dist_min_AR < dist_min_AV){
  177   4                dist_min = dist_min_AR[min_AR];
