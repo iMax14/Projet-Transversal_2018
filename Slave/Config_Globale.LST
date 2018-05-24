@@ -1,4 +1,4 @@
-C51 COMPILER V9.51   CONFIG_GLOBALE                                                        05/23/2018 18:43:32 PAGE 1   
+C51 COMPILER V9.51   CONFIG_GLOBALE                                                        05/24/2018 13:53:34 PAGE 1   
 
 
 C51 COMPILER V9.51, COMPILATION OF MODULE CONFIG_GLOBALE
@@ -45,37 +45,39 @@ line level    source
   36          void GPIO_Config (void){
   37   1      //Configuration du CrossBar
   38   1        
-  39   1        XBR0 = 0x06; //00000110 (XBR0.1/2)
+  39   1        XBR0 = 0x0E; //00001110 (XBR0.1/2/3) -- CEX0 (Pin du PCA) est routéesur la pin P1.2
   40   1        XBR2 = 0x44; //01000100 On active l'UART1 (RX/TX pins) via le bit 2 et on active la CrossBar via le bit 6
              -.
   41   1      
   42   1      //Configuration des SORTIES en PUSH-PULL
   43   1        
   44   1        P0MDOUT |= 0x09; //00001001 ----- P0.3
-  45   1        P2MDOUT |= 0x03; //00100011 ----- P2.0/1/5
-  46   1        
-  47   1        //PO.O : TX0 ; P0.3 : MISO_SPI 
-  48   1        //P2.0 : Servo vertical
-  49   1        //P2.1 : Pointeur lumineux
-  50   1        
-  51   1      //Configuration des ENTREES en DRAIN OUVERT
-  52   1      
-  53   1        P0MDOUT &= 0xCB; //11001011 ----- P0.2/4/5  
-  54   1        P0 |= 0x30; //00110000 ----- P0.4/5
-C51 COMPILER V9.51   CONFIG_GLOBALE                                                        05/23/2018 18:43:32 PAGE 2   
+  45   1        P1MDOUT |= 0x01; //00000001 ----- P1.2
+  46   1        P2MDOUT |= 0x03; //00100011 ----- P2.0/1/5
+  47   1        
+  48   1        //PO.O : TX0 ; P0.3 : MISO_SPI 
+  49   1        //P1.0 : CEX0 (PCA pour le pointeur lumineux)
+  50   1        //P2.0 : Servo vertical
+  51   1        //P2.1 : Pointeur lumineux
+  52   1        
+  53   1      //Configuration des ENTREES en DRAIN OUVERT
+  54   1      
+C51 COMPILER V9.51   CONFIG_GLOBALE                                                        05/24/2018 13:53:34 PAGE 2   
 
-  55   1      
-  56   1        //P0.2 : SCK_SPI - P0.4 : MOSI_SPI - P0.5 : NSS_SPI
-  57   1      }
-  58          
-  59          
+  55   1        P0MDOUT &= 0xCB; //11001011 ----- P0.2/4/5  
+  56   1        P0 |= 0x30; //00110000 ----- P0.4/5
+  57   1      
+  58   1        //P0.2 : SCK_SPI - P0.4 : MOSI_SPI - P0.5 : NSS_SPI
+  59   1      }
   60          
   61          
   62          
+  63          
+  64          
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =     68    ----
+   CODE SIZE        =     71    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----

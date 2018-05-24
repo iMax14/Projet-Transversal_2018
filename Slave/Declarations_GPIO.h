@@ -43,8 +43,6 @@ sbit MOSI_SPI = P0^4;//Broche B11
 sbit NSS__SPI = P0^5;//Broche A11
 
 sbit PWM_servo = P2^0; //Broche B7
-// PWM_Pin
-sbit PWM_Ptr_Lum = P2^1; // utilisation de P3.0
 
 
 

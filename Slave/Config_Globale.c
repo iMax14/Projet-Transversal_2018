@@ -36,15 +36,17 @@ void Disable_WDT(void){
 void GPIO_Config (void){
 //Configuration du CrossBar
 	
-	XBR0 = 0x06; //00000110 (XBR0.1/2)
+	XBR0 = 0x0E; //00001110 (XBR0.1/2/3) -- CEX0 (Pin du PCA) est routéesur la pin P1.2
 	XBR2 = 0x44; //01000100 On active l'UART1 (RX/TX pins) via le bit 2 et on active la CrossBar via le bit 6.
 
 //Configuration des SORTIES en PUSH-PULL
 	
 	P0MDOUT |= 0x09; //00001001 ----- P0.3
+	P1MDOUT |= 0x01; //00000001 ----- P1.2
 	P2MDOUT |= 0x03; //00100011 ----- P2.0/1/5
 	
 	//PO.O : TX0 ; P0.3 : MISO_SPI 
+	//P1.0 : CEX0 (PCA pour le pointeur lumineux)
 	//P2.0 : Servo vertical
 	//P2.1 : Pointeur lumineux
 	

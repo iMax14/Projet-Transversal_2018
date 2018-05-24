@@ -12,6 +12,7 @@
 #include "Transmission_UART0.h"
 #include "Config_UART0.h"
 #include "Pointeur_Lumineux.h"
+#include "Config_PCA.h"
 
 
 #define SYSCLK 22118400L
@@ -22,8 +23,6 @@ int Dest_msg_SPI[5] = 0;
 signed int Angle_voulu = 0x0000;
 char Angle_atteint;
 int w,j;
-extern unsigned char PWM;	  // varie entre 0 et 255. permet de choisir le duty cycle
-extern unsigned int temp;    // utilisé dans le timer0
 
 extern unsigned char msg_CM4[256];
 extern unsigned char msg_PointLum[256];
@@ -46,6 +45,7 @@ void main (void) {
 	Config_SPI_SLAVE();
 	Config_Clock_UART0();
 	Config_UART0();
+	Config_PCA();
 	EA=1;
 
 /*Fonctions de tests de la connexion SPI
@@ -56,12 +56,13 @@ void main (void) {
 	trame_recue_test(0xFF);
 	trame_recue_test(0xFF);*/
 
+/*Fonction de tests pour le pilotage du pointeur lumineux
 	intensite = 70;
-	dureeAllumage = 80;
-	dureeExtinction = 20;
-	nombreCycle = 3;
+	dureeAllumage = 88;
+	dureeExtinction = 22;
+	nombreCycle = 1;
 
-	cycleAllumageExtinction(intensite,dureeAllumage,dureeExtinction,nombreCycle);
+	cycleAllumageExtinction(intensite,dureeAllumage,dureeExtinction,nombreCycle);*/
 
 
 	while (1){
@@ -78,13 +79,12 @@ void main (void) {
 				Dest_msg_SPI[w] = 0;
 				break;
 			case 1 :
-// 				compteur = 2;
-// 				intensite = (int) msg_PointLum[0];
-// 				dureeAllumage = (float) msg_PointLum[2];
-// 				dureeExtinction = (float) msg_PointLum[4];
-// 				nombreCycle = (int) msg_PointLum[6];
-// 			
-// 				cycleAllumageExtinction(compteur,intensite,dureeAllumage,dureeExtinction,nombreCycle);
+				intensite = (int) msg_PointLum[0];
+				dureeAllumage = (float) msg_PointLum[2];
+				dureeExtinction = (float) msg_PointLum[4];
+				nombreCycle = (int) msg_PointLum[6];
+			
+				cycleAllumageExtinction(intensite,dureeAllumage,dureeExtinction,nombreCycle);
 			
 				memset(msg_PointLum,0,strlen(msg_PointLum)); // RAZ du message
 				Dest_msg_SPI[w] = 0;
@@ -137,13 +137,6 @@ void ISR_SPI (void) interrupt 6 {
 		trame_recue(); // On réceptionne le message du Master
 		trame_emise(0xEE); // On renvoie un message au Master pour lui accuser bonne réception
 
-}
-
-/******Cette fonction d'interruption permet de piloter le pointeur lumineux en lui envoyant un signal PWM
-			 En faisant varier le rapport cyclique, la tension moyenne reçue aux borne de la LED varira ******/
-void Timer0_ISR (void) interrupt 1   {
-	TF0 = 0;     // flag d'interruption RAZ
-	PWM_Ptr_Lum=!PWM_Ptr_Lum; //On envoie le signal PWM au servomoteur
 }
 
 /******Cette fonction d'interruption permet d'incrémenter un compteur toutes les 10ms

@@ -1,4 +1,4 @@
-C51 COMPILER V9.51   MAIN                                                                  05/23/2018 18:43:33 PAGE 1   
+C51 COMPILER V9.51   MAIN                                                                  05/24/2018 13:53:34 PAGE 1   
 
 
 C51 COMPILER V9.51, COMPILATION OF MODULE MAIN
@@ -21,40 +21,40 @@ line level    source
   12          #include "Transmission_UART0.h"
   13          #include "Config_UART0.h"
   14          #include "Pointeur_Lumineux.h"
-  15          
+  15          #include "Config_PCA.h"
   16          
-  17          #define SYSCLK 22118400L
-  18          
-  19          // Global variables
-  20          
-  21          int Dest_msg_SPI[5] = 0;
-  22          signed int Angle_voulu = 0x0000;
-  23          char Angle_atteint;
-  24          int w,j;
-  25          extern unsigned char PWM;   // varie entre 0 et 255. permet de choisir le duty cycle
-  26          extern unsigned int temp;    // utilisé dans le timer0
-  27          
-  28          extern unsigned char msg_CM4[256];
-  29          extern unsigned char msg_PointLum[256];
-  30          extern unsigned char msg_ServVert[256];
-  31          extern unsigned char msg_Vue[256];
-  32          extern unsigned char msg_FPGA[256];
-  33          int a;
-  34          
-  35          int compteur,intensite,nombreCycle;
-  36          float dureeAllumage,dureeExtinction;
-  37          int cpt=0;
-  38          
-  39          void main (void) {
-  40   1      
-  41   1        EA=0;
-  42   1        Init_Device();  //Initialisation du microcontrôleur
-  43   1        Config_Timer2();
-  44   1        Config_Timer3();
-  45   1        InitTimer0(); 
-  46   1        Config_SPI_SLAVE();
-  47   1        Config_Clock_UART0();
-  48   1        Config_UART0();
+  17          
+  18          #define SYSCLK 22118400L
+  19          
+  20          // Global variables
+  21          
+  22          int Dest_msg_SPI[5] = 0;
+  23          signed int Angle_voulu = 0x0000;
+  24          char Angle_atteint;
+  25          int w,j;
+  26          
+  27          extern unsigned char msg_CM4[256];
+  28          extern unsigned char msg_PointLum[256];
+  29          extern unsigned char msg_ServVert[256];
+  30          extern unsigned char msg_Vue[256];
+  31          extern unsigned char msg_FPGA[256];
+  32          int a;
+  33          
+  34          int compteur,intensite,nombreCycle;
+  35          float dureeAllumage,dureeExtinction;
+  36          int cpt=0;
+  37          
+  38          void main (void) {
+  39   1      
+  40   1        EA=0;
+  41   1        Init_Device();  //Initialisation du microcontrôleur
+  42   1        Config_Timer2();
+  43   1        Config_Timer3();
+  44   1        InitTimer0(); 
+  45   1        Config_SPI_SLAVE();
+  46   1        Config_Clock_UART0();
+  47   1        Config_UART0();
+  48   1        Config_PCA();
   49   1        EA=1;
   50   1      
   51   1      /*Fonctions de tests de la connexion SPI
@@ -62,40 +62,40 @@ line level    source
   53   1        trame_recue_test(0xD3);
   54   1        trame_recue_test(0xA9);
   55   1        trame_recue_test(0xBB);
-C51 COMPILER V9.51   MAIN                                                                  05/23/2018 18:43:33 PAGE 2   
+C51 COMPILER V9.51   MAIN                                                                  05/24/2018 13:53:34 PAGE 2   
 
   56   1        trame_recue_test(0xFF);
   57   1        trame_recue_test(0xFF);*/
   58   1      
-  59   1        intensite = 70;
-  60   1        dureeAllumage = 80;
-  61   1        dureeExtinction = 20;
-  62   1        nombreCycle = 3;
-  63   1      
-  64   1        cycleAllumageExtinction(intensite,dureeAllumage,dureeExtinction,nombreCycle);
-  65   1      
+  59   1      /*Fonction de tests pour le pilotage du pointeur lumineux
+  60   1        intensite = 70;
+  61   1        dureeAllumage = 88;
+  62   1        dureeExtinction = 22;
+  63   1        nombreCycle = 1;
+  64   1      
+  65   1        cycleAllumageExtinction(intensite,dureeAllumage,dureeExtinction,nombreCycle);*/
   66   1      
-  67   1        while (1){
-  68   2          for(w=0; w<sizeof(Dest_msg_SPI);w++){
-  69   3            if(Dest_msg_SPI[w] == 1)
-  70   3              break;
-  71   3          }
-  72   2          switch(w){
-  73   3            case 0 :
-  74   3              UART_CortexM4(msg_CM4); //On appelle sa fonction associée en lui envoyant son message
-  75   3              trame_emise(0xEE);
-  76   3            
-  77   3              memset(msg_CM4,0,strlen(msg_CM4)); // RAZ du message
-  78   3              Dest_msg_SPI[w] = 0;
-  79   3              break;
-  80   3            case 1 :
-  81   3      //        compteur = 2;
-  82   3      //        intensite = (int) msg_PointLum[0];
-  83   3      //        dureeAllumage = (float) msg_PointLum[2];
-  84   3      //        dureeExtinction = (float) msg_PointLum[4];
-  85   3      //        nombreCycle = (int) msg_PointLum[6];
-  86   3      //      
-  87   3      //        cycleAllumageExtinction(compteur,intensite,dureeAllumage,dureeExtinction,nombreCycle);
+  67   1      
+  68   1        while (1){
+  69   2          for(w=0; w<sizeof(Dest_msg_SPI);w++){
+  70   3            if(Dest_msg_SPI[w] == 1)
+  71   3              break;
+  72   3          }
+  73   2          switch(w){
+  74   3            case 0 :
+  75   3              UART_CortexM4(msg_CM4); //On appelle sa fonction associée en lui envoyant son message
+  76   3              trame_emise(0xEE);
+  77   3            
+  78   3              memset(msg_CM4,0,strlen(msg_CM4)); // RAZ du message
+  79   3              Dest_msg_SPI[w] = 0;
+  80   3              break;
+  81   3            case 1 :
+  82   3              intensite = (int) msg_PointLum[0];
+  83   3              dureeAllumage = (float) msg_PointLum[2];
+  84   3              dureeExtinction = (float) msg_PointLum[4];
+  85   3              nombreCycle = (int) msg_PointLum[6];
+  86   3            
+  87   3              cycleAllumageExtinction(intensite,dureeAllumage,dureeExtinction,nombreCycle);
   88   3            
   89   3              memset(msg_PointLum,0,strlen(msg_PointLum)); // RAZ du message
   90   3              Dest_msg_SPI[w] = 0;
@@ -126,7 +126,7 @@ line level    source
  112   3              break;
  113   3            case 4 :
  114   3              
-C51 COMPILER V9.51   MAIN                                                                  05/23/2018 18:43:33 PAGE 3   
+C51 COMPILER V9.51   MAIN                                                                  05/24/2018 13:53:34 PAGE 3   
 
  115   3              memset(msg_FPGA,0,strlen(msg_FPGA)); // RAZ du message
  116   3              Dest_msg_SPI[w] = 0;
@@ -155,25 +155,18 @@ line level    source
  139   1      
  140   1      }
  141          
- 142          /******Cette fonction d'interruption permet de piloter le pointeur lumineux en lui envoyant un signal PWM
- 143                 En faisant varier le rapport cyclique, la tension moyenne reçue aux borne de la LED varira ******/
- 144          void Timer0_ISR (void) interrupt 1   {
- 145   1        TF0 = 0;     // flag d'interruption RAZ
- 146   1        PWM_Ptr_Lum=!PWM_Ptr_Lum; //On envoie le signal PWM au servomoteur
- 147   1      }
- 148          
- 149          /******Cette fonction d'interruption permet d'incrémenter un compteur toutes les 10ms
- 150                 afin de pouvoir gérer le temps de ON et de OFF du pointeur ******/
- 151          void ISR_Timer3 (void) interrupt 14 {
- 152   1      
- 153   1        TMR3CN &= 0x04; //Remise � '0' du flag d'overflow
- 154   1        cpt++;
- 155   1      }
- 156          
+ 142          /******Cette fonction d'interruption permet d'incrémenter un compteur toutes les 10ms
+ 143                 afin de pouvoir gérer le temps de ON et de OFF du pointeur ******/
+ 144          void ISR_Timer3 (void) interrupt 14 {
+ 145   1      
+ 146   1        TMR3CN &= 0x04; //Remise � '0' du flag d'overflow
+ 147   1        cpt++;
+ 148   1      }
+ 149          
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    566    ----
+   CODE SIZE        =    593    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =     35    ----
    PDATA SIZE       =   ----    ----

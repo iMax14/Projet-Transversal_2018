@@ -7,6 +7,7 @@
 "Transmission_SPI.obj",
 "Transmission_UART0.obj",
 "Config_UART0.obj",
-"Pointeur_Lumineux.obj" 
+"Pointeur_Lumineux.obj",
+"Config_PCA.obj" 
 TO "Slave" 
 RAMSIZE(256) 

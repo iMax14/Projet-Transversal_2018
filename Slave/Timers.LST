@@ -1,4 +1,4 @@
-C51 COMPILER V9.51   TIMERS                                                                05/23/2018 18:43:34 PAGE 1   
+C51 COMPILER V9.51   TIMERS                                                                05/24/2018 13:53:35 PAGE 1   
 
 
 C51 COMPILER V9.51, COMPILATION OF MODULE TIMERS
@@ -62,10 +62,10 @@ line level    source
   52   1      }
   53          
   54          void Config_Timer3(void){
-C51 COMPILER V9.51   TIMERS                                                                05/23/2018 18:43:34 PAGE 2   
+C51 COMPILER V9.51   TIMERS                                                                05/24/2018 13:53:35 PAGE 2   
 
-  55   1      
-  56   1        int recharge;
+  55   1        int recharge;
+  56   1        
   57   1        TMR3CN &= 0x00; // Timer3 disable ; Flag d'OverFlow RAZ ; Use Clock/12
   58   1        recharge = ceil(65535 - 10*0.001*SYSCLK/12); // Interruption toutes les 10 ms
   59   1        TMR3RLL = recharge;

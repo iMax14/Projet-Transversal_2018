@@ -52,8 +52,8 @@ void InitTimer0(void){
 }
 
 void Config_Timer3(void){
-
 	int recharge;
+	
 	TMR3CN &= 0x00; // Timer3 disable ; Flag d'OverFlow RAZ ; Use Clock/12
 	recharge = ceil(65535 - 10*0.001*SYSCLK/12); // Interruption toutes les 10 ms
 	TMR3RLL = recharge;

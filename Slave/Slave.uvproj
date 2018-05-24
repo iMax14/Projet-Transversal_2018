@@ -140,7 +140,7 @@
             <RestoreTracepoints>1</RestoreTracepoints>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
-          <TargetSelection>-1</TargetSelection>
+          <TargetSelection>9</TargetSelection>
           <SimDlls>
             <CpuDll></CpuDll>
             <CpuDllArguments></CpuDllArguments>
@@ -154,7 +154,7 @@
             <PeripheralDll></PeripheralDll>
             <PeripheralDllArguments></PeripheralDllArguments>
             <InitializationFile></InitializationFile>
-            <Driver></Driver>
+            <Driver>BIN\SiC8051F.dll</Driver>
           </TargetDlls>
         </DebugOption>
         <Utilities>
@@ -399,6 +399,11 @@
               <FileName>Pointeur_Lumineux.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Pointeur_Lumineux.c</FilePath>
+            </File>
+            <File>
+              <FileName>Config_PCA.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Config_PCA.c</FilePath>
             </File>
           </Files>
         </Group>
