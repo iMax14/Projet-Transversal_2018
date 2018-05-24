@@ -1,13 +1,13 @@
 "STARTUP.obj",
 "Config_Globale.obj",
+"Config_PCA.obj",
 "Config_SPI.obj",
+"Config_UART0.obj",
 "Main.obj",
+"Pointeur_Lumineux.obj",
 "Servomoteur_Vertical.obj",
 "Timers.obj",
 "Transmission_SPI.obj",
-"Transmission_UART0.obj",
-"Config_UART0.obj",
-"Pointeur_Lumineux.obj",
-"Config_PCA.obj" 
+"Transmission_UART0.obj" 
 TO "Slave" 
 RAMSIZE(256) 

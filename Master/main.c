@@ -401,26 +401,8 @@ struct COMMANDES traitement_G(char * com, struct COMMANDES commande) // DEPLACEM
 			}
 			coord[k]='\0';
 			commande.Coord_X=conv(coord,strlen(coord));
-			i = i+ 3;
-			k=0;
-			while(com[i]!= ' ')
-			{
-				coord[k]=com[i];
-				i=i+1;
-				k=k+1;
-			}
-			coord[i]='\0';
-			commande.Coord_Y=conv(coord,strlen(coord));
-			k=0;
-			i = i+ 3;
-			while(com[i]!= '\0')
-			{
-				coord[k]=com[i];
-				i=i+1;
-				k=k+1;
-			}
-			coord[i-1]='\0';
-			commande.Angle=conv(coord,strlen(coord));
+			commande_correct=1;
+
 
 
 		}
@@ -462,7 +444,7 @@ struct COMMANDES traitement_L(char * com,struct COMMANDES commande)
 				}
 
 				Lumiere_Intensite = conversioncoord_2(tab);
-				if (Lumiere_Intensite >= 0 && Lumiere_Intensite <= 100){
+				if (Lumiere_Intensite >= 0 & Lumiere_Intensite <= 100){
 						commande_correct=1;
 						commande.Lumiere_Intensite=Lumiere_Intensite;
 				}
@@ -510,9 +492,9 @@ struct COMMANDES traitement_L(char * com,struct COMMANDES commande)
 			default:
 			{
 				commande.Lumiere_Intensite=100;
-				commande.Lumiere_Duree=99;
-				commande.Lumiere_Extinction=0;
 				commande.Lumiere_Nbre=1;
+				commande.Lumiere_Extinction=0;
+				commande.Lumiere_Duree=99;
 				commande_correct=1;
 				break;
 			}
@@ -1005,7 +987,7 @@ void main (void)
 	char bip_b=3;
 
 	EA=0;
-	Init_Device();  // Initialisation du microcontr�leur
+	Init_Device();  // Initialisation du microcontroleur
 	Config_Timer2();
 	Config_timer0();
 	Config_Timer3();
@@ -1057,12 +1039,6 @@ void main (void)
 				}
 			}while(a!=0x0D); //Commenté pour les tests avec le simulateur
 
-		//strcpy(com,"CS V A:-45");
-		//strcpy(com,"SD F:12 P:50 W:60 B:05");
-		//strcpy(com,"MOB");
-		//strcpy(com,"L I:100 D:007 E:006 N:090");
-		//strcpy(com,"L");
-			
 		commande = Message(com);
 			
 		if (commande_correct == 1){
@@ -1075,7 +1051,6 @@ void main (void)
 			strcpy(mess, "\n\r#\n\r>");
 			serOutstring(mess); // si erreur
 		}
-	//serOutstring(message_PC_com); // si erreur
 	}
 
 }
@@ -1089,5 +1064,4 @@ void ISR_Timer3 (void) interrupt 14 {
 	TMR3CN &= 0x04; //Remise � '0' du flag d'overflow
 	courant = Courant_ADC();
 	energie += 9.6*courant*0.001*0.035;
-	
 }

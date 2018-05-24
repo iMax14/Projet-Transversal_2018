@@ -1,4 +1,4 @@
-C51 COMPILER V9.51   MAIN                                                                  05/24/2018 14:42:40 PAGE 1   
+C51 COMPILER V9.51   MAIN                                                                  05/24/2018 19:15:14 PAGE 1   
 
 
 C51 COMPILER V9.51, COMPILATION OF MODULE MAIN
@@ -24,146 +24,153 @@ line level    source
   15          #include "Config_PCA.h"
   16          
   17          
-  18          #define SYSCLK 22118400L
-  19          
-  20          // Global variables
-  21          
-  22          int Dest_msg_SPI[5] = 0;
-  23          signed int Angle_voulu = 0x0000;
-  24          char Angle_atteint;
-  25          int w,j;
-  26          
-  27          extern unsigned char msg_CM4[256];
-  28          extern unsigned char msg_PointLum[256];
-  29          extern unsigned char msg_ServVert[256];
-  30          extern unsigned char msg_Vue[256];
-  31          extern unsigned char msg_FPGA[256];
-  32          int a;
-  33          
-  34          int compteur,intensite,nombreCycle;
-  35          float dureeAllumage,dureeExtinction;
-  36          int cpt=0;
-  37          
-  38          void main (void) {
-  39   1      
-  40   1        EA=0;
-  41   1        Init_Device();  //Initialisation du microcontrôleur
-  42   1        Config_Timer2();
-  43   1        Config_Timer3();
-  44   1        InitTimer0(); 
-  45   1        Config_SPI_SLAVE();
-  46   1        Config_Clock_UART0();
-  47   1        Config_UART0();
-  48   1        Config_PCA();
-  49   1        EA=1;
-  50   1      
-  51   1      /*Fonctions de tests de la connexion SPI
-  52   1        trame_recue_test(0xD3);
-  53   1        trame_recue_test(0xD3);
-  54   1        trame_recue_test(0xA9);
-  55   1        trame_recue_test(0xBB);
-C51 COMPILER V9.51   MAIN                                                                  05/24/2018 14:42:40 PAGE 2   
+  18          
+  19          #define SYSCLK 22118400L
+  20          
+  21          // Global variables
+  22          
+  23          int Dest_msg_SPI[5] = 0;
+  24          signed int Angle_voulu = 0x0000;
+  25          char Angle_atteint;
+  26          int w,j;
+  27          extern unsigned char PWM;   // varie entre 0 et 255. permet de choisir le duty cycle
+  28          extern unsigned int temp;    // utilisé dans le timer0
+  29          
+  30          extern unsigned char msg_CM4[256];
+  31          extern unsigned char msg_PointLum[256];
+  32          extern unsigned char msg_ServVert[256];
+  33          extern unsigned char msg_Vue[256];
+  34          extern unsigned char msg_FPGA[256];
+  35          int a;
+  36          
+  37          int compteur,intensite,nombreCycle;
+  38          float dureeAllumage,dureeExtinction;
+  39          int cpt=0;
+  40          
+  41          void main (void) {
+  42   1      
+  43   1        EA=0;
+  44   1        Init_Device();  //Initialisation du microcontrôleur
+  45   1        Config_Timer2();
+  46   1        Config_Timer3();
+  47   1        InitTimer0(); 
+  48   1        Config_SPI_SLAVE();
+  49   1        Config_Clock_UART0();
+  50   1        Config_UART0();
+  51   1        Config_PCA();
+  52   1        EA=1;
+  53   1      
+  54   1      /*Fonctions de tests de la connexion SPI
+  55   1        trame_recue_test(0xD1);
+C51 COMPILER V9.51   MAIN                                                                  05/24/2018 19:15:14 PAGE 2   
 
-  56   1        trame_recue_test(0xFF);
-  57   1        trame_recue_test(0xFF);*/
-  58   1      
-  59   1      /*Fonction de tests pour le pilotage du pointeur lumineux
-  60   1        intensite = 70;
-  61   1        dureeAllumage = 88;
-  62   1        dureeExtinction = 22;
-  63   1        nombreCycle = 1;
-  64   1        Lumiere(intensite,dureeAllumage,dureeExtinction,nombreCycle);*/
-  65   1      
-  66   1      
-  67   1        
-  68   1        
-  69   1        while (1){
-  70   2          for(w=0; w<sizeof(Dest_msg_SPI);w++){
-  71   3            if(Dest_msg_SPI[w] == 1)
-  72   3              break;
-  73   3          }
-  74   2          switch(w){
-  75   3            case 0 :
-  76   3              UART_CortexM4(msg_CM4); //On appelle sa fonction associée en lui envoyant son message
-  77   3              trame_emise(0xEE);
-  78   3            
-  79   3              memset(msg_CM4,0,strlen(msg_CM4)); // RAZ du message
-  80   3              Dest_msg_SPI[w] = 0;
-  81   3              break;
-  82   3            case 1 :
-  83   3              intensite = (int) msg_PointLum[0];
-  84   3              dureeAllumage = (float) msg_PointLum[2];
-  85   3              dureeExtinction = (float) msg_PointLum[4];
-  86   3              nombreCycle = (int) msg_PointLum[6];
-  87   3            
-  88   3              Lumiere(intensite,dureeAllumage,dureeExtinction,nombreCycle);
-  89   3            
-  90   3              memset(msg_PointLum,0,strlen(msg_PointLum)); // RAZ du message
-  91   3              Dest_msg_SPI[w] = 0;
-  92   3              break;
-  93   3            case 2 :
-  94   3              if (msg_ServVert[2] == 0xAA){ //L'angle est négatif
-  95   4                msg_ServVert[0] =~ msg_ServVert[0];//On refait le complément pour bien réceptionner le message qui 
+  56   1        trame_recue_test(0xD1);
+  57   1        trame_recue_test(0x08);
+  58   1        trame_recue_test(0x08);
+  59   1        trame_recue_test(0x08);
+  60   1        trame_recue_test(0x08);
+  61   1        trame_recue_test(0xFF);
+  62   1        trame_recue_test(0xFF);*/
+  63   1      
+  64   1      //  intensite = 10;
+  65   1      //  dureeAllumage = 20;
+  66   1      //  dureeExtinction = 20;
+  67   1      //  nombreCycle = 5;
+  68   1      
+  69   1      //  cycleAllumageExtinction(intensite,dureeAllumage,dureeExtinction,nombreCycle);
+  70   1      
+  71   1      
+  72   1        while (1){
+  73   2          for(w=0; w<sizeof(Dest_msg_SPI);w++){
+  74   3            if(Dest_msg_SPI[w] == 1)
+  75   3              break;
+  76   3          }
+  77   2          switch(w){
+  78   3            case 0 :
+  79   3              UART_CortexM4(msg_CM4); //On appelle sa fonction associée en lui envoyant son message
+  80   3              trame_emise(0xEE);
+  81   3            
+  82   3              memset(msg_CM4,0,strlen(msg_CM4)); // RAZ du message
+  83   3              Dest_msg_SPI[w] = 0;
+  84   3              break;
+  85   3            case 1 :
+  86   3              intensite = (int) msg_PointLum[0];
+  87   3              dureeAllumage = (float) msg_PointLum[2];
+  88   3              dureeExtinction = (float) msg_PointLum[4];
+  89   3              nombreCycle = (int) msg_PointLum[6];
+  90   3            
+  91   3              cycleAllumageExtinction(intensite,dureeAllumage,dureeExtinction,nombreCycle);
+  92   3            
+  93   3              memset(msg_PointLum,0,strlen(msg_PointLum)); // RAZ du message
+  94   3              Dest_msg_SPI[w] = 0;
+  95   3              break;
+  96   3            case 2 :
+  97   3              if (msg_ServVert[2] == 0xAA){ //L'angle est négatif
+  98   4                msg_ServVert[0] =~ msg_ServVert[0];//On refait le complément pour bien réceptionner le message qui 
              -a été complémenter dans le Master
-  96   4                Angle_voulu |= msg_ServVert[0]; 
-  97   4                Angle_voulu += 0xFF00;
-  98   4                Angle_atteint = CDE_Servo_V(Angle_voulu); //On appelle sa fonction associée en lui envoyant son mess
+  99   4                Angle_voulu |= msg_ServVert[0]; 
+ 100   4                Angle_voulu += 0xFF00;
+ 101   4                Angle_atteint = CDE_Servo_V(Angle_voulu); //On appelle sa fonction associée en lui envoyant son mess
              -age
-  99   4              }
- 100   3              else{ //L'angle est positif
- 101   4                Angle_voulu = msg_ServVert[0];
- 102   4                Angle_atteint = CDE_Servo_V(Angle_voulu); //On appelle sa fonction associée en lui envoyant son mess
+ 102   4              }
+ 103   3              else{ //L'angle est positif
+ 104   4                Angle_voulu = msg_ServVert[0];
+ 105   4                Angle_atteint = CDE_Servo_V(Angle_voulu); //On appelle sa fonction associée en lui envoyant son mess
              -age
- 103   4              }
- 104   3              trame_emise(Angle_atteint);
- 105   3              
- 106   3              memset(msg_ServVert,0,strlen(msg_ServVert)); // RAZ du message
- 107   3              Dest_msg_SPI[w] = 0;
- 108   3              break;
- 109   3            case 3 :
- 110   3              
- 111   3              memset(msg_Vue,0,strlen(msg_Vue)); // RAZ du message
- 112   3              Dest_msg_SPI[w] = 0;
- 113   3              break;
- 114   3            case 4 :
-C51 COMPILER V9.51   MAIN                                                                  05/24/2018 14:42:40 PAGE 3   
+ 106   4              }
+ 107   3              trame_emise(Angle_atteint);
+ 108   3              
+ 109   3              memset(msg_ServVert,0,strlen(msg_ServVert)); // RAZ du message
+ 110   3              Dest_msg_SPI[w] = 0;
+ 111   3              break;
+ 112   3            case 3 :
+ 113   3              /********
+ 114   3              NON TRAITE
+C51 COMPILER V9.51   MAIN                                                                  05/24/2018 19:15:14 PAGE 3   
 
- 115   3              
- 116   3              memset(msg_FPGA,0,strlen(msg_FPGA)); // RAZ du message
+ 115   3              *********/
+ 116   3              memset(msg_Vue,0,strlen(msg_Vue)); // RAZ du message
  117   3              Dest_msg_SPI[w] = 0;
  118   3              break;
- 119   3            default :
- 120   3              break;
- 121   3          }
- 122   2      
- 123   2        }
- 124   1      
- 125   1      }
- 126          
- 127          
- 128          void ISR_Timer2 (void) interrupt 5 {
- 129   1        TF2 = 0; //Remise à '0' du flag d'overflow
- 130   1        PWM_servo=!PWM_servo; //On envoie le signal PWM au servomoteur
- 131   1      }
- 132          
+ 119   3            case 4 :
+ 120   3              /********
+ 121   3              NON TRAITE
+ 122   3              *********/
+ 123   3              memset(msg_FPGA,0,strlen(msg_FPGA)); // RAZ du message
+ 124   3              Dest_msg_SPI[w] = 0;
+ 125   3              break;
+ 126   3            default :
+ 127   3              break;
+ 128   3          }
+ 129   2      
+ 130   2        }
+ 131   1      
+ 132   1      }
  133          
- 134          void ISR_SPI (void) interrupt 6 {
- 135   1      
- 136   1          SPIF = 0; //RAZ du flag d'écriture
- 137   1      
- 138   1          trame_recue(); // On réceptionne le message du Master
- 139   1          trame_emise(0xEE); // On renvoie un message au Master pour lui accuser bonne réception
- 140   1      
- 141   1      }
- 142          
- 143          /******Cette fonction d'interruption permet d'incrémenter un compteur toutes les 10ms
- 144                 afin de pouvoir gérer le temps de ON et de OFF du pointeur ******/
- 145          void ISR_Timer3 (void) interrupt 14 {
- 146   1      
- 147   1        TMR3CN &= 0x04; //Remise � '0' du flag d'overflow
- 148   1        cpt++;
- 149   1      }
- 150          
+ 134          
+ 135          void ISR_Timer2 (void) interrupt 5 {
+ 136   1        TF2 = 0; //Remise à '0' du flag d'overflow
+ 137   1        PWM_servo=!PWM_servo; //On envoie le signal PWM au servomoteur
+ 138   1      }
+ 139          
+ 140          
+ 141          void ISR_SPI (void) interrupt 6 {
+ 142   1      
+ 143   1          SPIF = 0; //RAZ du flag d'écriture
+ 144   1      
+ 145   1          trame_recue(); // On réceptionne le message du Master
+ 146   1          trame_emise(0xEE); // On renvoie un message au Master pour lui accuser bonne réception
+ 147   1      
+ 148   1      }
+ 149          
+ 150          /******Cette fonction d'interruption permet d'incrémenter un compteur toutes les 10ms
+ 151                 afin de pouvoir gérer le temps de ON et de OFF du pointeur ******/
+ 152          void ISR_Timer3 (void) interrupt 14 {
+ 153   1      
+ 154   1        TMR3CN &= 0x04; //Remise � '0' du flag d'overflow
+ 155   1        cpt++;
+ 156   1      }
+ 157          
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE

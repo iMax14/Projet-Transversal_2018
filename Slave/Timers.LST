@@ -1,4 +1,4 @@
-C51 COMPILER V9.51   TIMERS                                                                05/24/2018 14:42:41 PAGE 1   
+C51 COMPILER V9.51   TIMERS                                                                05/24/2018 19:15:15 PAGE 1   
 
 
 C51 COMPILER V9.51, COMPILATION OF MODULE TIMERS
@@ -62,7 +62,7 @@ line level    source
   52   1      }
   53          
   54          void Config_Timer3(void){
-C51 COMPILER V9.51   TIMERS                                                                05/24/2018 14:42:41 PAGE 2   
+C51 COMPILER V9.51   TIMERS                                                                05/24/2018 19:15:15 PAGE 2   
 
   55   1        int recharge;
   56   1        

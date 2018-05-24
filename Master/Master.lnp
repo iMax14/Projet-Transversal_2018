@@ -3,6 +3,7 @@
 "Config_Globale.obj",
 "Config_SPI.obj",
 "Detect_Obst.obj",
+"Encodage_Pointeur_lum.obj",
 "Fonctions_cote_serializer.obj",
 "Generation_son.obj",
 "Gpio.obj",
@@ -14,7 +15,6 @@
 "Transmission_SPI.obj",
 "UART0_RingBuffer_lib.obj",
 "UART1.obj",
-"ultrason.obj",
-"Encodage_Pointeur_lum.obj" 
+"ultrason.obj" 
 TO "Master" 
 RAMSIZE(256) 

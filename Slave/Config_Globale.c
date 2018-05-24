@@ -45,6 +45,7 @@ void GPIO_Config (void){
 	P1MDOUT |= 0x01; //00000001 ----- P1.2
 	P2MDOUT |= 0x03; //00100011 ----- P2.0/1/5
 	
+	P1 &= 0x00;
 	//PO.O : TX0 ; P0.3 : MISO_SPI 
 	//P1.0 : CEX0 (PCA pour le pointeur lumineux)
 	//P2.0 : Servo vertical

@@ -15,6 +15,7 @@
 #include "Config_PCA.h"
 
 
+
 #define SYSCLK 22118400L
 
 // Global variables
@@ -23,6 +24,8 @@ int Dest_msg_SPI[5] = 0;
 signed int Angle_voulu = 0x0000;
 char Angle_atteint;
 int w,j;
+extern unsigned char PWM;	  // varie entre 0 et 255. permet de choisir le duty cycle
+extern unsigned int temp;    // utilisé dans le timer0
 
 extern unsigned char msg_CM4[256];
 extern unsigned char msg_PointLum[256];
@@ -49,23 +52,23 @@ void main (void) {
 	EA=1;
 
 /*Fonctions de tests de la connexion SPI
-	trame_recue_test(0xD3);
-	trame_recue_test(0xD3);
-	trame_recue_test(0xA9);
-	trame_recue_test(0xBB);
+	trame_recue_test(0xD1);
+	trame_recue_test(0xD1);
+	trame_recue_test(0x08);
+	trame_recue_test(0x08);
+	trame_recue_test(0x08);
+	trame_recue_test(0x08);
 	trame_recue_test(0xFF);
 	trame_recue_test(0xFF);*/
 
-/*Fonction de tests pour le pilotage du pointeur lumineux
-	intensite = 70;
-	dureeAllumage = 88;
-	dureeExtinction = 22;
-	nombreCycle = 1;
-	Lumiere(intensite,dureeAllumage,dureeExtinction,nombreCycle);*/
+// 	intensite = 10;
+// 	dureeAllumage = 20;
+// 	dureeExtinction = 20;
+// 	nombreCycle = 5;
+
+// 	cycleAllumageExtinction(intensite,dureeAllumage,dureeExtinction,nombreCycle);
 
 
-	
-	
 	while (1){
 		for(w=0; w<sizeof(Dest_msg_SPI);w++){
 			if(Dest_msg_SPI[w] == 1)
@@ -85,7 +88,7 @@ void main (void) {
 				dureeExtinction = (float) msg_PointLum[4];
 				nombreCycle = (int) msg_PointLum[6];
 			
-				Lumiere(intensite,dureeAllumage,dureeExtinction,nombreCycle);
+				cycleAllumageExtinction(intensite,dureeAllumage,dureeExtinction,nombreCycle);
 			
 				memset(msg_PointLum,0,strlen(msg_PointLum)); // RAZ du message
 				Dest_msg_SPI[w] = 0;
@@ -107,12 +110,16 @@ void main (void) {
 				Dest_msg_SPI[w] = 0;
 				break;
 			case 3 :
-				
+				/********
+				NON TRAITE
+				*********/
 				memset(msg_Vue,0,strlen(msg_Vue)); // RAZ du message
 				Dest_msg_SPI[w] = 0;
 				break;
 			case 4 :
-				
+				/********
+				NON TRAITE
+				*********/
 				memset(msg_FPGA,0,strlen(msg_FPGA)); // RAZ du message
 				Dest_msg_SPI[w] = 0;
 				break;

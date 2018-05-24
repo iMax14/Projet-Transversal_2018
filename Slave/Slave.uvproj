@@ -140,7 +140,7 @@
             <RestoreTracepoints>1</RestoreTracepoints>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
-          <TargetSelection>9</TargetSelection>
+          <TargetSelection>-1</TargetSelection>
           <SimDlls>
             <CpuDll></CpuDll>
             <CpuDllArguments></CpuDllArguments>
@@ -154,20 +154,20 @@
             <PeripheralDll></PeripheralDll>
             <PeripheralDllArguments></PeripheralDllArguments>
             <InitializationFile></InitializationFile>
-            <Driver>BIN\SiC8051F.dll</Driver>
+            <Driver></Driver>
           </TargetDlls>
         </DebugOption>
         <Utilities>
           <Flash1>
-            <UseTargetDll>1</UseTargetDll>
+            <UseTargetDll>0</UseTargetDll>
             <UseExternalTool>0</UseExternalTool>
             <RunIndependent>0</RunIndependent>
             <UpdateFlashBeforeDebugging>0</UpdateFlashBeforeDebugging>
-            <Capability>1</Capability>
-            <DriverSelection>4102</DriverSelection>
+            <Capability>0</Capability>
+            <DriverSelection>-1</DriverSelection>
           </Flash1>
-          <Flash2>BIN\SiC8051F.dll</Flash2>
-          <Flash3>"" ()</Flash3>
+          <Flash2></Flash2>
+          <Flash3></Flash3>
           <Flash4></Flash4>
         </Utilities>
         <Target51>
@@ -217,7 +217,7 @@
               <RCB>
                 <Type>0</Type>
                 <StartAddress>0x0</StartAddress>
-                <Size>0xffff</Size>
+                <Size>0x10000</Size>
               </RCB>
               <RXB>
                 <Type>0</Type>
@@ -361,14 +361,29 @@
               <FilePath>.\Config_Globale.c</FilePath>
             </File>
             <File>
+              <FileName>Config_PCA.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Config_PCA.c</FilePath>
+            </File>
+            <File>
               <FileName>Config_SPI.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Config_SPI.c</FilePath>
             </File>
             <File>
+              <FileName>Config_UART0.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Config_UART0.c</FilePath>
+            </File>
+            <File>
               <FileName>Main.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Main.c</FilePath>
+            </File>
+            <File>
+              <FileName>Pointeur_Lumineux.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Pointeur_Lumineux.c</FilePath>
             </File>
             <File>
               <FileName>Servomoteur_Vertical.c</FileName>
@@ -389,21 +404,6 @@
               <FileName>Transmission_UART0.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Transmission_UART0.c</FilePath>
-            </File>
-            <File>
-              <FileName>Config_UART0.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Config_UART0.c</FilePath>
-            </File>
-            <File>
-              <FileName>Pointeur_Lumineux.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Pointeur_Lumineux.c</FilePath>
-            </File>
-            <File>
-              <FileName>Config_PCA.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Config_PCA.c</FilePath>
             </File>
           </Files>
         </Group>
