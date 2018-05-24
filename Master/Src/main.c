@@ -401,26 +401,7 @@ struct COMMANDES traitement_G(char * com, struct COMMANDES commande) // DEPLACEM
 			}
 			coord[k]='\0';
 			commande.Coord_X=conv(coord,strlen(coord));
-			i = i+ 3;
-			k=0;
-			while(com[i]!= ' ')
-			{
-				coord[k]=com[i];
-				i=i+1;
-				k=k+1;
-			}
-			coord[i]='\0';
-			commande.Coord_Y=conv(coord,strlen(coord));
-			k=0;
-			i = i+ 3;
-			while(com[i]!= '\0')
-			{
-				coord[k]=com[i];
-				i=i+1;
-				k=k+1;
-			}
-			coord[i-1]='\0';
-			commande.Angle=conv(coord,strlen(coord));
+			
 
 
 		}
