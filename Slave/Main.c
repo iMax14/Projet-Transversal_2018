@@ -73,6 +73,7 @@ void main (void) {
 		for(w=0; w<sizeof(Dest_msg_SPI);w++){
 			if(Dest_msg_SPI[w] == 1)
 				break;
+			Allumage_Pointeur(0); //Exctinction du pointeur lumineux quand on ne l'utilise pas 
 		}
 		switch(w){
 			case 0 :

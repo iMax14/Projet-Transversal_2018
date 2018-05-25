@@ -77,7 +77,6 @@ void fonctionRoutage(struct COMMANDES commande){
 	unsigned char commande_SPI = 0x00;
 	unsigned char trame[2] = 0;
 	unsigned char taille_trame = 1;
-	//double alpha;
 	int distance;
 	char angle_ascii[3];
 	char mess[50] = {0};
@@ -87,8 +86,8 @@ void fonctionRoutage(struct COMMANDES commande){
 	int compteur = 0;
 	char msg_Slave_ascii[256];
   struct INFORMATIONS info;
-	char courant_ascii[4];
-	char energie_ascii[4];
+	char courant_ascii[5];
+	char energie_ascii[5];
 	extern char affichage [50];
 	char string_s[1000] = {2};
 	int cpt = 0;
@@ -176,7 +175,7 @@ void fonctionRoutage(struct COMMANDES commande){
 			Detect_Obst(commande);
 			break;
 
-// A TESTER
+// OK
 		case Courant:
 			info.Mesure_Courant = courant;
 			sprintf(courant_ascii,"%d", info.Mesure_Courant);
@@ -184,7 +183,7 @@ void fonctionRoutage(struct COMMANDES commande){
 			serOutstring("mA\n\r>");
 			break;
 		
-// A TESTER
+// OK
 		case Energie :
 			info.Mesure_Energie = energie;
 			sprintf(energie_ascii,"%d", info.Mesure_Energie);

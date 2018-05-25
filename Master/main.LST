@@ -1,4 +1,4 @@
-C51 COMPILER V9.51   MAIN                                                                  05/24/2018 19:09:44 PAGE 1   
+C51 COMPILER V9.51   MAIN                                                                  05/25/2018 07:46:44 PAGE 1   
 
 
 C51 COMPILER V9.51, COMPILATION OF MODULE MAIN
@@ -62,7 +62,7 @@ line level    source
   53   1        int centaine = 0;
   54   1        char valeur;
   55   1        
-C51 COMPILER V9.51   MAIN                                                                  05/24/2018 19:09:44 PAGE 2   
+C51 COMPILER V9.51   MAIN                                                                  05/25/2018 07:46:44 PAGE 2   
 
   56   1        centaine = (tableau[0]-'0')*100;
   57   1        dizaine= (tableau[1]-'0')*10;
@@ -126,7 +126,7 @@ line level    source
  115   2          valeur = -1* (dizaine + unite);
  116   2        }
  117   1        else {
-C51 COMPILER V9.51   MAIN                                                                  05/24/2018 19:09:44 PAGE 3   
+C51 COMPILER V9.51   MAIN                                                                  05/25/2018 07:46:44 PAGE 3   
 
  118   2          centaine= (tableau[0]-'0')*100;
  119   2          dizaine= (tableau[1]-'0')*10;
@@ -190,7 +190,7 @@ line level    source
  176   4                      strcpy(message_PC_com,"\r\nErreur non epreuve 1\r\n>");}
  177   3                break;
  178   3              }
-C51 COMPILER V9.51   MAIN                                                                  05/24/2018 19:09:44 PAGE 4   
+C51 COMPILER V9.51   MAIN                                                                  05/25/2018 07:46:44 PAGE 4   
 
  179   2            default:
  180   2              {
@@ -254,7 +254,7 @@ line level    source
  238   4                if (angle > 90 ||angle <-90)
  239   4                {
  240   5                  commande_correct = 0;
-C51 COMPILER V9.51   MAIN                                                                  05/24/2018 19:09:44 PAGE 5   
+C51 COMPILER V9.51   MAIN                                                                  05/25/2018 07:46:44 PAGE 5   
 
  241   5                }
  242   4                else
@@ -318,7 +318,7 @@ line level    source
  300   3                commande.Etat_Epreuve=epreuve1;
  301   3                strcpy(message_PC_com, "\r\nInvite de commande 1\r\n>");
  302   3                epreuve_en_cours = epreuve1;
-C51 COMPILER V9.51   MAIN                                                                  05/24/2018 19:09:44 PAGE 6   
+C51 COMPILER V9.51   MAIN                                                                  05/25/2018 07:46:44 PAGE 6   
 
  303   3                //serOutstring("Invite de commande 1");
  304   3                break;
@@ -382,7 +382,7 @@ line level    source
  362   3                epreuve_en_cours = epreuve8;
  363   3                strcpy(message_PC_com, "\r\nInvite de commande 8\r\n>");
  364   3                //serOutstring("Invite de commande 8");
-C51 COMPILER V9.51   MAIN                                                                  05/24/2018 19:09:44 PAGE 7   
+C51 COMPILER V9.51   MAIN                                                                  05/25/2018 07:46:44 PAGE 7   
 
  365   3                break;
  366   3              }
@@ -446,7 +446,7 @@ line level    source
  424          
  425          struct COMMANDES traitement_L(char * com,struct COMMANDES commande)
  426          {
-C51 COMPILER V9.51   MAIN                                                                  05/24/2018 19:09:44 PAGE 8   
+C51 COMPILER V9.51   MAIN                                                                  05/25/2018 07:46:44 PAGE 8   
 
  427   1        char Lumiere_Intensite;
  428   1        char Lumiere_Duree;
@@ -510,7 +510,7 @@ line level    source
  486   5                commande_correct=0;
  487   5              }
  488   4              break;
-C51 COMPILER V9.51   MAIN                                                                  05/24/2018 19:09:44 PAGE 9   
+C51 COMPILER V9.51   MAIN                                                                  05/25/2018 07:46:44 PAGE 9   
 
  489   4            }
  490   3            
@@ -574,7 +574,7 @@ line level    source
  548   5                          tab[j-6]=com[j];
  549   5                        }
  550   4                        angle=conversioncoord(tab);
-C51 COMPILER V9.51   MAIN                                                                  05/24/2018 19:09:44 PAGE 10  
+C51 COMPILER V9.51   MAIN                                                                  05/25/2018 07:46:44 PAGE 10  
 
  551   4                        if (angle%5==0){
  552   5                          if(angle>=5 && angle<=45){
@@ -638,7 +638,7 @@ line level    source
  610   6                          }
  611   5                        }
  612   4                        else
-C51 COMPILER V9.51   MAIN                                                                  05/24/2018 19:09:44 PAGE 11  
+C51 COMPILER V9.51   MAIN                                                                  05/25/2018 07:46:44 PAGE 11  
 
  613   4                        {
  614   5                          commande_correct=0;
@@ -702,7 +702,7 @@ line level    source
  672   1        switch (com[1])
  673   1            {
  674   2            case 'D': // si on recoit RD
-C51 COMPILER V9.51   MAIN                                                                  05/24/2018 19:09:44 PAGE 12  
+C51 COMPILER V9.51   MAIN                                                                  05/25/2018 07:46:44 PAGE 12  
 
  675   2            {
  676   3              commande.Etat_Mouvement=Rot_90D;
@@ -766,7 +766,7 @@ line level    source
  734   2            {
  735   3              break;
  736   3            }
-C51 COMPILER V9.51   MAIN                                                                  05/24/2018 19:09:44 PAGE 13  
+C51 COMPILER V9.51   MAIN                                                                  05/25/2018 07:46:44 PAGE 13  
 
  737   2          }
  738   1          return commande;
@@ -830,7 +830,7 @@ line level    source
  795   3              else
  796   3              {
  797   4                commande.duree_silence=duree_silence;
-C51 COMPILER V9.51   MAIN                                                                  05/24/2018 19:09:44 PAGE 14  
+C51 COMPILER V9.51   MAIN                                                                  05/25/2018 07:46:44 PAGE 14  
 
  798   4                commande_correct = 1;
  799   4              }
@@ -894,7 +894,7 @@ line level    source
  856   1      //  char tabcoordy[2];
  857   1      //  char tabangle[2];
  858   1      //  signed char coordx;
-C51 COMPILER V9.51   MAIN                                                                  05/24/2018 19:09:44 PAGE 15  
+C51 COMPILER V9.51   MAIN                                                                  05/25/2018 07:46:44 PAGE 15  
 
  859   1      //  signed char coordy;
  860   1      //  char angle;
@@ -958,7 +958,7 @@ line level    source
  918   3          }
  919   2          case 'I':// si on recoit un IPO (I)
  920   2          {
-C51 COMPILER V9.51   MAIN                                                                  05/24/2018 19:09:44 PAGE 16  
+C51 COMPILER V9.51   MAIN                                                                  05/25/2018 07:46:44 PAGE 16  
 
  921   3            // a faire
  922   3            //commande=traitement_I(com,commande);
@@ -1022,7 +1022,7 @@ line level    source
  980   1        int b = 0;
  981   1        unsigned char code_err = 0;
  982   1      
-C51 COMPILER V9.51   MAIN                                                                  05/24/2018 19:09:44 PAGE 17  
+C51 COMPILER V9.51   MAIN                                                                  05/25/2018 07:46:44 PAGE 17  
 
  983   1        //a modifier
  984   1        char f_b=6;
@@ -1086,7 +1086,7 @@ line level    source
 1042   2          commande = Message(com);
 1043   2            
 1044   2          if (commande_correct == 1){
-C51 COMPILER V9.51   MAIN                                                                  05/24/2018 19:09:44 PAGE 18  
+C51 COMPILER V9.51   MAIN                                                                  05/25/2018 07:46:44 PAGE 18  
 
 1045   3              fonctionRoutage(commande);
 1046   3          }
