@@ -34,5 +34,5 @@ void UART_CortexM4 (unsigned char trame[]){
 		rep = Putchar(*p,csg_tempo);
 	}
 	
-	rep = Putchar(13,csg_tempo); //Envoie de cet octet au CortexM4 pour lui dire que l'on a fini d'émettre
+	rep = Putchar(0xFF,csg_tempo); //Envoie de cet octet au CortexM4 pour lui dire que l'on a fini d'émettre
 }
