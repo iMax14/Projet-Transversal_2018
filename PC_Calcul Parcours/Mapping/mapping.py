@@ -75,7 +75,6 @@ y = []
 #position en x et y des vertices de la zone de cible
 x_cible = []
 y_cible = []
-
 #Position X Y et Rayon des Obstacles Cercles
 obstaclex = []
 obstacley = []
@@ -128,7 +127,8 @@ xe = data['arrivee']['coordonnees']['x'] + centre -25
 ye = data['arrivee']['coordonnees']['y'] + centre -25
 #POSION DE LA CIBLE
 xc = terrain['cible']['centre']['x'] + centre
-yc = terrain['cible']['centre']['y']+ centre
+yc = terrain['cible']['centre']['y'] + centre
+zc = terrain['cible']['hauteur']
 
 #POINT DE PASSSAGE
 etapeX = []
@@ -164,14 +164,10 @@ def Balayage(resolution):
 
 
 #POINTEUR LUMINEUX     
-def allumage():
-    global lampe
-    if(lampe):
-        order.append("L I:"+ normalisation3(50) +" D:"+normalisation3(50)+" E:"+ normalisation3(50)+" N:"+normalisation3(10) ) 
-        lampe = False
-    else:
-        order.append("LS") # A DEFINIR
-        lampe = True
+def allumage_Poiteur():
+
+    order.append("L I:"+ normalisation3(50) +" D:"+normalisation3(20)+" E:"+ normalisation3(20)+" N:"+normalisation3(5) ) 
+
 
 #REMET ROBOT A ANGLE 0        
 def raz_angle():
@@ -201,6 +197,7 @@ def normalisation2(D):
         ret = str(D)
     return ret   
     
+
 #GENERE la LISTE D'ordre POUR déplacement simple    
 def ordre_gen():
     if(robot[2] != 0):
@@ -383,7 +380,40 @@ def calcul_parcours():
     distance = np.sqrt(np.abs(dest[1] - robot[1])**2 + np.fabs(dest[0]-robot[0])**2)
 
     return angle,distance
+
+def calcul_angles_pointeur():
     
+    global xc,yc,zc #Coordonnées de la cible dans l'espace
+
+    robot[2] = 10 #Hauteur à laquelle est placé le pointeur lumineux (en cm - unité à choisir) ### Hauteur à vérifier ###
+
+    if (robot[0] <= xc) :
+        Angle_servo_H = np.arctan(np.fabs(yc - robot[1])/np.fabs(xc - robot[0]))
+	Angle_servo_H = 180*Angle_servo_H/np.pi #conversion en degré
+    else :
+        Angle_servo_H = -np.arctan(np.fabs(yc - robot[1])/np.fabs(xc - robot[0]))
+	Angle_servo_H = 180*Angle_servo_H/np.pi #conversion en degré
+
+
+    if (robot[1] <= yc) :
+        Angle_servo_V = np.arctan(np.fabs(zc - robot[2])/np.sqrt(np.fabs(xc - robot[0])**2 + np.fabs(yc - robot[1])**2))
+	Angle_servo_V = 180*Angle_servo_V/np.pi #conversion en degré
+    else :
+        Angle_servo_V = -np.arctan(np.fabs(zc - robot[2])/np.sqrt(np.fabs(xc - robot[0])**2 + np.fabs(yc - robot[1])**2))
+	Angle_servo_V = 180*Angle_servo_V/np.pi #conversion en degré
+
+
+   # Conversion des angles trouvés en instructions pour la carte MASTER
+
+    Angle_servo_H = normalisation3(int(Angle_servo_H)) #retour de l'angle en char
+    Angle_servo_V = normalisation3(int(Angle_servo_V)) #retour de l'angle en char
+
+    order.append("CS H A:"+ str(Angle_servo_H)) 
+    order.append("CS V A:"+ str(Angle_servo_V)) 
+    allumage_Poiteur()
+    
+    print(order)
+	
 
   
 def find_vertice():
@@ -524,7 +554,7 @@ bouton.pack(side=tk.TOP)
 boutonFP= tk.Button(Frame3, text="FAIRE PARCOURS", command=send_serie)
 boutonFP.pack(side=tk.TOP)
 
-boutonLumiere= tk.Button(Frame2, text="Allumer/Eteindre Lumiere", command=allumage)
+boutonLumiere= tk.Button(Frame2, text="Tirer sur la cible", command=calcul_angles_pointeur)
 boutonLumiere.pack(side=tk.LEFT)
 
 boutonLumiere= tk.Button(Frame3, text="DISTANCE PAR BALYAGE", command=graphdist)
