@@ -8,10 +8,10 @@ Created on Tue May 15 14:04:53 2018
 #IMPORT MODULES
 import json
 import serial
-import cv2
+#import cv2
 import math
-from skimage.transform import hough_line, hough_line_peaks
-from skimage.draw import line
+#from skimage.transform import hough_line, hough_line_peaks
+#from skimage.draw import line
 import matplotlib.pyplot as plt
 import PIL as p
 import Tkinter as tk
@@ -35,13 +35,15 @@ PATH_X = []
 PATH_Y = []
 PATH =[]
 #point de passage
-pdp = []  
+pdp_X = []  
+pdp_Y = []  
 #ETAT LAMPE
 lampe = False 
 #STRING LIST D'ordre envoye au robot par serie
 order = []
 #coordonne d'arrivee[x][y][angle]
-dest = []
+dest_x = 0
+dest_y = 0
 
 #VARIABLE LABEL
 action_encours = tk.StringVar()
@@ -367,25 +369,24 @@ def createMat():
 
 def calcul_parcours():
 
-    angle = float(0.0)
+    angle = 0
 
-    if (robot[0] < dest[0]) and (robot[1] < dest[1]) :
-        angle = np.fabs(np.arctan(np.fabs(dest[1] - robot[1])/np.fabs(dest[0]-robot[0])))
+    if (robot[0] < dest_x) and (robot[1] < dest_y) :
+        angle = np.fabs(np.arctan(np.fabs(dest_y - robot[1])/np.fabs(dest_x-robot[0])))
 
-    if (robot[0] < dest[0]) and (robot[1] > dest[1]) :
-        angle = (3*np.pi/2) + ((np.pi/2) - np.fabs(np.arctan(np.fabs(dest[1] - robot[1])/np.fabs(dest[0]-robot[0]))))
+    if (robot[0] < dest_x) and (robot[1] > dest_y) :
+        angle = (3*np.pi/2) + ((np.pi/2) - np.fabs(np.arctan(np.fabs(dest_y - robot[1])/np.fabs(dest_x-robot[0]))))
 
 
-    if (robot[0] > dest[0]) and (robot[1] > dest[1]) :
-        angle = (np.pi) + np.fabs(np.arctan(np.fabs(dest[1] - robot[1])/np.fabs(dest[0]-robot[0])))
+    if (robot[0] > dest_x) and (robot[1] > dest_y) :
+        angle = (np.pi) + np.fabs(np.arctan(np.fabs(dest_y - robot[1])/np.fabs(dest_x-robot[0])))
 
-    if (robot[0] > dest[0]) and (robot[1] < dest[1]) :
-        angle = (np.pi/2) + ((np.pi/2) - np.fabs(np.arctan(np.fabs(dest[1] - robot[1])/np.fabs(dest[0]-robot[0]))))
+    if (robot[0] > dest_x) and (robot[1] < dest_y) :
+        angle = (np.pi/2) + ((np.pi/2) - np.fabs(np.arctan(np.fabs(dest_y - robot[1])/np.fabs(dest_x-robot[0]))))
 
-    distance = np.sqrt(np.abs(dest[1] - robot[1])**2 + np.fabs(dest[0]-robot[0])**2)
+    distance = np.sqrt(np.abs(dest_y - robot[1])**2 + np.fabs(dest_x-robot[0])**2)
 	
-    #angle = np.rad2deg(angle) 
-    print(180*angle/np.pi)
+    angle = np.rad2deg(angle) 
     return angle,distance
 
 def calcul_angles_pointeur():
@@ -469,52 +470,64 @@ def find_vertice():
             else:
                 n=0
              
-         
-		
-
-    
     
     for i in dd:
         
         
         c.create_oval(PATH_X[i]-10,PATH_Y[i]-10,PATH_X[i]+10,PATH_Y[i]+10, outline="black", fill='green')                   
-        print(PATH_X[i])
-        print(PATH_Y[i])        
-        pdp.append((PATH_X[i],PATH_Y[i]))       
+                
+	pdp_X.append(PATH_X[i])      
+	pdp_Y.append(PATH_Y[i])     
     
     trajectoire_avance()
         
 
 def trajectoire_avance():
-    freq = 6
-    duree_son =  25
-    duree_sil = 50
-    nbr_bip = 3
-    dest.append(robot[0])
-    dest.append(robot[1])
-    dest.append(robot[2])    
-    for i in range(len(pdp)):
-        dest[0] = pdp[i][0]
-        dest[1] = pdp[i][1]        
-        [angle,distance] = calcul_parcours()
-        robot[2] = angle
-        robot[1] = dest[1]
-        robot[0] = dest[0]
-        
-        if(angle < 180):
-            order.append("RA D:"+normalisation3(int(round(int(angle)))))
-        else:
-            order.append("RA G:"+normalisation3(int(round(180-int(angle)))))
-        
-        order.append("G X:"+str(int(distance))+" Y:10 A:10")
-        raz_angle()
-        for j in range(len(etapeX)):
-            if(abs(etapeX[j] - robot[0]) < 5 and abs(etapeY[j] - robot[1])<5):
-                order.append("SD F:"+normalisation3(freq)+" P:"+normalisation3(duree_son)+" W:"+normalisation3(duree_sil)+" B:"+normalisation3(nbr_bip))
-                
-    for i in order:
-            
-            print(i+"\n")    
+	global dest_x,dest_y,robot
+
+	freq = 6
+	duree_son =  25
+	duree_sil = 50
+	nbr_bip = 3
+
+	# Position intiale du robot
+     	robot[0] = 0
+        robot[1] = 75
+	robot[2] = 0
+
+	a = [124,174,199,375,336,313,251,200]#  pdp_X doit être de la sorte
+	b = [199,199,224,225,262,262,324,325]#  pdp_Y doit être de la sorte
+    	for i in range(len(pdp_X)):
+    		dest_x = a[i]
+    		dest_y = b[i]
+
+		[angle,distance] = calcul_parcours()
+
+     		robot[0] = dest_x
+        	robot[1] = dest_y
+
+		raz_angle()
+   	
+		if(angle < 180):
+		    order.append("RA D:"+normalisation3(int(angle)))
+		else:
+		    order.append("RA G:"+normalisation3(int(180-angle)))
+
+		order.append("G X:"+str(int(distance))+" Y:10 A:10")
+
+		#Avec cette boucle, on attend que le robot se trouve devant l'obstacle avant de générer le son :
+		while (abs(dest_x - robot[0]) > 5 and abs(dest_y - robot[1]) > 5) :
+			continue
+
+		order.append("SD F:"+normalisation3(freq)+" P:"+normalisation3(duree_son)+" W:"+normalisation3(duree_sil)+" B:"+normalisation3(nbr_bip))
+
+
+	print("Affichage des instructions envoyée à la carte MASTER")
+	for i in order:  
+	    print(i+"\n")    
+
+
+
         
         
 #REMPLI PATHX ET PATHY AVEC LE CHEMIN RETOURNE PAR ASTAR    
