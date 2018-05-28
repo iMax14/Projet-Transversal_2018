@@ -8,10 +8,10 @@ Created on Tue May 15 14:04:53 2018
 #IMPORT MODULES
 import json
 import serial
-#import cv2
+import cv2
 import math
-#from skimage.transform import hough_line, hough_line_peaks
-#from skimage.draw import line
+from skimage.transform import hough_line, hough_line_peaks
+from skimage.draw import line
 import matplotlib.pyplot as plt
 import PIL as p
 import Tkinter as tk
@@ -33,7 +33,9 @@ centre = 75#décalage fenetre
 #Contient chemin calcule
 PATH_X = []
 PATH_Y = []
-
+PATH =[]
+#point de passage
+pdp = []  
 #ETAT LAMPE
 lampe = False 
 #STRING LIST D'ordre envoye au robot par serie
@@ -75,6 +77,7 @@ y = []
 #position en x et y des vertices de la zone de cible
 x_cible = []
 y_cible = []
+
 #Position X Y et Rayon des Obstacles Cercles
 obstaclex = []
 obstacley = []
@@ -127,7 +130,7 @@ xe = data['arrivee']['coordonnees']['x'] + centre -25
 ye = data['arrivee']['coordonnees']['y'] + centre -25
 #POSION DE LA CIBLE
 xc = terrain['cible']['centre']['x'] + centre
-yc = terrain['cible']['centre']['y'] + centre
+yc = terrain['cible']['centre']['y']+ centre
 zc = terrain['cible']['hauteur']
 
 #POINT DE PASSSAGE
@@ -164,10 +167,14 @@ def Balayage(resolution):
 
 
 #POINTEUR LUMINEUX     
-def allumage_Poiteur():
-
-    order.append("L I:"+ normalisation3(50) +" D:"+normalisation3(20)+" E:"+ normalisation3(20)+" N:"+normalisation3(5) ) 
-
+def allumage():
+    global lampe
+    if(lampe):
+        order.append("L I:"+ normalisation3(50) +" D:"+normalisation3(50)+" E:"+ normalisation3(50)+" N:"+normalisation3(10) ) 
+        lampe = False
+    else:
+        order.append("LS") # A DEFINIR
+        lampe = True
 
 #REMET ROBOT A ANGLE 0        
 def raz_angle():
@@ -197,9 +204,10 @@ def normalisation2(D):
         ret = str(D)
     return ret   
     
-
 #GENERE la LISTE D'ordre POUR déplacement simple    
 def ordre_gen():
+    
+    
     if(robot[2] != 0):
         raz_angle()
     #DEPLACEMENT X     
@@ -228,15 +236,7 @@ def ordre_gen():
     else:
         order.append("RA D:"+normalisation3(D-180))#:droite
         
-"""    
-def trajectoir_avance():
-    dxth = 
-    dyth = 
-    dx =
-    dy = 
-    mth = dyth/dxth
-    for i in range()    :
-"""  
+
 
 
 
@@ -263,9 +263,13 @@ def getorder():
     dest.append(int(entrex.get())+centre)
     dest.append(int(entrey.get())+centre)
     dest.append(int(entrea.get()))
+    
     entrex.delete(0, 'end')
     entrey.delete(0, 'end')
     entrea.delete(0, 'end')
+    
+    
+    
     c.create_oval(dest[0]-10,dest[1]-10,dest[0]+10,dest[1]+10, outline="black", fill='yellow')
     c.create_line(dest[0],dest[1],dest[0]+10*np.cos(dest[2]*np.pi/180),dest[1]-10*np.sin(dest[2]*np.pi/180), fill='black')
     trajectoire_simple()
@@ -360,6 +364,7 @@ def createMat():
   
 
 
+
 def calcul_parcours():
 
     angle = float(0.0)
@@ -379,8 +384,8 @@ def calcul_parcours():
 
     distance = np.sqrt(np.abs(dest[1] - robot[1])**2 + np.fabs(dest[0]-robot[0])**2)
 	
-    print(angle)
-    print(distance)
+    #angle = np.rad2deg(angle) 
+    print(180*angle/np.pi)
     return angle,distance
 
 def calcul_angles_pointeur():
@@ -413,38 +418,104 @@ def calcul_angles_pointeur():
     order.append("CS V A:"+ str(Angle_servo_V)) 
     allumage_Poiteur()
     
-	
+   
+
+    
+
   
 def find_vertice():
-    H=600
-    W = 600
 
-    Trace = np.zeros((H,W), dtype=int)
-    for i in range(len(PATH_X)):
-        Trace[PATH_X[i]][PATH_Y[i]] = 1
-        
-    from scipy.misc import toimage
-    toimage(Trace).save("image.jpeg")
-    #Hough(img)
-"""
-    lines = cv2.HoughLines(img,1,np.pi/180,200)
-    for rho,theta in lines[0]:
-        a = np.cos(theta)
-        b = np.sin(theta)
-        x0 = a*rho
-        y0 = b*rho
-        x1 = int(x0 + 1000*(-b))
-        y1 = int(y0 + 1000*(a))
-        x2 = int(x0 - 1000*(-b))
-        y2 = int(y0 - 1000*(a))
     
-        cv2.line(Trace,(x1,y1),(x2,y2),(0,0,255),2)
-    toimage(Trace).show
-    cv2.imwrite('houghlines3.jpg',img)
-  """
-  
+    #####################################"      MISE EN FORME DE LA TRAJEC POUR DES LIGNES DROITES
+    listedecime = []
+    listeangle = []
+    virage = []
+    dd = []
+    #for i in range(0, len(PATH), 10):
+    #	listedecime.append(PATH[i])
+     
+    listedecime = PATH
+    
+    for i in range(len(listedecime)-2):
+    	ax = listedecime[i][0]
+    	ay = listedecime[i][1]
+    	bx = listedecime[i+1][0]
+    	by = listedecime[i+1][1]
+    	cx = listedecime[i+2][0]
+    	cy = listedecime[i+2][1]
+    	AB = np.sqrt((ax - bx)*(ax - bx)+ (ay - by)*(ay - by))
+    	BC = np.sqrt((bx - cx)*(bx - cx) + (by - cy)*(by - cy))
+    	CA = np.sqrt((cx - ax)*(cx - ax) + (cy - ay)*(cy - ay))
+    	angle = math.acos((AB*AB + BC*BC - CA*CA) / (2 * AB * BC))
+    	angle = angle/np.pi * 360
+    	listeangle.append(angle)
+    	
+    	if (angle < 330):
+    		virage.append(1)
+    	else:
+    		virage.append(0)
+    	
+    n = 0
+    for i in range(len(virage)):
+        if(virage[i] == 1):
+            n=n+1
+        else:
+            if(n>1):
+                dd.append(int(i-round(n/2)))
+                n=0
+            elif(n==1):
+                dd.append(i)
+                n=0
+            else:
+                n=0
+             
+         
+		
 
+    
+    
+    for i in dd:
+        
+        
+        c.create_oval(PATH_X[i]-10,PATH_Y[i]-10,PATH_X[i]+10,PATH_Y[i]+10, outline="black", fill='green')                   
+        print(PATH_X[i])
+        print(PATH_Y[i])        
+        pdp.append((PATH_X[i],PATH_Y[i]))       
+    
+    trajectoire_avance()
+        
 
+def trajectoire_avance():
+    freq = 6
+    duree_son =  25
+    duree_sil = 50
+    nbr_bip = 3
+    dest.append(robot[0])
+    dest.append(robot[1])
+    dest.append(robot[2])    
+    for i in range(len(pdp)):
+        dest[0] = pdp[i][0]
+        dest[1] = pdp[i][1]        
+        [angle,distance] = calcul_parcours()
+        robot[2] = angle
+        robot[1] = dest[1]
+        robot[0] = dest[0]
+        
+        if(angle < 180):
+            order.append("RA D:"+normalisation3(int(round(int(angle)))))
+        else:
+            order.append("RA G:"+normalisation3(int(round(180-int(angle)))))
+        
+        order.append("G X:"+str(int(distance))+" Y:10 A:10")
+        raz_angle()
+        for j in range(len(etapeX)):
+            if(abs(etapeX[j] - robot[0]) < 5 and abs(etapeY[j] - robot[1])<5):
+                order.append("SD F:"+normalisation3(freq)+" P:"+normalisation3(duree_son)+" W:"+normalisation3(duree_sil)+" B:"+normalisation3(nbr_bip))
+                
+    for i in order:
+            
+            print(i+"\n")    
+        
         
 #REMPLI PATHX ET PATHY AVEC LE CHEMIN RETOURNE PAR ASTAR    
 def chemin():
@@ -457,20 +528,12 @@ def chemin():
         for i in range(len(path)):
             PATH_X.append(path[i][0])
             PATH_Y.append(path[i][1])
+            PATH.append((path[i][0],path[i][1]))
         #affichage
         for i in range(len(path)-1):
             c.create_line(path[i][0], path[i][1], path[i+1][0], path[i+1][1], fill="red")
         
-    H=600
-    W = 600
-
-    Trace = np.zeros((H,W), dtype=int)
-    for i in range(len(PATH_X)):
-        Trace[PATH_X[i]][PATH_Y[i]] = 1
-        
-    
-    
-    
+    #print(PATH)
     find_vertice()
         
         
@@ -553,7 +616,7 @@ bouton.pack(side=tk.TOP)
 boutonFP= tk.Button(Frame3, text="FAIRE PARCOURS", command=send_serie)
 boutonFP.pack(side=tk.TOP)
 
-boutonLumiere= tk.Button(Frame2, text="Tirer sur la cible", command=calcul_angles_pointeur)
+boutonLumiere= tk.Button(Frame2, text="Tirer sur cible", command=calcul_angles_pointeur)
 boutonLumiere.pack(side=tk.LEFT)
 
 boutonLumiere= tk.Button(Frame3, text="DISTANCE PAR BALYAGE", command=graphdist)
@@ -652,63 +715,6 @@ def astar(array, start, goal):
     return False
 
 
-def ind2sub(array_shape, ind):
-    rows = (ind.astype('int') / array_shape[1])
-    cols = (ind.astype('int') % array_shape[1]) # or numpy.mod(ind.astype('int'), array_shape[1])
-    return (rows, cols)
-
-def Hough(img):
-    H=600
-    W=600
-    ro_max = math.sqrt((H/2)**2 + (W/2)**2);
-    print(ro_max)
-    #Rï¿½solution a priori
-    dro=5; #largeur trait
-    dtheta= math.atan(dro/ro_max); #angle des droites (centre, pixels coin inf-gauche)
-    
-    #Rï¿½solution finale
-    theta_max=math.pi/2;
-    theta_min=-math.pi/2;
-    Ntheta=round((theta_max-theta_min)/dtheta);
-    dtheta=(theta_max-theta_min)/Ntheta;
-    
-    ro_min=-ro_max;
-    Nro=round((ro_max-ro_min)/dro);
-    dro=(ro_max-ro_min)/Nro;
-    
-    print((int(Ntheta),int(Nro)))
-    Hough = np.zeros((int(Ntheta),int(Nro)),dtype=int);
-    
-
-    ind = np.where(img == 0);
-
-    [i,j] = ind2sub(np.size(img),ind);
-    
-    
-    x0 = W/2;
-    y0 = H/2;
-    
-    
-    T = np.linspace(-np.pi/2,np.pi/2,Ntheta);
-    
-    for n  in range(len( ind)): 
-        x = j[n] - x0;
-        y = i[n] - y0;
-      
-        #Hough =  SinusHoughSpace(Hough,x,y,ro_max,ro_min,theta_min,Nro,Ntheta) ; 
-
-        RHO = np.linspace(-ro_max,ro_max,Nro);     
-        
-        
-        for h in range(len(T)):
-            ro = x*cos(T[h]) + y*sin(T[h]);
-            min_dist = min(abs(RHO - ro));
-            n = numpy.where(abs(RHO-ro)== min_dist)
-            #n = find(abs(RHO-ro) == min_dist);
-            Hough[h][n] =  Hough[h][n] +1 ;
-                
-    image(Hough);
-    toimage(Hough).show() 
 
 root.mainloop()
 
