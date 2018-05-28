@@ -378,7 +378,9 @@ def calcul_parcours():
         angle = (np.pi/2) + ((np.pi/2) - np.fabs(np.arctan(np.fabs(dest[1] - robot[1])/np.fabs(dest[0]-robot[0]))))
 
     distance = np.sqrt(np.abs(dest[1] - robot[1])**2 + np.fabs(dest[0]-robot[0])**2)
-
+	
+    print(angle)
+    print(distance)
     return angle,distance
 
 def calcul_angles_pointeur():
@@ -398,11 +400,10 @@ def calcul_angles_pointeur():
     if (robot[0] <= xc) :
         Angle_servo_V = np.arctan(np.fabs(zc - robot[2])/np.sqrt(np.fabs(xc - robot[0])**2 + np.fabs(yc - robot[1])**2))
 	Angle_servo_V = 180*Angle_servo_V/np.pi #conversion en degré
-	print("dd")
     else :
         Angle_servo_V = -np.arctan(np.fabs(zc - robot[2])/np.sqrt(np.fabs(xc - robot[0])**2 + np.fabs(yc - robot[1])**2))
 	Angle_servo_V = 180*Angle_servo_V/np.pi #conversion en degré
-	print("aa")
+
    # Conversion des angles trouvés en instructions pour la carte MASTER
 
     Angle_servo_H = normalisation3(int(Angle_servo_H)) #retour de l'angle en char
