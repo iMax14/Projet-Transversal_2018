@@ -387,7 +387,7 @@ def calcul_angles_pointeur():
 
     robot[2] = 10 #Hauteur à laquelle est placé le pointeur lumineux (en cm - unité à choisir) ### Hauteur à vérifier ###
 
-    if (robot[0] <= xc) :
+    if (robot[1] <= yc) :
         Angle_servo_H = np.arctan(np.fabs(yc - robot[1])/np.fabs(xc - robot[0]))
 	Angle_servo_H = 180*Angle_servo_H/np.pi #conversion en degré
     else :
@@ -395,14 +395,14 @@ def calcul_angles_pointeur():
 	Angle_servo_H = 180*Angle_servo_H/np.pi #conversion en degré
 
 
-    if (robot[1] <= yc) :
+    if (robot[0] <= xc) :
         Angle_servo_V = np.arctan(np.fabs(zc - robot[2])/np.sqrt(np.fabs(xc - robot[0])**2 + np.fabs(yc - robot[1])**2))
 	Angle_servo_V = 180*Angle_servo_V/np.pi #conversion en degré
+	print("dd")
     else :
         Angle_servo_V = -np.arctan(np.fabs(zc - robot[2])/np.sqrt(np.fabs(xc - robot[0])**2 + np.fabs(yc - robot[1])**2))
 	Angle_servo_V = 180*Angle_servo_V/np.pi #conversion en degré
-
-
+	print("aa")
    # Conversion des angles trouvés en instructions pour la carte MASTER
 
     Angle_servo_H = normalisation3(int(Angle_servo_H)) #retour de l'angle en char
@@ -412,9 +412,7 @@ def calcul_angles_pointeur():
     order.append("CS V A:"+ str(Angle_servo_V)) 
     allumage_Poiteur()
     
-    print(order)
 	
-
   
 def find_vertice():
     H=600
