@@ -44,6 +44,7 @@ order = []
 #coordonne d'arrivee[x][y][angle]
 dest_x = 0
 dest_y = 0
+dest = []
 
 #VARIABLE LABEL
 action_encours = tk.StringVar()
@@ -272,6 +273,8 @@ def trajectoire_simple():
     
 #RECUPERE ORDRE (coord) rentre par utilisateur   
 def getorder():
+    global dest
+
     dest.append(int(entrex.get())+centre)
     dest.append(int(entrey.get())+centre)
     dest.append(int(entrea.get()))
@@ -295,8 +298,7 @@ def getorder():
 #ENVOIE Des ordres par serie
 def send_serie():
     out =[]
-    xbee = serial.Serial('/dev/ttyUSB0', baudrate=19200,timeout = 1.0)   
-    #xbee = serial.Serial("COM4", baudrate=19200, timeout=1.0)
+    xbee = serial.Serial('/dev/ttyUSB0', baudrate=9600,timeout = 1.0)   
     xbee.write("D\r")
 
     for i in range(len(order)):
@@ -304,20 +306,20 @@ def send_serie():
        
         action_encours.set(("Action en cours: "+order[i]+"\r"))
         
-        #xbee.write("MI :\r") #courant
        	sleep(1)
         while xbee.inWaiting() > 0:
-            out += ser.read(1)
+            out += xbee.read(1)
         print(out)
-        #xbee.write("ME :\r") #energie
+
         sleep(1)
         while xbee.inWaiting() > 0:
-            out += ser.read(1)
+            out += xbee.read(1)
         print(out)
         
         root.update_idletasks()
         print(order[i]+"\r")
-        
+    
+    xbee.write("ME :\r") #energie
     xbee.write("E\r")    
     xbee.close()
     action_encours.set("Pas d'action en cours")
@@ -428,9 +430,7 @@ def calcul_angles_pointeur():
 
     order.append("CS H A:"+ str(Angle_servo_H)) 
     order.append("CS V A:"+ str(Angle_servo_V)) 
-    allumage_Poiteur()
     
-   
 
     
 
@@ -484,18 +484,9 @@ def find_vertice():
     for i in dd:
         
         c.create_oval(PATH_X[i]-10,PATH_Y[i]-10,PATH_X[i]+10,PATH_Y[i]+10, outline="black", fill='green')  
-	#print(PATH_X[i])
-	#print(PATH_Y[i])
 	pdp_X.append(PATH_X[i])      
 	pdp_Y.append(PATH_Y[i])  
-	d = int(np.sqrt(np.abs(75 - PATH_Y[i])**2 + np.fabs(0-PATH_X[i])**2))
-   	#print(d)
     
-
-    #Faire une fonction qui trie les coords des points du plus proche au plus éloigné 
-
-
-
 
     trajectoire_avance()
         
@@ -513,8 +504,13 @@ def trajectoire_avance():
         robot[1] = 75
 	robot[2] = 0
 
-	a = [124,174,199,375,336,313,251,200]#  pdp_X doit être de la sorte
-	b = [199,199,224,225,262,262,324,325]#  pdp_Y doit être de la sorte
+	#Mise en forme des matrices contenant les coords des obstacles
+	a = [pdp_X[1],pdp_X[0],pdp_X[3],pdp_X[2],pdp_X[7],pdp_X[6],pdp_X[5],pdp_X[4]]
+	b = [pdp_Y[1],pdp_Y[0],pdp_Y[3],pdp_Y[2],pdp_Y[7],pdp_Y[6],pdp_Y[5],pdp_Y[4]]
+
+
+	#On réalise le tir sur la balise au départ
+	calcul_angles_pointeur()
 
     	for i in range(len(pdp_X)):
     		dest_x = a[i]
@@ -534,28 +530,21 @@ def trajectoire_avance():
 
 		order.append("G X:"+str(int(distance))+" Y:10 A:10")
 		
-		angle = raz_angle(angle)
 
 		#Avec cette boucle, on attend que le robot se trouve devant l'obstacle avant de générer le son :
 		while (abs(dest_x - robot[0]) > 5 and abs(dest_y - robot[1]) > 5) :
 			continue
 
 		order.append("SD F:"+normalisation3(freq)+" P:"+normalisation3(duree_son)+" W:"+normalisation3(duree_sil)+" B:"+normalisation3(nbr_bip))
+		
 
-
-	print("Affichage des instructions envoyées à la carte MASTER")
-	for i in order:  
-	    print(i+"\n")    
-
-
+		angle = raz_angle(angle) #On remet le robot en position avec un angle de 0°
 
         
         
 #REMPLI PATHX ET PATHY AVEC LE CHEMIN RETOURNE PAR ASTAR    
 def chemin():
     createMat()
-    
-    
 
     for etape in range(len(etapeX)-1):
         path = astar(Map, (etapeX[etape], etapeY[etape]), (etapeX[etape+1],etapeY[etape+1]))
