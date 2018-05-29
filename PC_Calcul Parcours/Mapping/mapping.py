@@ -46,6 +46,12 @@ dest_x = 0
 dest_y = 0
 dest = []
 
+
+#RETOUR ULTRASON
+
+radii = []
+radar = []
+radav = []
 #VARIABLE LABEL
 action_encours = tk.StringVar()
 action_encours.set("Pas d'action en cours")
@@ -66,7 +72,7 @@ with open('document2.json') as data_file:
     data = json.load(data_file)
 
 #MATRICE REPRESENTANT LE TERRAIN (0 = obstacle; 1 = passage )
-Map = np.ones((H,W), dtype=int);
+Map = np.zeros((H,W), dtype=int);
 
 #
 #distance(ne sert à rien pour le moment)
@@ -126,11 +132,11 @@ for i in range(len( terrain['obstacles']  ) ):
 
 
 #POSION DEPART DU ROBOT (start)
-xs = data['depart']['coordonnees']['x'] + centre +25
-ys = data['depart']['coordonnees']['y'] + centre +25
+xs = data['depart']['coordonnees']['x'] + centre 
+ys = data['depart']['coordonnees']['y'] + centre 
 #POSION ARRIVEE DU ROBOT (end)
-xe = data['arrivee']['coordonnees']['x'] + centre -25
-ye = data['arrivee']['coordonnees']['y'] + centre -25
+xe = data['arrivee']['coordonnees']['x'] + centre 
+ye = data['arrivee']['coordonnees']['y'] + centre 
 #POSION DE LA CIBLE
 xc = terrain['cible']['centre']['x'] + centre
 yc = terrain['cible']['centre']['y']+ centre
@@ -166,7 +172,7 @@ def getDistance():
 def Balayage(resolution):
     if resolution < 0 or resolution > 45 :
         resolution = 30
-    order.append("MOB[D] A:"+normalisation2(resolution))
+    order.append("MOB A:"+normalisation2(resolution))
 
 
 #POINTEUR LUMINEUX     
@@ -298,29 +304,53 @@ def getorder():
 #ENVOIE Des ordres par serie
 def send_serie():
     out =[]
-    xbee = serial.Serial('/dev/ttyUSB0', baudrate=9600,timeout = 1.0)   
-    xbee.write("D\r")
+    zz =""
+    xbee = serial.Serial('/dev/ttyUSB0', baudrate=19200,timeout = 1.0)   
 
+    xbee.write("D\r") #Début d'épreuve
+
+#On envoie tous les ordres liés à l'épreuve
     for i in range(len(order)):
-       	xbee.write(order[i]+"\r")
-       
+       	del out[:]
+        xbee.write(order[i]+"\r")
+	sleep(2)
+	while xbee.inWaiting() > 0:
+       		zz = zz + xbee.read(1)
+	print(zz)
         action_encours.set(("Action en cours: "+order[i]+"\r"))
-        
-       	sleep(1)
-        while xbee.inWaiting() > 0:
-            out += xbee.read(1)
-        print(out)
+        resolution = 30
+       	
+	if(order[i][0] is "M"):
+     		for j in range((180/resolution)):
+		#while xbee.inWaiting() > 0:
+			out.append( str(-90+j*resolution)+" : 10 : 20")#xbee.read(1)
+			
+			retour = [out[k].split(" : ") for k in range (len(out))]
+			#print(retour)
+		for an in range(len(retour)):		
+			radav.append(int(retour[an].pop(1)))
+			radar.append(int(retour[an].pop(1)))
 
-        sleep(1)
-        while xbee.inWaiting() > 0:
-            out += xbee.read(1)
-        print(out)
-        
+
+
+		radii= radav + radar 
+		print(radii)
+	
+	
+		graphdist(radii,i)
+		
+		del radav[:]
+		del radar[:]
+		del out[:]	
+
+        	
         root.update_idletasks()
         print(order[i]+"\r")
     
-    xbee.write("ME :\r") #energie
-    xbee.write("E\r")    
+    xbee.write("ME\r") #energie
+
+    xbee.write("E\r") #Fin d'épreuve
+
     xbee.close()
     action_encours.set("Pas d'action en cours")
     posRobot.set("Position ROBOT: X:"+str(robot[0]-centre)+"Y:"+str(robot[1]-centre))
@@ -495,23 +525,21 @@ def trajectoire_avance():
 	global dest_x,dest_y,robot
 
 	freq = 6
-	duree_son =  25
+	duree_son = 25
 	duree_sil = 50
 	nbr_bip = 3
 
 	# Position intiale du robot
-     	robot[0] = 0
-        robot[1] = 75
-	robot[2] = 0
 
 	#Mise en forme des matrices contenant les coords des obstacles
 	a = [pdp_X[1],pdp_X[0],pdp_X[3],pdp_X[2],pdp_X[7],pdp_X[6],pdp_X[5],pdp_X[4]]
 	b = [pdp_Y[1],pdp_Y[0],pdp_Y[3],pdp_Y[2],pdp_Y[7],pdp_Y[6],pdp_Y[5],pdp_Y[4]]
 
 
-	#On réalise le tir sur la balise au départ
+#On réalise le tir sur la balise au départ
 	calcul_angles_pointeur()
 
+#On évolue du point inital au point final
     	for i in range(len(pdp_X)):
     		dest_x = a[i]
     		dest_y = b[i]
@@ -531,23 +559,27 @@ def trajectoire_avance():
 		order.append("G X:"+str(int(distance))+" Y:10 A:10")
 		
 
-		#Avec cette boucle, on attend que le robot se trouve devant l'obstacle avant de générer le son :
-		while (abs(dest_x - robot[0]) > 5 and abs(dest_y - robot[1]) > 5) :
-			continue
 
-		order.append("SD F:"+normalisation3(freq)+" P:"+normalisation3(duree_son)+" W:"+normalisation3(duree_sil)+" B:"+normalisation3(nbr_bip))
+		#Avec cette boucle, on attend que le robot se trouve devant l'obstacle avant de générer le son :
+        	for i in range(len(etapeX[1:-1])):
+        		if (abs(etapeX[1:-1][i] - robot[0]) < 5 and abs(etapeY[1:-1][i] - robot[1]) < 5):
+            			order.append("SD F:"+normalisation3(frequence[i].get())+" P:"+normalisation3(temps_allume[i].get())+" W:"+normalisation3(temps_eteind[i].get())+" B:"+normalisation3(nb_bip[i].get()))
+				
+				Balayage(30)
+
 		
 
 		angle = raz_angle(angle) #On remet le robot en position avec un angle de 0°
 
-        
-        
+
+
 #REMPLI PATHX ET PATHY AVEC LE CHEMIN RETOURNE PAR ASTAR    
 def chemin():
     createMat()
 
     for etape in range(len(etapeX)-1):
         path = astar(Map, (etapeX[etape], etapeY[etape]), (etapeX[etape+1],etapeY[etape+1]))
+	print(path)
         for i in range(len(path)):
             PATH_X.append(path[i][0])
             PATH_Y.append(path[i][1])
@@ -564,19 +596,21 @@ def chemin():
 
 
 
-def graphdist():
+def graphdist(r,compte):
+    
     fig = plt.figure(figsize=(8,8))
     ax = fig.add_axes([0.1, 0.1, 0.8, 0.8], polar=True)
-    N = 20
+    N = len(r)
     theta = np.arange(0.0, 2*np.pi, 2*np.pi/N)
-    radii = [10,10,11,9,10,10,10,11,9,10,5,3,4,3,4,5,10,10,10,10]#10*np.random.rand(N)
-    width = np.pi/4*np.random.rand(N)
-    bars = ax.bar(theta, radii, width=width, bottom=0.0)
-    for r,bar in zip(radii, bars):
+    #radii = [10,10,11,9,10,10,10,11,9,10,5,3,4,3,4,5,10,10,10,10]#10*np.random.rand(N)
+    width = 2*np.pi/N
+    bars = ax.bar(theta, r, width=width, bottom=0.0)
+    for r,bar in zip(r, bars):
         bar.set_facecolor( plt.cm.jet(r/10.0))
         bar.set_alpha(0.5)
     
-    plt.show()
+    plt.savefig("balayage_"+str(compte))
+    del radii[:]
 
 
 #PARTIE GRAPHIQ   
@@ -633,6 +667,9 @@ Frame3.pack(side=tk.LEFT, padx=30, pady=30)
 
 Frame2 = tk.Frame(Frame1, borderwidth=2, relief=tk.GROOVE)
 Frame2.pack(side=tk.BOTTOM, padx=30, pady=30)
+Frame4 = tk.Frame(root ,borderwidth=2, relief=tk.GROOVE)
+Frame4.pack(side=tk.LEFT, padx=30, pady=30)
+
 
 bouton= tk.Button(Frame3, text="CHARGER CHEMIN (JSON)", command=chemin)
 bouton.pack(side=tk.TOP)
@@ -644,6 +681,32 @@ boutonLumiere.pack(side=tk.LEFT)
 
 boutonLumiere= tk.Button(Frame3, text="DISTANCE PAR BALYAGE", command=graphdist)
 boutonLumiere.pack(side=tk.BOTTOM)
+
+#parametre son
+frequence=[1,2,3,4,5,6]
+temps_eteind =[1,2,3,4,5,6]
+temps_allume=[1,2,3,4,5,6]
+nb_bip=[1,2,3,4,5,6]
+
+for i in range(len(etapeX)-2):
+    labelson = tk.Label(Frame4, text="BALISE "+str(i+1))
+    labelson.pack(side=tk.TOP)    
+    labelf = tk.Label(Frame4, text="Frequence(0-99)")
+    labelf.pack(side=tk.TOP)
+    frequence[i] = tk.Entry(Frame4)
+    frequence[i].pack(side=tk.TOP)
+    labelta = tk.Label(Frame4, text="Temps allumé(0-99)")
+    labelta.pack(side=tk.TOP)
+    temps_allume[i] = tk.Entry(Frame4)
+    temps_allume[i].pack(side=tk.TOP)
+    labelte = tk.Label(Frame4, text="temps eteint(0-99)")
+    labelte.pack(side=tk.TOP)
+    temps_eteind[i] = tk.Entry(Frame4)
+    temps_eteind[i].pack(side=tk.TOP)
+    labelnbb = tk.Label(Frame4, text="nombre bip")
+    labelnbb.pack(side=tk.TOP)
+    nb_bip[i] = tk.Entry(Frame4)
+    nb_bip[i].pack(side=tk.TOP)
 
 
 
@@ -677,7 +740,7 @@ boutonE.pack(side=tk.LEFT)
 
 
 
-c = tk.Canvas(Frame1, height=1000, width=1000, bg='grey')
+c = tk.Canvas(Frame1, height=1000, width=100, bg='grey')
 c.pack(fill=tk.BOTH, expand= True)
 
 c.bind('<Configure>', create_grid)
