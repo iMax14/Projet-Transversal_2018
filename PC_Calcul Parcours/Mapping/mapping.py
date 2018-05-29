@@ -365,8 +365,7 @@ def send_serie():
         	
         root.update_idletasks()
         print(order[i]+"\r")
-	#A DECOMMENTER POUR LE TEST FINAL
-	sleep(0.5) #On attend 10s entre chaque instruction pour que le robot ait le temps de faire chaque étape
+	sleep(10) #On attend 10s entre chaque instruction pour que le robot ait le temps de faire chaque étape
     
     xbee.write("ME\r") #energie
 
@@ -482,7 +481,7 @@ def calcul_angles_pointeur():
 
     order.append("CS H A:"+ str(Angle_servo_H)) 
     order.append("CS V A:"+ str(Angle_servo_V)) 
-    order.append("L I:"+ normalisation3(50) +" D:"+normalisation3(50)+" E:"+ normalisation3(50)+" N:"+normalisation3(10)) 
+    order.append("L I:"+ normalisation3(100) +" D:"+normalisation3(20)+" E:"+ normalisation3(20)+" N:"+normalisation3(10)) 
 
     
 
