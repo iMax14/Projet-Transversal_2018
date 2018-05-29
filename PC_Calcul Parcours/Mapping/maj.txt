@@ -1,0 +1,36 @@
+#Avec cette boucle, on attend que le robot se trouve devant l'obstacle avant de générer le son :
+        for i in range(len(etapeX[1:-1])):
+        	if (abs(etapeX[1:-1][i] - robot[0]) < 5 and abs(etapeY[1:-1][i] - robot[1]) < 5):
+            	order.append("SD F:"+normalisation3(freq)+" P:"+normalisation3(duree_son)+" W:"+normalisation3(duree_sil)+" B:"+normalisation3(nbr_bip))
+
+
+
+
+Frame4 = tk.Frame(root ,borderwidth=2, relief=tk.GROOVE)
+Frame4.pack(side=tk.LEFT, padx=30, pady=30)
+
+#parametre son
+frequence=[1,2,3,4,5,6]
+temps_eteind =[1,2,3,4,5,6]
+temps_allume=[1,2,3,4,5,6]
+nb_bip=[1,2,3,4,5,6]
+
+for i in range(len(etapeX)-2):
+    labelson = tk.Label(Frame4, text="BALISE "+str(i+1))
+    labelson.pack(side=tk.TOP)    
+    labelf = tk.Label(Frame4, text="Frequence(0-99)")
+    labelf.pack(side=tk.TOP)
+    frequence[i] = tk.Entry(Frame4)
+    frequence[i].pack(side=tk.TOP)
+    labelta = tk.Label(Frame4, text="Temps allumé(0-99)")
+    labelta.pack(side=tk.TOP)
+    temps_allume[i] = tk.Entry(Frame4)
+    temps_allume[i].pack(side=tk.TOP)
+    labelte = tk.Label(Frame4, text="temps eteint(0-99)")
+    labelte.pack(side=tk.TOP)
+    temps_eteind[i] = tk.Entry(Frame4)
+    temps_eteind[i].pack(side=tk.TOP)
+    labelnbb = tk.Label(Frame4, text="nombre bip")
+    labelnbb.pack(side=tk.TOP)
+    nb_bip[i] = tk.Entry(Frame4)
+    nb_bip[i].pack(side=tk.TOP)
