@@ -41,6 +41,7 @@ pdp_Y = []
 lampe = False 
 #STRING LIST D'ordre envoye au robot par serie
 order = []
+
 #coordonne d'arrivee[x][y][angle]
 dest_x = 0
 dest_y = 0
@@ -228,7 +229,7 @@ def ordre_gen():
     
     
     if(robot[2] != 0):
-        raz_angle()
+        raz_angle(robot[2])
     #DEPLACEMENT X     
     D = abs(dest[0] - robot[0])
     if(dest[0] - robot[0] > 0):
@@ -237,7 +238,7 @@ def ordre_gen():
          order.append("RA G:"+str(180))#○tourne a gauche
          order.append("G X:"+str(D)+" Y:10 A:10")
     
-    raz_angle()
+    raz_angle(robot[2])
     #DEPLACEMENT Y 
     if(dest[1] - robot[1] > 0):
         order.append("RA D:0"+str(90)) #○tourne a droite 
@@ -248,7 +249,7 @@ def ordre_gen():
     D = abs(dest[1] - robot[1])
     order.append("G X:"+str(D)+" Y:10 A:10")
     if(robot[2] != 0):
-        raz_angle()
+        raz_angle(robot[2])
     D = dest[2]
     if D <= 180:
         order.append("RA G:"+normalisation3(D))#:gauche
@@ -552,12 +553,13 @@ def trajectoire_avance():
 
 	# Position intiale du robot
 	#Mise en forme des matrices contenant les coords des obstacles
-	a = [pdp_X[1],pdp_X[0],pdp_X[3],pdp_X[2],pdp_X[7],pdp_X[6],pdp_X[5],pdp_X[4]]
-	b = [pdp_Y[1],pdp_Y[0],pdp_Y[3],pdp_Y[2],pdp_Y[7],pdp_Y[6],pdp_Y[5],pdp_Y[4]]
+	#a = [pdp_X[1],pdp_X[0],pdp_X[3],pdp_X[2],pdp_X[7],pdp_X[6],pdp_X[5],pdp_X[4]]
+	#b = [pdp_Y[1],pdp_Y[0],pdp_Y[3],pdp_Y[2],pdp_Y[7],pdp_Y[6],pdp_Y[5],pdp_Y[4]]
+	pdp_X.append(etapeX[-1])
+	pdp_Y.append(etapeY[-1])
+	a = pdp_X
+	b= pdp_Y
 
-
-#On réalise le tir sur la balise au départ
-	calcul_angles_pointeur()
 
 #On évolue du point inital au point final
     	for i in range(len(pdp_X)):
@@ -590,7 +592,9 @@ def trajectoire_avance():
 		
 
 		angle = raz_angle(angle) #On remet le robot en position avec un angle de 0°
-	
+
+#On réalise le tir sur la balise a la fin
+	calcul_angles_pointeur()
 	#for i in range(len(order)):
 		#print(order[i]+"\r")
 
@@ -602,13 +606,16 @@ def chemin():
     for etape in range(len(etapeX)-1):
         path = astar(Map, (etapeX[etape], etapeY[etape]), (etapeX[etape+1],etapeY[etape+1]))
 	#print(path)
-        for i in range(len(path)):
-            PATH_X.append(path[i][0])
-            PATH_Y.append(path[i][1])
-            PATH.append((path[i][0],path[i][1]))
+        if(type(path)==bool):
+            print("AUCUN CHEMIN TROUVE")
+        else:
+            for i in range(len(path)):
+                PATH_X.append(path[i][0])
+                PATH_Y.append(path[i][1])
+                PATH.append((path[i][0],path[i][1]))
         #affichage
-        for i in range(len(path)-1):
-            c.create_line(path[i][0], path[i][1], path[i+1][0], path[i+1][1], fill="red")
+            for i in range(len(path)-1):
+                c.create_line(path[i][0], path[i][1], path[i+1][0], path[i+1][1], fill="red")
         
     #print(PATH)
     find_vertice()
@@ -651,7 +658,7 @@ def create_grid(event=None):
     #Obstacle circulaire  
     indice =0
     m = 0
-    for i in range(len( terrain['obstacles'] )-1 ):
+    for i in range(len( terrain['obstacles'] ) ):
         
         if(terrain['obstacles'][i]['type'] == 'cercle'):
             c.create_oval(obstaclex[i]-rayon[i],obstacley[i]-rayon[i],obstaclex[i]+rayon[i],obstacley[i]+rayon[i], outline="black", fill='black')
@@ -773,7 +780,7 @@ c.bind('<Configure>', create_grid)
 def heuristic(a, b):
     return (b[0] - a[0]) ** 2 + (b[1] - a[1]) ** 2
 
-def astar(array, start, goal):
+def astar(array,  goal,start):
 
     neighbors = [(0,1),(0,-1),(1,0),(-1,0),(1,1),(1,-1),(-1,1),(-1,-1)]
 
