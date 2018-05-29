@@ -170,15 +170,15 @@ def getDistance():
 
 #CAPTEUR ULTRASON distance par balayage    
 def Balayage(resolution):
-    if resolution < 0 or resolution > 45 :
-        resolution = 30
-    order.append("MOB A:"+normalisation2(resolution))
-
+    #if resolution < 0 or resolution > 45 :
+    #    resolution = 30
+    #order.append("MOB A:"+normalisation2(resolution))
+    order.append("MOB")
 
 #POINTEUR LUMINEUX     
 def allumage():
     global lampe
-    if(lampe):
+    if(lampe == True):
         order.append("L I:"+ normalisation3(50) +" D:"+normalisation3(50)+" E:"+ normalisation3(50)+" N:"+normalisation3(10) ) 
         lampe = False
     else:
@@ -217,7 +217,7 @@ def normalisation3(D):
 
 #INT TO STRING de taille 2
 def normalisation2(D):
-    if(len(str(D))== 1):
+    if(len(str(D)) == 1):
         ret = "0"+str(D)
     else:
         ret = str(D)
@@ -304,6 +304,10 @@ def getorder():
 #ENVOIE Des ordres par serie
 def send_serie():
     out =[]
+    av_int =[]
+    av =[]
+    ar_int =[]
+    ar =[]
     zz =""
     xbee = serial.Serial('/dev/ttyUSB0', baudrate=19200,timeout = 1.0)   
 
@@ -313,30 +317,45 @@ def send_serie():
     for i in range(len(order)):
        	del out[:]
         xbee.write(order[i]+"\r")
-	sleep(2)
-	while xbee.inWaiting() > 0:
-       		zz = zz + xbee.read(1)
-	print(zz)
+
+	#A SUPPRIMER DU CODE (LIGNES DE TEST)
+	#while xbee.inWaiting() > 0:
+       	#	zz = zz + xbee.read(1)
+	#print(zz)
+
         action_encours.set(("Action en cours: "+order[i]+"\r"))
         resolution = 30
        	
 	if(order[i][0] is "M"):
-     		for j in range((180/resolution)):
-		#while xbee.inWaiting() > 0:
-			out.append( str(-90+j*resolution)+" : 10 : 20")#xbee.read(1)
+		#On récupère les données envoyée par le MASTER suite au balayage
+		while xbee.inWaiting() > 0:
+			out.append(xbee.read(1))
+
+		k = 0
+		g = 0
+		#print(out)
+		#A TRIER EN FONCTION DU MESSAGE ENVOYE
+		for q in range(len(out)-1):
 			
-			retour = [out[k].split(" : ") for k in range (len(out))]
-			#print(retour)
-		for an in range(len(retour)):		
-			radav.append(int(retour[an].pop(1)))
-			radar.append(int(retour[an].pop(1)))
+			if (out[q] == "\r"):
+				g = g + 1
+				if (g <= 3): # On récupères les données liées aux angles négatifs
+					radav.append(out[6+k:13+k])
+					k = k+14
+				if (g == 4) : # On récupères les données liées à l'angle nul
+					radav.append(out[4+k:11+k])
+					k = k+12
+				if (g > 4) : # On récupères les données liées aux angles positifs
+					radav.append(out[5+k:12+k])
+					k = k+13
 
+		for q in range(len(radav)-1):
+			av_int = radav[q][0]+radav[q][1]
+			av.append(int(av_int))
+			ar_int = radav[q][5]+radav[q][6]
+			ar.append(int(ar_int))
 
-
-		radii= radav + radar 
-		print(radii)
-	
-	
+		radii= av + ar 
 		graphdist(radii,i)
 		
 		del radav[:]
@@ -346,6 +365,8 @@ def send_serie():
         	
         root.update_idletasks()
         print(order[i]+"\r")
+	#A DECOMMENTER POUR LE TEST FINAL
+	sleep(0.5) #On attend 10s entre chaque instruction pour que le robot ait le temps de faire chaque étape
     
     xbee.write("ME\r") #energie
 
@@ -354,6 +375,7 @@ def send_serie():
     xbee.close()
     action_encours.set("Pas d'action en cours")
     posRobot.set("Position ROBOT: X:"+str(robot[0]-centre)+"Y:"+str(robot[1]-centre))
+
     del order[:]
 
 #ALGORITHME POUR Determiner si un point est dans le polygone (permet de fill le polygone décrit par ses sommets)
@@ -414,17 +436,17 @@ def calcul_parcours():
     angle = 0
 
     if (robot[0] <= dest_x) and (robot[1] <= dest_y) :
-        angle = np.fabs(np.arctan(np.fabs(dest_y - robot[1])/np.fabs(dest_x-robot[0])))
+        angle = np.fabs(np.arctan(np.fabs(dest_y - robot[1])/np.fabs(dest_x-robot[0]+0.01)))
 
     if (robot[0] <= dest_x) and (robot[1] >= dest_y) :
         angle = (3*np.pi/2) + ((np.pi/2) - np.fabs(np.arctan(np.fabs(dest_y - robot[1])/np.fabs(dest_x-robot[0]))))
 
 
     if (robot[0] >= dest_x) and (robot[1] >= dest_y) :
-        angle = (np.pi) + np.fabs(np.arctan(np.fabs(dest_y - robot[1])/np.fabs(dest_x-robot[0])))
+        angle = (np.pi) + np.fabs(np.arctan(np.fabs(dest_y - robot[1])/np.fabs(dest_x-robot[0]+0.01)))
 
     if (robot[0] >= dest_x) and (robot[1] <= dest_y) :
-        angle = (np.pi/2) + ((np.pi/2) - np.fabs(np.arctan(np.fabs(dest_y - robot[1])/np.fabs(dest_x-robot[0]))))
+        angle = (np.pi/2) + ((np.pi/2) - np.fabs(np.arctan(np.fabs(dest_y - robot[1])/np.fabs(dest_x-robot[0]+0.01))))
 
     distance = np.sqrt(np.abs(dest_y - robot[1])**2 + np.fabs(dest_x-robot[0])**2)
 	
@@ -439,10 +461,10 @@ def calcul_angles_pointeur():
     robot[2] = 10 #Hauteur à laquelle est placé le pointeur lumineux (en cm - unité à choisir) ### Hauteur à vérifier ###
 
     if (robot[1] <= yc) :
-        Angle_servo_H = np.arctan(np.fabs(yc - robot[1])/np.fabs(xc - robot[0]))
+        Angle_servo_H = np.arctan(np.fabs(yc - robot[1])/np.fabs(xc - robot[0] + 0.01))
 	Angle_servo_H = 180*Angle_servo_H/np.pi #conversion en degré
     else :
-        Angle_servo_H = -np.arctan(np.fabs(yc - robot[1])/np.fabs(xc - robot[0]))
+        Angle_servo_H = -np.arctan(np.fabs(yc - robot[1])/np.fabs(xc - robot[0] + 0.01))
 	Angle_servo_H = 180*Angle_servo_H/np.pi #conversion en degré
 
 
@@ -460,7 +482,7 @@ def calcul_angles_pointeur():
 
     order.append("CS H A:"+ str(Angle_servo_H)) 
     order.append("CS V A:"+ str(Angle_servo_V)) 
-    
+    order.append("L I:"+ normalisation3(50) +" D:"+normalisation3(50)+" E:"+ normalisation3(50)+" N:"+normalisation3(10)) 
 
     
 
@@ -530,7 +552,6 @@ def trajectoire_avance():
 	nbr_bip = 3
 
 	# Position intiale du robot
-
 	#Mise en forme des matrices contenant les coords des obstacles
 	a = [pdp_X[1],pdp_X[0],pdp_X[3],pdp_X[2],pdp_X[7],pdp_X[6],pdp_X[5],pdp_X[4]]
 	b = [pdp_Y[1],pdp_Y[0],pdp_Y[3],pdp_Y[2],pdp_Y[7],pdp_Y[6],pdp_Y[5],pdp_Y[4]]
@@ -563,14 +584,16 @@ def trajectoire_avance():
 		#Avec cette boucle, on attend que le robot se trouve devant l'obstacle avant de générer le son :
         	for i in range(len(etapeX[1:-1])):
         		if (abs(etapeX[1:-1][i] - robot[0]) < 5 and abs(etapeY[1:-1][i] - robot[1]) < 5):
-            			order.append("SD F:"+normalisation3(frequence[i].get())+" P:"+normalisation3(temps_allume[i].get())+" W:"+normalisation3(temps_eteind[i].get())+" B:"+normalisation3(nb_bip[i].get()))
+            			order.append("SD F:"+normalisation2(frequence[i].get())+" P:"+normalisation2(temps_allume[i].get())+" W:"+normalisation2(temps_eteind[i].get())+" B:"+normalisation2(nb_bip[i].get()))
 				
 				Balayage(30)
 
 		
 
 		angle = raz_angle(angle) #On remet le robot en position avec un angle de 0°
-
+	
+	#for i in range(len(order)):
+		#print(order[i]+"\r")
 
 
 #REMPLI PATHX ET PATHY AVEC LE CHEMIN RETOURNE PAR ASTAR    
@@ -579,7 +602,7 @@ def chemin():
 
     for etape in range(len(etapeX)-1):
         path = astar(Map, (etapeX[etape], etapeY[etape]), (etapeX[etape+1],etapeY[etape+1]))
-	print(path)
+	#print(path)
         for i in range(len(path)):
             PATH_X.append(path[i][0])
             PATH_Y.append(path[i][1])

@@ -1,0 +1,61 @@
+ {
+	"unite":"cm",
+	"terrain_evolution": [
+	   {"point" : { "x": 0 , "y" : 0 } } ,
+	   {"point" : { "x": 300 , "y" : 0 } },
+	   {"point" : { "x": 300 , "y" : 250 } },
+	   {"point" : { "x": 200 , "y" : 250 } },
+	   {"point" : { "x": 200 , "y" : 450 } },
+	   {"point" : { "x": 100 , "y" : 450 } },
+	   {"point" : { "x": 100 , "y" : 400 } },
+       {"point" : { "x": 50 , "y" : 400  } },
+	   {"point" : { "x": 50 , "y" : 250  } },
+	   {"point" : { "x": 0 , "y" : 250   } }
+	],
+   "obstacles" : [
+		{ "type" : "cercle",
+	     "coordonnees": [
+		 {"centre" : { "x": 75, "y" : 100}} ,
+		{"rayon" : 12}
+		 ] 
+		},
+		{ "type" : "cercle",
+	     "coordonnees": [
+		 {"centre" : { "x": 150, "y" : 175}} ,
+		{"rayon" : 12}
+		 ] 
+		},
+		{ "type" : "cercle",
+	     "coordonnees": [
+		 {"centre" : { "x": 250, "y" : 200}} ,
+		{"rayon" : 12}
+		 ] 
+		},
+		{ "type" : "cercle",
+	     "coordonnees": [
+		 {"centre" : { "x": 100, "y" : 275}} ,
+		{"rayon" : 12}
+		 ] 
+		},
+		{ "type" : "cercle",
+	     "coordonnees": [
+		 {"centre" : { "x": 150, "y" : 350}} ,
+		{"rayon" : 12}
+		 ] 
+		}	
+		],
+	"contour_cible": [
+	   {"point" : { "x": -50 , "y" : -50 } } ,
+	   {"point" : { "x": 350 , "y" : -50 } },
+	   {"point" : { "x": 350 , "y" : 300 } },
+	   {"point" : { "x": 250 , "y" : 300 } },
+	   {"point" : { "x": 250 , "y" : 500 } },
+	   {"point" : { "x": 50 , "y" : 500 } },
+	   {"point" : { "x": 50 , "y" : 450 } },
+       {"point" : { "x": 0 , "y" : 450 } },
+	   {"point" : { "x": 0 , "y" : 300 } },
+       {"point" : { "x": -50 , "y" : 300 } }
+	],
+	"cible"	: {"centre" :{ "x": 150, "y" : 500}, "hauteur": 150 }
+ }		
+		

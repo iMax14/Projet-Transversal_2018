@@ -1,0 +1,11 @@
+ {
+	"unite":"cm",
+	"unite_angulaire": "degre",
+	"depart": {"coordonnees" : { "x": 150 , "y" : 25 }, "angle" : 90 },
+	"arrivee": {"coordonnees" : { "x": 150 , "y" : 400 } , "angle" : 0 },  
+    "etapes" : [
+       {"coordonnees" : { "x": 225 , "y" : 100 }, "angle" : null },
+	   {"coordonnees" : { "x": 150 , "y" : 275 }, "angle" : null }
+	],
+	"position-tir_cible" : {"coordonnees" : { "x": 150 , "y" : 400 }, "angle" : 0 }
+ }
