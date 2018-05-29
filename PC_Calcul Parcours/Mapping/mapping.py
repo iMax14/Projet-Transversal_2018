@@ -179,15 +179,25 @@ def allumage():
         lampe = True
 
 #REMET ROBOT A ANGLE 0        
-def raz_angle():
-    D = robot[2] #angle du robot
-    if(D <= 180):
-        order.append("RA D:"+normalisation3(D)) #○tourne a droite  pour le remettre a angle 0
-        robot[2] = 0
-    else: #tourne a gauche
-         order.append("RA G:"+normalisation3(D-180))#○tourne a gauche pour le remettre a angle 0
-         robot[2] = 0
+def raz_angle(D):
+    if(0 <= D < 90):
+        order.append("RA G:"+normalisation3(int(D))) #○tourne a droite  pour le remettre a angle 0
+        D = 0
+    elif(90 <= D < 180):
+        order.append("RA G:"+normalisation3(int(D))) #○tourne a droite  pour le remettre a angle 0
+        D = 0
+    elif(180 <= D < 270):
+        order.append("RA D:"+normalisation3(int(360-D))) #○tourne a droite  pour le remettre a angle 0
+        D = 0
 
+    elif(270 <= D <= 360):
+        order.append("RA D:"+normalisation3(int(360-D))) #○tourne a droite  pour le remettre a angle 0
+        D = 0
+
+
+
+
+    return D
 #INT TO STRING de taille 3    
 def normalisation3(D):
     if(len(str(D))== 1):
@@ -285,31 +295,31 @@ def getorder():
 #ENVOIE Des ordres par serie
 def send_serie():
     out =[]
-    #xbee = serial.Serial('/dev/ttyUSB0', baudrate=19200,timeout = 1.0)   
+    xbee = serial.Serial('/dev/ttyUSB0', baudrate=19200,timeout = 1.0)   
     #xbee = serial.Serial("COM4", baudrate=19200, timeout=1.0)
-    #xbee.write("D\r")
+    xbee.write("D\r")
 
     for i in range(len(order)):
-       # xbee.write(order[i]+"\r")
+       	xbee.write(order[i]+"\r")
        
         action_encours.set(("Action en cours: "+order[i]+"\r"))
         
         #xbee.write("MI :\r") #courant
-        sleep(1)
-        #while xbee.inWaiting() > 0:
-         #   out += ser.read(1)
+       	sleep(1)
+        while xbee.inWaiting() > 0:
+            out += ser.read(1)
         print(out)
         #xbee.write("ME :\r") #energie
         sleep(1)
-        #while xbee.inWaiting() > 0:
-         #   out += ser.read(1)
+        while xbee.inWaiting() > 0:
+            out += ser.read(1)
         print(out)
         
         root.update_idletasks()
         print(order[i]+"\r")
         
-    #xbee.write("E\r")    
-    #xbee.close()
+    xbee.write("E\r")    
+    xbee.close()
     action_encours.set("Pas d'action en cours")
     posRobot.set("Position ROBOT: X:"+str(robot[0]-centre)+"Y:"+str(robot[1]-centre))
     del order[:]
@@ -371,22 +381,23 @@ def calcul_parcours():
 
     angle = 0
 
-    if (robot[0] < dest_x) and (robot[1] < dest_y) :
+    if (robot[0] <= dest_x) and (robot[1] <= dest_y) :
         angle = np.fabs(np.arctan(np.fabs(dest_y - robot[1])/np.fabs(dest_x-robot[0])))
 
-    if (robot[0] < dest_x) and (robot[1] > dest_y) :
+    if (robot[0] <= dest_x) and (robot[1] >= dest_y) :
         angle = (3*np.pi/2) + ((np.pi/2) - np.fabs(np.arctan(np.fabs(dest_y - robot[1])/np.fabs(dest_x-robot[0]))))
 
 
-    if (robot[0] > dest_x) and (robot[1] > dest_y) :
+    if (robot[0] >= dest_x) and (robot[1] >= dest_y) :
         angle = (np.pi) + np.fabs(np.arctan(np.fabs(dest_y - robot[1])/np.fabs(dest_x-robot[0])))
 
-    if (robot[0] > dest_x) and (robot[1] < dest_y) :
+    if (robot[0] >= dest_x) and (robot[1] <= dest_y) :
         angle = (np.pi/2) + ((np.pi/2) - np.fabs(np.arctan(np.fabs(dest_y - robot[1])/np.fabs(dest_x-robot[0]))))
 
     distance = np.sqrt(np.abs(dest_y - robot[1])**2 + np.fabs(dest_x-robot[0])**2)
 	
     angle = np.rad2deg(angle) 
+
     return angle,distance
 
 def calcul_angles_pointeur():
@@ -469,16 +480,23 @@ def find_vertice():
                 n=0
             else:
                 n=0
-             
     
     for i in dd:
         
-        
-        c.create_oval(PATH_X[i]-10,PATH_Y[i]-10,PATH_X[i]+10,PATH_Y[i]+10, outline="black", fill='green')                   
-                
+        c.create_oval(PATH_X[i]-10,PATH_Y[i]-10,PATH_X[i]+10,PATH_Y[i]+10, outline="black", fill='green')  
+	#print(PATH_X[i])
+	#print(PATH_Y[i])
 	pdp_X.append(PATH_X[i])      
-	pdp_Y.append(PATH_Y[i])     
+	pdp_Y.append(PATH_Y[i])  
+	d = int(np.sqrt(np.abs(75 - PATH_Y[i])**2 + np.fabs(0-PATH_X[i])**2))
+   	#print(d)
     
+
+    #Faire une fonction qui trie les coords des points du plus proche au plus éloigné 
+
+
+
+
     trajectoire_avance()
         
 
@@ -497,6 +515,7 @@ def trajectoire_avance():
 
 	a = [124,174,199,375,336,313,251,200]#  pdp_X doit être de la sorte
 	b = [199,199,224,225,262,262,324,325]#  pdp_Y doit être de la sorte
+
     	for i in range(len(pdp_X)):
     		dest_x = a[i]
     		dest_y = b[i]
@@ -506,14 +525,16 @@ def trajectoire_avance():
      		robot[0] = dest_x
         	robot[1] = dest_y
 
-		raz_angle()
-   	
-		if(angle < 180):
-		    order.append("RA D:"+normalisation3(int(angle)))
-		else:
-		    order.append("RA G:"+normalisation3(int(180-angle)))
+		if(0 <= angle <= 180):
+			order.append("RA D:"+normalisation3(int(angle))) #○tourne a droite  pour le remettre a angle 0
+
+		elif(180 < angle <= 360):
+			order.append("RA G:"+normalisation3(int(360-angle))) #○tourne a droite  pour le remettre a angle 0
+
 
 		order.append("G X:"+str(int(distance))+" Y:10 A:10")
+		
+		angle = raz_angle(angle)
 
 		#Avec cette boucle, on attend que le robot se trouve devant l'obstacle avant de générer le son :
 		while (abs(dest_x - robot[0]) > 5 and abs(dest_y - robot[1]) > 5) :
@@ -522,7 +543,7 @@ def trajectoire_avance():
 		order.append("SD F:"+normalisation3(freq)+" P:"+normalisation3(duree_son)+" W:"+normalisation3(duree_sil)+" B:"+normalisation3(nbr_bip))
 
 
-	print("Affichage des instructions envoyée à la carte MASTER")
+	print("Affichage des instructions envoyées à la carte MASTER")
 	for i in order:  
 	    print(i+"\n")    
 
